@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrigationAdvisor", "IrrigationAdvisor\IrrigationAdvisor.csproj", "{5B9DDB8D-8420-4D0E-851A-584DB79DAF16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrigationAdvisor.Tests", "IrrigationAdvisor.Tests\IrrigationAdvisor.Tests.csproj", "{872507C0-36E1-446C-B51D-D97F952B9E70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B9DDB8D-8420-4D0E-851A-584DB79DAF16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B9DDB8D-8420-4D0E-851A-584DB79DAF16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B9DDB8D-8420-4D0E-851A-584DB79DAF16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B9DDB8D-8420-4D0E-851A-584DB79DAF16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{872507C0-36E1-446C-B51D-D97F952B9E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{872507C0-36E1-446C-B51D-D97F952B9E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{872507C0-36E1-446C-B51D-D97F952B9E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{872507C0-36E1-446C-B51D-D97F952B9E70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
