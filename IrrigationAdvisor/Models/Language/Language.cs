@@ -41,7 +41,10 @@ namespace IrrigationAdvisor.Models.Language
         /// <summary>
         /// Constructor of Language
         /// </summary>
-        public Language();
+        public Language()
+        {
+
+        }
 
         /// <summary>
         /// constructor with parameter name

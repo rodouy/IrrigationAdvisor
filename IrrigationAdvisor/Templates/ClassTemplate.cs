@@ -17,8 +17,7 @@ namespace IrrigationAdvisor.Templates
     /// Dependencies:
     ///     list of classes is referenced by this class
     /// 
-    /// TODO:
-    ///     OK
+    /// TODO: OK
     ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
@@ -33,18 +32,40 @@ namespace IrrigationAdvisor.Templates
     /// </summary>
     public class ClassTemplate
     {
-        /// <summary>
-        /// Description:
-        ///     the name of the class template
-        /// </summary>
-        public string name;
 
+        #region Consts
+        #endregion
+
+        #region Fields
+        /// <summary>
+        /// The fields are:
+        ///     - name: the name of the instance
+        ///     
+        /// </summary>
+        private string name;
+        
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// The properties are:
+        ///     - Name: the name of the instance
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        #endregion
+
+        #region Construction
         /// <summary>
         /// Constructor of ClassTemplate
         /// </summary>
         public ClassTemplate()
         {
-            name = "noname";
+            this.Name = "noname";
         }
 
         /// <summary>
@@ -53,17 +74,83 @@ namespace IrrigationAdvisor.Templates
         /// <param name="nn">new name</param>
         public ClassTemplate(string nn)
         {
-            name = nn;
+            this.Name = nn;
         }
 
+        #endregion
+
+        #region Private Helpers
+        // private methods used only to support external API Methods
+        private string setUpper(string phrase)
+        {
+            return phrase.ToUpper();
+        }
+
+        private string setUpperFirstLetter(string phrase)
+        {
+            string lUpperFirstLetter = phrase;
+            try
+            {
+                lUpperFirstLetter = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(phrase);
+            }
+            catch (Exception)
+            {                
+                throw;
+            }
+            return lUpperFirstLetter;
+        }
+
+        #endregion
+
+        #region Public Methods
         /// <summary>
         /// Method to set the name field
         /// </summary>
         /// <param name="newName">new name</param>
         public void SetName(string newName)
         {
-            name = newName;
+            name = this.setUpper(newName);
         }
+
+        #endregion
+
+        #region Overrides
+        // Different region for each class override
+        #endregion
 
     }
 }
+
+
+/*
+ *
+ * 
+
+        #region Consts
+        #endregion 
+
+        #region Fields
+        #endregion 
+        
+        #region Properties
+        #endregion 
+                
+        #region Construction
+        #endregion 
+ 
+        #region Private Helpers
+        #endregion
+
+        #region Public Methods
+        #endregion
+
+        #region Overrides
+        #endregion
+
+ * 
+ */
+
+
+
+
+
