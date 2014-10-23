@@ -168,8 +168,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Language\Language.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Security\Access.cs" />
     <Compile Include="Models\Security\Menu.cs" />
     <Compile Include="Models\Security\Role.cs" />
+    <Compile Include="Models\Security\SiteItem.cs" />
     <Compile Include="Models\Security\SiteMap.cs" />
     <Compile Include="Models\Security\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

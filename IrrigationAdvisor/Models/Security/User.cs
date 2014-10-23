@@ -50,6 +50,11 @@ namespace IrrigationAdvisor.Models.Security
         private string email;
         private string userName;
         private string password;
+
+        public User() 
+        {
+
+        }
         
 
 

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
 
 namespace IrrigationAdvisor.Models.Security
 {
-    public class Menu
+    class SiteItem
     {
-        public Menu() 
-        {
+        private String access;
 
-        }
+        public SiteItem() { }
+
+
+
+        
     }
 }

@@ -15,7 +15,7 @@ namespace IrrigationAdvisor.Models.Security
     ///     User
     ///     SiteMap
     ///     Menu
-    ///     
+    ///
     /// Dependencies:
     ///     User
     ///     IrrigationSystem
@@ -49,10 +49,7 @@ namespace IrrigationAdvisor.Models.Security
         private SiteMap site;
         private Menu menu;
 
-        public Role()
-        {
- 
-        }
+        
         /// <summary>
         /// Constructor with parameters
         /// </summary>
@@ -66,6 +63,35 @@ namespace IrrigationAdvisor.Models.Security
             this.users = users;
             this.site = site;
             this.menu = menu;
+        }
+
+        /// <summary>
+        /// Add an user to User's list using this role
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool add(User user)
+        {
+            this.users.Add(user);
+            return users.Contains(user);
+        }
+        /// <summary>
+        /// Delete an user from the User's list using this role
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool delete(User user)
+        {
+            this.users.Add(user);
+            return !users.Contains(user);
+        }
+        /// <summary>
+        /// Returns the SiteMap of a Roles
+        /// </summary>
+        /// <returns></returns>
+        public SiteMap sendSite()
+        {
+            return this.site;
         }
     }
 }
