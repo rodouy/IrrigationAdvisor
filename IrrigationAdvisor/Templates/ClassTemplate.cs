@@ -116,6 +116,26 @@ namespace IrrigationAdvisor.Templates
 
         #region Overrides
         // Different region for each class override
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            ClassTemplate lPosition = obj as ClassTemplate;
+            return this.name.Equals(lPosition.name);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.name.GetHashCode();
+        }
         #endregion
 
     }
