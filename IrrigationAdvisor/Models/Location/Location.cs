@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 
 namespace IrrigationAdvisor.Models.Location
 {
@@ -23,9 +24,7 @@ namespace IrrigationAdvisor.Models.Location
         ///     
         /// -----------------------------------------------------------------
         /// Fields of Class:
-        ///     - latidude double
-        ///     - longitude double
-        ///     - position <double,double>
+        ///     - position Position <double,double>
         ///     - country Country
         ///     - region Region
         ///     - city City
@@ -46,13 +45,9 @@ namespace IrrigationAdvisor.Models.Location
 
         #region Fields
 
-        private double latitude;
-        private double longitude;
-        //private position Par<double ,double >;
+       // private Position <double,double>;
         private Country country;
-
         private Region region;
-
         private City city;
 
         #endregion
@@ -82,6 +77,25 @@ namespace IrrigationAdvisor.Models.Location
         }
         #endregion
 
-        public Location() { }
+        #region Construction
+
+        public Location(Position position, 
+            Country country, Region region, City city )
+        {
+            this.position = position;
+            this.country = country;
+            this.region = region;
+            this.city = city;
+
+        }
+        #endregion
+
+
+        
+        #region Private Helpers
+        #endregion
+
+        #region Public Methods
+        #endregion
     }
 }
