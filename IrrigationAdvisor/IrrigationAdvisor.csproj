@@ -244,6 +244,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Crop\" />
+    <Folder Include="Models\Irrigation\" />
+    <Folder Include="Models\Management\" />
+    <Folder Include="Models\Utilities\" />
+    <Folder Include="Models\Water\" />
+    <Folder Include="Models\WeatherStation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
