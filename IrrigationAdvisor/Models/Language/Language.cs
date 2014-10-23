@@ -17,9 +17,8 @@ namespace IrrigationAdvisor.Models.Language
     /// Dependencies:
     ///     User
     /// 
-    /// TODO:
-    ///     OK
-    ///     UnitTest
+    /// OK
+    /// TODO: UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
@@ -33,11 +32,29 @@ namespace IrrigationAdvisor.Models.Language
     /// </summary>
     public class Language
     {
+
+        #region Consts
+        #endregion
+
+        #region Fields
         /// <summary>
         /// name of the language
         /// </summary>
         private string name;
 
+
+        #endregion
+
+        #region Properties
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        #endregion
+
+        #region Construction
         /// <summary>
         /// Constructor of Language
         /// </summary>
@@ -52,9 +69,15 @@ namespace IrrigationAdvisor.Models.Language
         /// <param name="name"></param>
         public Language(string newName)
         {
-            name = newName;
+            this.Name = newName;
         }
 
+        #endregion
+
+        #region Private Helpers
+        #endregion
+
+        #region Public Methods
         /// <summary>
         /// Return the name of the language
         /// </summary>
@@ -63,6 +86,10 @@ namespace IrrigationAdvisor.Models.Language
         {
             return name;
         }
+        #endregion
+
+        #region Overrides
+        #endregion
 
     }
 }
