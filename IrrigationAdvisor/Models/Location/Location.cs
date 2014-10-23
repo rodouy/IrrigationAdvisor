@@ -45,25 +45,20 @@ namespace IrrigationAdvisor.Models.Location
 
         #region Fields
 
-       // private Position <double,double>;
+        private Position position;
         private Country country;
         private Region region;
         private City city;
 
         #endregion
         #region Properties
-        public double Latitude
-        {
-            get { return latitude; }
-            set { latitude = value; }
-        }
 
-        public double Longitude
+        public Position Position
         {
-            get { return longitude; }
-            set { longitude = value; }
+            get { return position; }
+            set { position = value; }
         }
-
+        
         public Country Country
         {
             get { return country; }
@@ -78,18 +73,24 @@ namespace IrrigationAdvisor.Models.Location
         #endregion
 
         #region Construction
-
-        public Location(Position position, 
-            Country country, Region region, City city )
+        public Location()
         {
-            this.position = position;
-            this.country = country;
-            this.region = region;
-            this.city = city;
+            this.position = new Position(0,0);
+            this.country = null;
+            this.region = null;
+            this.city = null;
+
+        }
+        public Location(Position pPosition, 
+            Country pCountry, Region pRegion, City pCity )
+        {
+            this.position = pPosition;
+            this.country = pCountry;
+            this.region = pRegion;
+            this.city = pCity;
 
         }
         #endregion
-
 
         
         #region Private Helpers

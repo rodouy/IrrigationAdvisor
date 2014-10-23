@@ -205,10 +205,10 @@ namespace IrrigationAdvisor.Models.Crop
             this.permanentWiltingPoint = pPermanentWiltingPoing;
             this.bulkDensitySoil = pBulkDensitySoil;
 
-}
-
-
         }
+
+
+        
         #endregion
 
         #region Private Helpers
