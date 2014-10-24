@@ -71,27 +71,33 @@ namespace IrrigationAdvisor.Templates
         /// <summary>
         /// Constructor of ClassTemplate with parameters
         /// </summary>
-        /// <param name="nn">new name</param>
-        public ClassTemplate(string nn)
+        /// <param name="pNewName"></param>
+        public ClassTemplate(String pNewName)
         {
-            this.Name = nn;
+            this.Name = pNewName;
         }
 
         #endregion
 
         #region Private Helpers
         // private methods used only to support external API Methods
-        private string setUpper(string phrase)
+        /// <summary>
+        /// Upper the phrase passed by parameter
+        /// </summary>
+        /// <param name="pPhrase"></param>
+        /// <returns></returns>
+        private string setUpper(string pPhrase)
         {
-            return phrase.ToUpper();
+            return pPhrase.ToUpper();
         }
 
-        private string setUpperFirstLetter(string phrase)
+        private string setUpperFirstLetter(string pPhrase)
         {
-            string lUpperFirstLetter = phrase;
+            string lUpperFirstLetter = pPhrase;
             try
             {
-                lUpperFirstLetter = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(phrase);
+                lUpperFirstLetter = 
+                    System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(pPhrase);
             }
             catch (Exception)
             {                
@@ -106,10 +112,10 @@ namespace IrrigationAdvisor.Templates
         /// <summary>
         /// Method to set the name field
         /// </summary>
-        /// <param name="newName">new name</param>
-        public void SetName(string newName)
+        /// <param name="pNewName">new name</param>
+        public void SetName(string pNewName)
         {
-            name = this.setUpper(newName);
+            this.Name = this.setUpper(pNewName);
         }
 
         #endregion
@@ -129,12 +135,12 @@ namespace IrrigationAdvisor.Templates
                 return false;
             }
             ClassTemplate lPosition = obj as ClassTemplate;
-            return this.name.Equals(lPosition.name);
+            return this.Name.Equals(lPosition.Name);
         }
 
         public override int GetHashCode()
         {
-            return this.name.GetHashCode();
+            return this.Name.GetHashCode();
         }
         #endregion
 
