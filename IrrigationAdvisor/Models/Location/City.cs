@@ -12,10 +12,11 @@ namespace IrrigationAdvisor.Models.Location
     ///     Describes a city
     ///     
     /// References:
-    ///     list of classes this class use
+    ///     Location
     ///     
     /// Dependencies:
-    ///     list of classes is referenced by this class
+    ///     Country
+    ///     Location
     /// 
     /// TODO: OK
     ///     UnitTest
@@ -69,10 +70,15 @@ namespace IrrigationAdvisor.Models.Location
         /// </summary>
         /// <param name="name">Name of the region</param>
         /// <param name="location">Location of the region</param>
-        public City(String name, Location location)
+        public City()
         {
-            this.name = name;
-            this.location = location;
+            this.name = "";
+            this.location = null;
+        }
+        public City(String pName, Location pLocation)
+        {
+            this.name = pName;
+            this.location = pLocation;
         }
         #endregion
 

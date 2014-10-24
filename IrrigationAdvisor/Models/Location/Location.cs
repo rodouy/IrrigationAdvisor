@@ -14,10 +14,17 @@ namespace IrrigationAdvisor.Models.Location
         ///     Describes a location
         ///     
         /// References:
-        ///     list of classes this class use
+        ///     Position
+        ///     Country
+        ///     Region
+        ///     City
         ///     
         /// Dependencies:
-        ///     list of classes is referenced by this class
+        ///     WeatherStation
+        ///     City
+        ///     Region
+        ///     Soil
+        ///     
         /// 
         /// TODO: 
         ///     UnitTest
@@ -44,26 +51,27 @@ namespace IrrigationAdvisor.Models.Location
         #endregion
 
         #region Fields
-
-       // private Position <double,double>;
+        /// <summary>
+        /// The fields are:
+        ///     - position: the position of the Locatioin
+        ///     - country: the country of the Location
+        ///     - region: the region of the Location
+        ///     
+        /// </summary>
+        private Position position;
         private Country country;
         private Region region;
         private City city;
 
         #endregion
         #region Properties
-        public double Latitude
-        {
-            get { return latitude; }
-            set { latitude = value; }
-        }
 
-        public double Longitude
+        public Position Position
         {
-            get { return longitude; }
-            set { longitude = value; }
+            get { return position; }
+            set { position = value; }
         }
-
+        
         public Country Country
         {
             get { return country; }
@@ -75,21 +83,34 @@ namespace IrrigationAdvisor.Models.Location
             get { return region; }
             set { region = value; }
         }
+
+        public City City
+        {
+            get { return city; }
+            set { city = value; }
+        }
+
         #endregion
 
         #region Construction
-
-        public Location(Position position, 
-            Country country, Region region, City city )
+        public Location()
         {
-            this.position = position;
-            this.country = country;
-            this.region = region;
-            this.city = city;
+            this.Position = new Position(0,0);
+            this.Country = new Country();
+            this.Region = new Region();
+            this.City = new City ();
+
+        }
+        public Location(Position pPosition, 
+            Country pCountry, Region pRegion, City pCity )
+        {
+            this.Position = pPosition;
+            this.Country = pCountry;
+            this.Region = pRegion;
+            this.City = pCity;
 
         }
         #endregion
-
 
         
         #region Private Helpers

@@ -12,7 +12,8 @@ namespace IrrigationAdvisor.Models.Location
     ///     Describes a country
     ///     
     /// References:
-    ///     list of classes this class use
+    ///     City
+    ///     Region
     ///     
     /// Dependencies:
     ///     list of classes is referenced by this class
@@ -69,14 +70,40 @@ namespace IrrigationAdvisor.Models.Location
         /// </summary>
         /// <param name="name">Name of the country</param>
         /// <param name="location">Location of the country</param>
-        public Country(String name, Location location)
+        public Country()
         {
-            this.name = name;
-            this.location = location;
+            this.Name = "";
+            this.location = new Location();
+        }
+        public Country(String pName, Location pLocation)
+        {
+            this.name = pName;
+            this.location = pLocation;
         }
         #endregion
 
         #region Private Helpers
         #endregion
+        #region Public Methods
+        #endregion
+
+        #region Overrides
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            Country lCountry = obj as Country;
+            return this.name.Equals(lCountry.name);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.name.GetHashCode();
+        }
+        #endregion
+
     }
 }
