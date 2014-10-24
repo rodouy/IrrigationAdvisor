@@ -14,10 +14,17 @@ namespace IrrigationAdvisor.Models.Location
         ///     Describes a location
         ///     
         /// References:
-        ///     list of classes this class use
+        ///     Position
+        ///     Country
+        ///     Region
+        ///     City
         ///     
         /// Dependencies:
-        ///     list of classes is referenced by this class
+        ///     WeatherStation
+        ///     City
+        ///     Region
+        ///     Soil
+        ///     
         /// 
         /// TODO: 
         ///     UnitTest
@@ -44,7 +51,13 @@ namespace IrrigationAdvisor.Models.Location
         #endregion
 
         #region Fields
-
+        /// <summary>
+        /// The fields are:
+        ///     - position: the position of the Locatioin
+        ///     - country: the country of the Location
+        ///     - region: the region of the Location
+        ///     
+        /// </summary>
         private Position position;
         private Country country;
         private Region region;
@@ -70,24 +83,31 @@ namespace IrrigationAdvisor.Models.Location
             get { return region; }
             set { region = value; }
         }
+
+        public City City
+        {
+            get { return city; }
+            set { city = value; }
+        }
+
         #endregion
 
         #region Construction
         public Location()
         {
-            this.position = new Position(0,0);
-            this.country = null;
-            this.region = null;
-            this.city = null;
+            this.Position = new Position(0,0);
+            this.Country = new Country();
+            this.Region = new Region();
+            this.City = new City ();
 
         }
         public Location(Position pPosition, 
             Country pCountry, Region pRegion, City pCity )
         {
-            this.position = pPosition;
-            this.country = pCountry;
-            this.region = pRegion;
-            this.city = pCity;
+            this.Position = pPosition;
+            this.Country = pCountry;
+            this.Region = pRegion;
+            this.City = pCity;
 
         }
         #endregion
