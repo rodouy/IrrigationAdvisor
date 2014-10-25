@@ -274,7 +274,7 @@ namespace IrrigationAdvisor.Models.Crop
         {
             double lReturn = 0;
             double lValueRange = pEndKC-pIntialKC;
-            lReturn = lValueRange / pTotalDays * pDays;
+            lReturn = pIntialKC + (lValueRange / pTotalDays * pDays);
             return Math.Round(lReturn,2);
         }
         /// <summary>
@@ -293,6 +293,7 @@ namespace IrrigationAdvisor.Models.Crop
                     if (lDay == pDays)
                     {
                         lReturn = row.Field<double>(1);
+                        return lReturn;
                     }
                 }
             }
@@ -328,15 +329,15 @@ namespace IrrigationAdvisor.Models.Crop
             {
                 pReturn = this.MidSeasonKC;
             }
-            else if (pDays > this.DevelopmentDays && pDays <= this.MidSeasonDays)
+            else if (pDays > this.MidSeasonDays && pDays <= this.LateSeasonDays)
             {
-                lDays = pDays - this.DevelopmentDays;
-                lTotalDays = this.DevelopmentDays - this.MidSeasonDays;
-                pReturn = getKCBetweenPoints(this.DevelopmentKC, this.MidSeasonKC, lDays, lTotalDays);
+                lDays = pDays - this.MidSeasonDays;
+                lTotalDays = this.LateSeasonDays - this.MidSeasonDays;
+                pReturn = getKCBetweenPoints(this.MidSeasonKC, this.LateSeasonKC, lDays, lTotalDays);
             }
-            else if (pDays <= this.MidSeasonDays)
+            else if (pDays > this.LateSeasonDays)
             {
-                pReturn = -1;
+                pReturn = this.LateSeasonKC;
             }
             return pReturn;
         }

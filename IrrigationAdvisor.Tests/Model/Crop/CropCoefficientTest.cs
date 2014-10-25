@@ -13,7 +13,7 @@ namespace IrrigationAdvisor.Tests.Model.Crop
     public class CropCoefficientTest
     {
         [TestMethod]
-        public void cropCoefficientTest()
+        public void cropCoefficientTestByList()
         {
             int lDay1 = 1;
             int lDay2 = 2;
@@ -27,7 +27,45 @@ namespace IrrigationAdvisor.Tests.Model.Crop
             lCropCoefficient.addDayToList(lDay2, lKC2);
             lCropCoefficient.addDayToList(lDay3, lKC3);
 
-            Assert.IsTrue(lCropCoefficient.getKC(2)== lKC2);
+            Assert.IsTrue(lCropCoefficient.getKC(1) == lKC1);
+            Assert.IsTrue(lCropCoefficient.getKC(2) == lKC2);
+            Assert.IsTrue(lCropCoefficient.getKC(3) == lKC3);
+            
+        }
+        [TestMethod]
+        public void cropCoefficientTestByTable()
+        {
+            bool lUsingTable = true;
+            int lInitialDays = 5;
+            double lInitialKC = 2;
+            int lDevelopmentDays = 15;
+            double lDevelopmentKC = 13;
+            int lMidSeasonDays = 19;
+            double lMidSeasonKC = 13;
+            int lLateSeasonDays = 25;
+            double lLateSeasonKC = 10;
+
+            CropCoefficient lCropCoefficient = new CropCoefficient(lUsingTable,new Specie(), null, 
+                lInitialDays, lInitialKC, lDevelopmentDays, lDevelopmentKC, 
+                lMidSeasonDays, lMidSeasonKC, lLateSeasonDays,lLateSeasonKC);
+
+            Assert.IsTrue(lCropCoefficient.getKC(1) == lInitialKC);
+            Assert.IsTrue(lCropCoefficient.getKC(2) == lInitialKC);
+            Assert.IsTrue(lCropCoefficient.getKC(5) == lInitialKC);
+
+            Assert.IsTrue(lCropCoefficient.getKC(6) == 3.1);
+            Assert.IsTrue(lCropCoefficient.getKC(10) == 7.5);
+
+            Assert.IsTrue(lCropCoefficient.getKC(15) == lMidSeasonKC);
+            Assert.IsTrue(lCropCoefficient.getKC(16) == lMidSeasonKC);
+            Assert.IsTrue(lCropCoefficient.getKC(19) == lMidSeasonKC);
+
+            Assert.IsTrue(lCropCoefficient.getKC(20) == 12.5);
+            Assert.IsTrue(lCropCoefficient.getKC(24) == 10.5);
+
+
+            Assert.IsTrue(lCropCoefficient.getKC(25) == lLateSeasonKC);
+            Assert.IsTrue(lCropCoefficient.getKC(50) == lLateSeasonKC);
 
         }
     }
