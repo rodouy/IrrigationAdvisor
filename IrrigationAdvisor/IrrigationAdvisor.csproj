@@ -182,7 +182,10 @@
     <Compile Include="Models\Security\SiteItem.cs" />
     <Compile Include="Models\Security\SiteMap.cs" />
     <Compile Include="Models\Security\User.cs" />
+    <Compile Include="Models\Utilities\ColorName.cs" />
     <Compile Include="Models\Utilities\Pair.cs" />
+    <Compile Include="Models\Utilities\TextFileLogger.cs" />
+    <Compile Include="Models\Utilities\Utils.cs" />
     <Compile Include="Models\WeatherStation\WeatherData.cs" />
     <Compile Include="Models\WeatherStation\WeatherStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
