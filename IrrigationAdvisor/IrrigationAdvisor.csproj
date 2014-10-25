@@ -166,8 +166,10 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Crop\CropCoefficient.cs" />
+    <Compile Include="Models\Crop\PhenologicalStage.cs" />
     <Compile Include="Models\Crop\Soil.cs" />
     <Compile Include="Models\Crop\Specie.cs" />
+    <Compile Include="Models\Crop\Stage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Language\Language.cs" />
     <Compile Include="Models\Location\City.cs" />

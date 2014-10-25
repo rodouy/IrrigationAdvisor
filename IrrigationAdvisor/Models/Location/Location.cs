@@ -98,9 +98,9 @@ namespace IrrigationAdvisor.Models.Location
         public Location()
         {
             this.Position = new Position(0,0);
-            this.Country = new Country();
-            this.Region = new Region();
-            this.City = new City ();
+            this.Country = null;
+            this.Region = null;
+            this.City = null;
 
         }
         public Location(Position pPosition, 
