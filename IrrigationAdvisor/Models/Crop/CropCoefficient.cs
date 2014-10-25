@@ -51,6 +51,8 @@ namespace IrrigationAdvisor.Models.Crop
     public class CropCoefficient
     {
         #region Consts
+        private String dayColumnName = "DayAfterSowing";
+        private String kCColumnName = "KC";
         #endregion
 
         #region Fields
@@ -187,12 +189,25 @@ namespace IrrigationAdvisor.Models.Crop
             this.LateSeasonDays = 0;
             this.LateSeasonKC = 0;
             this.listOfKC = new DataTable("KC_"+ this.Specie.Name);
-            
+            this.makeListOfKC();
 
         }
 
         /// <summary>
-        /// Constructor of ClassTemplate with parameters
+        /// Constructor of ClassTemplate with parameters for a list mode
+        /// </summary>
+        /// <param name="pNewName"></param>
+        public CropCoefficient(Specie pSpecie, Location.Region pRegion)
+        {
+            this.UsingTable = false ;
+            this.Specie = pSpecie;
+            this.Region = pRegion;
+            this.listOfKC = new DataTable("KC_" + this.Specie.Name);
+            this.makeListOfKC();
+
+        }
+        /// <summary>
+        /// Constructor of ClassTemplate with all parameters
         /// </summary>
         /// <param name="pNewName"></param>
         public CropCoefficient(bool pUsingTable, Specie pSpecie, Location.Region pRegion, int pInitialDays,
@@ -226,7 +241,7 @@ namespace IrrigationAdvisor.Models.Crop
             // ColumnName and add to DataTable.    
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.Int32");
-            column.ColumnName = "DayAfterSowing";
+            column.ColumnName = dayColumnName;
             column.ReadOnly = true;
             column.Unique = true;
             // Add the Column to the DataColumnCollection.
@@ -235,17 +250,17 @@ namespace IrrigationAdvisor.Models.Crop
             // Create second column.
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.Double");
-            column.ColumnName = "KC";
+            column.ColumnName = kCColumnName;
             column.AutoIncrement = false;
-            column.Caption = "KC";
+            column.Caption = kCColumnName;
             column.ReadOnly = false;
             column.Unique = false;
             // Add the column to the table.
             this.ListOfKC.Columns.Add(column);
 
-            // Make the ID column the primary key column.
+            // Make the "DayAfterSowing" column the primary key column.
             DataColumn[] PrimaryKeyColumns = new DataColumn[1];
-            PrimaryKeyColumns[0] = this.ListOfKC.Columns["DayAfterSowing"];
+            PrimaryKeyColumns[0] = this.ListOfKC.Columns[dayColumnName];
             this.ListOfKC.PrimaryKey = PrimaryKeyColumns;
 
             // Instantiate the DataSet variable.
@@ -260,7 +275,7 @@ namespace IrrigationAdvisor.Models.Crop
             double lReturn = 0;
             double lValueRange = pEndKC-pIntialKC;
             lReturn = lValueRange / pTotalDays * pDays;
-            return lReturn;
+            return Math.Round(lReturn,2);
         }
         /// <summary>
         /// Returns the KC using a List with a value for each Day After Sowing
@@ -342,8 +357,8 @@ namespace IrrigationAdvisor.Models.Crop
             {
                 DataRow row;
                 row = this.ListOfKC.NewRow();
-                row["DayAfterSowing"] = pDayAfterSowing;
-                row["KC"] = pKC;
+                row[dayColumnName] = pDayAfterSowing;
+                row[kCColumnName] = pKC;
                 this.listOfKC.Rows.Add(row);
             }
             catch(Exception e)
