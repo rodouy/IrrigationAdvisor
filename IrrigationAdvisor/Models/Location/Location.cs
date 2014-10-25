@@ -11,7 +11,7 @@ namespace IrrigationAdvisor.Models.Location
         /// Create: 2014-10-14
         /// Author: monicarle
         /// Description: 
-        ///     Describes a location
+        ///     Describes a location defined by a Position
         ///     
         /// References:
         ///     Position
@@ -56,6 +56,7 @@ namespace IrrigationAdvisor.Models.Location
         ///     - position: the position of the Locatioin
         ///     - country: the country of the Location
         ///     - region: the region of the Location
+        ///     - city: the city of the Location
         ///     
         /// </summary>
         private Position position;
@@ -64,6 +65,7 @@ namespace IrrigationAdvisor.Models.Location
         private City city;
 
         #endregion
+
         #region Properties
 
         public Position Position
@@ -108,15 +110,37 @@ namespace IrrigationAdvisor.Models.Location
             this.Country = pCountry;
             this.Region = pRegion;
             this.City = pCity;
-
         }
         #endregion
 
-        
         #region Private Helpers
         #endregion
 
         #region Public Methods
+        #endregion
+
+        #region Overrides
+        // Different region for each class override
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            Location  lLocation = obj as Location;
+            return this.Position.Equals(lLocation.Position);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Position.GetHashCode();
+        }
         #endregion
     }
 }

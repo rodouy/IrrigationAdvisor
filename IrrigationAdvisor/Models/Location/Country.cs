@@ -18,7 +18,7 @@ namespace IrrigationAdvisor.Models.Location
     /// Dependencies:
     ///     list of classes is referenced by this class
     /// 
-    /// TODO: OK
+    /// TODO: 
     ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
@@ -47,7 +47,6 @@ namespace IrrigationAdvisor.Models.Location
         private String name;
         private Location location;
 
-       
         #endregion
 
         #region Properties
@@ -64,6 +63,7 @@ namespace IrrigationAdvisor.Models.Location
         }
 
         #endregion
+
         #region Construction
         /// <summary>
         /// 
@@ -73,17 +73,18 @@ namespace IrrigationAdvisor.Models.Location
         public Country()
         {
             this.Name = "";
-            this.location = new Location();
+            this.Location = new Location();
         }
         public Country(String pName, Location pLocation)
         {
-            this.name = pName;
-            this.location = pLocation;
+            this.Name = pName;
+            this.Location = pLocation;
         }
         #endregion
 
         #region Private Helpers
         #endregion
+
         #region Public Methods
         #endregion
 
@@ -96,7 +97,8 @@ namespace IrrigationAdvisor.Models.Location
                 return false;
             }
             Country lCountry = obj as Country;
-            return this.name.Equals(lCountry.name);
+            return this.Name.Equals(lCountry.name)
+                && this.Location.Equals(lCountry.Location);
         }
 
         public override int GetHashCode()

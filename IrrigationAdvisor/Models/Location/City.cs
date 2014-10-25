@@ -64,6 +64,7 @@ namespace IrrigationAdvisor.Models.Location
         }
 
         #endregion
+
         #region Construction
         /// <summary>
         /// 
@@ -72,17 +73,40 @@ namespace IrrigationAdvisor.Models.Location
         /// <param name="location">Location of the region</param>
         public City()
         {
-            this.name = "";
-            this.location = null;
+            this.Name = "";
+            this.Location = new Location();
         }
         public City(String pName, Location pLocation)
         {
-            this.name = pName;
-            this.location = pLocation;
+            this.Name = pName;
+            this.Location = pLocation;
         }
         #endregion
 
         #region Private Helpers
+        #endregion
+
+        #region Overrides
+        // Different region for each class override
+                /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            City lCity = obj as City;
+            return (this.Name.Equals(lCity.Name) && this .Location.Equals(lCity.Location));
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
         #endregion
     }
 }
