@@ -83,11 +83,17 @@ namespace IrrigationAdvisor.Models.Crop
 
         #endregion
         #region Construction
-        public Specie(String name, Region region, double baseTemperature) 
+        public Specie() 
         {
-            this.name = name;
-            this.region = region;
-            this.baseTemperature = baseTemperature;
+            this.Name = "noname";
+            this.Region = new Region();
+            this.BaseTemperature = 0;
+        }
+        public Specie(String name, Region region, double baseTemperature)
+        {
+            this.Name = name;
+            this.Region = region;
+            this.BaseTemperature = baseTemperature;
         }
         #endregion
 
