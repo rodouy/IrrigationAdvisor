@@ -66,7 +66,7 @@ namespace IrrigationAdvisor.Models.Crop
             set { specie = value; }
         }
         
-        internal Stage Stage
+        public Stage Stage
         {
             get { return stage; }
             set { stage = value; }
@@ -119,6 +119,7 @@ namespace IrrigationAdvisor.Models.Crop
             this.MaxDegree = pMaxDegree;
             this.RootDepth = pRootDepth;
         }
+        
         #endregion
 
         #region Private Helpers
