@@ -183,6 +183,7 @@
     <Compile Include="Models\Location\Location.cs" />
     <Compile Include="Models\Location\Position.cs" />
     <Compile Include="Models\Location\Region.cs" />
+    <Compile Include="Models\Management\CropIrrigationWeather.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Security\Access.cs" />
     <Compile Include="Models\Security\Menu.cs" />
@@ -262,7 +263,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Management\" />
     <Folder Include="Models\Water\" />
   </ItemGroup>
   <ItemGroup>

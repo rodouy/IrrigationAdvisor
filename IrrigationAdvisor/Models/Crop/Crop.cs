@@ -188,7 +188,7 @@ namespace IrrigationAdvisor.Models.Crop
             return lRegion;
         }
 
-        public double getBaseTemperature (Soil pSoil)
+        public double getBaseTemperature ()
         {
             return this.Specie.BaseTemperature;
         }
