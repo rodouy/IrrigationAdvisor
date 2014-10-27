@@ -8,8 +8,8 @@ using System.Web;
 namespace IrrigationAdvisor.Models.Crop
 {
     /// <summary>
-    /// Create: 2014-10-14
-    /// Author: rodouy - monicarle
+    /// Create: 2014-10-25
+    /// Author: monicarle
     /// Description: 
     ///     Describes a specie
     ///     

@@ -172,6 +172,11 @@
     <Compile Include="Models\Crop\Specie.cs" />
     <Compile Include="Models\Crop\Stage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Irrigation\Bomb.cs" />
+    <Compile Include="Models\Irrigation\Drip.cs" />
+    <Compile Include="Models\Irrigation\IrrigationUnit.cs" />
+    <Compile Include="Models\Irrigation\Pivot.cs" />
+    <Compile Include="Models\Irrigation\Sprinkler.cs" />
     <Compile Include="Models\Language\Language.cs" />
     <Compile Include="Models\Location\City.cs" />
     <Compile Include="Models\Location\Country.cs" />
@@ -257,7 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Irrigation\" />
     <Folder Include="Models\Management\" />
     <Folder Include="Models\Water\" />
   </ItemGroup>

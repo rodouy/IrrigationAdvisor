@@ -8,7 +8,7 @@ namespace IrrigationAdvisor.Models.Crop
 {
 
     /// <summary>
-    /// Create: 2014-10-14
+    /// Create: 2014-10-23
     /// Author:  monicarle
     /// Description: 
     ///     Describes a Soil
@@ -218,6 +218,21 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Overrides
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            Soil lSoil = obj as Soil;
+            return (this.Name.Equals(lSoil.Name)&&
+                this .Location.Equals(lSoil));
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
         #endregion
 
     }

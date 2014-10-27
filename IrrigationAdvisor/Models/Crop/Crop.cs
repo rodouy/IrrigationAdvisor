@@ -7,8 +7,8 @@ using IrrigationAdvisor.Models.Location;
 namespace IrrigationAdvisor.Models.Crop
 {
     /// <summary>
-    /// Create: 2014-10-14
-    /// Author: rodouy - monicarle
+    /// Create: 2014-10-25
+    /// Author: monicarle
     /// Description: 
     ///     Describes a Crop
     ///     
@@ -30,6 +30,7 @@ namespace IrrigationAdvisor.Models.Crop
     /// Fields of Class:
     ///     - name String
     ///     - specie Specie
+    ///     - location
     ///     - cropCoefficient CropCoefficient
     ///     - density double
     ///     - phenologiclaStage PhenologicalStage
@@ -37,6 +38,7 @@ namespace IrrigationAdvisor.Models.Crop
     ///     - harvestDate DateTime
     ///     - soils List<Soil>
     ///     - maxEvapotranspirationToIrrigate double
+    ///     
     /// 
     /// 
     /// Methods:
@@ -59,6 +61,7 @@ namespace IrrigationAdvisor.Models.Crop
 
         private String name;
         private Specie specie;
+        private Location.Location location;
         private CropCoefficient cropCoefficient;
         private double density;
         private PhenologicalStage phenologicalStage;
@@ -80,6 +83,12 @@ namespace IrrigationAdvisor.Models.Crop
         {
             get { return specie; }
             set { specie = value; }
+        }
+
+        public Location.Location Location
+        {
+            get { return location; }
+            set { location = value; }
         }
         
         public CropCoefficient CropCoefficient
@@ -178,15 +187,89 @@ namespace IrrigationAdvisor.Models.Crop
             }
             return lRegion;
         }
-    ///     - getRegion(): Region
-    ///     - getBaseTemperature(): Double
-    ///     - getDaysAfterSowing():
-    ///     - getFieldCapacity(): double
-    ///     - getPermanentWiltingPoint(): double
-    ///     - getAvailableWaterCapacity(): double
+
+        public double getBaseTemperature (Soil pSoil)
+        {
+            return this.Specie.BaseTemperature;
+        }
+
+        public int getDaysAfterSowing() 
+        {
+            return DateTime.Now.Subtract( this.SowingDate).Days;
+        }
+
+        public double getFieldCapacity(Soil pSoil) 
+        {
+            double lReturn = 0;
+            foreach (Soil lSoil in this.Soils)
+            {
+                if (pSoil.Equals(lSoil))
+                {
+                    lReturn = lSoil.FieldCapacity;
+                    return lReturn;
+                }
+            }
+            return lReturn;
+        }
+
+        public double getPermanentWiltingPoint(Soil pSoil)
+        {
+            double lReturn = 0;
+            foreach (Soil lSoil in this.Soils)
+            {
+                if (pSoil.Equals(lSoil))
+                {
+                    lReturn = lSoil.PermanentWiltingPoint;
+                    return lReturn;
+                }
+            }
+            return lReturn;
+        }
+        /// <summary>
+        /// Return the AvailableWaterCapacity.
+        /// Is calculated as the FieldCapacity minus PermanentWiltingPoint of the Soil.
+        /// </summary>
+        /// <param name="pSoil"></param>
+        /// <returns></returns>
+        public double getAvailableWaterCapacity(Soil pSoil)
+        {
+            double lReturn = 0;
+            foreach (Soil lSoil in this.Soils)
+            {
+                if (pSoil.Equals(lSoil))
+                {
+                    lReturn = lSoil.FieldCapacity - lSoil.PermanentWiltingPoint;
+                    return lReturn;
+                }
+            }
+            return lReturn;
+        }
+
         #endregion
 
         #region Overrides
+        // Different region for each class override
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            Crop lCrop = obj as Crop;
+            return this.Name.Equals(lCrop.Name) &&
+                this.Location.Equals(lCrop);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
         #endregion
 
 

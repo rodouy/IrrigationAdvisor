@@ -7,8 +7,8 @@ namespace IrrigationAdvisor.Models.Security
 {
     
     /// <summary>
-    /// Create: 2014-10-18
-    /// Author: rodouy - monicarle
+    /// Create: 2014-10-21
+    /// Author: monicarle
     /// Description: 
     ///     Represent the head of SiteItem to which an user is allowed to access
     ///     Is a list of items in the site, to which a rol can access.
