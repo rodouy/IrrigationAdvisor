@@ -67,8 +67,8 @@ namespace IrrigationAdvisor.Models.Crop
         private PhenologicalStage phenologicalStage;
         private DateTime sowingDate;
         private DateTime harvestDate;
-        private List<Soil> soils;
-        private double maxEvapotranspirationToIrrigate;
+        private Soil soil;
+private double maxEvapotranspirationToIrrigate;
         
         #endregion
 
@@ -121,10 +121,10 @@ namespace IrrigationAdvisor.Models.Crop
             set { harvestDate = value; }
         }
 
-        public List<Soil> Soils
+        public Soil Soil
         {
-            get { return soils; }
-            set { soils = value; }
+            get { return soil; }
+            set { soil = value; }
         }
         
         public double MaxEvapotranspirationToIrrigate
@@ -148,7 +148,7 @@ namespace IrrigationAdvisor.Models.Crop
             this.PhenologicalStage = new PhenologicalStage();
             this.SowingDate = DateTime.Now;
             this.HarvestDate = DateTime.Now;
-            this.Soils = new List<Soil>();
+            this.Soil = new Soil();
             this.MaxEvapotranspirationToIrrigate = 0;
         }
 
@@ -163,7 +163,7 @@ namespace IrrigationAdvisor.Models.Crop
             this.PhenologicalStage = pPhenologicalStage;
             this.SowingDate = pSowingDate;
             this.HarvestDate = pHarvestDate;
-            this.Soils = pSoils;
+            this.Soil = new Soil();
 
         }
 
@@ -174,18 +174,9 @@ namespace IrrigationAdvisor.Models.Crop
 
         #region Public Methods
 
-        public Region getRegion(Soil pSoil)
+        public Region getRegion()
         {
-            Region lRegion = null;
-            foreach(Soil lSoil in this.Soils)
-            {
-                if(pSoil.Equals(lSoil))
-                {
-                    lRegion = lSoil.Location.Region;
-                    return lRegion;
-                }
-            }
-            return lRegion;
+            return this.Soil.Location.Region;
         }
 
         public double getBaseTemperature ()
@@ -198,32 +189,14 @@ namespace IrrigationAdvisor.Models.Crop
             return DateTime.Now.Subtract( this.SowingDate).Days;
         }
 
-        public double getFieldCapacity(Soil pSoil) 
+        public double getFieldCapacity(double pRootDepth) 
         {
-            double lReturn = 0;
-            foreach (Soil lSoil in this.Soils)
-            {
-                if (pSoil.Equals(lSoil))
-                {
-                    lReturn = lSoil.FieldCapacity;
-                    return lReturn;
-                }
-            }
-            return lReturn;
+            return this.Soil.getFieldCapacity(pRootDepth);
         }
 
-        public double getPermanentWiltingPoint(Soil pSoil)
+        public double getPermanentWiltingPoint(double pRootDepth)
         {
-            double lReturn = 0;
-            foreach (Soil lSoil in this.Soils)
-            {
-                if (pSoil.Equals(lSoil))
-                {
-                    lReturn = lSoil.PermanentWiltingPoint;
-                    return lReturn;
-                }
-            }
-            return lReturn;
+            return this.Soil.getPermanentWiltingPoint(pRootDepth);
         }
         /// <summary>
         /// Return the AvailableWaterCapacity.
@@ -231,18 +204,9 @@ namespace IrrigationAdvisor.Models.Crop
         /// </summary>
         /// <param name="pSoil"></param>
         /// <returns></returns>
-        public double getAvailableWaterCapacity(Soil pSoil)
+        public double getAvailableWaterCapacity(double pRootDepth)
         {
-            double lReturn = 0;
-            foreach (Soil lSoil in this.Soils)
-            {
-                if (pSoil.Equals(lSoil))
-                {
-                    lReturn = lSoil.FieldCapacity - lSoil.PermanentWiltingPoint;
-                    return lReturn;
-                }
-            }
-            return lReturn;
+            return this.Soil.getAvailableWaterCapacity(pRootDepth);
         }
 
         #endregion

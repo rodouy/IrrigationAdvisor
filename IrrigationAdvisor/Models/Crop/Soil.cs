@@ -14,7 +14,7 @@ namespace IrrigationAdvisor.Models.Crop
     ///     Describes a Soil
     ///     
     /// References:
-    ///     Location
+    ///     Horizon
     ///     
     /// Dependencies:
     ///     Crop
@@ -26,25 +26,12 @@ namespace IrrigationAdvisor.Models.Crop
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - name String
     ///     - location Location
-    ///     - order int
-    ///     - horizonLayer: String
-    ///     - horizonLayerDepth: double
-    ///     - sand: double
-    ///     - limo: double
-    ///     - clay: double
-    ///     - organicMatter: double
-    ///     - nitrogenAnalysis: int
-    ///     - fieldCapacity: double
-    ///     - permanentWiltingPoint: double
-    ///     - bulkDensitySoil: double
-    ///     
+    ///     - horizons List<Horizon>
     /// 
     /// Methods:
-    ///     - ClassTemplate()      -- constructor
-    ///     - ClassTemplate(name)  -- consturctor with parameters
-    ///     - SetName(newName)     -- method to set the name field
+    ///     - Soil()      -- constructor
+    ///     - Soil(location, horizons)  -- consturctor with parameters
     /// 
     /// </summary>
     public class Soil
@@ -53,119 +40,33 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Fields
-        /// <summary>
-        /// The fields are:
-        ///     - name String
-        ///     - location Location
-        ///     - order int
-        ///     - horizonLayer: String
-        ///     - horizonLayerDepth: double
-        ///     - sand: double
-        ///     - limo: double
-        ///     - clay: double
-        ///     - organicMatter: double
-        ///     - nitrogenAnalysis: int
-        ///     - fieldCapacity: double
-        ///     - permanentWiltingPoint: double
-        ///     - bulkDensitySoil: double
-        /// </summary>
-
 
         private String name;
         private Location.Location location;
-        private int order;
-        private String horizonLayer;
-        private double horizonLayerDepth;
-        private double sand;
-        private double limo;
-        private double clay;
-        private double organicMatter;
-        private double nitrogenAnalysis;
-        private double fieldCapacity;
-        private double permanentWiltingPoint;
-        private double bulkDensitySoil;
+        private List<Horizon> horizons;
+
         #endregion
 
         #region Properties
+
         public String Name
         {
             get { return name; }
             set { name = value; }
         }
-
+       
         public Location.Location Location
         {
             get { return location; }
             set { location = value; }
         }
-
-        public int Order
+        public List<Horizon> Horizons
         {
-            get { return order; }
-            set { order = value; }
-        }
-        public String HorizonLayer
-        {
-            get { return horizonLayer; }
-            set { horizonLayer = value; }
-        }
-
-        public double HorizonLayerDepth
-        {
-            get { return horizonLayerDepth; }
-            set { horizonLayerDepth = value; }
-        }
-
-        public double Sand
-        {
-            get { return sand; }
-            set { sand = value; }
-        }
-
-        public double Limo
-        {
-            get { return limo; }
-            set { limo = value; }
-        }
-
-        public double Clay
-        {
-            get { return clay; }
-            set { clay = value; }
-        }
-
-
-        public double OrganicMatter
-        {
-            get { return organicMatter; }
-            set { organicMatter = value; }
-        }
-
-        public double NitrogenAnalysis
-        {
-            get { return nitrogenAnalysis; }
-            set { nitrogenAnalysis = value; }
-        }
-
-
-        public double FieldCapacity
-        {
-            get { return fieldCapacity; }
-            set { fieldCapacity = value; }
-        }
-
-        public double PermanentWiltingPoint
-        {
-            get { return permanentWiltingPoint; }
-            set { permanentWiltingPoint = value; }
+            get { return horizons; }
+            set { horizons = value; }
         }
         
-
-        public double BulkDensitySoil
-        {
-            get { return bulkDensitySoil; }
-            set { bulkDensitySoil = value; }
-        }
+        
         #endregion
 
         #region Construction
@@ -173,17 +74,8 @@ namespace IrrigationAdvisor.Models.Crop
         {
             this.name= "";
             this.location = null;
-            this.order= 0;
-            this.horizonLayer = "";
-            this.horizonLayerDepth = 0;
-            this.sand = 0;
-            this.limo = 0;
-            this.clay = 0;
-            this.organicMatter = 0;
-            this.nitrogenAnalysis = 0;
-            this.fieldCapacity = 0;
-            this.permanentWiltingPoint = 0;
-            this.bulkDensitySoil = 0;
+            this.horizons = new List<Horizon>();
+            
         }
         public Soil (String pName,Location.Location pLocation, int pOrder, String pHorizonLayer,
             double pHorizonLayerDepth, double pSand, double pLimo, 
@@ -193,18 +85,8 @@ namespace IrrigationAdvisor.Models.Crop
          {
             this.name = pName ;
             this.location = pLocation;
-            this.order= pOrder;
-            this.horizonLayer = pHorizonLayer;
-            this.horizonLayerDepth = pHorizonLayerDepth;
-            this.sand = pSand;
-            this.limo = pLimo;
-            this.clay = pClay;
-            this.organicMatter = pOrganicMatter;
-            this.nitrogenAnalysis = pNitrogenAnalysis;
-            this.fieldCapacity = pFieldCapacity;
-            this.permanentWiltingPoint = pPermanentWiltingPoing;
-            this.bulkDensitySoil = pBulkDensitySoil;
-
+            this.horizons = new List<Horizon>();
+            
         }
 
 
@@ -212,9 +94,62 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Private Helpers
+
+        private Horizon getHorizonByOrder(int pOrder)
+        {
+            Horizon pReturn = new Horizon();
+            foreach (Horizon lHorizon in this.horizons)
+            {
+                if(pOrder== lHorizon.Order)
+                {
+                    pReturn=lHorizon;
+                    return lHorizon;
+                }
+            }
+            return pReturn;
+        }
+        private Horizon getHorizonByRootDepth(double pRootDepth)
+        {
+            Horizon lReturn = new Horizon();
+            double lRootDepthSum =0;
+            for(int i =0; i< this.horizons.Count; i++)
+            {
+                Horizon lHorizon = this.getHorizonByOrder(i);
+                lRootDepthSum += lHorizon.HorizonLayerDepth;
+                if (lRootDepthSum <= lHorizon.HorizonLayerDepth)
+                {
+                    lReturn = lHorizon;
+                    lReturn = lHorizon;
+                    return lReturn;
+                }
+                else 
+                {
+                    //The HorizonLayerDepth of each horizon is relative to this horizon. Not form the surface of the soil.
+                    pRootDepth -= lHorizon.HorizonLayerDepth;
+                }
+                
+            }
+            return lReturn;
+        }
         #endregion
 
         #region Public Methods
+        public double  getFieldCapacity(double pRootDepth)
+        {
+            Horizon lHorizon = this.getHorizonByRootDepth(pRootDepth);
+            return lHorizon.getFieldCapacity();
+        }
+        public double getPermanentWiltingPoint(double pRootDepth)
+        {
+            Horizon lHorizon = this.getHorizonByRootDepth(pRootDepth);
+            return lHorizon.getPermanentWiltingPoint();
+        }
+       
+        public double getAvailableWaterCapacity(double pRootDepth)
+        {
+            Horizon lHorizon = this.getHorizonByRootDepth(pRootDepth);
+            return lHorizon.getAvailableWaterCapacity();
+        }
         #endregion
 
         #region Overrides
