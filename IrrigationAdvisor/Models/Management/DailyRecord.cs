@@ -62,9 +62,9 @@ namespace IrrigationAdvisor.Models.Management
         private WeatherStation.WeatherData alternativeWeatherData;
         private DateTime dateHour;
         private double growingDegree;
-        private WaterOutput evapotranspirationCrop;
-        private WaterInput rain;
-        private WaterInput irrigation;
+        private Water.WaterOutput evapotranspirationCrop;
+        private Water.WaterInput rain;
+        private Water.WaterInput irrigation;
         private String observations;
 
         
@@ -101,19 +101,19 @@ namespace IrrigationAdvisor.Models.Management
             set { growingDegree = value; }
         }
 
-        internal WaterOutput EvapotranspirationCrop
+        internal Water.WaterOutput EvapotranspirationCrop
         {
             get { return evapotranspirationCrop; }
             set { evapotranspirationCrop = value; }
         }
 
-        internal WaterInput Rain
+        internal Water.WaterInput Rain
         {
             get { return rain; }
             set { rain = value; }
         }
 
-        internal WaterInput Irrigation
+        internal Water.WaterInput Irrigation
         {
             get { return irrigation; }
             set { irrigation = value; }
@@ -135,17 +135,17 @@ namespace IrrigationAdvisor.Models.Management
             this.AlternativeWeatherData = new WeatherStation.WeatherData();
             this.DateHour = new DateTime();
             this.GrowingDegree = 0;
-            this.EvapotranspirationCrop = new WaterOutput();
-            this.Rain = new WaterInput();
-            this.Irrigation=new WaterInput();
+            this.EvapotranspirationCrop = new Water.WaterOutput();
+            this.Rain = new Water.WaterInput();
+            this.Irrigation = new Water.WaterInput();
             this.Observations= "";
 
         }
 
         public DailyRecord(CropIrrigationWeather pCropIrrigationWeather, 
             WeatherStation.WeatherData pMainWeatherData, WeatherStation.WeatherData pAlternativeWeatherData,
-            DateTime pDateHour, double pGrowingDegree, WaterOutput pEvapotranspirationCrop,
-            WaterInput pRain, WaterInput pIrrigation, String pObservations) 
+            DateTime pDateHour, double pGrowingDegree, Water.WaterOutput pEvapotranspirationCrop,
+            Water.WaterInput pRain, Water.WaterInput pIrrigation, String pObservations) 
         {
             this.CropIrrigationWeather = pCropIrrigationWeather;
             this.MainWeatherData = pMainWeatherData;

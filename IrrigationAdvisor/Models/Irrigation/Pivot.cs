@@ -32,7 +32,7 @@ namespace IrrigationAdvisor.Models.Irrigation
     ///     - SetName(newName)     -- method to set the name field
     /// 
     /// </summary>
-    public class Pivot
+    public class Pivot : IrrigationUnit
     {
         #region Fields
 

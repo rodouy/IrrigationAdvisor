@@ -33,7 +33,7 @@ namespace IrrigationAdvisor.Models.Irrigation
     ///     - SetName(newName)     -- method to set the name field
     /// 
     /// </summary>
-    public class Sprinkler
+    public class Sprinkler : IrrigationUnit
     {
         #region Fields
 

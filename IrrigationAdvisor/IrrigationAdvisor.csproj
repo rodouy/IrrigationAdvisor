@@ -186,8 +186,10 @@
     <Compile Include="Models\Location\Region.cs" />
     <Compile Include="Models\Management\CropIrrigationWeather.cs" />
     <Compile Include="Models\Management\DailyRecord.cs" />
-    <Compile Include="Models\Water\WaterInput.cs" />
-    <Compile Include="Models\Water\WaterOutput.cs" />
+    <Compile Include="Models\Management\IrrigationRecords.cs" />
+    <Compile Include="Models\Water\EvapotranspirationCrop.cs" />
+    <Compile Include="Models\Water\Irrigation.cs" />
+    <Compile Include="Models\Water\Rain.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Security\Access.cs" />
     <Compile Include="Models\Security\Menu.cs" />
@@ -199,6 +201,8 @@
     <Compile Include="Models\Utilities\Pair.cs" />
     <Compile Include="Models\Utilities\TextFileLogger.cs" />
     <Compile Include="Models\Utilities\Utils.cs" />
+    <Compile Include="Models\Water\WaterInput.cs" />
+    <Compile Include="Models\Water\WaterOutput.cs" />
     <Compile Include="Models\WeatherStation\WeatherData.cs" />
     <Compile Include="Models\WeatherStation\WeatherStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
