@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IrrigationAdvisor.Models.Crop;
 
-namespace IrrigationAdvisor.Tests.Model.Crop
+namespace IrrigationAdvisor.Tests.Models.Crop
 {
     /// <summary>
     /// Descripción resumida de CropCoefficientTest

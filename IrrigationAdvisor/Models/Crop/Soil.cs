@@ -116,7 +116,7 @@ namespace IrrigationAdvisor.Models.Crop
             {
                 Horizon lHorizon = this.getHorizonByOrder(i);
                 lRootDepthSum += lHorizon.HorizonLayerDepth;
-                if (lRootDepthSum <= lHorizon.HorizonLayerDepth)
+                if (lRootDepthSum >= pRootDepth)
                 {
                     lReturn = lHorizon;
                     lReturn = lHorizon;

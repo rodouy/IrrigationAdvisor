@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IrrigationAdvisor.Models.Utilities;
 
-namespace IrrigationAdvisor.Tests.Model.Utilities
+namespace IrrigationAdvisor.Tests.Models.Utilities
 {
     [TestClass]
     public class PairTest

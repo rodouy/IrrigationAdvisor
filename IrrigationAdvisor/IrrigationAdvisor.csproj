@@ -173,6 +173,7 @@
     <Compile Include="Models\Crop\Specie.cs" />
     <Compile Include="Models\Crop\Stage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IrrigationSystem\IrrigationSystem.cs" />
     <Compile Include="Models\Irrigation\Bomb.cs" />
     <Compile Include="Models\Irrigation\Drip.cs" />
     <Compile Include="Models\Irrigation\IrrigationUnit.cs" />

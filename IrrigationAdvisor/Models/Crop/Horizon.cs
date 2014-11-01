@@ -201,19 +201,29 @@ namespace IrrigationAdvisor.Models.Crop
         #region Public Methods
         public double  getFieldCapacity()
         {
-            return this.FIELD_CAPACITY_GENERAL_ADJ_COEF 
+            double lReturn = 0;
+            if(this.Sand !=0 && this.Clay!=0 && this.OrganicMatter !=0)
+            { 
+                lReturn = this.FIELD_CAPACITY_GENERAL_ADJ_COEF 
                 -(this.FIELD_CAPACITY_SAND_ADJ_COEF*this.Sand)
                 +(this.FIELD_CAPACITY_CLAY_ADJ_COEF*this.Clay)
                 +(this.FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF*this.OrganicMatter);
+            }
+            return lReturn;
         }
 
         public double getPermanentWiltingPoint() 
         {
-            return -this.PERM_WILTING_POINT_GENERAL_ADJ_COEF
-                +(this.FIELD_CAPACITY_SAND_ADJ_COEF*this.Sand)
-                +(this.PERM_WILTING_POINT_LIMO_ADJ_COEF*this.Limo)
-                +(this.PERM_WILTING_POINT_CLAY_ADJ_COEF*this.Clay)
-                +(this.PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF*this.OrganicMatter);
+            double lReturn = 0;
+            if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
+            {
+                lReturn = -this.PERM_WILTING_POINT_GENERAL_ADJ_COEF
+                    + (this.PERM_WILTING_POINT_SAND_ADJ_COEF * this.Sand)
+                    + (this.PERM_WILTING_POINT_LIMO_ADJ_COEF * this.Limo)
+                    + (this.PERM_WILTING_POINT_CLAY_ADJ_COEF * this.Clay)
+                    + (this.PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
+            }
+            return lReturn;
         }
         public double getAvailableWaterCapacity() 
         {
