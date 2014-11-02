@@ -36,7 +36,7 @@ namespace IrrigationAdvisor.Models.Crop
     ///     - phenologiclaStage PhenologicalStage
     ///     - sowingDate DateTime
     ///     - harvestDate DateTime
-    ///     - soils List<Soil>
+    ///     - soil Soil
     ///     - maxEvapotranspirationToIrrigate double
     ///     
     /// 
@@ -68,7 +68,7 @@ namespace IrrigationAdvisor.Models.Crop
         private DateTime sowingDate;
         private DateTime harvestDate;
         private Soil soil;
-private double maxEvapotranspirationToIrrigate;
+        private double maxEvapotranspirationToIrrigate;
         
         #endregion
 
@@ -154,7 +154,7 @@ private double maxEvapotranspirationToIrrigate;
 
         public Crop(String pName, Specie pSpecie, CropCoefficient pCropCoefficient,
             double pDensity, PhenologicalStage pPhenologicalStage, DateTime pSowingDate,
-            DateTime pHarvestDate, List <Soil> pSoils, double pMaxEvapotranspirationToIrrigate)
+            DateTime pHarvestDate, Soil pSoil, double pMaxEvapotranspirationToIrrigate)
         {
             this.Name = pName;
             this.Specie = pSpecie;
@@ -163,7 +163,7 @@ private double maxEvapotranspirationToIrrigate;
             this.PhenologicalStage = pPhenologicalStage;
             this.SowingDate = pSowingDate;
             this.HarvestDate = pHarvestDate;
-            this.Soil = new Soil();
+            this.Soil = pSoil;
 
         }
 
