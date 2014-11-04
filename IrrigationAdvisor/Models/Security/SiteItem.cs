@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IrrigationAdvisor.Models.Security
 {
-    class SiteItem
+    public class SiteItem
     {
         private String access;
 

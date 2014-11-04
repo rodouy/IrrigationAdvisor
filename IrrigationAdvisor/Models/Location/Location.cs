@@ -8,7 +8,7 @@ namespace IrrigationAdvisor.Models.Location
 {
    
         /// <summary>
-        /// Create: 2014-10-14
+        /// Create: 2014-10-24
         /// Author: monicarle
         /// Description: 
         ///     Describes a location defined by a Position

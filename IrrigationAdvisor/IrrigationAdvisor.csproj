@@ -166,18 +166,32 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Crop\Crop.cs" />
     <Compile Include="Models\Crop\CropCoefficient.cs" />
+    <Compile Include="Models\Crop\Horizon.cs" />
     <Compile Include="Models\Crop\PhenologicalStage.cs" />
     <Compile Include="Models\Crop\Soil.cs" />
     <Compile Include="Models\Crop\Specie.cs" />
     <Compile Include="Models\Crop\Stage.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IrrigationSystem\IrrigationSystem.cs" />
+    <Compile Include="Models\Irrigation\Bomb.cs" />
+    <Compile Include="Models\Irrigation\Drip.cs" />
+    <Compile Include="Models\Irrigation\IrrigationUnit.cs" />
+    <Compile Include="Models\Irrigation\Pivot.cs" />
+    <Compile Include="Models\Irrigation\Sprinkler.cs" />
     <Compile Include="Models\Language\Language.cs" />
     <Compile Include="Models\Location\City.cs" />
     <Compile Include="Models\Location\Country.cs" />
     <Compile Include="Models\Location\Location.cs" />
     <Compile Include="Models\Location\Position.cs" />
     <Compile Include="Models\Location\Region.cs" />
+    <Compile Include="Models\Management\CropIrrigationWeather.cs" />
+    <Compile Include="Models\Management\DailyRecord.cs" />
+    <Compile Include="Models\Management\IrrigationRecords.cs" />
+    <Compile Include="Models\Water\EvapotranspirationCrop.cs" />
+    <Compile Include="Models\Water\Irrigation.cs" />
+    <Compile Include="Models\Water\Rain.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Security\Access.cs" />
     <Compile Include="Models\Security\Menu.cs" />
@@ -189,6 +203,8 @@
     <Compile Include="Models\Utilities\Pair.cs" />
     <Compile Include="Models\Utilities\TextFileLogger.cs" />
     <Compile Include="Models\Utilities\Utils.cs" />
+    <Compile Include="Models\Water\WaterInput.cs" />
+    <Compile Include="Models\Water\WaterOutput.cs" />
     <Compile Include="Models\WeatherStation\WeatherData.cs" />
     <Compile Include="Models\WeatherStation\WeatherStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -257,9 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Irrigation\" />
-    <Folder Include="Models\Management\" />
-    <Folder Include="Models\Water\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

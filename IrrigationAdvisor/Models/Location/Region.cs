@@ -6,8 +6,8 @@ using System.Web;
 namespace IrrigationAdvisor.Models.Location
 {
     /// <summary>
-    /// Create: 2014-10-14
-    /// Author: rodouy - monicarle
+    /// Create: 2014-10-22
+    /// Author: monicarle
     /// Description: 
     ///     Describes a region
     ///     
@@ -22,7 +22,7 @@ namespace IrrigationAdvisor.Models.Location
     ///     EffectiveRain
     ///     CropIrrigationWeather
     /// 
-    /// TODO: OK
+    /// TODO: 
     ///     UnitTest
     ///     
     /// -----------------------------------------------------------------

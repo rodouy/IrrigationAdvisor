@@ -5,11 +5,11 @@ using System.Text;
 
 namespace IrrigationAdvisor.Models.Security
 {
-    class Access
+    public class Access
     {
         /// <summary>
         /// Create: 2014-10-21
-        /// Author: rodouy - monicarle
+        /// Author: monicarle
         /// Description: 
         ///     Describes a kind of access
         ///     

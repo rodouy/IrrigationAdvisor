@@ -82,8 +82,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Crop\CropCoefficientTest.cs" />
-    <Compile Include="Model\Utilities\PairTest.cs" />
+    <Compile Include="Models\Crop\CropCoefficientTest.cs" />
+    <Compile Include="Models\Crop\HorizonTest.cs" />
+    <Compile Include="Models\Crop\SoilTest.cs" />
+    <Compile Include="Models\IrrigationSystem\IrrigationSystemTest.cs" />
+    <Compile Include="Models\Utilities\PairTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -98,6 +101,9 @@
       <Project>{5B9DDB8D-8420-4D0E-851A-584DB79DAF16}</Project>
       <Name>IrrigationAdvisor</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Management\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

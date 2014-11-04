@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Web;
 
 namespace IrrigationAdvisor.Models.Crop
 {
+    
     /// <summary>
     /// Create: 2014-10-14
     /// Author: monicarle
@@ -31,7 +32,7 @@ namespace IrrigationAdvisor.Models.Crop
     ///     - Stage(name, definition)  -- consturctor with parameters
     ///     
     /// </summary>
-    class Stage
+    public class Stage
     {
         #region Consts
         #endregion
@@ -47,7 +48,7 @@ namespace IrrigationAdvisor.Models.Crop
         private string description;
 
 
-        
+
         #endregion
 
         #region Properties
@@ -62,8 +63,8 @@ namespace IrrigationAdvisor.Models.Crop
         }
         public string Description
         {
-          get { return description; }
-          set { description = value; }
+            get { return description; }
+            set { description = value; }
         }
         #endregion
 
@@ -74,7 +75,6 @@ namespace IrrigationAdvisor.Models.Crop
         public Stage()
         {
             this.Name = "noname";
-            this.Name = "nodescrption";
 
         }
 
@@ -82,10 +82,10 @@ namespace IrrigationAdvisor.Models.Crop
         /// Constructor of ClassTemplate with parameters
         /// </summary>
         /// <param name="pNewName"></param>
-        public Stage(String pName, String pDescription )
+        public Stage(String pName, String pDescription)
         {
             this.Name = pName;
-            this.description = pDescription;
+            this.Description = pDescription;
         }
 
         #endregion

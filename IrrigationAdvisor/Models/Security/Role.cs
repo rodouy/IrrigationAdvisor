@@ -7,7 +7,7 @@ namespace IrrigationAdvisor.Models.Security
 {
     /// <summary>
     /// Create: 2014-10-14
-    /// Author: rodouy - monicarle
+    /// Author: monicarle
     /// Description: 
     ///     Define the privileges of a group of users
     ///     

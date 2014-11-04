@@ -7,8 +7,8 @@ using System.Data;
 namespace IrrigationAdvisor.Models.Crop
 {
     /// <summary>
-    /// Create: 2014-10-14
-    /// Author: rodouy - monicarle
+    /// Create: 2014-10-26
+    /// Author: monicarle
     /// Description: 
     ///     Returns the Kc for a Specie in a Region 
     ///     It depends on the days after sowing
@@ -20,8 +20,7 @@ namespace IrrigationAdvisor.Models.Crop
     /// Dependencies:
     ///     Crop
     /// 
-    /// TODO: OK
-    ///     UnitTest
+    /// TODO: 
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
