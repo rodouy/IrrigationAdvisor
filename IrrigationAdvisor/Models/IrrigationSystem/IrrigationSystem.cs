@@ -56,7 +56,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         //Management
         private List<CropIrrigationWeather> cropIrrigationWeatherList;
-        
+        private List<DailyRecord> dailyRecordsList;
+
         //Security 
         //Utitilities
 
@@ -84,6 +85,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             set { cropIrrigationWeatherList = value; }
         }
 
+        public List<DailyRecord> DailyRecordsList
+        {
+            get { return dailyRecordsList; }
+            set { dailyRecordsList = value; }
+        }
+        
         //Security 
         //Utitilities
 
@@ -117,15 +124,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #endregion
 
         #region Construction
-
+        //TODO Singleton???
         public IrrigationSystem()
         {
 
-            
-
-
             //Crop
-            this.cropIrrigationWeatherList = new List<CropIrrigationWeather>();
             
             //Irrigation
 
@@ -134,7 +137,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             //Location
 
             //Management
-
+            this.cropIrrigationWeatherList = new List<CropIrrigationWeather>();
+            this.dailyRecordsList = new List<DailyRecord>();
             //Security 
 
             //Utitilities
@@ -153,7 +157,53 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
 
         #region Private Helpers
-        private WeatherStation.WeatherData getWeatherData(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime) 
+
+        //Crop
+        //Irrigation
+        //Language
+        //Location
+        //Management
+        //Security 
+        //Utitilities
+        //Water
+        private Water.WaterOutput getEvapotranspirationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        {
+            Water.WaterOutput lReturn = null;
+            foreach (Water.WaterOutput lWaterOutput in this.EvapotranspirationList)
+                if (lWaterOutput.Date.Equals(pDateTime) && lWaterOutput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    lReturn = lWaterOutput;
+                    return lReturn;
+                }
+            return lReturn;
+        }
+        private Water.WaterInput getIrrigationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        {
+            Water.WaterInput lReturn = null;
+            foreach (Water.WaterInput lWaterInput in this.irrigationList)
+                if (lWaterInput.Date.Equals(pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    lReturn = lWaterInput;
+                    return lReturn;
+                }
+            return lReturn;
+        }
+
+        private Water.WaterInput getRainFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        {
+            Water.WaterInput lReturn = null;
+            foreach(Water.WaterInput lWaterInput in this.rainList)
+                if(lWaterInput.Date.Equals(pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    lReturn = lWaterInput;
+                    return lReturn;
+                }
+            return lReturn;
+
+        }
+  
+        //WeatherStation
+        private WeatherStation.WeatherData getWeatherDataFromList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime) 
         {
             WeatherStation.WeatherData lReturn = null;
             foreach(WeatherStation.WeatherData lWeatherData in this.WeatherDataList)
@@ -167,6 +217,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
 
         }
+
         #endregion
 
         #region Public Methods
@@ -194,12 +245,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             if (this.CropIrrigationWeatherList.Contains(pCropIrrigationWeather) && pDateTime != null)
             {
                 lWeatherStation = pCropIrrigationWeather.MainWeatherStation;
-                lMainWeatherData = getWeatherData(lWeatherStation,pDateTime);
+                lMainWeatherData = getWeatherDataFromList(lWeatherStation,pDateTime);
                 lAverageTemp = lMainWeatherData.getAverageTemperature(pDateTime);
                 if (lMainWeatherData == null)
                 {
                     lWeatherStation = pCropIrrigationWeather.AlternativeWeatherStation;
-                    lAlternativeWeatherData = getWeatherData(lWeatherStation,pDateTime);
+                    lAlternativeWeatherData = getWeatherDataFromList(lWeatherStation,pDateTime);
                     lAverageTemp = lAlternativeWeatherData.getAverageTemperature(pDateTime);
                 }
 
@@ -208,6 +259,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                     lBaseTemperature = pCropIrrigationWeather.Crop.getBaseTemperature();
                     lGrowingDegree = lAverageTemp - lBaseTemperature;
+                    lEvapotranspirationCrop = this.getEvapotranspirationFromList(pCropIrrigationWeather,pDateTime);
+                    lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
+                    lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
                     DailyRecord lNewDailyRecord = new DailyRecord(pCropIrrigationWeather , lMainWeatherData, lAlternativeWeatherData,pDateTime, lGrowingDegree, 
                         lEvapotranspirationCrop, lRain, lIrrigation, pObservations);
                 }
@@ -216,6 +270,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
 
         }
+
+
+
+
 
         //Security 
         //Utitilities

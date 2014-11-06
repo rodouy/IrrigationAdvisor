@@ -26,10 +26,10 @@ namespace IrrigationAdvisor.Models.Management
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - cropIrrigationWeather: CropIrrigationWeather
+    ///     - cropIrrigationWeather: CropIrrigationWeather - PK
     ///     - mainWeatherData: WeatherData
     ///     - alternativeWeatherData: WeatherData
-    ///     - date: Date
+    ///     - date: Date                                   - PK
     ///     - hour: Hour
     ///     - growingDegree: double
     ///     - evapotranspirationCrop: WaterOutput

@@ -22,7 +22,7 @@ namespace IrrigationAdvisor.Templates
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - name String
+    ///     - name String - PK (Primary Key)
     /// 
     /// Methods:
     ///     - ClassTemplate()      -- constructor

@@ -23,9 +23,11 @@ namespace IrrigationAdvisor.Models.Water
     /// -----------------------------------------------------------------
     /// Fields of Class:
     ///     - input double
-    ///     - date DateTime
+    ///     - date DateTime         - PK
     ///     - extraInput double
-    ///     - extraDate DateTime
+    ///     - extraDate DateTime    
+    ///     - cropIrrigationWeather - PK
+    ///     - type String
     /// 
     /// Methods:
     ///     - WaterOutput()      -- constructor
@@ -47,6 +49,9 @@ namespace IrrigationAdvisor.Models.Water
         private DateTime date;
         private double extraInput;
         private DateTime extraDate;
+        private Management.CropIrrigationWeather cropIrrigationWeather;
+
+        
 
         #endregion
 
@@ -73,6 +78,12 @@ namespace IrrigationAdvisor.Models.Water
         {
             get { return extraDate; }
             set { extraDate = value; }
+        }
+
+        public Management.CropIrrigationWeather CropIrrigationWeather
+        {
+            get { return cropIrrigationWeather; }
+            set { cropIrrigationWeather = value; }
         }
 
         #endregion

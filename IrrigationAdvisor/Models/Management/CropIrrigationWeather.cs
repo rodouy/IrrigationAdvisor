@@ -27,8 +27,8 @@ namespace IrrigationAdvisor.Models.Management
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - irrigationUnit IrrigationUnit
-    ///     - crop Crop
+    ///     - irrigationUnit IrrigationUnit - PK
+    ///     - crop Crop                     - PK
     ///     - mainWeatherStation WeatherStation
     ///     - alternativeWeatherStation WeatherStation
     /// 
@@ -135,6 +135,21 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Overrides
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            CropIrrigationWeather lCropIrrigationWeather = obj as CropIrrigationWeather;
+            return this.Crop.Equals(lCropIrrigationWeather.Crop) &&
+                this.IrrigationUnit.Equals(lCropIrrigationWeather.IrrigationUnit);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Crop.GetHashCode();
+        }
         #endregion
 
     }
