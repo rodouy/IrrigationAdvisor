@@ -228,7 +228,24 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Location
         //Management
 
-        public bool addDailyRecord(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime, String pObservations)
+        public bool addCropIrrigWeatherToList(CropIrrigationWeather pCropIrrigationWeather) 
+        {
+            bool lReturn = true;
+            try
+            {
+                this.CropIrrigationWeatherList.Add(pCropIrrigationWeather);
+                DateTime lDate = pCropIrrigationWeather.Crop.SowingDate;
+                this.addDailyRecordToList(pCropIrrigationWeather, lDate, "Initial registry");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in IrrigationSystem.addCropIrrigWeatherToList " + e.Message);
+                //TODO manage and log the exception
+                throw e;
+            }
+            return lReturn;
+        }
+        public bool addDailyRecordToList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime, String pObservations)
         {
             bool lReturn = false;
             WeatherStation.WeatherStation lWeatherStation = null;
@@ -240,36 +257,44 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             double lEvapotranspiration = 0;
             Water.WaterInput lRain = null;
             Water.WaterInput lIrrigation = null;
-
-            //Controlo que la CIW y la fecha no sean null
-            if (this.CropIrrigationWeatherList.Contains(pCropIrrigationWeather) && pDateTime != null)
+            try
             {
-                lWeatherStation = pCropIrrigationWeather.MainWeatherStation;
-                lMainWeatherData = getWeatherDataFromList(lWeatherStation,pDateTime);
-                lAverageTemp = lMainWeatherData.getAverageTemperature();
-                lEvapotranspiration = lMainWeatherData.getEvapotranspiration();
-                if (lMainWeatherData == null)//Checque si es necesario usar estacion alternativa
+                //Controlo que la CIW y la fecha no sean null
+                if (this.CropIrrigationWeatherList.Contains(pCropIrrigationWeather) && pDateTime != null)
                 {
-                    lWeatherStation = pCropIrrigationWeather.AlternativeWeatherStation;
-                    lAlternativeWeatherData = getWeatherDataFromList(lWeatherStation,pDateTime);
-                    lAverageTemp = lAlternativeWeatherData.getAverageTemperature();
-                    lEvapotranspiration = lAlternativeWeatherData.getEvapotranspiration();
-                
-                }
-                // Si hay datos de estacion meteorologica puedo seguir
-                if(lMainWeatherData != null || lAlternativeWeatherData!=null)
-                {
+                    lWeatherStation = pCropIrrigationWeather.MainWeatherStation;
+                    lMainWeatherData = getWeatherDataFromList(lWeatherStation, pDateTime);
+                    lAverageTemp = lMainWeatherData.getAverageTemperature();
+                    lEvapotranspiration = lMainWeatherData.getEvapotranspiration();
+                    if (lMainWeatherData == null)//Checque si es necesario usar estacion alternativa
+                    {
+                        lWeatherStation = pCropIrrigationWeather.AlternativeWeatherStation;
+                        lAlternativeWeatherData = getWeatherDataFromList(lWeatherStation, pDateTime);
+                        lAverageTemp = lAlternativeWeatherData.getAverageTemperature();
+                        lEvapotranspiration = lAlternativeWeatherData.getEvapotranspiration();
 
-                    lBaseTemperature = pCropIrrigationWeather.Crop.getBaseTemperature();
-                    lGrowingDegree = lAverageTemp - lBaseTemperature;
-                    Water.WaterOutput lEvapotranspirationCrop = new Water.EvapotranspirationCrop(pCropIrrigationWeather,pDateTime,lEvapotranspiration);
-                    this.EvapotranspirationList.Add(lEvapotranspirationCrop);
-                    lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
-                    lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
-                    DailyRecord lNewDailyRecord = new DailyRecord(pCropIrrigationWeather , lMainWeatherData, lAlternativeWeatherData,pDateTime, lGrowingDegree,
-                        lEvapotranspirationCrop, lRain, lIrrigation, pObservations);
+                    }
+                    // Si hay datos de estacion meteorologica puedo seguir
+                    if (lMainWeatherData != null || lAlternativeWeatherData != null)
+                    {
+
+                        lBaseTemperature = pCropIrrigationWeather.Crop.getBaseTemperature();
+                        lGrowingDegree = lAverageTemp - lBaseTemperature;
+                        Water.WaterOutput lEvapotranspirationCrop = new Water.EvapotranspirationCrop(pCropIrrigationWeather, pDateTime, lEvapotranspiration);
+                        this.EvapotranspirationList.Add(lEvapotranspirationCrop);
+                        lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
+                        lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
+                        DailyRecord lNewDailyRecord = new DailyRecord(pCropIrrigationWeather, lMainWeatherData, lAlternativeWeatherData, pDateTime, lGrowingDegree,
+                            lEvapotranspirationCrop, lRain, lIrrigation, pObservations);
+                    }
+
                 }
-                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in IrrigationSystem.addDailyRecordToList " + e.Message);
+                //TODO manage and log the exception
+                throw e;
             }
             return lReturn;
 
@@ -283,7 +308,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Utitilities
         //Water
         //WeatherStation
-        public bool addWeatherData(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime,
+        public bool addWeatherDataToList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime,
             double pTemperature, int pSolarRadiation, double pTemMax,
             double pTemMin, double pEvapotranspiration)
         {
@@ -305,7 +330,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
  
         }
 
-        public bool addIrrigationData(CropIrrigationWeather pCropIrrigationWeather,
+        public bool addIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
             DateTime pDate, double pInput)
         {
             bool lReturn = false;
@@ -325,7 +350,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
         }
 
-        public bool addRainData(CropIrrigationWeather pCropIrrigationWeather,
+        public bool addRainDataToList(CropIrrigationWeather pCropIrrigationWeather,
             DateTime pDate, double pInput)
         {
             bool lReturn = false;

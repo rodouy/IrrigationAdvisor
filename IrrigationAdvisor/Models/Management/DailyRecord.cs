@@ -29,8 +29,7 @@ namespace IrrigationAdvisor.Models.Management
     ///     - cropIrrigationWeather: CropIrrigationWeather - PK
     ///     - mainWeatherData: WeatherData
     ///     - alternativeWeatherData: WeatherData
-    ///     - date: Date                                   - PK
-    ///     - hour: Hour
+    ///     - date: DateTime                               - PK
     ///     - growingDegree: double
     ///     - evapotranspirationCrop: WaterOutput
     ///     - rain: WaterInput

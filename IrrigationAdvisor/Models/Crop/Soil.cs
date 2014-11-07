@@ -26,6 +26,8 @@ namespace IrrigationAdvisor.Models.Crop
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
+    ///     - idSoil
+    ///     - name String
     ///     - location Location
     ///     - horizons List<Horizon>
     /// 
@@ -41,6 +43,7 @@ namespace IrrigationAdvisor.Models.Crop
 
         #region Fields
 
+        private int idSoil;
         private String name;
         private Location.Location location;
         private List<Horizon> horizons;
@@ -49,6 +52,12 @@ namespace IrrigationAdvisor.Models.Crop
 
         #region Properties
 
+
+        public int IdSoil
+        {
+            get { return idSoil; }
+            set { idSoil = value; }
+        }
         public String Name
         {
             get { return name; }
@@ -72,20 +81,22 @@ namespace IrrigationAdvisor.Models.Crop
         #region Construction
         public Soil() 
         {
-            this.name= "";
-            this.location = null;
-            this.horizons = new List<Horizon>();
+            this.IdSoil = 0;
+            this.Name= "";
+            this.Location = null;
+            this.Horizons = new List<Horizon>();
             
         }
-        public Soil (String pName,Location.Location pLocation, int pOrder, String pHorizonLayer,
+        public Soil (int pId,String pName,Location.Location pLocation, int pOrder, String pHorizonLayer,
             double pHorizonLayerDepth, double pSand, double pLimo, 
             double pClay, double pOrganicMatter, double pNitrogenAnalysis, 
             double pFieldCapacity, double pPermanentWiltingPoing, double pBulkDensitySoil)
     
          {
-            this.name = pName ;
-            this.location = pLocation;
-            this.horizons = new List<Horizon>();
+            this.IdSoil = pId;
+            this.Name = pName ;
+            this.Location = pLocation;
+            this.Horizons = new List<Horizon>();
             
         }
 

@@ -28,6 +28,7 @@ namespace IrrigationAdvisor.Models.Crop
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
+    ///     - id int
     ///     - name String
     ///     - region Region
     ///     - baseTemeperature double
@@ -48,11 +49,13 @@ namespace IrrigationAdvisor.Models.Crop
         #region Fields
         /// <summary>
         /// The fields are:
-        ///     - name: the name of the specie
-        ///     - region: region of the specie
+        ///     - idSpecie: identifier
+        ///     - name: the name of the specie    -  PK
+        ///     - region: region of the specie    -  PK
         ///     - baseTemperature: base temperature of the specie for the region of the instance
         ///     
         /// </summary>
+        private int idSpecie;
         private string name;
         private double baseTemperature;
         private Region region;
@@ -60,6 +63,13 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Properties
+
+        public int IdSpecie
+        {
+            get { return idSpecie; }
+            set { idSpecie = value; }
+        }
+
         public string Name
         {
             get { return name; }
@@ -85,12 +95,14 @@ namespace IrrigationAdvisor.Models.Crop
         #region Construction
         public Specie() 
         {
+            this.IdSpecie = 0;
             this.Name = "noname";
             this.Region = new Region();
             this.BaseTemperature = 0;
         }
-        public Specie(String name, Region region, double baseTemperature)
+        public Specie(int pId, String name, Region region, double baseTemperature)
         {
+            this.IdSpecie = pId;
             this.Name = name;
             this.Region = region;
             this.BaseTemperature = baseTemperature;
@@ -101,6 +113,31 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Public Methods
+        #endregion
+
+        #region Overrides
+        // Different region for each class override
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            Specie lSpecie = obj as Specie;
+            return this.Name.Equals(lSpecie.Name) &&
+                this.Region.Equals(lSpecie.Region);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
         #endregion
     }
 }

@@ -25,7 +25,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             
             ///SPECIE
             double sojeBaseTemp = 10;
-            Specie lSpecie = new Specie("Soja", lRegion, sojeBaseTemp);
+            Specie lSpecie = new Specie(1,"Soja", lRegion, sojeBaseTemp);
 
             ///SOIL
             double sand = 17.3;
@@ -42,13 +42,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             lHorizon.HorizonLayerDepth = 5.3;
             Soil lSoil = new Soil();
             lSoil.Horizons.Add(lHorizon);
+            lSoil.Location = lLocation;
             
             ///PHENOLOGICAL STAGE
-            Stage lStage0 = new Stage("v0","Sin hojas");
+            Stage lStage0 = new Stage(1,"v0","Sin hojas");
             double minDegree = 0;
             double maxDegree = 60;
             double rootDepth = 5;
-            PhenologicalStage lPhenologicalState = new PhenologicalStage(lSpecie, lStage0, minDegree, maxDegree, rootDepth);
+            PhenologicalStage lPhenologicalState = new PhenologicalStage(1,lSpecie, lStage0, minDegree, maxDegree, rootDepth);
 
             ///CROP COEFFICIENT (with list)
             CropCoefficient lCropCoefficient = new CropCoefficient(lSpecie, lRegion);
@@ -126,10 +127,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             ///CROP
             DateTime lSowingDate = new DateTime (2014,11,01);
-            double lCornMaxETtoIrr = 333;
+            double lSojaMaxEvaporTransptoIrrigate = 333;
             double cropDensity = 70;
-            Crop.Crop crop = new Crop.Crop("Maiz en Minas", lSpecie, lCropCoefficient, cropDensity, 
-                lPhenologicalState, lSowingDate, DateTime.Now , lSoil, lCornMaxETtoIrr);
+            Crop.Crop crop = new Crop.Crop(1,"Maiz en Minas", lSpecie,lLocation, lCropCoefficient, cropDensity,
+                lPhenologicalState, lSowingDate, DateTime.Now, lSoil, lSojaMaxEvaporTransptoIrrigate);
             
             ///IRRIGATION UNIT
             Bomb lBomb = new Bomb("Bomba1", 1234, DateTime.Now, DateTime.Now, lLocation);
@@ -146,20 +147,22 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             IrrigationSystem irrirgSys = new IrrigationSystem();
 
             ///LIST OF CropIrrigationWeather
-            irrirgSys.CropIrrigationWeatherList.Add(cropIrrigWeather);
+            irrirgSys.addCropIrrigWeatherToList(cropIrrigWeather);
 
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 1), 99, 0, 30, 10, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 2), 99, 0, 13, 4, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 3), 99, 0, 11.7, 1, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 4), 99, 0, 14.4, 5, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 5), 99, 0, 20, 4, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 6), 99, 0, 22.8, 1, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 7), 99, 0, 10.6, 5.6, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 8), 99, 0, 15.6, 2.8, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 9), 99, 0, 18, 0, 6.4);
-            irrirgSys.addWeatherData(weatherStation, new DateTime(2012, 11, 10), 99, 0, 6, 0, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 1), 99, 0, 30, 10, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 2), 99, 0, 13, 4, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 3), 99, 0, 11.7, 1, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 4), 99, 0, 14.4, 5, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 5), 99, 0, 20, 4, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 6), 99, 0, 22.8, 1, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 7), 99, 0, 10.6, 5.6, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 8), 99, 0, 15.6, 2.8, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 9), 99, 0, 18, 0, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 10), 99, 0, 6, 0, 6.4);
 
-            irrirgSys.addRainData(cropIrrigWeather, new DateTime(2012, 11, 9), 8);
+            irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2012, 11, 4), 3);
+            irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2012, 11, 9), 8);
+
 
         }
     }

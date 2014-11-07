@@ -9,7 +9,7 @@ namespace IrrigationAdvisor.Models.Crop
     /// Create: 2014-10-28
     /// Author:  monicarle
     /// Description: 
-    ///     Describes a Soil
+    ///     Describes an Horizon
     ///     
     /// References:
     ///     Location
@@ -67,21 +67,22 @@ namespace IrrigationAdvisor.Models.Crop
         #region Fields
         /// <summary>
         /// The fields are:
-        ///     - name String
+        ///     - idHorizon int
+        ///     - name String                   - PK
         ///     - order int
         ///     - horizonLayer: String
         ///     - horizonLayerDepth: double
-        ///     - sand: double
-        ///     - limo: double
-        ///     - clay: double
-        ///     - organicMatter: double
+        ///     - sand: double                  - PK
+        ///     - limo: double                  - PK
+        ///     - clay: double                  - PK
+        ///     - organicMatter: double         - PK
         ///     - nitrogenAnalysis: int
         ///     - fieldCapacity: double
         ///     - permanentWiltingPoint: double
         ///     - bulkDensitySoil: double
         /// </summary>
 
-
+        private int idHorizon;
         private String name;
         private int order;
         private String horizonLayer;
@@ -98,6 +99,13 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Properties
+
+        public int IdHorizon
+        {
+            get { return idHorizon; }
+            set { idHorizon = value; }
+        }
+        
         public String Name
         {
             get { return name; }
@@ -162,32 +170,34 @@ namespace IrrigationAdvisor.Models.Crop
         #region Construction
         public Horizon()
         {
-            this.name = "";
-            this.order = 0;
-            this.horizonLayer = "";
-            this.horizonLayerDepth = 0;
-            this.sand = 0;
-            this.limo = 0;
-            this.clay = 0;
-            this.organicMatter = 0;
-            this.nitrogenAnalysis = 0;
-            this.bulkDensitySoil = 0;
+            this.IdHorizon = 0;
+            this.Name = "";
+            this.Order = 0;
+            this.HorizonLayer = "";
+            this.HorizonLayerDepth = 0;
+            this.Sand = 0;
+            this.Limo = 0;
+            this.Clay = 0;
+            this.OrganicMatter = 0;
+            this.NitrogenAnalysis = 0;
+            this.BulkDensitySoil = 0;
         }
-        public Horizon(String pName, int pOrder, String pHorizonLayer,
+        public Horizon(int pId, String pName, int pOrder, String pHorizonLayer,
             double pHorizonLayerDepth, double pSand, double pLimo,
             double pClay, double pOrganicMatter, double pNitrogenAnalysis,
              double pBulkDensitySoil)
         {
-            this.name = pName;
-            this.order = pOrder;
-            this.horizonLayer = pHorizonLayer;
-            this.horizonLayerDepth = pHorizonLayerDepth;
-            this.sand = pSand;
-            this.limo = pLimo;
-            this.clay = pClay;
-            this.organicMatter = pOrganicMatter;
-            this.nitrogenAnalysis = pNitrogenAnalysis;
-            this.bulkDensitySoil = pBulkDensitySoil;
+            this.IdHorizon = pId;
+            this.Name = pName;
+            this.Order = pOrder;
+            this.HorizonLayer = pHorizonLayer;
+            this.HorizonLayerDepth = pHorizonLayerDepth;
+            this.Sand = pSand;
+            this.Limo = pLimo;
+            this.Clay = pClay;
+            this.OrganicMatter = pOrganicMatter;
+            this.NitrogenAnalysis = pNitrogenAnalysis;
+            this.BulkDensitySoil = pBulkDensitySoil;
 
         }
 

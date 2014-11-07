@@ -24,7 +24,8 @@ namespace IrrigationAdvisor.Models.Crop
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - name String
+    ///     - idStage int
+    ///     - name String           PK
     ///     - definition String
     /// 
     /// Methods:
@@ -44,6 +45,7 @@ namespace IrrigationAdvisor.Models.Crop
         ///     - description
         ///     
         /// </summary>
+        private int idStage;
         private string name;
         private string description;
 
@@ -56,6 +58,12 @@ namespace IrrigationAdvisor.Models.Crop
         /// The properties are:
         ///     - Name: the name of the instance
         /// </summary>
+
+        public int IdStage
+        {
+            get { return idStage; }
+            set { idStage = value; }
+        }
         public string Name
         {
             get { return name; }
@@ -74,7 +82,9 @@ namespace IrrigationAdvisor.Models.Crop
         /// </summary>
         public Stage()
         {
+            this.idStage = 0;
             this.Name = "noname";
+            this.Description = "";
 
         }
 
@@ -82,8 +92,9 @@ namespace IrrigationAdvisor.Models.Crop
         /// Constructor of ClassTemplate with parameters
         /// </summary>
         /// <param name="pNewName"></param>
-        public Stage(String pName, String pDescription)
+        public Stage(int pId, String pName, String pDescription)
         {
+            this.IdStage = pId;
             this.Name = pName;
             this.Description = pDescription;
         }
