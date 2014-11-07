@@ -173,6 +173,9 @@ namespace IrrigationAdvisor.Models.Crop
         #region Construction
         /// <summary>
         /// Constructor of ClassTemplate
+        /// UsingTable: field used to return the cropCroefficient. 
+        /// - False: return the kc from the list (day by day). 
+        /// - True: return the kc from the table (with 4 fixed points) 
         /// </summary>
         public CropCoefficient()
         {

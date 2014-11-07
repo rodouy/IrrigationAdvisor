@@ -142,7 +142,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
         #endregion
 
         #region Public Methods
-        public double getAverageTemperature(DateTime pDate)
+        public double getAverageTemperature()
         {
             double lAverageTemperature = 0;
             try
@@ -160,13 +160,11 @@ namespace IrrigationAdvisor.Models.WeatherStation
             return lAverageTemperature;
         }
 
-        public double getEvapotranspiration(DateTime pDate)
+        public double getEvapotranspiration()
         {
             double lEvapotranspiration = 0;
             try
             {
-                if (pDate == null)
-                    return 0;
                 if (this.Evapotranspiration == null)
                     return 0;
                 if (this.Evapotranspiration != 0)

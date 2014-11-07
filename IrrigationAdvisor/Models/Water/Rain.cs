@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IrrigationAdvisor.Models.Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -52,7 +53,13 @@ namespace IrrigationAdvisor.Models.Water
             
         }
 
- 
+        public Rain(CropIrrigationWeather pCropIrrigationWeather, DateTime pDate, double pInput)
+        {
+            this.CropIrrigationWeather = pCropIrrigationWeather;
+            this.Date = pDate;
+            this.Input = pInput;
+
+        }
         #endregion
 
         #region Private Helpers
