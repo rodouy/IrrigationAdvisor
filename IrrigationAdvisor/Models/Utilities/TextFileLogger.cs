@@ -70,6 +70,25 @@ namespace IrrigationAdvisor.Models.Utilities
                 {
                 }
             }
+            try
+            {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    using (FileStream file = new FileStream(ConfigFilePath, FileMode.OpenOrCreate, FileAccess.Write))
+                    {
+                        StreamWriter lStreamWriter = new StreamWriter(ConfigFilePath, true);
+                        lStreamWriter.WriteLine((((System.DateTime.Now + " - ") + fileName + " - ") + methodName + " - ") + message + "\r\n");
+                        lStreamWriter.WriteLine("\n");
+                        lStreamWriter.Close();
+                    }
+                    
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
 
         }
         #endregion
