@@ -24,8 +24,8 @@ namespace IrrigationAdvisor.Models.Crop
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - specie:  Specie
-    ///     - stage:  Stage
+    ///     - specie:  Specie   - PK
+    ///     - stage:  Stage     - PK
     ///     - minDegree: double
     ///     - maxDegree: double
     ///     - rootDepth: double
@@ -52,6 +52,7 @@ namespace IrrigationAdvisor.Models.Crop
         ///     - rootDepth: double
         ///     
         /// </summary>
+        private int idPhenologicalStage;
         private Specie specie;
         private Stage stage;
         private double minDegree;
@@ -60,6 +61,13 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Properties
+
+        public int IdPhenologicalStage
+        {
+            get { return idPhenologicalStage; }
+            set { idPhenologicalStage = value; }
+        }
+        
         public Specie Specie
         {
             get { return specie; }
@@ -95,6 +103,7 @@ namespace IrrigationAdvisor.Models.Crop
         #region Construction
         public PhenologicalStage() 
         {
+            this.idPhenologicalStage=0;
             this.Specie = new Specie();
             this.Stage = new Stage();
             this.MinDegree = 0;
@@ -110,9 +119,10 @@ namespace IrrigationAdvisor.Models.Crop
         /// <param name="pMinDegree"></param>
         /// <param name="pMaxDegree"></param>
         /// <param name="pRootDepth"></param>
-        public PhenologicalStage(Specie pSpecie, Stage pStage, double pMinDegree,
+        public PhenologicalStage(int pId,Specie pSpecie, Stage pStage, double pMinDegree,
             double pMaxDegree, double pRootDepth)
         {
+            this.idPhenologicalStage = pId;
             this.Specie = pSpecie;
             this.Stage = pStage;
             this.MinDegree = pMinDegree;
@@ -133,6 +143,28 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Overrides
+        // Different region for each class override
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            PhenologicalStage lPhenologicalStage = obj as PhenologicalStage;
+            return this.Specie.Equals(lPhenologicalStage.Specie) &&
+                this.Stage.Equals(lPhenologicalStage.Stage);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Specie.GetHashCode();
+        }
         #endregion
     }
 }

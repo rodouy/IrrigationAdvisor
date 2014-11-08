@@ -28,15 +28,16 @@ namespace IrrigationAdvisor.Models.Crop
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - name String
-    ///     - specie Specie
+    ///     - idCrop int
+    ///     - name String              
+    ///     - specie Specie                                 - PK
     ///     - location
     ///     - cropCoefficient CropCoefficient
     ///     - density double
     ///     - phenologiclaStage PhenologicalStage
-    ///     - sowingDate DateTime
+    ///     - sowingDate DateTime                           - PK
     ///     - harvestDate DateTime
-    ///     - soil Soil
+    ///     - soil Soil                                     - PK
     ///     - maxEvapotranspirationToIrrigate double
     ///     
     /// 
@@ -59,6 +60,7 @@ namespace IrrigationAdvisor.Models.Crop
 
         #region Fields
 
+        private int idCrop;
         private String name;
         private Specie specie;
         private Location.Location location;
@@ -73,6 +75,12 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Properties
+
+        public int IdCrop
+        {
+            get { return idCrop; }
+            set { idCrop = value; }
+        }
         public String Name
         {
             get { return name; }
@@ -141,8 +149,10 @@ namespace IrrigationAdvisor.Models.Crop
         /// </summary>
         public Crop()
         {
+            this.idCrop = 0;
             this.Name = "noname";
             this.Specie = new Specie();
+            this.Location = new Location.Location();
             this.CropCoefficient = new CropCoefficient();
             this.Density = 0;
             this.PhenologicalStage = new PhenologicalStage();
@@ -152,18 +162,21 @@ namespace IrrigationAdvisor.Models.Crop
             this.MaxEvapotranspirationToIrrigate = 0;
         }
 
-        public Crop(String pName, Specie pSpecie, CropCoefficient pCropCoefficient,
+        public Crop(int pId, String pName, Specie pSpecie, Location.Location pLocation, CropCoefficient pCropCoefficient,
             double pDensity, PhenologicalStage pPhenologicalStage, DateTime pSowingDate,
             DateTime pHarvestDate, Soil pSoil, double pMaxEvapotranspirationToIrrigate)
         {
+            this.IdCrop = pId;
             this.Name = pName;
             this.Specie = pSpecie;
+            this.Location = pLocation;
             this.CropCoefficient = pCropCoefficient;
             this.Density = pDensity;
             this.PhenologicalStage = pPhenologicalStage;
             this.SowingDate = pSowingDate;
             this.HarvestDate = pHarvestDate;
             this.Soil = pSoil;
+            this.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
 
         }
 
@@ -226,8 +239,8 @@ namespace IrrigationAdvisor.Models.Crop
                 return false;
             }
             Crop lCrop = obj as Crop;
-            return this.Name.Equals(lCrop.Name) &&
-                this.Location.Equals(lCrop);
+            return this.Soil.Equals(lCrop.Soil) &&
+                this.SowingDate .Equals(lCrop.SowingDate ) && this.Specie .Equals(lCrop.Specie );
         }
 
         public override int GetHashCode()
