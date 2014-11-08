@@ -159,6 +159,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 8), 99, 0, 15.6, 2.8, 6.4);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 9), 99, 0, 18, 0, 6.4);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 10), 99, 0, 6, 0, 6.4);
+            Console.WriteLine("holaaaaa");
 
             irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2012, 11, 4), 3);
             irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2012, 11, 9), 8);
