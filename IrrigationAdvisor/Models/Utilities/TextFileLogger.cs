@@ -38,6 +38,7 @@ namespace IrrigationAdvisor.Models.Utilities
     {
 
         #region Consts
+        private const String FOLDER_NAME = "C:\\TextLog\\";
         private const String FILE_NAME = "LogTextFile.txt";
         
         #endregion
@@ -48,48 +49,96 @@ namespace IrrigationAdvisor.Models.Utilities
         #region Properties
         private static String ConfigFilePath
         {
-            get { return Application.UserAppDataPath + FILE_NAME; }
+            get 
+            {
+                String lFilePath = "";
+                lFilePath = Application.UserAppDataPath + FILE_NAME;
+                lFilePath = Environment.ExpandEnvironmentVariables(FOLDER_NAME + FILE_NAME);
+                return  lFilePath;}
         }
         
         #endregion
 
         #region Construction
+        public TextFileLogger()
+        {
+            if (!Directory.Exists(FOLDER_NAME))
+            {
+                Directory.CreateDirectory(FOLDER_NAME);
+            }
+
+            if (File.Exists(ConfigFilePath))
+            {
+                
+                File.Delete(ConfigFilePath);
+            }
+        }
         #endregion
 
         #region Private Helpers
         #endregion
 
         #region Public Methods
-        public void WriteLogFile(String fileName, String methodName, String message)
+        public void WriteLogFile (String pFileName, String pMethodName, String pMessage, String pTime)
         {
-            String FolderPath = Environment.ExpandEnvironmentVariables("C:\\User\\LogFile.txt");
+            //String FolderPath = Environment.ExpandEnvironmentVariables("C:\\TextLog\\LogFile.txt");
             FileStream fs = null;
             if (!File.Exists(ConfigFilePath))
             {
                 using (fs = File.Create(ConfigFilePath))
                 {
+                    //fs.Close();
                 }
+            }
+            else
+            {
+                File.Delete(ConfigFilePath);
             }
             try
             {
-                if (!string.IsNullOrEmpty(message))
+                if (String.IsNullOrEmpty(pTime))
+                    pTime = System.DateTime.Now.ToString();
+                if (!string.IsNullOrEmpty(pMessage))
                 {
-                    using (FileStream file = new FileStream(ConfigFilePath, FileMode.OpenOrCreate, FileAccess.Write))
+                    using (FileStream lFile = new FileStream(ConfigFilePath, FileMode.OpenOrCreate, FileAccess.Write))
                     {
+                        lFile.Close();
                         StreamWriter lStreamWriter = new StreamWriter(ConfigFilePath, true);
-                        lStreamWriter.WriteLine((((System.DateTime.Now + " - ") + fileName + " - ") + methodName + " - ") + message + "\r\n");
-                        lStreamWriter.WriteLine("\n");
+                        lStreamWriter.WriteLine((((pTime + " - ") + pFileName + " - ") + pMethodName + " - ") + pMessage + "\r\n");
+                        lStreamWriter.WriteLine("---------------------------------------- ");
                         lStreamWriter.Close();
                     }
-                    
+
                 }
             }
             catch (Exception)
             {
-                
                 throw;
             }
+        }
 
+        public String ReadLogFile()
+        {
+            //String FolderPath = Environment.ExpandEnvironmentVariables("C:\\User\\LogFile.txt");
+            String lReadLog = "";
+            if (File.Exists(ConfigFilePath))
+            {
+                try
+                {
+                    using (FileStream lFile = new FileStream(ConfigFilePath, FileMode.Open, FileAccess.Read))
+                    {
+                        lFile.Close();
+                        StreamReader lStreamReader = new StreamReader(ConfigFilePath, true);
+                        lReadLog = lStreamReader.ReadToEnd();
+                        lStreamReader.Close();
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return lReadLog;              
         }
         #endregion
 

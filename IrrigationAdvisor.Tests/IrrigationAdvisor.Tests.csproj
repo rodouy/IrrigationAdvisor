@@ -87,6 +87,7 @@
     <Compile Include="Models\Crop\SoilTest.cs" />
     <Compile Include="Models\IrrigationSystem\IrrigationSystemTest.cs" />
     <Compile Include="Models\Utilities\PairTest.cs" />
+    <Compile Include="Models\Utilities\TextFileLoggerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

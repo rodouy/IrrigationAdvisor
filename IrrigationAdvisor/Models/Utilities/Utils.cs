@@ -140,7 +140,7 @@ namespace IrrigationAdvisor.Models.Utilities
     // exception is caught
     private void OnThreadException(object sender, ThreadExceptionEventArgs e)
     {
-        // Log the exception to a file
+        // Log the exception to a lFile
         HandleException(e.Exception);
     }
 
