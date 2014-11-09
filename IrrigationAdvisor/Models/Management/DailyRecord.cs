@@ -31,6 +31,7 @@ namespace IrrigationAdvisor.Models.Management
     ///     - alternativeWeatherData: WeatherData
     ///     - date: DateTime                               - PK
     ///     - growingDegree: double
+    ///     - totalGrowingDegree: double
     ///     - evapotranspirationCrop: WaterOutput
     ///     - rain: WaterInput
     ///     - irrigation: WaterInput 
@@ -61,6 +62,7 @@ namespace IrrigationAdvisor.Models.Management
         private WeatherStation.WeatherData alternativeWeatherData;
         private DateTime dateHour;
         private double growingDegree;
+        private double modifiedGrowingDegree;
         private Water.WaterOutput evapotranspirationCrop;
         private Water.WaterInput rain;
         private Water.WaterInput irrigation;
@@ -100,6 +102,12 @@ namespace IrrigationAdvisor.Models.Management
             set { growingDegree = value; }
         }
 
+        public double ModifiedGrowingDegree
+        {
+            get { return modifiedGrowingDegree; }
+            set { modifiedGrowingDegree = value; }
+        }
+        
         internal Water.WaterOutput EvapotranspirationCrop
         {
             get { return evapotranspirationCrop; }
@@ -134,6 +142,7 @@ namespace IrrigationAdvisor.Models.Management
             this.AlternativeWeatherData = new WeatherStation.WeatherData();
             this.DateHour = new DateTime();
             this.GrowingDegree = 0;
+            this.ModifiedGrowingDegree = 0;
             this.EvapotranspirationCrop = new Water.WaterOutput();
             this.Rain = new Water.WaterInput();
             this.Irrigation = new Water.WaterInput();
@@ -143,7 +152,7 @@ namespace IrrigationAdvisor.Models.Management
 
         public DailyRecord(CropIrrigationWeather pCropIrrigationWeather, 
             WeatherStation.WeatherData pMainWeatherData, WeatherStation.WeatherData pAlternativeWeatherData,
-            DateTime pDateHour, double pGrowingDegree, Water.WaterOutput pEvapotranspirationCrop,
+            DateTime pDateHour, double pGrowingDegree, double pModifiedGrowingDegree, Water.WaterOutput pEvapotranspirationCrop,
             Water.WaterInput pRain, Water.WaterInput pIrrigation, String pObservations) 
         {
             this.CropIrrigationWeather = pCropIrrigationWeather;
@@ -151,6 +160,7 @@ namespace IrrigationAdvisor.Models.Management
             this.AlternativeWeatherData = pAlternativeWeatherData;
             this.DateHour = pDateHour;
             this.GrowingDegree = pGrowingDegree;
+            this.ModifiedGrowingDegree = pModifiedGrowingDegree;
             this.EvapotranspirationCrop = pEvapotranspirationCrop;
             this.Rain = pRain;
             this.Irrigation = pIrrigation;
@@ -180,6 +190,18 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Overrides
+        public override string ToString()
+        {
+            string lReturn = this.CropIrrigationWeather.ToString() +  "\t" +
+               this.DateHour.ToString() + this.GrowingDegree +
+               this.EvapotranspirationCrop +
+               this.Rain +
+               this.Irrigation +
+               this.Observations
+               ;
+            return lReturn;
+
+        }
         #endregion
 
 

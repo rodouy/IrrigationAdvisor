@@ -177,7 +177,6 @@
     <Compile Include="Models\IrrigationSystem\IrrigationSystem.cs" />
     <Compile Include="Models\Irrigation\Bomb.cs" />
     <Compile Include="Models\Irrigation\Drip.cs" />
-    <Compile Include="Models\Irrigation\IrrigationRecords.cs" />
     <Compile Include="Models\Irrigation\IrrigationUnit.cs" />
     <Compile Include="Models\Irrigation\Pivot.cs" />
     <Compile Include="Models\Irrigation\Sprinkler.cs" />
@@ -188,6 +187,7 @@
     <Compile Include="Models\Location\Position.cs" />
     <Compile Include="Models\Location\Region.cs" />
     <Compile Include="Models\Management\CropIrrigationWeather.cs" />
+    <Compile Include="Models\Management\CropIrrigationWeatherRecords.cs" />
     <Compile Include="Models\Management\DailyRecord.cs" />
     <Compile Include="Models\Water\EvapotranspirationCrop.cs" />
     <Compile Include="Models\Water\Irrigation.cs" />

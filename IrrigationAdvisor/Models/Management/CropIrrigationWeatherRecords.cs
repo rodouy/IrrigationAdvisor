@@ -5,6 +5,7 @@ using System.Web;
 
 namespace IrrigationAdvisor.Models.Management
 {
+    
     /// <summary>
     /// Create: 2014-10-31
     /// Author: monicarle
@@ -25,6 +26,7 @@ namespace IrrigationAdvisor.Models.Management
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
+    ///     - idI
     ///     - cropIrrigationWeather: CropIrrigationWeather
     ///     - dailyRecords: List<DailyRecord>
     ///     - growingDegreeDays: double
@@ -55,8 +57,9 @@ namespace IrrigationAdvisor.Models.Management
     ///     - getLastThreeDaysOfEvapotranspirationCrop(): double
     ///     
     /// </summary>
-    public class IrrigationRecords
+    public class CropIrrigationWeatherRecords
     {
+    
         #region Consts
         #endregion
 
@@ -81,13 +84,13 @@ namespace IrrigationAdvisor.Models.Management
             get { return cropIrrigationWeather; }
             set { cropIrrigationWeather = value; }
         }
- 
+
         public List<DailyRecord> DailyRecords
         {
             get { return dailyRecords; }
             set { dailyRecords = value; }
         }
- 
+
         public double GrowingDegreeDays
         {
             get { return growingDegreeDays; }
@@ -111,7 +114,7 @@ namespace IrrigationAdvisor.Models.Management
             get { return totalEffectiveRain; }
             set { totalEffectiveRain = value; }
         }
- 
+
         public double HydricBalance
         {
             get { return hydricBalance; }
@@ -129,7 +132,7 @@ namespace IrrigationAdvisor.Models.Management
             get { return lastWaterInput; }
             set { lastWaterInput = value; }
         }
-        
+
         public double TotalEvapotranspirationCropFromLastWaterInput
         {
             get { return totalEvapotranspirationCropFromLastWaterInput; }
@@ -140,7 +143,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Construction
 
-        public IrrigationRecords() 
+        public CropIrrigationWeatherRecords()
         {
             this.CropIrrigationWeather = new CropIrrigationWeather();
             this.DailyRecords = new List<DailyRecord>();
@@ -152,14 +155,14 @@ namespace IrrigationAdvisor.Models.Management
             this.SoilHydricVolume = 0;
             this.LastWaterInput = DateTime.Now;
             this.TotalEvapotranspirationCropFromLastWaterInput = 0;
-            
+
         }
 
-        public IrrigationRecords(CropIrrigationWeather pCropIrrigationWeather, 
-            List <DailyRecord> pDailyRecords, double pGrowingDegreeDays, 
+        public CropIrrigationWeatherRecords(CropIrrigationWeather pCropIrrigationWeather,
+            List<DailyRecord> pDailyRecords, double pGrowingDegreeDays,
             double pModifiedGrowingDegreeDays, double pTotalEvapotranspirationCrop,
             double pTotalEffectiveRain, double pHidricBalance, double pSoilHidricVolume,
-            DateTime pLastWaterInput, double pTotalEvapotranspirationCropFromLastWaterInput) 
+            DateTime pLastWaterInput, double pTotalEvapotranspirationCropFromLastWaterInput)
         {
             this.CropIrrigationWeather = pCropIrrigationWeather;
             this.DailyRecords = pDailyRecords;
@@ -171,7 +174,7 @@ namespace IrrigationAdvisor.Models.Management
             this.SoilHydricVolume = pSoilHidricVolume;
             this.LastWaterInput = pLastWaterInput;
             this.TotalEvapotranspirationCropFromLastWaterInput = pTotalEvapotranspirationCropFromLastWaterInput;
-        
+
         }
 
         #endregion

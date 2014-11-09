@@ -280,11 +280,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                         lBaseTemperature = pCropIrrigationWeather.Crop.getBaseTemperature();
                         lGrowingDegree = lAverageTemp - lBaseTemperature;
+                        // con el dato lEvapotranspiration tengo que calcular la ETC del crop
+                        // para ello tengo que ver el KC del cultivo segun los  lGrowingDegree acumulados
                         Water.WaterOutput lEvapotranspirationCrop = new Water.EvapotranspirationCrop(pCropIrrigationWeather, pDateTime, lEvapotranspiration);
                         this.EvapotranspirationList.Add(lEvapotranspirationCrop);
                         lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
                         lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
-                        DailyRecord lNewDailyRecord = new DailyRecord(pCropIrrigationWeather, lMainWeatherData, lAlternativeWeatherData, pDateTime, lGrowingDegree,
+                        double lModifiedGrowingDegree = 0;
+                        DailyRecord lNewDailyRecord = new DailyRecord(pCropIrrigationWeather, lMainWeatherData, lAlternativeWeatherData, pDateTime, lGrowingDegree, lModifiedGrowingDegree,
                             lEvapotranspirationCrop, lRain, lIrrigation, pObservations);
                     }
 
@@ -306,6 +309,27 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         //Security 
         //Utitilities
+
+        public String printDailyRecordsList()
+        {
+            String lReturn = Environment.NewLine + "DAILY RECORDS" + Environment.NewLine ;
+            foreach(DailyRecord lDailyrecord in this.DailyRecordsList)
+            {
+                lReturn += lDailyrecord.ToString() + Environment.NewLine;
+            }
+            return lReturn;
+        }
+
+
+        public String printWeatherDataList()
+        {
+            String lReturn = Environment.NewLine + "WEATHER DATA" + Environment.NewLine;
+            foreach (WeatherStation.WeatherData lWeatherData in this.WeatherDataList)
+            {
+                lReturn += lWeatherData.ToString() + Environment.NewLine;
+            }
+            return lReturn;
+        }
         //Water
         //WeatherStation
         public bool addWeatherDataToList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime,

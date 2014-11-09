@@ -181,6 +181,17 @@ namespace IrrigationAdvisor.Models.WeatherStation
         #endregion
 
         #region Overrides
+        public override string ToString()
+        {
+            string lReturn = this.WeatherStation.Name + "\t\t" +
+                this.Date.ToString()  + "\t\t" +
+                this.Temperature  + "\t\t" +
+                this.SolarRadiation   + "\t\t" +
+                this.TemperatureMax  + "\t\t" +
+                this.TemperatureMin + "\t\t" +
+                this.Evapotranspiration  + "\t\t";
+            return lReturn;
+        }
         #endregion
 
     }
