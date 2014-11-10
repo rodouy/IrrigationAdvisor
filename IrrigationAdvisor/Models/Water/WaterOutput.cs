@@ -116,6 +116,10 @@ namespace IrrigationAdvisor.Models.Water
         {
             return this.TYPE;
         }
+        public double getTotalInput()
+        {
+            return this.Input + this.ExtraInput;
+        }
         #endregion
 
         #region Overrides

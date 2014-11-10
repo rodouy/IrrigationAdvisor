@@ -57,6 +57,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Management
         private List<CropIrrigationWeather> cropIrrigationWeatherList;
         private List<DailyRecord> dailyRecordsList;
+        private List<CropIrrigationWeatherRecords> cropIrrigationWeatherRecordsList;
+
 
         //Security 
         //Utitilities
@@ -90,7 +92,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             get { return dailyRecordsList; }
             set { dailyRecordsList = value; }
         }
-        
+
+        public List<CropIrrigationWeatherRecords> CropIrrigationWeatherRecordsList
+        {
+            get { return cropIrrigationWeatherRecordsList; }
+            set { cropIrrigationWeatherRecordsList = value; }
+        }
         //Security 
         //Utitilities
 
@@ -137,8 +144,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             //Location
 
             //Management
-            this.cropIrrigationWeatherList = new List<CropIrrigationWeather>();
-            this.dailyRecordsList = new List<DailyRecord>();
+            this.CropIrrigationWeatherList = new List<CropIrrigationWeather>();
+            this.DailyRecordsList = new List<DailyRecord>();
+            this.CropIrrigationWeatherRecordsList = new List<CropIrrigationWeatherRecords>();
             //Security 
 
             //Utitilities

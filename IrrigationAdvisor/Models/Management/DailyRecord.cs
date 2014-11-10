@@ -108,19 +108,19 @@ namespace IrrigationAdvisor.Models.Management
             set { modifiedGrowingDegree = value; }
         }
         
-        internal Water.WaterOutput EvapotranspirationCrop
+        public  Water.WaterOutput EvapotranspirationCrop
         {
             get { return evapotranspirationCrop; }
             set { evapotranspirationCrop = value; }
         }
 
-        internal Water.WaterInput Rain
+        public Water.WaterInput Rain
         {
             get { return rain; }
             set { rain = value; }
         }
 
-        internal Water.WaterInput Irrigation
+        public Water.WaterInput Irrigation
         {
             get { return irrigation; }
             set { irrigation = value; }

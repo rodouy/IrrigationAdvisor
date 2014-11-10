@@ -86,6 +86,7 @@
     <Compile Include="Models\Crop\HorizonTest.cs" />
     <Compile Include="Models\Crop\SoilTest.cs" />
     <Compile Include="Models\IrrigationSystem\IrrigationSystemTest.cs" />
+    <Compile Include="Models\Management\CropIrrigationWeatherRecordsTest.cs" />
     <Compile Include="Models\Utilities\PairTest.cs" />
     <Compile Include="Models\Utilities\TextFileLoggerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,9 +104,7 @@
       <Name>IrrigationAdvisor</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Management\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
