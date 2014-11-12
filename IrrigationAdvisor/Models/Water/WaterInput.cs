@@ -123,6 +123,12 @@ namespace IrrigationAdvisor.Models.Water
         #endregion
 
         #region Overrides
+        public override string ToString()
+        {
+            string lReturn = this.getTotalInput().ToString();
+            return lReturn;
+
+        }
         #endregion
 
 

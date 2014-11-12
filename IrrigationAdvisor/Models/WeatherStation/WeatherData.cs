@@ -149,7 +149,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             {
                 if (this.TemperatureMax == null || this.TemperatureMin == null)
                     return 0;
-                lAverageTemperature = Math.Round(this.TemperatureMax + this.TemperatureMin / 2, 2);
+                lAverageTemperature = Math.Round((this.TemperatureMax + this.TemperatureMin )/ 2, 2);
 
             }
             catch (Exception e)

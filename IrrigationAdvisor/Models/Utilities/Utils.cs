@@ -60,10 +60,31 @@ namespace IrrigationAdvisor.Models.Utilities
         #endregion
 
         #region Public Methods
+
+        public static int getDaysDifference(DateTime oldDate, DateTime newDate)
+        {
+            // Difference in days, hours, and minutes.
+            TimeSpan ts = newDate - oldDate;
+
+            // Difference in days.
+            return  ts.Days;
+        }
+
+        public static bool isTheSameDay(DateTime dateOne, DateTime dateTwo)
+        {
+            bool lReturn = false ;
+            if (dateOne.Year == dateTwo.Year && dateOne.Month == dateTwo.Month && dateOne.Day == dateTwo.Day)
+            {
+                lReturn = true;
+            }
+            return lReturn;
+        }
         #endregion
 
         #region Overrides
         #endregion
+
+
 
     }
 

@@ -172,7 +172,7 @@ namespace IrrigationAdvisor.Models.Crop
             }
             Soil lSoil = obj as Soil;
             return (this.Name.Equals(lSoil.Name)&&
-                this .Location.Equals(lSoil));
+                this .Location.Equals(lSoil.Location));
         }
 
         public override int GetHashCode()

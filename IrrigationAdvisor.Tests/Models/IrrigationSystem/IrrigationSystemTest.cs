@@ -32,22 +32,36 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
             this.createTestingUnity();
             this.addWeatherData();
+            irrirgSys.addCropIrrigWeatherToList(cropIrrigWeather);
             this.addRainData();
+            this.addDailyRecord();
             this.printSystemData();
+
+        }
+
+        private void addDailyRecord()
+        {
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 1), "Dia uno");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 2), "Dia dos");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 3), "Dia tres");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 4), "Dia cuatro");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 5), "Dia cinco");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 6), "Dia seis");
+
 
         }
         public void addWeatherData()
         {
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 1), 99, 0, 30, 10, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 2), 99, 0, 13, 4, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 3), 99, 0, 11.7, 1, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 4), 99, 0, 14.4, 5, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 5), 99, 0, 20, 4, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 6), 99, 0, 22.8, 1, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 7), 99, 0, 10.6, 5.6, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 8), 99, 0, 15.6, 2.8, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 9), 99, 0, 18, 0, 6.4);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2012, 11, 10), 99, 0, 6, 0, 6.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 1), 99, 0, 30, 10, 2);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 2), 99, 0, 13, 4, 2.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 3), 99, 0, 11.7, 1, 3.6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 4), 99, 0, 14.4, 5, 4.7);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 5), 99, 0, 20, 4, 4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 6), 99, 0, 22.8, 1, 3.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 7), 99, 0, 10.6, 5.6, 3.8);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 8), 99, 0, 15.6, 2.8, 4.6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 9), 99, 0, 18, 0, 2.6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 10), 99, 0, 6, 0, 3.4);
 
 
 
@@ -56,8 +70,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private void addRainData()
         {
-            irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2012, 11, 4), 3);
-            irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2012, 11, 9), 8);
+            irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2014, 11, 4), 3);
+            irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2014, 11, 9), 8);
         }
 
         private void printSystemData()
@@ -75,7 +89,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         public void createTestingUnity()
         {
-            lRegion = new Region("Templada", null);
+            lRegion = new Region("Templada", lLocation);
             lLocation = createLocation(new Position(34, 55),new Country("Uruguay", null ), lRegion, new City("Minas",null ));
             
             double sojeBaseTemp = 10;
@@ -107,7 +121,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             irrirgSys = new IrrigationSystem();
 
-            irrirgSys.addCropIrrigWeatherToList(cropIrrigWeather);
+            
         }
 
 

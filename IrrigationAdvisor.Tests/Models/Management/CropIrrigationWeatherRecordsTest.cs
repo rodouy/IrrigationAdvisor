@@ -22,21 +22,28 @@ namespace IrrigationAdvisor.Tests.Models.Management
             DailyRecord lDailyRecord02 = new DailyRecord();
             lDailyRecord02.DateHour = new DateTime(2014, 11, 2);
             lDailyRecord02.Rain.Input = 2.2;
-            lDailyRecord02.EvapotranspirationCrop = new IrrigationAdvisor.Models.Water.WaterOutput(2, new DateTime(2014, 11, 3), 0, DateTime.Now);
+            lDailyRecord02.GrowingDegree = 3;
+            lDailyRecord02.EvapotranspirationCrop.Input = 2;
             
             DailyRecord lDailyRecord03 = new DailyRecord();
             lDailyRecord03.DateHour = new DateTime(2014, 11, 3);
             lDailyRecord03.Rain.Input = 3.3;
-            lDailyRecord03.EvapotranspirationCrop = new IrrigationAdvisor.Models.Water.WaterOutput(6,new DateTime(2014,11,3),0,DateTime.Now);
+            lDailyRecord03.GrowingDegree = 4;
+            lDailyRecord03.EvapotranspirationCrop.Input = 6;
             DailyRecord lDailyRecord04 = new DailyRecord();
             lDailyRecord04.DateHour = new DateTime(2014, 11, 4);
             lDailyRecord04.Rain.Input = 4.4;
+            lDailyRecord04.GrowingDegree = 4;
+            lDailyRecord04.ModifiedGrowingDegree = -2;
             lDailyRecord04.Observations = "prueba obs";
             
             DailyRecord lDailyRecord05 = new DailyRecord();
             lDailyRecord05.DateHour = new DateTime(2014, 11, 5);
             lDailyRecord05.Rain.Input = 5.5;
+            lDailyRecord05.GrowingDegree = 3;
+            lDailyRecord05.Irrigation.Input = 10;
             lDailyRecord05.Rain.ExtraInput = 5.5;
+            lDailyRecord05.ModifiedGrowingDegree = 5;
 
             
             lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord01);
@@ -52,6 +59,14 @@ namespace IrrigationAdvisor.Tests.Models.Management
             Assert.AreEqual(lCropIrrigationWeatherRecords.getEvapotranspirationCrop(new DateTime(2014, 11, 3)), 6);
             Assert.AreEqual(lCropIrrigationWeatherRecords.getObservations(new DateTime(2014, 11, 4)), "prueba obs");
             Assert.AreEqual(lCropIrrigationWeatherRecords.getLastThreeDaysOfEvapotranspirationCrop(new DateTime(2014, 11, 3)), 11);
+
+
+            Assert.AreEqual(lCropIrrigationWeatherRecords.GrowingDegreeDays, 17);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.ModifiedGrowingDegreeDays, 3);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.TotalEvapotranspirationCrop, 11);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.TotalEffectiveRain, 22);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.TotalIrrigation, 10);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.LastWaterInput, new DateTime(2014,11,5));
             
         }
     }

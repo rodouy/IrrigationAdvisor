@@ -192,15 +192,24 @@ namespace IrrigationAdvisor.Models.Management
         #region Overrides
         public override string ToString()
         {
-            string lReturn = this.CropIrrigationWeather.ToString() +  "\t" +
-               this.DateHour.ToString() + this.GrowingDegree +
-               this.EvapotranspirationCrop +
-               this.Rain +
-               this.Irrigation +
-               this.Observations
-               ;
+            string lReturn = this.CropIrrigationWeather.Crop.Name +  "\t\t" +
+               this.DateHour.ToString() + this.GrowingDegree + "\t\t" +
+               this.EvapotranspirationCrop.getTotalInput() + "\t\t" +
+               this.Rain + "\t\t" +
+               this.Irrigation + "\t\t" +
+               this.Observations + "\t\t";
             return lReturn;
 
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            DailyRecord lDailyRecord = obj as DailyRecord;
+            return this.CropIrrigationWeather.Equals(lDailyRecord.CropIrrigationWeather) &&
+                this.DateHour.Date.Equals(lDailyRecord.DateHour.Date);
         }
         #endregion
 

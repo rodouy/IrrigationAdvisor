@@ -130,8 +130,7 @@ namespace IrrigationAdvisor.Models.Crop
                 return false;
             }
             Specie lSpecie = obj as Specie;
-            return this.Name.Equals(lSpecie.Name) &&
-                this.Region.Equals(lSpecie.Region);
+            return this.Name.Equals(lSpecie.Name);
         }
 
         public override int GetHashCode()
