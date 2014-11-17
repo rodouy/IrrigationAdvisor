@@ -14,6 +14,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
     [TestClass]
     public class IrrigationSystemTest
     {
+        #region Fields General Test
         private Region lRegion;
         private Location.Location lLocation;
         private Specie lSpecie;
@@ -25,8 +26,69 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Irrigation.IrrigationUnit irrigationUnit;
         private WeatherStation.WeatherStation weatherStation;
         private CropIrrigationWeather cropIrrigWeather;
-        private IrrigationSystem irrirgSys;
+        #endregion
 
+        #region Fields Santa Lucia Test
+        private Soil soil_1;
+        private Soil soil_2;
+        private Soil soil_3_4;
+        private Soil soil_5;
+
+        private Horizon horizon_1A;
+        private Horizon horizon_1B;
+        private Horizon horizon_2A;
+        private Horizon horizon_2AB;
+        private Horizon horizon_2B;
+        private Horizon horizon_3_4A;
+        private Horizon horizon_3_4B;
+        private Horizon horizon_5A;
+        private Horizon horizon_5AB;
+        private Horizon horizon_5B;
+        
+        #endregion
+
+        private IrrigationSystem irrirgSys;
+        [TestMethod]
+        public void santaLuciaTest()
+        {
+
+            lRegion = new Region("Templada", lLocation);
+            lLocation = createLocation(new Position(34, 55), new Country("Uruguay", null), lRegion, new City("Santa Lucia", null));
+
+            soil_1 = new Soil(1, "Suelo Pivot 1", lLocation);
+            soil_1 = new Soil(2, "Suelo Pivot 2", lLocation);
+            soil_1 = new Soil(3, "Suelo Pivot 3_4", lLocation);
+            soil_1 = new Soil(4, "Suelo Pivot 5", lLocation);
+
+           // horizon_1A = new Horizon(1,"Horizonte A - Suelo 1", 1, "A",)
+
+
+            double minDegree = 0;
+            double maxDegree = 60;
+            double rootDepth = 5;
+            lPhenologicalState = cretePhenologicalStage(1, lSpecie, new Stage(1, "v0", "Sin hojas"), minDegree, maxDegree, rootDepth);
+
+            lCropCoefficient = createCropCoefficientWithList(lSpecie, lRegion);
+
+            DateTime lSowingDate = new DateTime(2014, 11, 01);
+            double lSojaMaxEvaporTransptoIrrigate = 35;
+            double cropDensity = 70;
+
+            crop = createCrop(1, "Soja en Minas", lSpecie, lLocation, lCropCoefficient, cropDensity,
+                lPhenologicalState, lSowingDate, DateTime.Now, lSoil, lSojaMaxEvaporTransptoIrrigate);
+
+            lBomb = new Bomb("Bomba1", 1234, DateTime.Now, DateTime.Now, lLocation);
+            irrigationUnit = creteIrrigationUnit(1, "Unidad de Riego de prueba", "Pivot",
+                999, new List<Utilities.Pair<DateTime, double>>(), 300, new List<Crop.Crop>(), lBomb, lLocation);
+
+            weatherStation = new WeatherStation.WeatherStation(1, "WeatherStation1", "Model?", DateTime.Now, DateTime.Now, DateTime.Now, 1, lLocation, true);
+
+            cropIrrigWeather = new CropIrrigationWeather(irrigationUnit, crop, weatherStation, null);
+
+            irrirgSys = new IrrigationSystem();
+
+
+        }
         [TestMethod]
         public void systemTest()
         {
@@ -41,13 +103,21 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private void addDailyRecord()
         {
+            double irrigationCalculated = 0;
             irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 1), "Dia uno");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
             irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 2), "Dia dos");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
             irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 3), "Dia tres");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
             irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 4), "Dia cuatro");
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 5), "Dia cinco");
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 6), "Dia seis");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
 
+            irrirgSys.addIrrigationDataToList(cropIrrigWeather, new DateTime(2014, 11, 5), 22);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 5), "Dia cinco");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 6), "Dia seis");
+            
 
         }
         public void addWeatherData()
@@ -105,10 +175,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             lCropCoefficient = createCropCoefficientWithList(lSpecie, lRegion);
 
             DateTime lSowingDate = new DateTime (2014,11,01);
-            double lSojaMaxEvaporTransptoIrrigate = 333;
+            double lSojaMaxEvaporTransptoIrrigate = 35;
             double cropDensity = 70;
             
-            crop = createCrop(1,"Maiz en Minas", lSpecie,lLocation, lCropCoefficient, cropDensity,
+            crop = createCrop(1,"Soja en Minas", lSpecie,lLocation, lCropCoefficient, cropDensity,
                 lPhenologicalState, lSowingDate, DateTime.Now, lSoil, lSojaMaxEvaporTransptoIrrigate);
                 
             lBomb = new Bomb("Bomba1", 1234, DateTime.Now, DateTime.Now, lLocation);

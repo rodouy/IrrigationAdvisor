@@ -186,9 +186,12 @@
     <Compile Include="Models\Location\Location.cs" />
     <Compile Include="Models\Location\Position.cs" />
     <Compile Include="Models\Location\Region.cs" />
+    <Compile Include="Models\Management\CalculusAvailableWater.cs" />
+    <Compile Include="Models\Management\CalculusEvapotranspiration.cs" />
     <Compile Include="Models\Management\CropIrrigationWeather.cs" />
     <Compile Include="Models\Management\CropIrrigationWeatherRecords.cs" />
     <Compile Include="Models\Management\DailyRecord.cs" />
+    <Compile Include="Models\Management\IrrigationCalculus.cs" />
     <Compile Include="Models\Water\EvapotranspirationCrop.cs" />
     <Compile Include="Models\Water\Irrigation.cs" />
     <Compile Include="Models\Water\Rain.cs" />

@@ -87,16 +87,22 @@ namespace IrrigationAdvisor.Models.Crop
             this.Horizons = new List<Horizon>();
             
         }
-        public Soil (int pId,String pName,Location.Location pLocation, int pOrder, String pHorizonLayer,
-            double pHorizonLayerDepth, double pSand, double pLimo, 
-            double pClay, double pOrganicMatter, double pNitrogenAnalysis, 
-            double pFieldCapacity, double pPermanentWiltingPoing, double pBulkDensitySoil)
+
+        public Soil(int pId, String pName, Location.Location pLocation)
+        {
+            this.IdSoil = pId;
+            this.Name = pName;
+            this.Location = pLocation;
+            this.Horizons = new List<Horizon>();
+
+        }
+        public Soil (int pId,String pName,Location.Location pLocation,List <Horizon > pListHorizon)
     
          {
             this.IdSoil = pId;
             this.Name = pName ;
             this.Location = pLocation;
-            this.Horizons = new List<Horizon>();
+            this.Horizons = pListHorizon;
             
         }
 
@@ -121,22 +127,26 @@ namespace IrrigationAdvisor.Models.Crop
         }
         private Horizon getHorizonByRootDepth(double pRootDepth)
         {
+            /// rehacer ordenando por horizon.order
             Horizon lReturn = new Horizon();
             double lRootDepthSum =0;
             for(int i =0; i< this.horizons.Count; i++)
             {
                 Horizon lHorizon = this.getHorizonByOrder(i);
-                lRootDepthSum += lHorizon.HorizonLayerDepth;
-                if (lRootDepthSum >= pRootDepth)
+                if (lHorizon != null)
                 {
-                    lReturn = lHorizon;
-                    lReturn = lHorizon;
-                    return lReturn;
-                }
-                else 
-                {
-                    //The HorizonLayerDepth of each horizon is relative to this horizon. Not form the surface of the soil.
-                    pRootDepth -= lHorizon.HorizonLayerDepth;
+                    lRootDepthSum += lHorizon.HorizonLayerDepth;
+                    if (lRootDepthSum >= pRootDepth)
+                    {
+                        lReturn = lHorizon;
+                        lReturn = lHorizon;
+                        return lReturn;
+                    }
+                    else
+                    {
+                        //The HorizonLayerDepth of each horizon is relative to this horizon. Not form the surface of the soil.
+                        pRootDepth -= lHorizon.HorizonLayerDepth;
+                    }
                 }
                 
             }
