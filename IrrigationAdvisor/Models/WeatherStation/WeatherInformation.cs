@@ -6,6 +6,7 @@ using System.Web;
 using System.Net;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace IrrigationAdvisor.Models.WeatherStation
 {
@@ -23,6 +24,10 @@ namespace IrrigationAdvisor.Models.WeatherStation
         private String requestData;
         private String responseData;
 
+
+        private String lET;
+        private String lTemperature;
+        private WeatherData lWeatherData;
 
         #endregion
 
@@ -63,6 +68,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
 
         }
 
+        /*
         public WeatherInformation(String pWebAddress, String pRequestData)
         {
             webClient = new WebClient();
@@ -76,10 +82,52 @@ namespace IrrigationAdvisor.Models.WeatherStation
             ResponseData = String.Empty;
 
         }
+        */
 
         #endregion
 
         #region Private Helpers
+
+        private String ExtractInformationFromData(
+            String pInformationName)
+        {
+            String lReturn = String.Empty;
+            try
+            {
+                if (!String.IsNullOrEmpty(this.WebData))
+                {
+                    //Find all matches in file.
+                    MatchCollection lMatchCollection =
+                        Regex.Matches(this.WebData,
+                        @"(<td.*?>.*?</td>)", 
+                        RegexOptions.Singleline);
+                    //Loop over each match
+                    lWeatherData = new WeatherData();
+                    foreach (Match iMatch in lMatchCollection)
+                    {
+                        String lValue = iMatch.Groups[1].Value;
+                        int lLine = 0;
+                        Match lMatch = Regex.Match(lValue,
+                            @"Outside Temp", RegexOptions.Multiline);
+                        if (lMatch.Success)
+                        {
+                            
+                            //double.TryParse(iMatch.Value.ToString(), lWeatherData.Temperature);
+                        }
+                    }
+ 
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+
+
+            return lReturn;
+        }
+
         #endregion
 
         #region Public Methods
@@ -95,11 +143,12 @@ namespace IrrigationAdvisor.Models.WeatherStation
             WebData = webClient.DownloadString(WebAddress);
         }
 
+        /*
         public void ExtractInfomationWebRequest()
         {
             using (StreamWriter lStreamWriter = new StreamWriter(webRequest.GetRequestStream(), Encoding.UTF8))
             {
-                lStreamWriter.Write(RequestData);
+                //lStreamWriter.Write(RequestData);
             }
 
             HttpWebResponse lHttpWebResponse = (HttpWebResponse)webRequest.GetResponse();
@@ -108,6 +157,11 @@ namespace IrrigationAdvisor.Models.WeatherStation
                 ResponseData = lResponseReader.ReadToEnd();
             }
         }
+         * */
+
+
+
+
         #endregion
 
         #region Overrides
