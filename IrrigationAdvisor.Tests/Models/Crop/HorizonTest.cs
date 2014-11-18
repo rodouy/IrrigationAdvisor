@@ -25,7 +25,7 @@ namespace IrrigationAdvisor.Tests.Models.Crop
 
             double pmp = lHorizon.getPermanentWiltingPoint();
             double cc = lHorizon.getFieldCapacity();
-            double ad = lHorizon.getAvailableWaterCapacity();
+            double ad = lHorizon.getAvailableWaterCapacityEachTenCC();
 
             Assert.AreEqual(pmp, 16.002069999999989);
             Assert.AreEqual(cc, 34.1726);
