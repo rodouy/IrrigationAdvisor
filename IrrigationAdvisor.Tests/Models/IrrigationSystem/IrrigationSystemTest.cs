@@ -17,7 +17,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #region Fields General Test
         private Region lRegion;
         private Location.Location lLocation;
-        private Specie lSpecie;
+        private Specie lSpecieSoja;
+        private Specie lSpecieMaiz;
         private Soil lSoil;
         private PhenologicalStage lPhenologicalState;
         private CropCoefficient lCropCoefficient;
@@ -44,6 +45,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Horizon horizon_5A;
         private Horizon horizon_5AB;
         private Horizon horizon_5B;
+
+        double sojaBaseTemp = 10;
+        double maizBaseTemp = 8;
+            
         
         #endregion
 
@@ -55,26 +60,32 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             lRegion = new Region("Templada", lLocation);
             lLocation = createLocation(new Position(34, 55), new Country("Uruguay", null), lRegion, new City("Santa Lucia", null));
 
+            lSpecieSoja = createSpecie(1, "Soja", lRegion, sojaBaseTemp);
+            lSpecieMaiz = createSpecie(1, "Maiz", lRegion, maizBaseTemp);
+            
             soil_1 = new Soil(1, "Suelo Pivot 1", lLocation);
-            soil_1 = new Soil(2, "Suelo Pivot 2", lLocation);
-            soil_1 = new Soil(3, "Suelo Pivot 3_4", lLocation);
-            soil_1 = new Soil(4, "Suelo Pivot 5", lLocation);
+            soil_2 = new Soil(2, "Suelo Pivot 2", lLocation);
+            soil_3_4 = new Soil(3, "Suelo Pivot 3_4", lLocation);
+            soil_5 = new Soil(4, "Suelo Pivot 5", lLocation);
 
            // horizon_1A = new Horizon(1,"Horizonte A - Suelo 1", 1, "A",)
+            Horizon horizon_2A = new Horizon(1, "A", 0, "A", 14, 19, 53, 28, 4.4, 0, 1.2);
+            Horizon horizon_2AB = new Horizon(2, "AB", 1, "AB", 23, 18, 45, 37, 3, 0, 1.3);
+            Horizon horizon_2B = new Horizon(3, "B", 2, "B", 20, 19, 37, 44, 2, 0, 1.4);
 
+            soil_2.Horizons.Add(horizon_2A);
+            soil_2.Horizons.Add(horizon_2AB);
+            soil_2.Horizons.Add(horizon_2B);
 
-            double minDegree = 0;
-            double maxDegree = 60;
-            double rootDepth = 5;
-            lPhenologicalState = cretePhenologicalStage(1, lSpecie, new Stage(1, "v0", "Sin hojas"), minDegree, maxDegree, rootDepth);
-
-            lCropCoefficient = createCropCoefficientWithList(lSpecie, lRegion);
-
+            irrirgSys = new IrrigationSystem();
+            addPhenologicalStageList();
+            
+            
             DateTime lSowingDate = new DateTime(2014, 11, 01);
             double lSojaMaxEvaporTransptoIrrigate = 35;
             double cropDensity = 70;
 
-            crop = createCrop(1, "Soja en Minas", lSpecie, lLocation, lCropCoefficient, cropDensity,
+            crop = createCrop(1, "Soja en Minas", lSpecieSoja, lLocation, lCropCoefficient, cropDensity,
                 lPhenologicalState, lSowingDate, DateTime.Now, lSoil, lSojaMaxEvaporTransptoIrrigate);
 
             lBomb = new Bomb("Bomba1", 1234, DateTime.Now, DateTime.Now, lLocation);
@@ -84,8 +95,6 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             weatherStation = new WeatherStation.WeatherStation(1, "WeatherStation1", "Model?", DateTime.Now, DateTime.Now, DateTime.Now, 1, lLocation, true);
 
             cropIrrigWeather = new CropIrrigationWeather(irrigationUnit, crop, weatherStation, null);
-
-            irrirgSys = new IrrigationSystem();
 
 
         }
@@ -161,24 +170,24 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
             lRegion = new Region("Templada", lLocation);
             lLocation = createLocation(new Position(34, 55),new Country("Uruguay", null ), lRegion, new City("Minas",null ));
-            
-            double sojeBaseTemp = 10;
-            lSpecie = createSpecie(1,"Soja", lRegion, sojeBaseTemp);
+
+            lSpecieSoja = createSpecie(1, "Soja", lRegion, sojaBaseTemp);
+            lSpecieMaiz = createSpecie(2, "Maiz", lRegion, maizBaseTemp);
             
             lSoil = createSoil(lLocation);
             
             double minDegree = 0;
             double maxDegree = 60;
             double rootDepth = 5;
-            lPhenologicalState = cretePhenologicalStage(1,lSpecie,new Stage(1,"v0","Sin hojas"),minDegree,maxDegree,rootDepth );
+            lPhenologicalState = cretePhenologicalStage(1,lSpecieSoja,new Stage(1,"v0","Sin hojas"),minDegree,maxDegree,rootDepth );
            
-            lCropCoefficient = createCropCoefficientWithList(lSpecie, lRegion);
+            lCropCoefficient = createCropCoefficientWithList(lSpecieSoja, lRegion);
 
             DateTime lSowingDate = new DateTime (2014,11,01);
             double lSojaMaxEvaporTransptoIrrigate = 35;
             double cropDensity = 70;
             
-            crop = createCrop(1,"Soja en Minas", lSpecie,lLocation, lCropCoefficient, cropDensity,
+            crop = createCrop(1,"Soja en Minas", lSpecieSoja,lLocation, lCropCoefficient, cropDensity,
                 lPhenologicalState, lSowingDate, DateTime.Now, lSoil, lSojaMaxEvaporTransptoIrrigate);
                 
             lBomb = new Bomb("Bomba1", 1234, DateTime.Now, DateTime.Now, lLocation);
@@ -197,6 +206,65 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         
         #region Private Helpers
+        private void addPhenologicalStageList()
+        {
+            List<PhenologicalStage> lPhenolStageList = new List<PhenologicalStage>();
+            lPhenolStageList.Add(cretePhenologicalStage(0, lSpecieMaiz, new Stage(1, "v0", "Sin hojas"), 0, 59, 5));
+            lPhenolStageList.Add( cretePhenologicalStage(1, lSpecieMaiz, new Stage(1, "ve", "Sin hojas"), 60, 114, 5));
+            lPhenolStageList.Add( cretePhenologicalStage(2, lSpecieMaiz, new Stage(1, "v1", "Sin hojas"), 115, 134, 5));
+            lPhenolStageList.Add( cretePhenologicalStage(3, lSpecieMaiz, new Stage(1, "v2", "Sin hojas"), 135, 179, 10));
+            lPhenolStageList.Add( cretePhenologicalStage(4, lSpecieMaiz, new Stage(1, "v3", "Sin hojas"), 180, 229, 15));
+            lPhenolStageList.Add( cretePhenologicalStage(5, lSpecieMaiz, new Stage(1, "v4", "Sin hojas"), 230, 289, 20));
+            lPhenolStageList.Add( cretePhenologicalStage(6, lSpecieMaiz, new Stage(1, "v5", "Sin hojas"), 290, 339, 20));
+            lPhenolStageList.Add( cretePhenologicalStage(7, lSpecieMaiz, new Stage(1, "v6", "Sin hojas"), 340, 404, 25));
+            lPhenolStageList.Add( cretePhenologicalStage(8, lSpecieMaiz, new Stage(1, "v7", "Sin hojas"), 405, 459, 25));
+            lPhenolStageList.Add( cretePhenologicalStage(9, lSpecieMaiz, new Stage(1, "v8", "Sin hojas"), 460, 519, 30));
+            lPhenolStageList.Add( cretePhenologicalStage(10, lSpecieMaiz, new Stage(1, "v9", "Sin hojas"), 520, 589, 30));
+            lPhenolStageList.Add( cretePhenologicalStage(11, lSpecieMaiz, new Stage(1, "v10", "Sin hojas"), 590, 649, 32));
+            lPhenolStageList.Add( cretePhenologicalStage(12, lSpecieMaiz, new Stage(1, "v11", "Sin hojas"), 650, 689, 35));
+            lPhenolStageList.Add( cretePhenologicalStage(13, lSpecieMaiz, new Stage(1, "v12", "Sin hojas"), 690, 714, 37));
+            lPhenolStageList.Add( cretePhenologicalStage(14, lSpecieMaiz, new Stage(1, "v13", "Sin hojas"), 715, 749, 40));
+            lPhenolStageList.Add( cretePhenologicalStage(15, lSpecieMaiz, new Stage(1, "v14", "Sin hojas"), 750, 764, 42));
+            lPhenolStageList.Add( cretePhenologicalStage(16, lSpecieMaiz, new Stage(1, "vt", "Sin hojas"), 775, 954, 45));
+            lPhenolStageList.Add( cretePhenologicalStage(17, lSpecieMaiz, new Stage(1, "R1", "Sin hojas"), 955, 1149, 45));
+            lPhenolStageList.Add( cretePhenologicalStage(18, lSpecieMaiz, new Stage(1, "R2", "Sin hojas"), 1150, 1289, 45));
+            lPhenolStageList.Add( cretePhenologicalStage(19, lSpecieMaiz, new Stage(1, "R3", "Sin hojas"), 1290, 1359, 45));
+            lPhenolStageList.Add( cretePhenologicalStage(20, lSpecieMaiz, new Stage(1, "R4", "Sin hojas"), 1360, 1449, 45));
+            lPhenolStageList.Add( cretePhenologicalStage(21, lSpecieMaiz, new Stage(1, "R5", "Sin hojas"), 1450, 1649, 45));
+            lPhenolStageList.Add( cretePhenologicalStage(22, lSpecieMaiz, new Stage(1, "R6", "Sin hojas"), 1650, 2000, 45));
+
+            lPhenolStageList.Add(cretePhenologicalStage(23, lSpecieSoja, new Stage(1, "v0", "Sin hojas"), 0, 59, 5));
+            lPhenolStageList.Add( cretePhenologicalStage(24, lSpecieSoja, new Stage(1, "ve", "Sin hojas"), 60, 114, 5));
+            lPhenolStageList.Add(cretePhenologicalStage(25, lSpecieSoja, new Stage(1, "v1", "Sin hojas"), 115, 134, 5));
+            lPhenolStageList.Add(cretePhenologicalStage(26, lSpecieSoja, new Stage(1, "v2", "Sin hojas"), 135, 179, 10));
+            lPhenolStageList.Add(cretePhenologicalStage(27, lSpecieSoja, new Stage(1, "v3", "Sin hojas"), 180, 229, 15));
+            lPhenolStageList.Add(cretePhenologicalStage(28, lSpecieSoja, new Stage(1, "v4", "Sin hojas"), 230, 289, 20));
+            lPhenolStageList.Add(cretePhenologicalStage(29, lSpecieSoja, new Stage(1, "v5", "Sin hojas"), 290, 339, 20));
+            lPhenolStageList.Add(cretePhenologicalStage(30, lSpecieSoja, new Stage(1, "v6", "Sin hojas"), 340, 404, 25));
+            lPhenolStageList.Add(cretePhenologicalStage(31, lSpecieSoja, new Stage(1, "v7", "Sin hojas"), 405, 459, 25));
+            lPhenolStageList.Add(cretePhenologicalStage(32, lSpecieSoja, new Stage(1, "v8", "Sin hojas"), 460, 519, 30));
+            lPhenolStageList.Add(cretePhenologicalStage(33, lSpecieSoja, new Stage(1, "v9", "Sin hojas"), 520, 589, 32));
+            lPhenolStageList.Add(cretePhenologicalStage(34, lSpecieSoja, new Stage(1, "v10", "Sin hojas"), 590, 649, 35));
+            lPhenolStageList.Add( cretePhenologicalStage(35, lSpecieSoja, new Stage(1, "v11", "Sin hojas"), 650, 689, 37));
+            lPhenolStageList.Add(cretePhenologicalStage(36, lSpecieSoja, new Stage(1, "v12", "Sin hojas"), 690, 714, 40));
+            lPhenolStageList.Add(cretePhenologicalStage(37, lSpecieSoja, new Stage(1, "v13", "Sin hojas"), 715, 749, 42));
+            lPhenolStageList.Add(cretePhenologicalStage(38, lSpecieSoja, new Stage(1, "v14", "Sin hojas"), 750, 764, 45));
+            lPhenolStageList.Add(cretePhenologicalStage(39, lSpecieSoja, new Stage(1, "vt", "Sin hojas"), 775, 954, 45));
+            lPhenolStageList.Add(cretePhenologicalStage(40, lSpecieSoja, new Stage(1, "R1", "Sin hojas"), 955, 1149, 45));
+            lPhenolStageList.Add(cretePhenologicalStage(42, lSpecieSoja, new Stage(1, "R2", "Sin hojas"), 1150, 1289, 45));
+            lPhenolStageList.Add(cretePhenologicalStage(43, lSpecieSoja, new Stage(1, "R3", "Sin hojas"), 1290, 1359, 45));
+            lPhenolStageList.Add(cretePhenologicalStage(44, lSpecieSoja, new Stage(1, "R4", "Sin hojas"), 1360, 1449, 45));
+            lPhenolStageList.Add(cretePhenologicalStage(45, lSpecieSoja, new Stage(1, "R5", "Sin hojas"), 1450, 1649, 45));
+            lPhenolStageList.Add(cretePhenologicalStage(45, lSpecieSoja, new Stage(1, "R^", "Sin hojas"), 1650, 2000, 45));
+
+            Pair<Region, List<PhenologicalStage>> lpair = new Pair<Region, List<PhenologicalStage>>(lRegion, lPhenolStageList);
+            this.irrirgSys.PhenologicalStageList.Add(lpair);
+            double lRootDepth = this.irrirgSys.getPhenologicalStage(23, lRegion, lSpecieSoja).RootDepth;
+            Assert.AreEqual(lRootDepth, 5);
+           
+
+        }
+
         private IrrigationUnit creteIrrigationUnit(int pId, string pName, string pType, int pEfficiency, List<Utilities.Pair<DateTime, double>> list1, int pSurface, List<Crop.Crop> list2, Bomb lBomb, Location.Location lLocation)
         {
             return new Irrigation.IrrigationUnit(pId, pName, pType,

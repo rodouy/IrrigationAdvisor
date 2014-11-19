@@ -39,11 +39,18 @@ namespace IrrigationAdvisor.Tests.Models.Crop
             double pmp4 = lSoil.getPermanentWiltingPoint(57);
             double pmp5 = lSoil.getPermanentWiltingPoint(65);
 
-            double ad1 = lSoil.getAvailableWaterCapacity(5);
-            double ad2 = lSoil.getAvailableWaterCapacity(35);
-            double ad3 = lSoil.getAvailableWaterCapacity(45);
-            double ad4 = lSoil.getAvailableWaterCapacity(57);
-            double ad5 = lSoil.getAvailableWaterCapacity(65);
+            double ad1 = lSoil.getAvailableWaterCapacityProration(5);
+            double ad2 = lSoil.getAvailableWaterCapacityProration(35);
+            double ad3 = lSoil.getAvailableWaterCapacityProration(45);
+            double ad4 = lSoil.getAvailableWaterCapacityProration(57);
+            double ad5 = lSoil.getAvailableWaterCapacityProration(65);
+
+            double ad1h = lSoil.getAvailableWaterCapacityAllHorizon(5);
+            double ad2h = lSoil.getAvailableWaterCapacityAllHorizon(35);
+            double ad3h = lSoil.getAvailableWaterCapacityAllHorizon(45);
+            double ad4h = lSoil.getAvailableWaterCapacityAllHorizon(57);
+            double ad5h = lSoil.getAvailableWaterCapacityAllHorizon(65);
+
 
             
             lMessage += Environment.NewLine + Environment.NewLine + "Capacidad Campo (%peso)" + Environment.NewLine;
@@ -76,10 +83,16 @@ namespace IrrigationAdvisor.Tests.Models.Crop
             lMessage += "getPermanentWiltingPoint(Root: 57): " + pmp4 + Environment.NewLine;
 
             lMessage += Environment.NewLine + Environment.NewLine + "Agua Disponible s/rootDepth" + Environment.NewLine;
-            lMessage += "getAvailableWaterCapacity(Root: 5): " + ad1 + Environment.NewLine;
-            lMessage += "getAvailableWaterCapacity(Root: 35): " + ad2 + Environment.NewLine;
-            lMessage += "getAvailableWaterCapacity(Root: 45): " + ad3 + Environment.NewLine;
-            lMessage += "getAvailableWaterCapacity(Root: 57): " + ad4 + Environment.NewLine;
+            lMessage += "getAvailableWaterCapacityProration(Root: 5): " + ad1 + Environment.NewLine;
+            lMessage += "getAvailableWaterCapacityProration(Root: 35): " + ad2 + Environment.NewLine;
+            lMessage += "getAvailableWaterCapacityProration(Root: 45): " + ad3 + Environment.NewLine;
+            lMessage += "getAvailableWaterCapacityProration(Root: 57): " + ad4 + Environment.NewLine;
+
+            lMessage += Environment.NewLine + Environment.NewLine + "Agua Disponible s/rootDepth * rootDepth / 10" + Environment.NewLine;
+            lMessage += "getAvailableWaterCapacityAllHorizon(Root: 5): " + ad1h + Environment.NewLine;
+            lMessage += "getAvailableWaterCapacityAllHorizon(Root: 35): " + ad2h + Environment.NewLine;
+            lMessage += "getAvailableWaterCapacityAllHorizon(Root: 45): " + ad3h + Environment.NewLine;
+            lMessage += "getAvailableWaterCapacityAllHorizon(Root: 57): " + ad4h + Environment.NewLine;
 
             String lTime = System.DateTime.Now.ToString();
             lTextFileLogger.WriteLogFile(lFile, lMethod, lMessage, lTime);
@@ -106,7 +119,7 @@ namespace IrrigationAdvisor.Tests.Models.Crop
 
             double pmp = lSoil.getPermanentWiltingPoint(5);
             double cc = lSoil.getFieldCapacity(5);
-            double ad = lSoil.getAvailableWaterCapacity(5);
+            double ad = lSoil.getAvailableWaterCapacityProration(5);
 
             //double pmp10 = lSoil.getPermanentWiltingPoint(10);
             double cc10 = lSoil.getFieldCapacity(10);
@@ -114,7 +127,7 @@ namespace IrrigationAdvisor.Tests.Models.Crop
 
             double pmp0 = lSoil.getPermanentWiltingPoint(0);
             double cc0 = lSoil.getFieldCapacity(0);
-            double ad0 = lSoil.getAvailableWaterCapacity(0);
+            double ad0 = lSoil.getAvailableWaterCapacityProration(0);
             
             //RootDeepth between the border (0) and the HorizonDepth
             Assert.AreEqual(pmp, 16.002069999999989);

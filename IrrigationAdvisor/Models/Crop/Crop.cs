@@ -219,7 +219,7 @@ namespace IrrigationAdvisor.Models.Crop
         /// <returns></returns>
         public double getAvailableWaterCapacity(double pRootDepth)
         {
-            return this.Soil.getAvailableWaterCapacity(pRootDepth);
+            return this.Soil.getAvailableWaterCapacityProration(pRootDepth);
         }
 
         #endregion

@@ -226,7 +226,7 @@ namespace IrrigationAdvisor.Models.Crop
             return lReturnPermanentWPoint;
         }
        
-        public double getAvailableWaterCapacity(double pRootDepth)
+        public double getAvailableWaterCapacityProration(double pRootDepth)
         {
             double lRootDepthSum = 0;
             double lReturnAvalilableWaterCap = 0;
@@ -259,6 +259,11 @@ namespace IrrigationAdvisor.Models.Crop
                 //TODO Si se pide cc con una root mas larga que la suma de todos los horizontes empezaria a dar 0 porque el ultimo porcentaje de horizonte no tiene cc
             }
             return lReturnAvalilableWaterCap;
+        }
+
+        public double getAvailableWaterCapacityAllHorizon(double pRootDepth)
+        {
+            return this.getAvailableWaterCapacityProration(pRootDepth) * pRootDepth / 10;
         }
 
         #endregion

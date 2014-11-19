@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Management;
+using IrrigationAdvisor.Models.Crop;
+using IrrigationAdvisor.Models.Location;
+using IrrigationAdvisor.Models.Utilities;
 
 namespace IrrigationAdvisor.Models.IrrigationSystem
 {
@@ -50,6 +53,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #region Fields
 
         //Crop
+        private List<Pair<Region, List<PhenologicalStage>>> phenologicalStageList;
+
+
         //Irrigation
         //Language
         //Location
@@ -80,6 +86,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #region Properties
 
         //Crop
+
+
+        public List<Pair<Region, List<PhenologicalStage>>> PhenologicalStageList
+        {
+            get { return phenologicalStageList; }
+            set { phenologicalStageList = value; }
+        }
+        
         //Irrigation
         //Language
         //Location
@@ -140,7 +154,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
 
             //Crop
-            
+            this.PhenologicalStageList = new List<Pair< Region, List<PhenologicalStage>>>();
             //Irrigation
 
             //Language
@@ -394,6 +408,30 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lReturn = this.IrrigationCalculus.howMuchToIrrigate(lCropIrrigationWeatherRecords);
             }
             return lReturn;
+        }
+
+        public PhenologicalStage getPhenologicalStage(double pDegree, Region pRegion, Specie pSpecie)
+        {
+            PhenologicalStage lReturn = null;
+            List<PhenologicalStage> lPhenologicalStageListByRegion = null;
+            foreach (Pair<Region , List<PhenologicalStage >> lPair in this.PhenologicalStageList)
+            {
+                if (lPair != null && lPair.First.Equals(pRegion))
+                {
+                    lPhenologicalStageListByRegion = lPair.Second;
+                }
+            }
+
+            IEnumerable<PhenologicalStage> query = lPhenologicalStageListByRegion.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
+            foreach(PhenologicalStage lPhenStage in query)
+            {
+                if (lPhenStage != null && lPhenStage.Specie.Equals(pSpecie) && lPhenStage.MinDegree <= pDegree && lPhenStage.MaxDegree >= pDegree)
+                {
+                    lReturn = lPhenStage;
+                }
+            }
+            return lReturn;
+
         }
 
 
