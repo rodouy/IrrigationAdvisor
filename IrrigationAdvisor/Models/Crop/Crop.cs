@@ -35,6 +35,7 @@ namespace IrrigationAdvisor.Models.Crop
     ///     - cropCoefficient CropCoefficient
     ///     - density double
     ///     - phenologiclaStage PhenologicalStage
+    ///     - phenologiclaStageList List<PhenologicalStage>
     ///     - sowingDate DateTime                           - PK
     ///     - harvestDate DateTime
     ///     - soil Soil                                     - PK
@@ -67,7 +68,8 @@ namespace IrrigationAdvisor.Models.Crop
         private CropCoefficient cropCoefficient;
         private double density;
         private PhenologicalStage phenologicalStage;
-        private DateTime sowingDate;
+        private List<PhenologicalStage> phenologicalStageList;
+private DateTime sowingDate;
         private DateTime harvestDate;
         private Soil soil;
         private double maxEvapotranspirationToIrrigate;
@@ -116,6 +118,12 @@ namespace IrrigationAdvisor.Models.Crop
             get { return phenologicalStage; }
             set { phenologicalStage = value; }
         }
+
+        public List<PhenologicalStage> PhenologicalStageList
+        {
+            get { return phenologicalStageList; }
+            set { phenologicalStageList = value; }
+        }
         
         public DateTime SowingDate
         {
@@ -156,6 +164,7 @@ namespace IrrigationAdvisor.Models.Crop
             this.CropCoefficient = new CropCoefficient();
             this.Density = 0;
             this.PhenologicalStage = new PhenologicalStage();
+            this.PhenologicalStageList = new List<PhenologicalStage>();
             this.SowingDate = DateTime.Now;
             this.HarvestDate = DateTime.Now;
             this.Soil = new Soil();
@@ -163,7 +172,7 @@ namespace IrrigationAdvisor.Models.Crop
         }
 
         public Crop(int pId, String pName, Specie pSpecie, Location.Location pLocation, CropCoefficient pCropCoefficient,
-            double pDensity, PhenologicalStage pPhenologicalStage, DateTime pSowingDate,
+            double pDensity, PhenologicalStage pPhenologicalStage, List<PhenologicalStage> pPhenologicalStageList, DateTime pSowingDate,
             DateTime pHarvestDate, Soil pSoil, double pMaxEvapotranspirationToIrrigate)
         {
             this.IdCrop = pId;
@@ -173,6 +182,7 @@ namespace IrrigationAdvisor.Models.Crop
             this.CropCoefficient = pCropCoefficient;
             this.Density = pDensity;
             this.PhenologicalStage = pPhenologicalStage;
+            this.PhenologicalStageList = pPhenologicalStageList;
             this.SowingDate = pSowingDate;
             this.HarvestDate = pHarvestDate;
             this.Soil = pSoil;

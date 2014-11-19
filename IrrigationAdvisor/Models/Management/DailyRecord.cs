@@ -211,6 +211,10 @@ namespace IrrigationAdvisor.Models.Management
             return this.CropIrrigationWeather.Equals(lDailyRecord.CropIrrigationWeather) &&
                 this.DateHour.Date.Equals(lDailyRecord.DateHour.Date);
         }
+        public override int GetHashCode()
+        {
+            return this.Observations.GetHashCode();
+        }
         #endregion
 
 

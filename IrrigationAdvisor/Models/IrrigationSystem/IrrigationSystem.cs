@@ -409,7 +409,13 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
             return lReturn;
         }
-
+        /// <summary>
+        /// Return the Phenological Stage for a Specie in a Region given the rootDepth
+        /// </summary>
+        /// <param name="pDegree"></param>
+        /// <param name="pRegion"></param>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
         public PhenologicalStage getPhenologicalStage(double pDegree, Region pRegion, Specie pSpecie)
         {
             PhenologicalStage lReturn = null;
@@ -428,6 +434,35 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 if (lPhenStage != null && lPhenStage.Specie.Equals(pSpecie) && lPhenStage.MinDegree <= pDegree && lPhenStage.MaxDegree >= pDegree)
                 {
                     lReturn = lPhenStage;
+                }
+            }
+            return lReturn;
+
+        }
+        /// <summary>
+        /// Return the List of Phenological Stage for a Specie in a Region
+        /// </summary>
+        /// <param name="pRegion"></param>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        public List<PhenologicalStage> getPhenologicalStage(Region pRegion, Specie pSpecie)
+        {
+            List<PhenologicalStage> lReturn = null;
+            List<PhenologicalStage> lPhenologicalStageListByRegion = null;
+            foreach (Pair<Region, List<PhenologicalStage>> lPair in this.PhenologicalStageList)
+            {
+                if (lPair != null && lPair.First.Equals(pRegion))
+                {
+                    lPhenologicalStageListByRegion = lPair.Second;
+                }
+            }
+
+            IEnumerable<PhenologicalStage> query = lPhenologicalStageListByRegion.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
+            foreach (PhenologicalStage lPhenStage in query)
+            {
+                if (lPhenStage != null && lPhenStage.Specie.Equals(pSpecie))
+                {
+                    lReturn.Add(lPhenStage);
                 }
             }
             return lReturn;

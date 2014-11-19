@@ -35,17 +35,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Soil soil_3_4;
         private Soil soil_5;
 
-        private Horizon horizon_1A;
-        private Horizon horizon_1B;
-        private Horizon horizon_2A;
-        private Horizon horizon_2AB;
-        private Horizon horizon_2B;
-        private Horizon horizon_3_4A;
-        private Horizon horizon_3_4B;
-        private Horizon horizon_5A;
-        private Horizon horizon_5AB;
-        private Horizon horizon_5B;
-
+       
         double sojaBaseTemp = 10;
         double maizBaseTemp = 8;
             
@@ -273,8 +263,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private Crop.Crop createCrop(int pid, string pname, Specie lSpecie, Location.Location lLocation, CropCoefficient lCropCoefficient, double cropDensity, PhenologicalStage lPhenologicalState, DateTime lSowingDate, DateTime dateTime, Soil lSoil, double lSojaMaxEvaporTransptoIrrigate)
         {
+            List<PhenologicalStage> lPhenologicalStageList = irrirgSys.getPhenologicalStage(lRegion, lSpecie);
             return new Crop.Crop(pid,pname, lSpecie,lLocation, lCropCoefficient, cropDensity,
-            lPhenologicalState, lSowingDate, dateTime, lSoil, lSojaMaxEvaporTransptoIrrigate);
+            lPhenologicalState, lPhenologicalStageList, lSowingDate, dateTime, lSoil, lSojaMaxEvaporTransptoIrrigate);
             
         }
 

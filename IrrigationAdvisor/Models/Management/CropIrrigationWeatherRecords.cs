@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IrrigationAdvisor.Models.Crop;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -270,6 +271,23 @@ namespace IrrigationAdvisor.Models.Management
             this.TotalIrrigation = lTotalIrrigation;
             this.TotalEvapotranspirationCropFromLastWaterInput = lTotalEvapotranspirationCropFromLastWaterInput;
             this.LastWaterInput = lLastWaterInput;
+
+            reviewPhenologicalStage();
+        }
+
+        private void reviewPhenologicalStage()
+        {
+            List<PhenologicalStage> lPhenologicalStageList = this.CropIrrigationWeather.Crop.PhenologicalStageList;
+            IEnumerable<PhenologicalStage> query = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
+            double lDegree = this.ModifiedGrowingDegreeDays;
+            foreach (PhenologicalStage lPhenStage in query)
+            {
+                if (lPhenStage != null && lPhenStage.Specie.Equals(this.CropIrrigationWeather.Crop.Specie) && lPhenStage.MinDegree <= lDegree && lPhenStage.MaxDegree >= lDegree)
+                {
+                    this.CropIrrigationWeather.Crop.PhenologicalStage = lPhenStage;
+                }
+            }
+
         }
         #endregion
 

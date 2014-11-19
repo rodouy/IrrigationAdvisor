@@ -7,7 +7,7 @@ namespace IrrigationAdvisor.Models.Security
 {
     public class SiteItem
     {
-        private String access;
+        //private String access;
 
         public SiteItem() { }
 
