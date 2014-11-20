@@ -26,7 +26,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Bomb lBomb;
         private Irrigation.IrrigationUnit irrigationUnit;
         private WeatherStation.WeatherStation weatherStation;
-        private CropIrrigationWeather cropIrrigWeather;
+        private CropIrrigationWeather cropIrrigWeatherPivot2;
         #endregion
 
         #region Fields Santa Lucia Test
@@ -68,15 +68,19 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             soil_2.Horizons.Add(horizon_2B);
 
             irrirgSys = new IrrigationSystem();
-            addPhenologicalStageList();
+            addPhenologicalStageListToSystem();
             
             
             DateTime lSowingDate = new DateTime(2014, 11, 01);
-            double lSojaMaxEvaporTransptoIrrigate = 35;
-            double cropDensity = 70;
+            double lMaizMaxEvaporTransptoIrrigate = 35;
+            double cropDensityMaiz = 70;
+            lCropCoefficient = createMaizCropCoefficientWithList(lSpecieSoja, lRegion);
+            
+            lPhenologicalState = cretePhenologicalStage(1, lSpecieMaiz, new Stage(1, "v0", "Sin hojas"), 0, 60, 5);
 
-            crop = createCrop(1, "Soja en Minas", lSpecieSoja, lLocation, lCropCoefficient, cropDensity,
-                lPhenologicalState, lSowingDate, DateTime.Now, lSoil, lSojaMaxEvaporTransptoIrrigate);
+            
+            crop = createCrop(1, "Maiz SantaLucia Pivot 2", lSpecieMaiz, lLocation, lCropCoefficient, cropDensityMaiz,
+                lPhenologicalState, new DateTime(2014, 10, 21), DateTime.Now, soil_2, lMaizMaxEvaporTransptoIrrigate);
 
             lBomb = new Bomb("Bomba1", 1234, DateTime.Now, DateTime.Now, lLocation);
             irrigationUnit = creteIrrigationUnit(1, "Unidad de Riego de prueba", "Pivot",
@@ -84,16 +88,154 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             weatherStation = new WeatherStation.WeatherStation(1, "WeatherStation1", "Model?", DateTime.Now, DateTime.Now, DateTime.Now, 1, lLocation, true);
 
-            cropIrrigWeather = new CropIrrigationWeather(irrigationUnit, crop, weatherStation, null);
+            cropIrrigWeatherPivot2 = new CropIrrigationWeather(irrigationUnit, crop, weatherStation, null);
 
 
+            // DATOS DEL TIEMPO
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 21), 99, 0, 16.9, 16.9, 4.8);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 22), 99, 0, 19.5, 19.5, 5.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 23), 99, 0, 20.1, 20.1, 5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 24), 99, 0, 19.7, 19.7, 4.6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 25), 99, 0, 20.1, 20.1, 5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 26), 99, 0, 11.7, 11.7, 5.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 27), 99, 0, 23.5, 23.5, 6.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 28), 99, 0, 20, 20, 5.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 29), 99, 0, 15.3, 15.3, 1.9);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 30), 99, 0, 12.5, 12.5, 4.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 10, 31), 99, 0, 11.3, 11.3, 3.3);
+
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 1), 99, 0, 12.6, 12.6, 3.3);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 2), 99, 0, 12.4, 12.4, 2.9);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 3), 99, 0, 14.2, 14.2, 2.1);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 4), 99, 0, 12.9, 12.9, 4.8);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 5), 99, 0, 14.9, 14.9, 4.9);
+            
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 6), 99, 0, 16.2, 16.2, 4.8);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 7), 99, 0, 17.7, 17.7, 4.6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 8), 99, 0, 17, 17, 5.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 9), 99, 0, 17.1, 17.1, 5.3);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 10), 99, 0, 19.2, 19.2, 4.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 11), 99, 0, 19.6, 19.6, 4.8);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 11, 12), 99, 0, 16.1, 16.1, 5);
+            // DATOS DE LLUVIA
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 10, 29), 66);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 10, 31), 2.5);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 1), 2.5);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 2), 10);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 3), 35);
+            
+            
+            irrirgSys.addCropIrrigWeatherToList(cropIrrigWeatherPivot2);
+
+            //DAILY RECORDS
+            String textLog = Environment.NewLine + Environment.NewLine;
+            double irrigationCalculated = 0;
+            CropIrrigationWeatherRecords rec = irrirgSys.CropIrrigationWeatherRecordsList.Find(x => x.getRootDepth() > 0);
+            
+            textLog += "Dia 0"+ printState(rec);
+            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 10, 22), 22);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 22), "Dia 1");
+
+            textLog += "Dia 1" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 23), "Dia 2");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 2" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 24), "Dia 3");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 3" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 25), "Dia 4");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 4" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 26), "Dia 5");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 5" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 27), "Dia 6");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 6" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 28), "Dia 7");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 7" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 29), "Dia 8");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 8" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 30), "Dia 9");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 9" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 10, 31), "Dia 10");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+
+            textLog += "Dia 10" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 1), "Dia 11");
+
+            textLog += "Dia 11" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 2), "Dia 12");
+
+            textLog += "Dia 12" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 3), "Dia 13");
+
+            textLog += "Dia 13" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 4), "Dia 14");
+
+            textLog += "Dia 14" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 5), "Dia 15");
+
+            textLog += "Dia 15" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 6), "Dia 16");
+
+            textLog += "Dia 16" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 7), "Dia 17");
+
+            textLog += "Dia 17" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 8), "Dia 18");
+
+            textLog += "Dia 18" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 9), "Dia 19");
+
+            textLog += "Dia 19" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 10), "Dia 20");
+
+            textLog += "Dia 20" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 11), "Dia 21");
+
+            textLog += "Dia 21" + printState(rec);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 12), "Dia 22");
+
+            textLog += "Dia 22" + printState(rec);
+            textLog += Environment.NewLine + Environment.NewLine + irrirgSys.printDailyRecordsList();
+            this.printSystemData(textLog);
         }
+
+        private string printState(CropIrrigationWeatherRecords rec)
+        {
+            string ret = "";
+            string etcflwi = rec.TotalEvapotranspirationCropFromLastWaterInput+  "       ";
+            string totRain = rec.TotalEffectiveRain + "       ";
+            ret = " \tETCAc: " + rec.TotalEvapotranspirationCrop +
+                " \tETCFromLWI: " + etcflwi.Substring(0,6) +
+                " \t  G.Dia: " + rec.GrowingDegreeDays +
+                " \tB.Hidrico: " + rec.HydricBalance.ToString() +
+                " \tTotRain: " + totRain.Substring(0, 6) +
+                " \tTotIrrig: " + rec.TotalIrrigation +
+                " \tLastWaterInput: " + rec.LastWaterInput.ToString() +
+                " \tRaiz " + rec.getRootDepth() + Environment.NewLine;
+                
+            return ret;
+        }
+
         [TestMethod]
         public void systemTest()
         {
             this.createTestingUnity();
             this.addWeatherData();
-            irrirgSys.addCropIrrigWeatherToList(cropIrrigWeather);
+            irrirgSys.addCropIrrigWeatherToList(cropIrrigWeatherPivot2);
             this.addRainData();
             this.addDailyRecord();
             this.printSystemData();
@@ -103,19 +245,19 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private void addDailyRecord()
         {
             double irrigationCalculated = 0;
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 1), "Dia uno");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 2), "Dia dos");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 3), "Dia tres");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 4), "Dia cuatro");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 1), "Dia uno");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 2), "Dia dos");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 3), "Dia tres");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 4), "Dia cuatro");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
 
-            irrirgSys.addIrrigationDataToList(cropIrrigWeather, new DateTime(2014, 11, 5), 22);
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 5), "Dia cinco");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeather);
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeather, new DateTime(2014, 11, 6), "Dia seis");
+            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 5), 22);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 5), "Dia cinco");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 6), "Dia seis");
             
 
         }
@@ -139,8 +281,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private void addRainData()
         {
-            irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2014, 11, 4), 3);
-            irrirgSys.addRainDataToList(cropIrrigWeather, new DateTime(2014, 11, 9), 8);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 4), 3);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 9), 8);
         }
 
         private void printSystemData()
@@ -150,6 +292,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             String lMethod = "createACropIrrigationWeather";
             String lMessage = irrirgSys.printDailyRecordsList();
             lMessage += irrirgSys.printWeatherDataList();
+            String lTime = System.DateTime.Now.ToString();
+            lTextFileLogger.WriteLogFile(lFile, lMethod, lMessage, lTime);
+        }
+        private void printSystemData(String pText)
+        {
+            TextFileLogger lTextFileLogger = new TextFileLogger();
+            String lFile = "IrrigationSystemTest";
+            String lMethod = "createACropIrrigationWeather";
+            String lMessage = pText;
             String lTime = System.DateTime.Now.ToString();
             lTextFileLogger.WriteLogFile(lFile, lMethod, lMessage, lTime);
         }
@@ -171,7 +322,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             double rootDepth = 5;
             lPhenologicalState = cretePhenologicalStage(1,lSpecieSoja,new Stage(1,"v0","Sin hojas"),minDegree,maxDegree,rootDepth );
            
-            lCropCoefficient = createCropCoefficientWithList(lSpecieSoja, lRegion);
+            lCropCoefficient = createSojaCropCoefficientWithList(lSpecieSoja, lRegion);
 
             DateTime lSowingDate = new DateTime (2014,11,01);
             double lSojaMaxEvaporTransptoIrrigate = 35;
@@ -186,17 +337,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                
             weatherStation = new WeatherStation.WeatherStation(1,"WeatherStation1","Model?",DateTime.Now,DateTime.Now,DateTime.Now, 1, lLocation,true);
 
-            cropIrrigWeather = new CropIrrigationWeather(irrigationUnit, crop,weatherStation,null);
+            cropIrrigWeatherPivot2 = new CropIrrigationWeather(irrigationUnit, crop,weatherStation,null);
 
             irrirgSys = new IrrigationSystem();
-
+            addPhenologicalStageListToSystem();
             
         }
 
 
         
         #region Private Helpers
-        private void addPhenologicalStageList()
+        private void addPhenologicalStageListToSystem()
         {
             List<PhenologicalStage> lPhenolStageList = new List<PhenologicalStage>();
             lPhenolStageList.Add(cretePhenologicalStage(0, lSpecieMaiz, new Stage(1, "v0", "Sin hojas"), 0, 59, 5));
@@ -269,7 +420,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             
         }
 
-        private CropCoefficient createCropCoefficientWithList(Specie lSpecie, Region lRegion)
+        private CropCoefficient createSojaCropCoefficientWithList(Specie lSpecie, Region lRegion)
         {
             //KC Para soja sacado de la carpeta Calculos
             CropCoefficient lCropCoefficient  =  new CropCoefficient(lSpecie, lRegion);
@@ -343,10 +494,258 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             lCropCoefficient.addDayToList(68,1.15);
             lCropCoefficient.addDayToList(69,1.14);
             lCropCoefficient.addDayToList(70,1.14);
+            lCropCoefficient.addDayToList(71,1.13);
+            lCropCoefficient.addDayToList(72,1.12);
+            lCropCoefficient.addDayToList(73,1.11);
+            lCropCoefficient.addDayToList(74,1.11);
+            lCropCoefficient.addDayToList(75,1.10);
+            lCropCoefficient.addDayToList(76,1.09);
+            lCropCoefficient.addDayToList(77,1.09);
+            lCropCoefficient.addDayToList(78,1.08);
+            lCropCoefficient.addDayToList(79,1.07);
+            lCropCoefficient.addDayToList(80,1.06);
+            lCropCoefficient.addDayToList(81,1.06);
+            lCropCoefficient.addDayToList(82,1.05);
+            lCropCoefficient.addDayToList(83,1.04);
+            lCropCoefficient.addDayToList(84,1.04);
+            lCropCoefficient.addDayToList(85,1.03);
+            lCropCoefficient.addDayToList(86,1.02);
+            lCropCoefficient.addDayToList(87,1.01);
+            lCropCoefficient.addDayToList(88,1.01);
+            lCropCoefficient.addDayToList(89,1.00);
+            lCropCoefficient.addDayToList(90,0.99);
+            lCropCoefficient.addDayToList(91,0.99);
+            lCropCoefficient.addDayToList(92,0.98);
+            lCropCoefficient.addDayToList(93,0.97);
+            lCropCoefficient.addDayToList(94,0.96);
+            lCropCoefficient.addDayToList(95,0.96);
+            lCropCoefficient.addDayToList(96,0.95);
+            lCropCoefficient.addDayToList(97,0.94);
+            lCropCoefficient.addDayToList(98,0.94);
+            lCropCoefficient.addDayToList(99,0.93);
+            lCropCoefficient.addDayToList(100,0.92);
+            lCropCoefficient.addDayToList(101,0.91);
+            lCropCoefficient.addDayToList(102,0.91);
+            lCropCoefficient.addDayToList(103,0.90);
+            lCropCoefficient.addDayToList(104,0.89);
+            lCropCoefficient.addDayToList(105,0.89);
+            lCropCoefficient.addDayToList(106,0.88);
+            lCropCoefficient.addDayToList(107,0.87);
+/*108	0,86
+109	0,86
+110	0,85
+111	0,84
+112	0,84
+113	0,83
+114	0,82
+115	0,81
+116	0,81
+117	0,80
+118	0,79
+119	0,79
+120	0,78
+121	0,77
+122	0,76
+123	0,76
+124	0,75
+125	0,74
+126	0,74
+127	0,73
+128	0,72
+129	0,71
+130	0,71
+131	0,70
+132	0,69
+133	0,69
+134	0,68
+135	0,67
+136	0,66
+137	0,66
+138	0,65
+139	0,64
+140	0,64
+141	0,63
+142	0,62
+143	0,61
+144	0,61
+145	0,60
+146	0,59
+147	0,59
+148	0,58
+149	0,57
+150	0,56
+151	0,56
+152	0,55
+153	0,54
+154	0,54
+155	0,53
+156	0,52
+157	0,51
+158	0,51
+159	0,50
+160	0,5*/
+
             return lCropCoefficient;
 
         }
 
+        private CropCoefficient createMaizCropCoefficientWithList(Specie lSpecie, Region lRegion)
+        {
+            //KC Para soja sacado de la carpeta Calculos
+            CropCoefficient lCropCoefficient  =  new CropCoefficient(lSpecie, lRegion);
+            lCropCoefficient.addDayToList(0,0.30);
+            lCropCoefficient.addDayToList(1,0.31);
+            lCropCoefficient.addDayToList(2,0.32);
+            lCropCoefficient.addDayToList(3,0.33);
+            lCropCoefficient.addDayToList(4,0.34);
+            lCropCoefficient.addDayToList(5,0.35);
+            lCropCoefficient.addDayToList(6,0.37);
+            lCropCoefficient.addDayToList(7,0.38);
+            lCropCoefficient.addDayToList(9,0.40);
+            lCropCoefficient.addDayToList(10,0.41);
+            lCropCoefficient.addDayToList(11,0.42);
+            lCropCoefficient.addDayToList(12,0.43);
+            lCropCoefficient.addDayToList(13,0.44);
+            lCropCoefficient.addDayToList(14,0.45);
+            lCropCoefficient.addDayToList(15,0.46);
+            lCropCoefficient.addDayToList(16,0.47);
+            lCropCoefficient.addDayToList(17,0.48);
+            lCropCoefficient.addDayToList(18,0.50);
+            lCropCoefficient.addDayToList(19,0.51);
+            lCropCoefficient.addDayToList(20,0.52);
+            lCropCoefficient.addDayToList(21,0.53);
+            lCropCoefficient.addDayToList(22,0.54);
+            lCropCoefficient.addDayToList(23,0.55);
+            lCropCoefficient.addDayToList(24,0.56);
+            lCropCoefficient.addDayToList(25,0.57);
+            lCropCoefficient.addDayToList(26,0.58);
+            lCropCoefficient.addDayToList(27,0.59);
+            lCropCoefficient.addDayToList(28,0.60);
+            lCropCoefficient.addDayToList(29,0.61);
+            lCropCoefficient.addDayToList(30,0.63);
+            lCropCoefficient.addDayToList(31,0.64);
+            lCropCoefficient.addDayToList(32,0.65);
+            lCropCoefficient.addDayToList(33,0.66);
+            lCropCoefficient.addDayToList(34,0.67);
+            lCropCoefficient.addDayToList(35,0.68);
+            lCropCoefficient.addDayToList(36,0.69);
+            lCropCoefficient.addDayToList(37,0.70);
+            lCropCoefficient.addDayToList(38,0.71);
+            lCropCoefficient.addDayToList(39,0.72);
+            lCropCoefficient.addDayToList(40,0.73);
+            lCropCoefficient.addDayToList(41,0.74);
+            lCropCoefficient.addDayToList(42,0.76);
+            lCropCoefficient.addDayToList(43,0.77);
+            lCropCoefficient.addDayToList(44,0.78);
+            lCropCoefficient.addDayToList(45,0.79);
+            lCropCoefficient.addDayToList(46,0.80);
+            lCropCoefficient.addDayToList(47,0.81);
+            lCropCoefficient.addDayToList(48,0.82);
+            lCropCoefficient.addDayToList(49,0.83);
+            lCropCoefficient.addDayToList(50,0.84);
+            lCropCoefficient.addDayToList(51,0.85);
+            lCropCoefficient.addDayToList(52,0.86);
+            lCropCoefficient.addDayToList(53,0.87);
+            lCropCoefficient.addDayToList(54,0.89);
+            lCropCoefficient.addDayToList(55,0.90);
+            lCropCoefficient.addDayToList(56,0.91);
+            lCropCoefficient.addDayToList(57,0.92);
+            lCropCoefficient.addDayToList(58,0.93);
+            lCropCoefficient.addDayToList(59,0.94);
+            lCropCoefficient.addDayToList(60,0.95);
+            lCropCoefficient.addDayToList(61,0.96);
+            lCropCoefficient.addDayToList(62,0.97);
+            lCropCoefficient.addDayToList(63,0.98);
+            lCropCoefficient.addDayToList(64,0.9);
+            lCropCoefficient.addDayToList(65,1);
+            lCropCoefficient.addDayToList(66,1.02);
+            lCropCoefficient.addDayToList(67,1.03);
+            lCropCoefficient.addDayToList(68,1.04);
+            lCropCoefficient.addDayToList(69,1.05);
+            lCropCoefficient.addDayToList(70,1.06);
+            lCropCoefficient.addDayToList(71,1.07);
+            lCropCoefficient.addDayToList(72,1.08);
+            lCropCoefficient.addDayToList(73,1.09);
+            lCropCoefficient.addDayToList(74,1.10);
+            lCropCoefficient.addDayToList(75,1.11);
+            lCropCoefficient.addDayToList(76,1.12);
+            lCropCoefficient.addDayToList(77,1.13);
+            lCropCoefficient.addDayToList(78,1.15);
+            lCropCoefficient.addDayToList(79,1.16);
+            lCropCoefficient.addDayToList(80,1.17);
+            lCropCoefficient.addDayToList(81,1.18);
+            lCropCoefficient.addDayToList(82,1.19);
+            lCropCoefficient.addDayToList(83,1.20);
+            lCropCoefficient.addDayToList(84,1.19);
+            lCropCoefficient.addDayToList(85,1.17);
+            lCropCoefficient.addDayToList(86,1.16);
+            lCropCoefficient.addDayToList(87,1.15);
+            lCropCoefficient.addDayToList(88,1.13);
+            lCropCoefficient.addDayToList(89,1.12);
+            lCropCoefficient.addDayToList(90,1.11);
+            lCropCoefficient.addDayToList(91,1.09);
+            lCropCoefficient.addDayToList(92,1.08);
+            lCropCoefficient.addDayToList(93,1.07);
+            lCropCoefficient.addDayToList(94,1.05);
+            lCropCoefficient.addDayToList(95,1.04);
+            lCropCoefficient.addDayToList(96,1.03);
+            lCropCoefficient.addDayToList(97,1.01);
+            lCropCoefficient.addDayToList(98,1);
+            lCropCoefficient.addDayToList(99,0.99);
+            lCropCoefficient.addDayToList(100,0.97);
+            lCropCoefficient.addDayToList(101,0.96);
+            lCropCoefficient.addDayToList(102,0.95);
+            lCropCoefficient.addDayToList(103,0.93);
+            lCropCoefficient.addDayToList(104,0.92);
+            lCropCoefficient.addDayToList(105,0.91);
+            lCropCoefficient.addDayToList(106,0.89);
+            lCropCoefficient.addDayToList(107,0.88);
+            /*
+             * 108	0,87
+109	0,85
+110	0,84
+111	0,83
+112	0,81
+113	0,80
+114	0,79
+115	0,78
+116	0,76
+117	0,75
+118	0,74
+119	0,72
+120	0,71
+121	0,70
+122	0,68
+123	0,67
+124	0,66
+125	0,64
+126	0,63
+127	0,62
+128	0,60
+129	0,59
+130	0,58
+131	0,56
+132	0,55
+133	0,54
+134	0,52
+135	0,51
+136	0,50
+137	0,48
+138	0,47
+139	0,46
+140	0,44
+141	0,43
+142	0,42
+143	0,40
+144	0,39
+145	0,38
+146	0,36
+147	0,35
+*/
+            
+            return lCropCoefficient;
+
+        }
         private PhenologicalStage cretePhenologicalStage(int p, Specie lSpecie, Stage stage, double minDegree, double maxDegree, double rootDepth)
         {
             return new PhenologicalStage(p, lSpecie, stage, minDegree, maxDegree, rootDepth);

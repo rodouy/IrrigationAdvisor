@@ -200,7 +200,10 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Private Helpers
-
+        /// <summary>
+        /// Return the most recently date of water input 
+        /// </summary>
+        /// <returns></returns>
         private DateTime getLastWaterInputDate() 
         {
             DateTime lReturn = DateTime.MinValue;
@@ -209,6 +212,10 @@ namespace IrrigationAdvisor.Models.Management
                 if (lDailyRec.Irrigation != null && lDailyRec.Irrigation.getTotalInput() > 0 && lDailyRec.DateHour > lReturn)
                 {
                     lReturn= lDailyRec.DateHour;
+                }
+                if (lDailyRec.Rain != null && lDailyRec.Rain.getTotalInput() > 10 && lDailyRec.DateHour > lReturn)
+                {
+                    lReturn = lDailyRec.DateHour;
                 }
             }
             return lReturn;
@@ -234,8 +241,8 @@ namespace IrrigationAdvisor.Models.Management
             double lTotalIrrigation =0;
             double lHidricBalance = this.getInitialHidricBalance();
             double lTotalEvapotranspirationCropFromLastWaterInput = 0;
-            DateTime lLastWaterInput = this.getLastWaterInputDate(); 
-            
+            DateTime lLastWaterInput = this.getLastWaterInputDate();
+
             IEnumerable<DailyRecord> query = this.DailyRecords.OrderBy(lDailyRec => lDailyRec.DateHour);
             foreach (DailyRecord lDailyRec in query)
             {
@@ -248,7 +255,18 @@ namespace IrrigationAdvisor.Models.Management
                 }
                 if (lDailyRec.Rain != null)
                 {
-                    lTotalEffectiveRain += lDailyRec.Rain.getTotalInput();
+                    double lRootDepth = this.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
+                    double lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
+
+                    if (lDailyRec.Rain.getTotalInput() > lFieldCapacity)
+                    {
+
+                        lTotalEffectiveRain += lFieldCapacity;
+                    }
+                    else
+                    {
+                        lTotalEffectiveRain += lDailyRec.Rain.getTotalInput();
+                    }
                     lHidricBalance += lDailyRec.Rain.getTotalInput();
                 
                 }
@@ -269,6 +287,7 @@ namespace IrrigationAdvisor.Models.Management
             this.TotalEvapotranspirationCrop = lTotalEvapotranspirationCrop;
             this.TotalEffectiveRain = lTotalEffectiveRain;
             this.TotalIrrigation = lTotalIrrigation;
+            this.HydricBalance = lHidricBalance;
             this.TotalEvapotranspirationCropFromLastWaterInput = lTotalEvapotranspirationCropFromLastWaterInput;
             this.LastWaterInput = lLastWaterInput;
 
@@ -279,7 +298,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             List<PhenologicalStage> lPhenologicalStageList = this.CropIrrigationWeather.Crop.PhenologicalStageList;
             IEnumerable<PhenologicalStage> query = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
-            double lDegree = this.ModifiedGrowingDegreeDays;
+            double lDegree = this.GrowingDegreeDays + this.ModifiedGrowingDegreeDays;
             foreach (PhenologicalStage lPhenStage in query)
             {
                 if (lPhenStage != null && lPhenStage.Specie.Equals(this.CropIrrigationWeather.Crop.Specie) && lPhenStage.MinDegree <= lDegree && lPhenStage.MaxDegree >= lDegree)

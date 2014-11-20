@@ -44,7 +44,9 @@ namespace IrrigationAdvisor.Models.Management
         ///     - calculusAvailableWater: CalculusAvailableWater
         /// </summary>
         private CalculusAvailableWater calculusAvailableWater;
+
         private CalculusEvapotranspiration calculusEvapotranspiration;
+
         
         #endregion
 
@@ -52,7 +54,19 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// The properties are:
         /// </summary>
-        
+
+        public CalculusAvailableWater CalculusAvailableWater
+        {
+            get { return calculusAvailableWater; }
+            set { calculusAvailableWater = value; }
+        }
+
+        public CalculusEvapotranspiration CalculusEvapotranspiration
+        {
+            get { return calculusEvapotranspiration; }
+            set { calculusEvapotranspiration = value; }
+        }
+
         #endregion
 
         #region Construction
@@ -83,8 +97,8 @@ namespace IrrigationAdvisor.Models.Management
         public double howMuchToIrrigate(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
             double pReturn =0;
-            double irrigationEvapTrans = calculusEvapotranspiration.howMuchToIrrigate( pCropIrrigationWeatherRecords);
-            double irrigationAvWater = calculusAvailableWater.howMuchToIrrigate(pCropIrrigationWeatherRecords);
+            double irrigationEvapTrans = CalculusEvapotranspiration.howMuchToIrrigate( pCropIrrigationWeatherRecords);
+            double irrigationAvWater = CalculusAvailableWater.howMuchToIrrigate(pCropIrrigationWeatherRecords);
             if (irrigationEvapTrans > irrigationAvWater && irrigationEvapTrans > 0)
             {
                 pReturn = irrigationEvapTrans;

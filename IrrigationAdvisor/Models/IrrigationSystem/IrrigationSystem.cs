@@ -311,7 +311,13 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Language
         //Location
         //Management
-
+        /// <summary>
+        /// Add to the system a new CropIrrigationWeather
+        /// Aditionaly create a CropIrrigationWeatherRecords for this CropIrrigationWeather
+        /// and add the first DailyRecord
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <returns></returns>
         public bool addCropIrrigWeatherToList(CropIrrigationWeather pCropIrrigationWeather) 
         {
             bool lReturn = true;
@@ -372,7 +378,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                         lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
                         lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
                         double lModifiedGrowingDegree = 0;
-                        
+                        //TODO obtener lModifiedGrowingDegree 
                         DailyRecord lNewDailyRecord = new DailyRecord(pCropIrrigationWeather, lMainWeatherData, lAlternativeWeatherData, pDateTime, lGrowingDegree, lModifiedGrowingDegree,
                             lEvapotranspirationCrop, lRain, lIrrigation, pObservations);
                         this.addDailyRecordToCropIrrigationWeather(pCropIrrigationWeather, lNewDailyRecord);///Si ya existe registro para ese dia se sobre-escribe
@@ -447,7 +453,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         /// <returns></returns>
         public List<PhenologicalStage> getPhenologicalStage(Region pRegion, Specie pSpecie)
         {
-            List<PhenologicalStage> lReturn = null;
+            List<PhenologicalStage> lReturn = new List<PhenologicalStage>();
             List<PhenologicalStage> lPhenologicalStageListByRegion = null;
             foreach (Pair<Region, List<PhenologicalStage>> lPair in this.PhenologicalStageList)
             {
@@ -511,7 +517,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             try
             {
                 WeatherStation.WeatherData lData = new WeatherStation.WeatherData(pWeatherStation, pDateTime,
-                    pTemperature, pSolarRadiation, pTemMax, pTemMin, pEvapotranspiration);
+                    pTemperature, pTemMax, pTemMin, pSolarRadiation, pEvapotranspiration);
                 this.WeatherDataList.Add(lData);
                 lReturn = true;
             }

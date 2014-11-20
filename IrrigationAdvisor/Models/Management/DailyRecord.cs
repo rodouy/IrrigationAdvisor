@@ -192,12 +192,20 @@ namespace IrrigationAdvisor.Models.Management
         #region Overrides
         public override string ToString()
         {
-            string lReturn = this.CropIrrigationWeather.Crop.Name +  "\t\t" +
-               this.DateHour.ToString() + this.GrowingDegree + "\t\t" +
-               this.EvapotranspirationCrop.getTotalInput() + "\t\t" +
-               this.Rain + "\t\t" +
-               this.Irrigation + "\t\t" +
-               this.Observations + "\t\t";
+            string etc = this.EvapotranspirationCrop.getTotalInput().ToString() + "          ";
+            string rain = "       ";
+            int index = 5;
+            if (this.Rain != null)
+            {
+                rain = this.Rain.getTotalInput().ToString() + "           ";
+               
+            }
+            string lReturn = "Name: " + this.CropIrrigationWeather.Crop.Name + "\t\t" +
+               "Date: " + this.DateHour.ToString() + this.GrowingDegree + "\t\t" +
+               "ETc:" + etc.Substring(0,index) + "\t\t" +
+               "Rain: " + rain.Substring(0, index) + "\t\t" +
+               "Irrig:" + this.Irrigation + "\t\t" +
+               "Obs:  " + this.Observations + "\t\t";
             return lReturn;
 
         }
