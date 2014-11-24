@@ -235,15 +235,11 @@ namespace IrrigationAdvisor.Models.Crop
             }
             return lReturn;
         }
-        public double getAvailableWaterCapacityEachTenCC() 
+        public double getAvailableWaterCapacity() 
         {
             return (this.getFieldCapacity()-this.getPermanentWiltingPoint()) * this.BulkDensitySoil ;
         }
-        public double getAvailableWaterCapacityAllHorizon()
-        {
-            double lReturn = Math.Round(this.getAvailableWaterCapacityEachTenCC() / 10 *this.HorizonLayerDepth, 2);
-            return lReturn;
-        }
+
         #endregion
 
         #region Overrides

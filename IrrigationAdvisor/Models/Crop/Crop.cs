@@ -229,7 +229,7 @@ private DateTime sowingDate;
         /// <returns></returns>
         public double getAvailableWaterCapacity(double pRootDepth)
         {
-            return this.Soil.getAvailableWaterCapacityProration(pRootDepth);
+            return this.Soil.getAvailableWaterCapacity(pRootDepth);
         }
 
         #endregion

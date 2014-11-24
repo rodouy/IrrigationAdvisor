@@ -167,26 +167,22 @@ namespace IrrigationAdvisor.Models.Crop
             {
 
                 lRootDepthSum += lHorizon.HorizonLayerDepth;
-                if (pRootDepth < lRootDepthSum && pRootDepth < lHorizon.HorizonLayerDepth && !findLastHorizon)// Caso borde, la raiz esta dentro del primer horizonte ret: a la cc del primer horizonte sin prorratero
+                double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
+                // La raiz llega/termina en este horizonte, calculo y termino
+                if (lHorizon.HorizonLayerDepth > remainRoot && !findLastHorizon)
                 {
-                    lReturnFieldCapacity =  lHorizon.getFieldCapacity();
+                    
+                    lFactor = Math.Round(remainRoot / lHorizon.HorizonLayerDepth, 2);
+                    lReturnFieldCapacity += lFactor * lHorizon.getFieldCapacity() * lHorizon.HorizonLayerDepth / 10;
                     findLastHorizon = true;
                     return lReturnFieldCapacity;
                 }
-                else if (lRootDepthSum <= pRootDepth )// La raiz es mas grande que hasta este horizonte, calculo prorrateo y sigo
+                else if (lRootDepthSum <= pRootDepth )// La raiz es mas grande que hasta este horizonte, calculo y sigo
                 {
-                    lFactor = Math.Round(lHorizon.HorizonLayerDepth / pRootDepth, 2);
-                    lReturnFieldCapacity += lFactor * lHorizon.getFieldCapacity();
+                    lReturnFieldCapacity += lHorizon.getFieldCapacity() * lHorizon.HorizonLayerDepth / 10;
                 }
-                else if(! findLastHorizon )// La raiz llega hasta la mitad del horizonte, calculo prorrateo y termino
-                {
-                    double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
-                    lFactor = Math.Round(remainRoot / pRootDepth, 2);
-                    lReturnFieldCapacity += lFactor * lHorizon.getFieldCapacity();
-                    findLastHorizon = true;
-                    return lReturnFieldCapacity;
-                }
-                //TODO Si se pide cc con una root mas larga que la suma de todos los horizontes empezaria a dar 0 porque el ultimo porcentaje de horizonte no tiene cc
+                
+                //TODO ver que pasa si la raiz es mas grande que la suma de todos los horizontes
             }
 
             return lReturnFieldCapacity;
@@ -202,31 +198,28 @@ namespace IrrigationAdvisor.Models.Crop
             {
 
                 lRootDepthSum += lHorizon.HorizonLayerDepth;
-                if (pRootDepth < lRootDepthSum && pRootDepth < lHorizon.HorizonLayerDepth && !findLastHorizon)// Caso borde, la raiz esta dentro del primer horizonte ret: a la cc del primer horizonte sin prorratero
+                double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
+                // La raiz llega/termina en este horizonte, calculo y termino
+                if (lHorizon.HorizonLayerDepth > remainRoot && !findLastHorizon)
                 {
-                    lReturnPermanentWPoint = lHorizon.getPermanentWiltingPoint();
+
+                    lFactor = Math.Round(remainRoot / lHorizon.HorizonLayerDepth, 2);
+                    lReturnPermanentWPoint += lFactor * lHorizon.getPermanentWiltingPoint() * lHorizon.HorizonLayerDepth / 10;
                     findLastHorizon = true;
                     return lReturnPermanentWPoint;
                 }
-                else if (lRootDepthSum <= pRootDepth)// La raiz es mas grande que hasta este horizonte, calculo prorrateo y sigo
+                else if (lRootDepthSum <= pRootDepth)// La raiz es mas grande que hasta este horizonte, calculo y sigo
                 {
-                    lFactor = Math.Round(lHorizon.HorizonLayerDepth / pRootDepth, 2);
-                    lReturnPermanentWPoint += lFactor * lHorizon.getPermanentWiltingPoint();
+                    lReturnPermanentWPoint += lHorizon.getPermanentWiltingPoint() * lHorizon.HorizonLayerDepth / 10;
                 }
-                else if (!findLastHorizon)// La raiz llega hasta la mitad del horizonte, calculo prorrateo y termino
-                {
-                    double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
-                    lFactor = Math.Round(remainRoot / pRootDepth, 2);
-                    lReturnPermanentWPoint += lFactor * lHorizon.getPermanentWiltingPoint();
-                    findLastHorizon = true;
-                    return lReturnPermanentWPoint;
-                }
-                //TODO Si se pide cc con una root mas larga que la suma de todos los horizontes empezaria a dar 0 porque el ultimo porcentaje de horizonte no tiene cc
+
+                //TODO ver que pasa si la raiz es mas grande que la suma de todos los horizontes
             }
+
             return lReturnPermanentWPoint;
         }
        
-        public double getAvailableWaterCapacityProration(double pRootDepth)
+        public double getAvailableWaterCapacity(double pRootDepth)
         {
             double lRootDepthSum = 0;
             double lReturnAvalilableWaterCap = 0;
@@ -237,34 +230,27 @@ namespace IrrigationAdvisor.Models.Crop
             {
 
                 lRootDepthSum += lHorizon.HorizonLayerDepth;
-                if (pRootDepth < lRootDepthSum && pRootDepth < lHorizon.HorizonLayerDepth && !findLastHorizon)// Caso borde, la raiz esta dentro del primer horizonte ret: a la cc del primer horizonte sin prorratero
+                double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
+                // La raiz llega/termina en este horizonte, calculo y termino
+                if (lHorizon.HorizonLayerDepth > remainRoot && !findLastHorizon)
                 {
-                    lReturnAvalilableWaterCap = lHorizon.getAvailableWaterCapacityAllHorizon();
+
+                    lFactor = Math.Round(remainRoot / lHorizon.HorizonLayerDepth, 2);
+                    lReturnAvalilableWaterCap += lFactor * lHorizon.getAvailableWaterCapacity() * lHorizon.HorizonLayerDepth / 10;
                     findLastHorizon = true;
                     return lReturnAvalilableWaterCap;
                 }
-                else if (lRootDepthSum <= pRootDepth)// La raiz es mas grande que hasta este horizonte, calculo prorrateo y sigo
+                else if (lRootDepthSum <= pRootDepth)// La raiz es mas grande que hasta este horizonte, calculo y sigo
                 {
-                    lFactor = Math.Round(lHorizon.HorizonLayerDepth / pRootDepth, 2);
-                    lReturnAvalilableWaterCap += lFactor * lHorizon.getAvailableWaterCapacityAllHorizon();
+                    lReturnAvalilableWaterCap += lHorizon.getAvailableWaterCapacity() * lHorizon.HorizonLayerDepth / 10;
                 }
-                else if (!findLastHorizon)// La raiz llega hasta la mitad del horizonte, calculo prorrateo y termino
-                {
-                    double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
-                    lFactor = Math.Round(remainRoot / pRootDepth, 2);
-                    lReturnAvalilableWaterCap += lFactor * lHorizon.getAvailableWaterCapacityAllHorizon();
-                    findLastHorizon = true;
-                    return lReturnAvalilableWaterCap;
-                }
-                //TODO Si se pide cc con una root mas larga que la suma de todos los horizontes empezaria a dar 0 porque el ultimo porcentaje de horizonte no tiene cc
+
+                //TODO ver que pasa si la raiz es mas grande que la suma de todos los horizontes
             }
+
             return lReturnAvalilableWaterCap;
         }
 
-        public double getAvailableWaterCapacityAllHorizon(double pRootDepth)
-        {
-            return this.getAvailableWaterCapacityProration(pRootDepth) * pRootDepth / 10;
-        }
 
         #endregion
 
