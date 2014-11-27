@@ -262,13 +262,15 @@ namespace IrrigationAdvisor.Models.Management
                     {
 
                         lTotalEffectiveRain += lFieldCapacity;
+                        lHidricBalance += lFieldCapacity;
+                
                     }
                     else
                     {
                         lTotalEffectiveRain += lDailyRec.Rain.getTotalInput();
+                        lHidricBalance += lDailyRec.Rain.getTotalInput();
                     }
-                    lHidricBalance += lDailyRec.Rain.getTotalInput();
-                
+                    
                 }
                 if (lDailyRec.Irrigation != null)
                 {
@@ -324,7 +326,7 @@ namespace IrrigationAdvisor.Models.Management
         public double getInitialHidricBalance()
         {
             double lReturn = 0;
-            double lRootDepth = this.getRootDepth();
+            double lRootDepth = 5;// this.getRootDepth();
             double lFieldCapacity = this.CropIrrigationWeather.Crop.getFieldCapacity(lRootDepth);
             lReturn = lFieldCapacity * lRootDepth / 10;
             return lReturn;
