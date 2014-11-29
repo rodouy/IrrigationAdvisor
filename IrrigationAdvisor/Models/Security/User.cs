@@ -44,13 +44,14 @@ namespace IrrigationAdvisor.Models.Security
         /// <summary>
         /// fields of user
         /// </summary>
+        /*
         private string name;
         private string surname;
         private string address;
         private string email;
         private string userName;
         private string password;
-
+        */
         public User() 
         {
 

@@ -237,8 +237,9 @@ namespace IrrigationAdvisor.Models.Crop
         }
         public double getAvailableWaterCapacity() 
         {
-            return this.getFieldCapacity()-this.getPermanentWiltingPoint() ;
+            return (this.getFieldCapacity()-this.getPermanentWiltingPoint()) * this.BulkDensitySoil ;
         }
+
         #endregion
 
         #region Overrides
@@ -257,6 +258,19 @@ namespace IrrigationAdvisor.Models.Crop
         public override int GetHashCode()
         {
             return this.Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            string lReturn = this.Name + "\t\t";
+            lReturn += "Sand: "+this.Sand + "\t";
+            lReturn += "Limo: "+ this.Limo + "\t";
+            lReturn += "Clay: "+ this.Clay + "\t";
+            lReturn += "Org.Mat.: "+ this.OrganicMatter + "\t\t";
+            lReturn += "BulkDen: "+ this.BulkDensitySoil + "\t";
+
+            return lReturn;
+
         }
         #endregion
 

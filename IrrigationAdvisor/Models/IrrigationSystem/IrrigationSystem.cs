@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Management;
+using IrrigationAdvisor.Models.Crop;
+using IrrigationAdvisor.Models.Location;
+using IrrigationAdvisor.Models.Utilities;
 
 namespace IrrigationAdvisor.Models.IrrigationSystem
 {
@@ -50,14 +53,20 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #region Fields
 
         //Crop
+        private List<Pair<Region, List<PhenologicalStage>>> phenologicalStageList;
+
+
         //Irrigation
         //Language
         //Location
 
         //Management
+        //////private List<DailyRecord> dailyRecordsList;
         private List<CropIrrigationWeather> cropIrrigationWeatherList;
-        private List<DailyRecord> dailyRecordsList;
         private List<CropIrrigationWeatherRecords> cropIrrigationWeatherRecordsList;
+
+        private IrrigationCalculus irrigationCalculus;
+
 
 
         //Security 
@@ -77,6 +86,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #region Properties
 
         //Crop
+
+
+        public List<Pair<Region, List<PhenologicalStage>>> PhenologicalStageList
+        {
+            get { return phenologicalStageList; }
+            set { phenologicalStageList = value; }
+        }
+        
         //Irrigation
         //Language
         //Location
@@ -87,16 +104,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             set { cropIrrigationWeatherList = value; }
         }
 
-        public List<DailyRecord> DailyRecordsList
-        {
-            get { return dailyRecordsList; }
-            set { dailyRecordsList = value; }
-        }
-
         public List<CropIrrigationWeatherRecords> CropIrrigationWeatherRecordsList
         {
             get { return cropIrrigationWeatherRecordsList; }
             set { cropIrrigationWeatherRecordsList = value; }
+        }
+
+
+        public IrrigationCalculus IrrigationCalculus
+        {
+            get { return irrigationCalculus; }
+            set { irrigationCalculus = value; }
         }
         //Security 
         //Utitilities
@@ -136,7 +154,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
 
             //Crop
-            
+            this.PhenologicalStageList = new List<Pair< Region, List<PhenologicalStage>>>();
             //Irrigation
 
             //Language
@@ -145,8 +163,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             //Management
             this.CropIrrigationWeatherList = new List<CropIrrigationWeather>();
-            this.DailyRecordsList = new List<DailyRecord>();
             this.CropIrrigationWeatherRecordsList = new List<CropIrrigationWeatherRecords>();
+            this.IrrigationCalculus = new IrrigationCalculus();
             //Security 
 
             //Utitilities
@@ -171,6 +189,37 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Language
         //Location
         //Management
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        private void addDailyRecordToCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather, DailyRecord pDailyRecord)
+        {
+            DateTime pDateTime = pDailyRecord.DateHour;
+            int i = 0;
+            int indexToRemove = -1;
+            foreach (CropIrrigationWeatherRecords lCropIrrigationWeatherRecord in this.CropIrrigationWeatherRecordsList)
+            {
+                if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    foreach (DailyRecord lDailyRecord in lCropIrrigationWeatherRecord.DailyRecords)
+                    {
+                        if (lDailyRecord.DateHour.Date.Equals(pDateTime.Date) && lDailyRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                        {
+                            indexToRemove = i;
+                        }
+                        i++;
+                    }
+                    if (indexToRemove != -1)
+                    {
+                        lCropIrrigationWeatherRecord.DailyRecords.RemoveAt(indexToRemove);
+                    }
+                    lCropIrrigationWeatherRecord.addDailyRecord(pDailyRecord);
+                }
+            }
+
+        }
         //Security 
         //Utitilities
         //Water
@@ -216,7 +265,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             WeatherStation.WeatherData lReturn = null;
             foreach(WeatherStation.WeatherData lWeatherData in this.WeatherDataList)
             {
-                if (lWeatherData.WeatherStation.Equals(pWeatherStation) && pDateTime.Date.Equals(pDateTime.Date))
+                if (lWeatherData.WeatherStation.Equals(pWeatherStation) && lWeatherData.Date.Equals(pDateTime.Date))
                 {
                     lReturn = lWeatherData;
                     return lReturn;
@@ -225,6 +274,33 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
 
         }
+        /// <summary>
+        /// Return the WeatherData for the available weather station.
+        /// First search in the main station. If there is no data, then search in the alternative wheather station.
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
+        private WeatherStation.WeatherData getAvailableWeatherStationData(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        {
+            WeatherStation.WeatherData lReturn = null;
+            WeatherStation.WeatherData lWeatherData = getWeatherDataFromList(pCropIrrigationWeather.MainWeatherStation, pDateTime);
+            if (lWeatherData != null)
+            {
+                lReturn = lWeatherData;
+            }
+            else
+            {
+                lWeatherData = getWeatherDataFromList(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime);
+                if (lWeatherData != null)
+                {
+                    lReturn = lWeatherData;
+                }
+
+            }
+            return lReturn;
+        }
+
 
         #endregion
 
@@ -235,13 +311,24 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Language
         //Location
         //Management
-
+        /// <summary>
+        /// Add to the system a new CropIrrigationWeather
+        /// Aditionaly create a CropIrrigationWeatherRecords for this CropIrrigationWeather
+        /// and add the first DailyRecord
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <returns></returns>
         public bool addCropIrrigWeatherToList(CropIrrigationWeather pCropIrrigationWeather) 
         {
             bool lReturn = true;
             try
             {
                 this.CropIrrigationWeatherList.Add(pCropIrrigationWeather);
+                CropIrrigationWeatherRecords lCropIrrigationWeatherRecords = new CropIrrigationWeatherRecords();
+                lCropIrrigationWeatherRecords.CropIrrigationWeather = pCropIrrigationWeather;
+                double bhi = lCropIrrigationWeatherRecords.getInitialHidricBalance();
+                lCropIrrigationWeatherRecords.HydricBalance = bhi;
+                this.CropIrrigationWeatherRecordsList.Add(lCropIrrigationWeatherRecords);
                 DateTime lDate = pCropIrrigationWeather.Crop.SowingDate;
                 this.addDailyRecordToList(pCropIrrigationWeather, lDate, "Initial registry");
             }
@@ -253,29 +340,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
             return lReturn;
         }
-        /// <summary>
-        /// Delete the DailyRecord for a CropIrrigationWeather in a Date
-        /// </summary>
-        /// <param name="pCropIrrigationWeather"></param>
-        /// <param name="pDateTime"></param>
-        private void deleteDailyRecord(CropIrrigationWeather pCropIrrigationWeather,DateTime pDateTime)
-        {
-            int i = 0;
-            int indexToRemove = -1;
-            foreach(DailyRecord lDailyRecord in this.dailyRecordsList)
-            {
-                if(lDailyRecord.DateHour.Date.Equals(pDateTime.Date)&& lDailyRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
-                {
-                    indexToRemove = i;
-                }
-                i++;
-            }
-            if (indexToRemove != -1)
-            {
-                this.dailyRecordsList.RemoveAt(indexToRemove);
-            }
-
-        }
+        
         public bool addDailyRecordToList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime, String pObservations)
         {
             bool lReturn = false;
@@ -313,11 +378,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                         lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
                         lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
                         double lModifiedGrowingDegree = 0;
-                        
+                        //TODO obtener lModifiedGrowingDegree 
                         DailyRecord lNewDailyRecord = new DailyRecord(pCropIrrigationWeather, lMainWeatherData, lAlternativeWeatherData, pDateTime, lGrowingDegree, lModifiedGrowingDegree,
                             lEvapotranspirationCrop, lRain, lIrrigation, pObservations);
-                        this.deleteDailyRecord(pCropIrrigationWeather, pDateTime);///Si ya existe registro para ese dia se sobre-escribe
-                        this.dailyRecordsList.Add(lNewDailyRecord);
+                        this.addDailyRecordToCropIrrigationWeather(pCropIrrigationWeather, lNewDailyRecord);///Si ya existe registro para ese dia se sobre-escribe
+
                     }
 
                 }
@@ -331,33 +396,84 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
 
         }
-        /// <summary>
-        /// Return the WeatherData for the available weather station.
-        /// First search in the main station. If there is no data, then search in the alternative wheather station.
-        /// </summary>
-        /// <param name="pCropIrrigationWeather"></param>
-        /// <param name="pDateTime"></param>
-        /// <returns></returns>
-        private WeatherStation.WeatherData getAvailableWeatherStationData(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+
+        public double howMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
         {
-            WeatherStation.WeatherData lReturn = null;
-            WeatherStation.WeatherData lWeatherData = getWeatherDataFromList(pCropIrrigationWeather.MainWeatherStation, pDateTime);
-            if (lWeatherData != null)
+            double lReturn = 0;
+            CropIrrigationWeatherRecords lCropIrrigationWeatherRecords = null;
+            foreach (CropIrrigationWeatherRecords oneCropIrrigationWeatherRecords in this.CropIrrigationWeatherRecordsList)
             {
-                lReturn = lWeatherData;
-            }
-            else
-            {
-                lWeatherData = getWeatherDataFromList(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime);
-                if (lWeatherData != null)
+                if (oneCropIrrigationWeatherRecords.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    lReturn = lWeatherData;
+                    lCropIrrigationWeatherRecords = oneCropIrrigationWeatherRecords;
                 }
 
             }
+            if (lCropIrrigationWeatherRecords != null)
+            {
+                lReturn = this.IrrigationCalculus.howMuchToIrrigate(lCropIrrigationWeatherRecords);
+            }
             return lReturn;
         }
+        /// <summary>
+        /// Return the Phenological Stage for a Specie in a Region given the rootDepth
+        /// </summary>
+        /// <param name="pDegree"></param>
+        /// <param name="pRegion"></param>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        public PhenologicalStage getPhenologicalStage(double pDegree, Region pRegion, Specie pSpecie)
+        {
+            PhenologicalStage lReturn = null;
+            List<PhenologicalStage> lPhenologicalStageListByRegion = null;
+            foreach (Pair<Region , List<PhenologicalStage >> lPair in this.PhenologicalStageList)
+            {
+                if (lPair != null && lPair.First.Equals(pRegion))
+                {
+                    lPhenologicalStageListByRegion = lPair.Second;
+                }
+            }
 
+            IEnumerable<PhenologicalStage> query = lPhenologicalStageListByRegion.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
+            foreach(PhenologicalStage lPhenStage in query)
+            {
+                if (lPhenStage != null && lPhenStage.Specie.Equals(pSpecie) && lPhenStage.MinDegree <= pDegree && lPhenStage.MaxDegree >= pDegree)
+                {
+                    lReturn = lPhenStage;
+                }
+            }
+            return lReturn;
+
+        }
+        /// <summary>
+        /// Return the List of Phenological Stage for a Specie in a Region
+        /// </summary>
+        /// <param name="pRegion"></param>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        public List<PhenologicalStage> getPhenologicalStage(Region pRegion, Specie pSpecie)
+        {
+            List<PhenologicalStage> lReturn = new List<PhenologicalStage>();
+            List<PhenologicalStage> lPhenologicalStageListByRegion = null;
+            foreach (Pair<Region, List<PhenologicalStage>> lPair in this.PhenologicalStageList)
+            {
+                if (lPair != null && lPair.First.Equals(pRegion))
+                {
+                    lPhenologicalStageListByRegion = lPair.Second;
+                }
+            }
+
+            IEnumerable<PhenologicalStage> query = lPhenologicalStageListByRegion.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
+            foreach (PhenologicalStage lPhenStage in query)
+            {
+                if (lPhenStage != null && lPhenStage.Specie.Equals(pSpecie))
+                {
+                    lReturn.Add(lPhenStage);
+                }
+            }
+            return lReturn;
+
+        }
 
 
 
@@ -366,12 +482,28 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Security 
         //Utitilities
 
-        public String printDailyRecordsList()
+        public String printDailyRecordsList(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
             String lReturn = Environment.NewLine + "DAILY RECORDS" + Environment.NewLine ;
-            foreach(DailyRecord lDailyrecord in this.DailyRecordsList)
+                lReturn += Environment.NewLine +Environment.NewLine;
+
+                foreach (DailyRecord lDailyrecord in pCropIrrigationWeatherRecords.DailyRecords)
+                {
+                    lReturn += lDailyrecord.ToString() + Environment.NewLine;
+                }
+            
+            return lReturn;
+        }
+
+        public String printDailyrecordsList(CropIrrigationWeather pCropIrrigationWeather)
+        {
+            String lReturn = "";
+            foreach(CropIrrigationWeatherRecords lCropIrrigationWeatherRecords in this.CropIrrigationWeatherRecordsList)
             {
-                lReturn += lDailyrecord.ToString() + Environment.NewLine;
+                if (lCropIrrigationWeatherRecords.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    lReturn = printDailyRecordsList(lCropIrrigationWeatherRecords);
+                }
             }
             return lReturn;
         }
@@ -396,7 +528,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             try
             {
                 WeatherStation.WeatherData lData = new WeatherStation.WeatherData(pWeatherStation, pDateTime,
-                    pTemperature, pSolarRadiation, pTemMax, pTemMin, pEvapotranspiration);
+                    pTemperature, pTemMax, pTemMin, pSolarRadiation, pEvapotranspiration);
                 this.WeatherDataList.Add(lData);
                 lReturn = true;
             }
@@ -458,5 +590,61 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #endregion
 
 
+
+
+        public void adjustmentPhenology(CropIrrigationWeather pCropIrrigationWeather, Stage pStage, DateTime pDateTime)
+        {
+            foreach (CropIrrigationWeatherRecords lCropIrrigationWeatherRecords in this.CropIrrigationWeatherRecordsList)
+            {
+                if (lCropIrrigationWeatherRecords.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    Stage lStage = lCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.PhenologicalStage.Stage;
+                    double lModification = calculateDegreeStageDifference(lStage, pStage, pCropIrrigationWeather.Crop.Specie.Region);
+                    List<DailyRecord> lDailyRecords = lCropIrrigationWeatherRecords.DailyRecords;
+                    foreach(DailyRecord lDailyRec in lDailyRecords)
+                    {
+                        if(Utilities.Utils.isTheSameDay(pDateTime,lDailyRec.DateHour))
+                        {
+                            
+                            lDailyRec.ModifiedGrowingDegree = lModification;
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        private double calculateDegreeStageDifference(Stage oldStage, Stage newStage, Region pRegion)
+        {
+            double oldDegree = 0;
+            double newDegree = 0;
+
+            double lReturn = 0;
+            foreach (Pair<Region, List<PhenologicalStage>> lPair in this.PhenologicalStageList)
+            {
+                if(lPair.First.Equals(pRegion))
+                {
+                    List<PhenologicalStage> lPhenologicalStageList = lPair.Second;
+                    foreach(PhenologicalStage lPhenologicalStage in lPhenologicalStageList)
+                    {
+                        if (lPhenologicalStage.Stage.Equals(oldStage))
+                        {
+                            oldDegree = lPhenologicalStage.getAverageDegree();
+                        }
+                        if (lPhenologicalStage.Stage.Equals(newStage))
+                        {
+                            newDegree = lPhenologicalStage.getAverageDegree();
+                        }
+                    }
+                }
+
+            }
+            if(newDegree!=0 && oldDegree!=0)
+            {
+                lReturn= newDegree-oldDegree;
+            }
+            return lReturn;
+        }
     }
 }

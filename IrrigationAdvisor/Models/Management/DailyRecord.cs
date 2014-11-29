@@ -192,12 +192,27 @@ namespace IrrigationAdvisor.Models.Management
         #region Overrides
         public override string ToString()
         {
-            string lReturn = this.CropIrrigationWeather.Crop.Name +  "\t\t" +
-               this.DateHour.ToString() + this.GrowingDegree + "\t\t" +
-               this.EvapotranspirationCrop.getTotalInput() + "\t\t" +
-               this.Rain + "\t\t" +
-               this.Irrigation + "\t\t" +
-               this.Observations + "\t\t";
+            string etc = this.EvapotranspirationCrop.getTotalInput().ToString() + "          ";
+            string rain = "       ";
+            string irrigation = "       ";
+            int index = 5;
+            if (this.Rain != null)
+            {
+                rain = this.Rain.getTotalInput().ToString() + "           ";
+
+            } 
+            if (this.Irrigation != null)
+            {
+                irrigation = this.Irrigation.getTotalInput().ToString() + "           ";
+
+            }
+            string lReturn = "Name: " + this.CropIrrigationWeather.Crop.Name + "\t\t" +
+               "Date: " + this.DateHour.ToString() + "\t\t" +
+               "D.Dia: " + this.GrowingDegree + "\t\t" +
+               "ETc:" + etc.Substring(0,index) + "\t\t" +
+               "Rain: " + rain.Substring(0, index) + "\t\t" +
+               "Irrig:" + irrigation.Substring(0, index) + "\t\t" +
+               "Obs:  " + this.Observations + "\t\t";
             return lReturn;
 
         }
@@ -210,6 +225,10 @@ namespace IrrigationAdvisor.Models.Management
             DailyRecord lDailyRecord = obj as DailyRecord;
             return this.CropIrrigationWeather.Equals(lDailyRecord.CropIrrigationWeather) &&
                 this.DateHour.Date.Equals(lDailyRecord.DateHour.Date);
+        }
+        public override int GetHashCode()
+        {
+            return this.Observations.GetHashCode();
         }
         #endregion
 

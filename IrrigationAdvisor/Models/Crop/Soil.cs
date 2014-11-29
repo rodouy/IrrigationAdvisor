@@ -87,16 +87,22 @@ namespace IrrigationAdvisor.Models.Crop
             this.Horizons = new List<Horizon>();
             
         }
-        public Soil (int pId,String pName,Location.Location pLocation, int pOrder, String pHorizonLayer,
-            double pHorizonLayerDepth, double pSand, double pLimo, 
-            double pClay, double pOrganicMatter, double pNitrogenAnalysis, 
-            double pFieldCapacity, double pPermanentWiltingPoing, double pBulkDensitySoil)
+
+        public Soil(int pId, String pName, Location.Location pLocation)
+        {
+            this.IdSoil = pId;
+            this.Name = pName;
+            this.Location = pLocation;
+            this.Horizons = new List<Horizon>();
+
+        }
+        public Soil (int pId,String pName,Location.Location pLocation,List <Horizon > pListHorizon)
     
          {
             this.IdSoil = pId;
             this.Name = pName ;
             this.Location = pLocation;
-            this.Horizons = new List<Horizon>();
+            this.Horizons = pListHorizon;
             
         }
 
@@ -121,46 +127,131 @@ namespace IrrigationAdvisor.Models.Crop
         }
         private Horizon getHorizonByRootDepth(double pRootDepth)
         {
-            Horizon lReturn = new Horizon();
+            /// rehacer ordenando por horizon.order
+            Horizon lReturn = null;
             double lRootDepthSum =0;
-            for(int i =0; i< this.horizons.Count; i++)
+
+            IEnumerable<Horizon> query = this.horizons.OrderBy(lHorizon => lHorizon.Order);
+            foreach (Horizon lHorizon in query)
             {
-                Horizon lHorizon = this.getHorizonByOrder(i);
+
                 lRootDepthSum += lHorizon.HorizonLayerDepth;
                 if (lRootDepthSum >= pRootDepth)
                 {
                     lReturn = lHorizon;
-                    lReturn = lHorizon;
                     return lReturn;
                 }
-                else 
-                {
-                    //The HorizonLayerDepth of each horizon is relative to this horizon. Not form the surface of the soil.
-                    pRootDepth -= lHorizon.HorizonLayerDepth;
-                }
-                
             }
             return lReturn;
         }
         #endregion
 
         #region Public Methods
+        /// <summary>
+        ///  Toma un prorrateo: por ejemplo si el horizonte A mide 10 cm y el horizonte B mide 20:
+        ///  Si la raiz tiene 15 cm tomo en cuenta 2/3 del horizonte a (10 cm iniciales) y 1/3 del horizonte B (los otros 5 cm de la planta).
+        ///  
+        ///  Take an average: for example if the A horizon is 10 cm and horizon B is 20 cm long:
+        ///  if the root is 15 cm long the results is 2/3 of horizon A (initial 10 cm) and 1/3 of horixon B (the rest of the root)
+        /// </summary>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
         public double  getFieldCapacity(double pRootDepth)
         {
-            Horizon lHorizon = this.getHorizonByRootDepth(pRootDepth);
-            return lHorizon.getFieldCapacity();
+            double lRootDepthSum = 0;
+            double lReturnFieldCapacity = 0;
+            double lFactor = 0;
+            bool findLastHorizon = false;
+            IEnumerable<Horizon> query = this.horizons.OrderBy(lHorizon => lHorizon.Order);
+            foreach (Horizon lHorizon in query)
+            {
+
+                lRootDepthSum += lHorizon.HorizonLayerDepth;
+                double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
+                // La raiz llega/termina en este horizonte, calculo y termino
+                if (lHorizon.HorizonLayerDepth > remainRoot && !findLastHorizon)
+                {
+                    
+                    lFactor = Math.Round(remainRoot / lHorizon.HorizonLayerDepth, 2);
+                    lReturnFieldCapacity += lFactor * lHorizon.getFieldCapacity() * lHorizon.HorizonLayerDepth / 10;
+                    findLastHorizon = true;
+                    return lReturnFieldCapacity;
+                }
+                else if (lRootDepthSum <= pRootDepth )// La raiz es mas grande que hasta este horizonte, calculo y sigo
+                {
+                    lReturnFieldCapacity += lHorizon.getFieldCapacity() * lHorizon.HorizonLayerDepth / 10;
+                }
+                
+                //TODO ver que pasa si la raiz es mas grande que la suma de todos los horizontes
+            }
+
+            return lReturnFieldCapacity;
         }
         public double getPermanentWiltingPoint(double pRootDepth)
         {
-            Horizon lHorizon = this.getHorizonByRootDepth(pRootDepth);
-            return lHorizon.getPermanentWiltingPoint();
+            double lRootDepthSum = 0;
+            double lReturnPermanentWPoint = 0;
+            double lFactor = 0;
+            bool findLastHorizon = false;
+            IEnumerable<Horizon> query = this.horizons.OrderBy(lHorizon => lHorizon.Order);
+            foreach (Horizon lHorizon in query)
+            {
+
+                lRootDepthSum += lHorizon.HorizonLayerDepth;
+                double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
+                // La raiz llega/termina en este horizonte, calculo y termino
+                if (lHorizon.HorizonLayerDepth > remainRoot && !findLastHorizon)
+                {
+
+                    lFactor = Math.Round(remainRoot / lHorizon.HorizonLayerDepth, 2);
+                    lReturnPermanentWPoint += lFactor * lHorizon.getPermanentWiltingPoint() * lHorizon.HorizonLayerDepth / 10;
+                    findLastHorizon = true;
+                    return lReturnPermanentWPoint;
+                }
+                else if (lRootDepthSum <= pRootDepth)// La raiz es mas grande que hasta este horizonte, calculo y sigo
+                {
+                    lReturnPermanentWPoint += lHorizon.getPermanentWiltingPoint() * lHorizon.HorizonLayerDepth / 10;
+                }
+
+                //TODO ver que pasa si la raiz es mas grande que la suma de todos los horizontes
+            }
+
+            return lReturnPermanentWPoint;
         }
        
         public double getAvailableWaterCapacity(double pRootDepth)
         {
-            Horizon lHorizon = this.getHorizonByRootDepth(pRootDepth);
-            return lHorizon.getAvailableWaterCapacity();
+            double lRootDepthSum = 0;
+            double lReturnAvalilableWaterCap = 0;
+            double lFactor = 0;
+            bool findLastHorizon = false;
+            IEnumerable<Horizon> query = this.horizons.OrderBy(lHorizon => lHorizon.Order);
+            foreach (Horizon lHorizon in query)
+            {
+
+                lRootDepthSum += lHorizon.HorizonLayerDepth;
+                double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
+                // La raiz llega/termina en este horizonte, calculo y termino
+                if (lHorizon.HorizonLayerDepth > remainRoot && !findLastHorizon)
+                {
+
+                    lFactor = Math.Round(remainRoot / lHorizon.HorizonLayerDepth, 2);
+                    lReturnAvalilableWaterCap += lFactor * lHorizon.getAvailableWaterCapacity() * lHorizon.HorizonLayerDepth / 10;
+                    findLastHorizon = true;
+                    return lReturnAvalilableWaterCap;
+                }
+                else if (lRootDepthSum <= pRootDepth)// La raiz es mas grande que hasta este horizonte, calculo y sigo
+                {
+                    lReturnAvalilableWaterCap += lHorizon.getAvailableWaterCapacity() * lHorizon.HorizonLayerDepth / 10;
+                }
+
+                //TODO ver que pasa si la raiz es mas grande que la suma de todos los horizontes
+            }
+
+            return lReturnAvalilableWaterCap;
         }
+
+
         #endregion
 
         #region Overrides
@@ -178,6 +269,17 @@ namespace IrrigationAdvisor.Models.Crop
         public override int GetHashCode()
         {
             return this.Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            string lReturn = Environment.NewLine + Environment.NewLine + this.Name + Environment.NewLine;
+               foreach(Horizon lHorizon in this.Horizons)
+               {
+                   lReturn += lHorizon.ToString()+ Environment.NewLine;
+               }
+            return lReturn;
+
         }
         #endregion
 
