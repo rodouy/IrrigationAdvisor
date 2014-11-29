@@ -36,11 +36,13 @@ namespace IrrigationAdvisor.Models.WeatherStation
     ///     - double            barometerMin
     ///     - double            solarRadiation
     ///     - double            UVRadiation
-    ///     - double            Rain
     ///     - double            RainDay
+    ///     - double            RainStorm
     ///     - double            RainMonth
+    ///     - double            RainYear
     ///     - double            evapotranspiration
     ///     - double            evapotranspirationMonth
+    ///     - double            evapotranspirationYear
     /// 
     /// Methods:
     ///     - WeatherData()      -- constructor
@@ -74,11 +76,13 @@ namespace IrrigationAdvisor.Models.WeatherStation
         ///     - double            barometerMin
         ///     - double            solarRadiation
         ///     - double            UVRadiation
-        ///     - double            Rain
         ///     - double            RainDay
+        ///     - double            RainStorm
         ///     - double            RainMonth
+        ///     - double            RainYear
         ///     - double            evapotranspiration
         ///     - double            evapotranspirationMonth
+        ///     - double            evapotranspirationYear
         /// </summary>
         private WeatherStation weatherStation;
         private DateTime date;
@@ -94,11 +98,13 @@ namespace IrrigationAdvisor.Models.WeatherStation
         private double barometerMin;
         private double solarRadiation;
         private double uvRadiation;
-        private double rain;
         private double rainDay;
+        private double rainStorm;
         private double rainMonth;
+        private double rainYear;
         private double evapotranspiration;
         private double evapotranspirationMonth;
+        private double evapotranspirationYear;
 
         #endregion
 
@@ -173,20 +179,25 @@ namespace IrrigationAdvisor.Models.WeatherStation
             get { return uvRadiation; }
             set { uvRadiation = value; }
         }
-        public double Rain
-        {
-            get { return rain; }
-            set { rain = value; }
-        }
         public double RainDay
         {
             get { return rainDay; }
             set { rainDay = value; }
         }
+        public double RainStorm
+        {
+            get { return rainStorm; }
+            set { rainStorm = value; }
+        }
         public double RainMonth
         {
             get { return rainMonth; }
             set { rainMonth = value; }
+        }
+        public double RainYear
+        {
+            get { return rainYear; }
+            set { rainYear = value; }
         }
         public double Evapotranspiration
         {
@@ -197,6 +208,11 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             get { return evapotranspirationMonth; }
             set { evapotranspirationMonth = value; }
+        }
+        public double EvapotranspirationYear
+        {
+            get { return evapotranspirationYear; }
+            set { evapotranspirationYear = value; }
         }
         
         #endregion
@@ -218,11 +234,13 @@ namespace IrrigationAdvisor.Models.WeatherStation
             this.BarometerMin = 0;
             this.SolarRadiation = 0;
             this.UVRadiation = 0;
-            this.Rain = 0;
             this.RainDay = 0;
+            this.RainStorm = 0;
             this.RainMonth = 0;
+            this.RainYear = 0;
             this.Evapotranspiration = 0;
             this.EvapotranspirationMonth = 0;
+            this.EvapotranspirationYear = 0;
         }
 
         public WeatherData
@@ -250,11 +268,13 @@ namespace IrrigationAdvisor.Models.WeatherStation
             this.BarometerMin = 0;
             this.SolarRadiation = pSolarRadiation;
             this.UVRadiation = 0;
-            this.Rain = 0;
             this.RainDay = 0;
+            this.RainStorm = 0;
             this.RainMonth = 0;
+            this.RainYear = 0;
             this.Evapotranspiration = pEvapotranspiration;
             this.EvapotranspirationMonth = 0;
+            this.EvapotranspirationYear = 0;
         }
 
         public WeatherData
@@ -273,11 +293,13 @@ namespace IrrigationAdvisor.Models.WeatherStation
             double pBarometerMin,
             double pSolarRadiation,
             double pUVRadiation,
-            double pRain,
             double pRainDay,
+            double pRainStorm,
             double pRainMonth,
+            double pRainYear,
             double pEvapotranspiration,
-            double pEvapotranspirationMonth
+            double pEvapotranspirationMonth,
+            double pEvapotranspirationYear
             )
         {
             this.WeatherStation = pWeatherStation;
@@ -294,11 +316,13 @@ namespace IrrigationAdvisor.Models.WeatherStation
             this.BarometerMin = pBarometerMin;
             this.SolarRadiation = pSolarRadiation;
             this.UVRadiation = pUVRadiation;
-            this.Rain = pRain;
             this.RainDay = pRainDay;
+            this.RainStorm = pRainStorm;
             this.RainMonth = pRainMonth;
+            this.RainYear = pRainYear;
             this.Evapotranspiration = pEvapotranspiration;
             this.EvapotranspirationMonth = pEvapotranspirationMonth;
+            this.EvapotranspirationYear = pEvapotranspirationYear;
         }
         #endregion
 
@@ -397,13 +421,36 @@ namespace IrrigationAdvisor.Models.WeatherStation
         #region Overrides
         public override string ToString()
         {
-            string lReturn = this.WeatherStation.Name + "\t\t" +
-                this.Date.ToString()  + "\t\t" +
-                this.Temperature  + "\t\t" +
-                this.SolarRadiation   + "\t\t" +
-                this.TemperatureMax  + "\t\t" +
-                this.TemperatureMin + "\t\t" +
-                this.Evapotranspiration  + "\t\t";
+            string lReturn = 
+                "Name " +
+                this.WeatherStation.Name + ";" +
+                "Date " +
+                this.Date.ToString() + ";" +
+                "Temperatures (now, max, min) " +
+                this.Temperature.ToString() + ";" +
+                this.TemperatureMax.ToString() + ";" +
+                this.TemperatureMin.ToString() + ";" +
+                "Humidity (now, max, min) " +
+                this.Humidity.ToString() + ";" +
+                this.HumidityMax.ToString() + ";" +
+                this.HumidityMin.ToString() + ";" +
+                "Barometer (now, max, min) " +
+                this.Barometer.ToString() + ";" +
+                this.BarometerMax.ToString() + ";" +
+                this.BarometerMin.ToString() + ";" +
+                "Solar Radiation " +
+                this.SolarRadiation.ToString() + ";" +
+                "UVRadiation " +
+                this.UVRadiation.ToString() + ";" +
+                "Rain (day, storm, month, year) " +
+                this.RainDay.ToString() + ";" +
+                this.RainStorm.ToString() + ";" +
+                this.RainMonth.ToString() + ";" +
+                this.RainYear.ToString() + ";" +
+                "Evapotranspiration (now, month, year) " +
+                this.Evapotranspiration.ToString() + ";" +
+                this.EvapotranspirationMonth.ToString() + ";" +
+                this.EvapotranspirationYear.ToString() + ";";
             return lReturn;
         }
         #endregion
