@@ -16,6 +16,30 @@ namespace IrrigationAdvisor.Models.WeatherStation
         #endregion
 
         #region Fields
+        
+        private bool isTemperature = false;
+        private bool isTemperatureMax = false;
+        private bool isTemperatureMin = false;
+        private bool isTemperatureDewPoint = false;
+        private bool isHumidity = false;
+        private bool isHumidityMax = false;
+        private bool isHumidityMin = false;
+        private bool isBarometer = false;
+        private bool isBarometerMax = false;
+        private bool isBarometerMin = false;
+        private bool isSolarRadiation = false;
+        private bool isSolarRadiationDay = false;
+        private bool isUVRadiation = false;
+        private bool isRain = false;
+        private bool isRainDay = false;
+        private bool isRainStorm = false;
+        private bool isRainMonth = false;
+        private bool isRainYear = false;
+        private bool isEvapotranspiration = false;
+        private bool isEvapotranspirationMonth = false;
+        private bool isEvapotranspirationYear = false;
+
+
         private WebClient webClient;
         private String webAddress;
         private byte[] raw;
@@ -25,8 +49,6 @@ namespace IrrigationAdvisor.Models.WeatherStation
         private String responseData;
 
 
-        private String lET;
-        private String lTemperature;
         private WeatherData lWeatherData;
 
         #endregion
@@ -102,20 +124,31 @@ namespace IrrigationAdvisor.Models.WeatherStation
                         @"(<td.*?>.*?</td>)", 
                         RegexOptions.Singleline);
                     //Loop over each match
-                    lWeatherData = new WeatherData();
+                    this.lWeatherData = new WeatherData();
                     foreach (Match iMatch in lMatchCollection)
                     {
                         String lValue = iMatch.Groups[1].Value;
-                        int lLine = 0;
-                        Match lMatch = Regex.Match(lValue,
-                            @"Outside Temp", RegexOptions.Multiline);
-                        if (lMatch.Success)
-                        {
-                            
-                            //double.TryParse(iMatch.Value.ToString(), lWeatherData.Temperature);
-                        }
+
+                        //Look Outside Temperature information
+                        SearchTemperatures(lValue);
+
+                        //Look Outside Humidity information
+                        SearchHumidity(lValue);
+
+                        //Look Barometer information
+                        SearchBarometers(lValue);
+
+                        //Look Radiation information
+                        SearchRadiations(lValue);
+
+                        //Look Rain information
+                        SearchRains(lValue);
+
+                        //Look ET information
+                        SearchETs(lValue);
+
                     }
- 
+                    lReturn = this.lWeatherData.ToString();
                 }
             }
             catch (Exception)
@@ -126,6 +159,264 @@ namespace IrrigationAdvisor.Models.WeatherStation
 
 
             return lReturn;
+        }
+
+        private void SearchTemperatures(String pValue)
+        {
+            if (this.isTemperature && pValue.Length > 2 && pValue.Contains(" C"))
+            {
+                this.lWeatherData.Temperature = ObtainTemperature(pValue);
+                this.isTemperature = false;
+            }
+            else if (this.isTemperatureMax && pValue.Length > 2 && pValue.Contains(" C"))
+            {
+                this.lWeatherData.TemperatureMax = ObtainTemperature(pValue);
+                this.isTemperatureMax = false;
+            }
+            else if (this.isTemperatureMin && pValue.Length > 2 && pValue.Contains(" C"))
+            {
+                this.lWeatherData.TemperatureMin = ObtainTemperature(pValue);
+                this.isTemperatureMin = false;
+            }
+            else if (this.isTemperatureDewPoint && pValue.Length > 2 && pValue.Contains(" C"))
+            {
+                this.lWeatherData.TemperatureDewPoint = ObtainTemperature(pValue);
+                this.isTemperatureDewPoint = false;
+            }
+            if (pValue.Contains("Outside Temp"))
+            {
+                this.isTemperature = true;
+                this.isTemperatureMax = true;
+                this.isTemperatureMin = true;
+            }
+            if (pValue.Contains("Dew Point"))
+            {
+                this.isTemperatureDewPoint = true;
+            }
+
+        }
+
+        private void SearchHumidity(String pValue)
+        {
+            if (this.isHumidity && pValue.Length > 2 && pValue.Contains("%"))
+            {
+                this.lWeatherData.Humidity = ObtainHumidity(pValue);
+                this.isHumidity = false;
+            }
+            else if (this.isHumidityMax && pValue.Length > 2 && pValue.Contains("%"))
+            {
+                this.lWeatherData.HumidityMax = ObtainHumidity(pValue);
+                this.isHumidityMax = false;
+            }
+            else if (this.isHumidityMin && pValue.Length > 2 && pValue.Contains("%"))
+            {
+                this.lWeatherData.HumidityMin = ObtainHumidity(pValue);
+                this.isHumidityMin = false;
+            }
+            if (pValue.Contains("Outside Humidity"))
+            {
+                this.isHumidity = true;
+                this.isHumidityMax = true;
+                this.isHumidityMin = true;
+            }
+        }
+
+        private void SearchBarometers(String pValue)
+        {
+            if (this.isBarometer && pValue.Length > 2 && pValue.Contains("hPa"))
+            {
+                this.lWeatherData.Barometer = ObtainBarometer(pValue);
+                this.isBarometer = false;
+            }
+            else if (this.isBarometerMax && pValue.Length > 2 && pValue.Contains("hPa"))
+            {
+                this.lWeatherData.BarometerMax = ObtainBarometer(pValue);
+                this.isBarometerMax = false;
+            }
+            else if (this.isBarometerMin && pValue.Length > 2 && pValue.Contains("hPa"))
+            {
+                this.lWeatherData.BarometerMin = ObtainBarometer(pValue);
+                this.isBarometerMin = false;
+            }
+            if (pValue.Contains("Barometer"))
+            {
+                this.isBarometer = true;
+                this.isBarometerMax = true;
+                this.isBarometerMin = true;
+            }
+        }
+
+        private void SearchRadiations(String pValue)
+        {
+            if (this.isSolarRadiation && pValue.Length > 2 && pValue.Contains(" W/m"))
+            {
+                this.lWeatherData.SolarRadiation = ObtainSolarRadiation(pValue);
+                this.isSolarRadiation = false;
+            }
+            else if (this.isSolarRadiationDay && pValue.Length > 2 && pValue.Contains(" W/m"))
+            {
+                this.lWeatherData.SolarRadiation = ObtainSolarRadiation(pValue);
+                this.isSolarRadiationDay = false;
+            }
+            else if (this.isUVRadiation && pValue.Length > 2 && pValue.Contains(" Index"))
+            {
+                this.lWeatherData.UVRadiation = ObtainUVRadiation(pValue);
+                this.isUVRadiation = false;
+            }
+            if (pValue.Contains("Solar Radiation"))
+            {
+                this.isSolarRadiation = true;
+                this.isSolarRadiationDay = true;
+            }
+            if (pValue.Contains("UV Radiation"))
+            {
+                this.isUVRadiation = true;
+            }
+        }
+
+        private void SearchRains(String pValue)
+        {
+            if (this.isRainDay && pValue.Length > 2 && pValue.Contains("mm<"))
+            {
+                this.lWeatherData.RainDay = ObtainRain(pValue);
+                this.isRainDay = false;
+            }
+            else if (this.isRainStorm && pValue.Length > 2 && pValue.Contains("mm<"))
+            {
+                this.lWeatherData.RainStorm = ObtainRain(pValue);
+                this.isRainStorm = false;
+            }
+            else if (this.isRainMonth && pValue.Length > 2 && pValue.Contains("mm<"))
+            {
+                this.lWeatherData.RainMonth = ObtainRain(pValue);
+                this.isRainMonth = false;
+            }
+            else if (this.isRainYear && pValue.Length > 2 && pValue.Contains("mm<"))
+            {
+                this.lWeatherData.RainYear = ObtainRain(pValue);
+                this.isRainYear = false;
+            }
+            if (pValue.Contains(">Rain<"))
+            {
+                this.isRainDay = true;
+                this.isRainStorm = true;
+                this.isRainMonth = true;
+                this.isRainYear = true;
+            }
+        }
+
+        private void SearchETs(String pValue)
+        {
+            if (this.isEvapotranspiration && pValue.Length > 2 && pValue.Contains("mm<"))
+            {
+                this.lWeatherData.Evapotranspiration = ObtainET(pValue);
+                this.isEvapotranspiration = false;
+            }
+            else if (this.isEvapotranspirationMonth && pValue.Length > 2 && pValue.Contains("mm<"))
+            {
+                this.lWeatherData.EvapotranspirationMonth = ObtainET(pValue);
+                this.isEvapotranspirationMonth = false;
+            }
+            else if (this.isEvapotranspirationYear && pValue.Length > 2 && pValue.Contains("mm<"))
+            {
+                this.lWeatherData.EvapotranspirationYear = ObtainET(pValue);
+                this.isEvapotranspirationYear = false;
+            }
+            if (pValue.Contains(">ET<"))
+            {
+                this.isEvapotranspiration = true;
+                this.isEvapotranspirationMonth = true;
+                this.isEvapotranspirationYear = true;
+            }
+        }
+
+        /// <summary>
+        /// Temperature Value format NN.N C
+        /// </summary>
+        /// <param name="pTemperatureValue"></param>
+        /// <returns></returns>
+        private double ObtainTemperature(string pTemperatureValue)
+        {
+            double lTemperatureResult = 0;
+            string lTemperature = "";
+            lTemperature = pTemperatureValue;
+            lTemperature = lTemperature.Remove(0, lTemperature.LastIndexOf("\">") + 2);
+            int lIndexOf = lTemperature.LastIndexOf(" C");
+            lTemperature = lTemperature.Remove(lIndexOf, lTemperature.Length - lIndexOf).Trim();
+            lTemperatureResult = Double.Parse(lTemperature);
+            return lTemperatureResult;
+        }
+
+        private double ObtainHumidity(string pHumidityValue)
+        {
+            double lHumidityResult = 0;
+            string lHumidity = "";
+            lHumidity = pHumidityValue;
+            lHumidity = lHumidity.Remove(0, lHumidity.LastIndexOf("\">") + 2);
+            int lIndexOf = lHumidity.LastIndexOf("%");
+            lHumidity = lHumidity.Remove(lIndexOf, lHumidity.Length - lIndexOf).Trim();
+            lHumidityResult = Double.Parse(lHumidity) / 100;
+            return lHumidityResult;
+        }
+
+        private double ObtainBarometer(string pBarometerValue)
+        {
+            double lBarometerResult = 0;
+            string lBarometer = "";
+            lBarometer = pBarometerValue;
+            lBarometer = lBarometer.Remove(0, lBarometer.LastIndexOf("\">") + 2);
+            int lIndexOf = lBarometer.LastIndexOf("hPa");
+            lBarometer = lBarometer.Remove(lIndexOf, lBarometer.Length - lIndexOf).Trim();
+            lBarometerResult = Double.Parse(lBarometer);
+            return lBarometerResult;
+        }
+
+        private double ObtainSolarRadiation(string pSolarRadiationValue)
+        {
+            double lSolarRadiationResult = 0;
+            string lSolarRadiation = "";
+            lSolarRadiation = pSolarRadiationValue;
+            lSolarRadiation = lSolarRadiation.Remove(0, lSolarRadiation.IndexOf("\">") + 2);
+            int lIndexOf = lSolarRadiation.LastIndexOf(" W/m");
+            lSolarRadiation = lSolarRadiation.Remove(lIndexOf, lSolarRadiation.Length - lIndexOf).Trim();
+            lSolarRadiationResult = Double.Parse(lSolarRadiation);
+            return lSolarRadiationResult;
+        }
+
+        private double ObtainUVRadiation(string pUVRadiationValue)
+        {
+            double lUVRadiationResult = 0;
+            string lUVRadiation = "";
+            lUVRadiation = pUVRadiationValue;
+            lUVRadiation = lUVRadiation.Remove(0, lUVRadiation.LastIndexOf("\">") + 2);
+            int lIndexOf = lUVRadiation.LastIndexOf(" Index");
+            lUVRadiation = lUVRadiation.Remove(lIndexOf, lUVRadiation.Length - lIndexOf).Trim();
+            lUVRadiationResult = Double.Parse(lUVRadiation);
+            return lUVRadiationResult;
+        }
+
+        private double ObtainRain(string pRainValue)
+        {
+            double lRainResult = 0;
+            string lRain = "";
+            lRain = pRainValue;
+            lRain = lRain.Remove(0, lRain.LastIndexOf("\">") + 2);
+            int lIndexOf = lRain.LastIndexOf("mm<");
+            lRain = lRain.Remove(lIndexOf, lRain.Length - lIndexOf).Trim();
+            lRainResult = Double.Parse(lRain);
+            return lRainResult;
+        }
+
+        private double ObtainET(string pETValue)
+        {
+            double lETResult = 0;
+            string lET = "";
+            lET = pETValue;
+            lET = lET.Remove(0, lET.LastIndexOf("\">") + 2);
+            int lIndexOf = lET.LastIndexOf("mm<");
+            lET = lET.Remove(lIndexOf, lET.Length - lIndexOf).Trim();
+            lETResult = Double.Parse(lET);
+            return lETResult;
         }
 
         #endregion
@@ -141,6 +432,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
         public void ExtractInfomationDownloadString()
         {
             WebData = webClient.DownloadString(WebAddress);
+
+            String lData = this.ExtractInformationFromData(WebData);
         }
 
         /*
