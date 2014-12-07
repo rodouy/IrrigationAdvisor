@@ -192,6 +192,7 @@
     <Compile Include="Models\Management\CropIrrigationWeatherRecords.cs" />
     <Compile Include="Models\Management\DailyRecord.cs" />
     <Compile Include="Models\Management\IrrigationCalculus.cs" />
+    <Compile Include="Models\Water\EffectiveRain.cs" />
     <Compile Include="Models\Water\EvapotranspirationCrop.cs" />
     <Compile Include="Models\Water\Irrigation.cs" />
     <Compile Include="Models\Water\Rain.cs" />

@@ -57,7 +57,6 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Fields
 
-        private CropIrrigationWeather cropIrrigationWeather;
         private WeatherStation.WeatherData mainWeatherData;
         private WeatherStation.WeatherData alternativeWeatherData;
         private DateTime dateHour;
@@ -72,12 +71,7 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Properties
-        public CropIrrigationWeather CropIrrigationWeather
-        {
-            get { return cropIrrigationWeather; }
-            set { cropIrrigationWeather = value; }
-        }
-
+        
         public WeatherStation.WeatherData MainWeatherData
         {
             get { return mainWeatherData; }
@@ -137,7 +131,6 @@ namespace IrrigationAdvisor.Models.Management
 
         public DailyRecord() 
         {
-            this.CropIrrigationWeather = new CropIrrigationWeather();
             this.MainWeatherData = new WeatherStation.WeatherData();
             this.AlternativeWeatherData = new WeatherStation.WeatherData();
             this.DateHour = new DateTime();
@@ -150,12 +143,10 @@ namespace IrrigationAdvisor.Models.Management
 
         }
 
-        public DailyRecord(CropIrrigationWeather pCropIrrigationWeather, 
-            WeatherStation.WeatherData pMainWeatherData, WeatherStation.WeatherData pAlternativeWeatherData,
+        public DailyRecord(WeatherStation.WeatherData pMainWeatherData, WeatherStation.WeatherData pAlternativeWeatherData,
             DateTime pDateHour, double pGrowingDegree, double pModifiedGrowingDegree, Water.WaterOutput pEvapotranspirationCrop,
             Water.WaterInput pRain, Water.WaterInput pIrrigation, String pObservations) 
         {
-            this.CropIrrigationWeather = pCropIrrigationWeather;
             this.MainWeatherData = pMainWeatherData;
             this.AlternativeWeatherData = pAlternativeWeatherData;
             this.DateHour = pDateHour;
@@ -173,15 +164,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Public Methods
 
-        public int getDaysAfterSowing() 
-        {
-            return this.CropIrrigationWeather.Crop.getDaysAfterSowing();
-             
-        }
-        public Region getRegion() 
-        {
-            return this.CropIrrigationWeather.Crop.getRegion();
-        }
+
         ///     - getBaseTemperature(): double
         ///     - getDailyAverageTemperature(): double
         ///     - getEvapotranspiration(): double
@@ -206,8 +189,7 @@ namespace IrrigationAdvisor.Models.Management
                 irrigation = this.Irrigation.getTotalInput().ToString() + "           ";
 
             }
-            string lReturn = "Name: " + this.CropIrrigationWeather.Crop.Name + "\t\t" +
-               "Date: " + this.DateHour.ToString() + "\t\t" +
+            string lReturn = "Date: " + this.DateHour.ToString() + "\t\t" +
                "D.Dia: " + this.GrowingDegree + "\t\t" +
                "ETc:" + etc.Substring(0,index) + "\t\t" +
                "Rain: " + rain.Substring(0, index) + "\t\t" +
@@ -223,8 +205,7 @@ namespace IrrigationAdvisor.Models.Management
                 return false;
             }
             DailyRecord lDailyRecord = obj as DailyRecord;
-            return this.CropIrrigationWeather.Equals(lDailyRecord.CropIrrigationWeather) &&
-                this.DateHour.Date.Equals(lDailyRecord.DateHour.Date);
+            return this.DateHour.Date.Equals(lDailyRecord.DateHour.Date);
         }
         public override int GetHashCode()
         {
