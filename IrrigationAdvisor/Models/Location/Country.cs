@@ -24,12 +24,15 @@ namespace IrrigationAdvisor.Models.Location
     /// -----------------------------------------------------------------
     /// Fields of Class:
     ///     - name String
-    ///     - location Location
-    /// 
+    ///     - cities List <Location>
+    ///     - cities List <Region>
+    ///     - capital City
+    ///     
     /// Methods:
     ///     - Country()      -- constructor
     ///     - Country(name)  -- consturctor with parameters
-    ///     - SetLocation(Location): bool
+    ///     - SetCapital(City): bool
+    ///     - add(City)
     /// 
     /// </summary>
     public class Country
@@ -40,26 +43,52 @@ namespace IrrigationAdvisor.Models.Location
         #region Fields
         /// <summary>
         /// The fields are:
+        ///     - id int
         ///     - name: the name of the country
-        ///     - location: the location of the country
+        ///     - cities List <Location>
+        ///     - cities List <Region>
+        ///     - capital City
         ///     
         /// </summary>
+        private int idCountry;
         private String name;
-        private Location location;
+        private City capital;
+        private List<City> cities;
+        private List<Region> regions;
 
         #endregion
 
         #region Properties
+
+        public int IdCountry
+        {
+            get { return idCountry; }
+            set { idCountry = value; }
+        }
+        
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        public Location Location
+
+        public City Capital
         {
-            get { return location; }
-            set { location = value; }
+            get { return capital; }
+            set { capital = value; }
+        }
+
+        public List<City> Cities
+        {
+            get { return cities; }
+            set { cities = value; }
+        }
+
+        public List<Region> Regions
+        {
+            get { return regions; }
+            set { regions = value; }
         }
 
         #endregion
@@ -72,13 +101,19 @@ namespace IrrigationAdvisor.Models.Location
         /// <param name="location">Location of the country</param>
         public Country()
         {
+            this.IdCountry = 0;
             this.Name = "";
-            this.Location = new Location();
+            this.Capital = new City();
+            this.Cities = new List<City>();
+            this.Regions = new List<Region>();
         }
-        public Country(String pName, Location pLocation)
+        public Country(int pIdCountry, String pName, City pCapital, List<City> pCities, List<Region> pRegion)
         {
+            this.IdCountry = pIdCountry;
             this.Name = pName;
-            this.Location = pLocation;
+            this.Capital = pCapital;
+            this.Cities = pCities;
+            this.Regions = pRegion;
         }
         #endregion
 
@@ -97,13 +132,13 @@ namespace IrrigationAdvisor.Models.Location
                 return false;
             }
             Country lCountry = obj as Country;
-            return this.Name.Equals(lCountry.name)
-                && this.Location.Equals(lCountry.Location);
+            return this.Name.Equals(lCountry.Name)
+                && this.Capital.Equals(lCountry.Capital);
         }
 
         public override int GetHashCode()
         {
-            return this.name.GetHashCode();
+            return this.Name.GetHashCode();
         }
         #endregion
 

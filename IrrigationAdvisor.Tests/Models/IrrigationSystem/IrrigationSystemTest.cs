@@ -56,9 +56,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         [TestMethod]
         public void santaLuciaTest()
         {
-
-            lRegion = new Region("Templada", lLocation);
-            lLocation = createLocation(new Position(34, 55), new Country("Uruguay", null), lRegion, new City("Santa Lucia", null));
+            Position lPosition = new Position(0, 0);
+            lRegion = new Region("Templada", lPosition);
+            Country lCountry = new Country();
+            lCountry.Name = "Uruguay";
+            lLocation = createLocation(new Position(34, 55), lCountry, lRegion, new City("Santa Lucia", lPosition));
 
             lSpecieSoja = createSpecie(1, "Soja", lRegion, sojaBaseTemp);
             lSpecieMaiz = createSpecie(1, "Maiz", lRegion, maizBaseTemp);
@@ -961,8 +963,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         public void createTestingUnityPruebaInicial()
         {
-            lRegion = new Region("Templada", lLocation);
-            lLocation = createLocation(new Position(34, 55),new Country("Uruguay", null ), lRegion, new City("Minas",null ));
+            lRegion = new Region("Templada",new Position(0,0));
+            Country lCountry = new Country();
+            lCountry.Name = "Uruguay";
+            lLocation = createLocation(new Position(34, 55),lCountry, lRegion, new City("Minas",null ));
 
             lSpecieSoja = createSpecie(1, "Soja", lRegion, sojaBaseTemp);
             lSpecieMaiz = createSpecie(2, "Maiz", lRegion, maizBaseTemp);
@@ -1426,7 +1430,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         public Location.Location createLocation(Position lPosition,Country lCountry, Region lRegion, City lCity)
         {
             lPosition = new Position(34, 55);
-            lCountry = new Country("Uruguay", null );
+            lCountry = new Country();
+            lCountry.Name = "Uruguay";
             lRegion = new Region("Templada", null);
             lCity = new City("Minas",null );
             Location.Location lLocation = new Location.Location(lPosition,lCountry, lRegion, lCity);
