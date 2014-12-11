@@ -67,7 +67,7 @@ namespace IrrigationAdvisor.Models.Management
         public double howMuchToIrrigate(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
             double lReturn =0;
-            double lRootDepth = pCropIrrigationWeatherRecords.getRootDepth();
+            double lRootDepth = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
             double lAvailableWater = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.getAvailableWaterCapacity(lRootDepth);
             double lHidricBalance = pCropIrrigationWeatherRecords.HydricBalance;
             double lthreshold = Math.Round(lAvailableWater / 2, 2);

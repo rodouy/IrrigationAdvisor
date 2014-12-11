@@ -111,114 +111,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             textLogPivot3_4 += Environment.NewLine + Environment.NewLine + irrirgSys.printDailyRecordsList(recP3_4);
             textLogPivot5 += Environment.NewLine + Environment.NewLine + irrirgSys.printDailyRecordsList(recP5);
             
-            this.printSystemData(textLogPivot2);
-            //this.printSystemData(textLogPivot3_4);
+            //this.printSystemData(textLogPivot2);
+            this.printSystemData(textLogPivot3_4);
             //this.printSystemData(textLogPivot5);
 
-        }
-
-        private string agregarDatosPivot3_4_SantaLucia(string textLogPivot3_4, CropIrrigationWeatherRecords recP3_4)
-        {
-            string textoRetorno = textLogPivot3_4;
-            double irrigationCalculated = 0;
-            textoRetorno += "Dia 0" + printState(recP3_4, 0);
-            //Riego inicial
-            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 15), 5);
-            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 19), 15);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 15), "Dia 1");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 1" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 16), "Dia 21");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 2" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 17), "Dia 3");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 3" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 18), "Dia 4");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 4" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 19), "Dia 5");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 5" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 20), "Dia 6");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 6" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 21), "Dia 7");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 7" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 22), "Dia 8");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 8" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 23), "Dia 9");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 9" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 24), "Dia 10");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 10" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 25), "Dia 11");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 11" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 26), "Dia 12");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 12" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 27), "Dia 13");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
-            textoRetorno += "Dia 13" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 28), "Dia 14");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 14" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 29), "Dia 15");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 15" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 30), "Dia 16");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 16" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 1), "Dia 17");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 17" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 2), "Dia 18");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 18" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 3), "Dia 19");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 19" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 4), "Dia 20");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 20" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 5), "Dia 21");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 21" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 6), "Dia 22");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 22" + printState(recP3_4, irrigationCalculated);
-
-            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 7), "Dia 23");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
-            textoRetorno += "Dia 23" + printState(recP3_4, irrigationCalculated);
-
-            return textoRetorno;
         }
 
         private string agregarDatosPivot2_SantaLucia(string pTextLogPivot2, CropIrrigationWeatherRecords recP2)
@@ -303,7 +199,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 9), "Dia 19");
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
             textoRetorno += "Dia 19" + printState(recP2, irrigationCalculated);
-
+            //irrirgSys.adjustmentPhenology(this.cropIrrigWeatherPivot2, new Stage(1, "v2", "Sin hojas"), new DateTime(2014, 11, 9));
+            
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 10), "Dia 20");
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
             textoRetorno += "Dia 20" + printState(recP2, irrigationCalculated);
@@ -416,6 +313,143 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 7), "Dia 47");
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
             textoRetorno += "Dia 47" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 8), "Dia 48");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 48" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 9), "Dia 49");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 49" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 10), "Dia 50");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 50" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 11), "Dia 51");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 51" + printState(recP2, irrigationCalculated);
+
+            return textoRetorno;
+        }
+
+        private string agregarDatosPivot3_4_SantaLucia(string textLogPivot3_4, CropIrrigationWeatherRecords recP3_4)
+        {
+            string textoRetorno = textLogPivot3_4;
+            double irrigationCalculated = 0;
+            textoRetorno += "Dia 0" + printState(recP3_4, 0);
+            //Riego inicial
+            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 15), 5);
+            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 19), 15);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 15), "Dia 1");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 1" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 16), "Dia 21");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 2" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 17), "Dia 3");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 3" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 18), "Dia 4");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 4" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 19), "Dia 5");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 5" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 20), "Dia 6");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 6" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 21), "Dia 7");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 7" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 22), "Dia 8");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 8" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 23), "Dia 9");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 9" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 24), "Dia 10");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 10" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 25), "Dia 11");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 11" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 26), "Dia 12");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 12" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 27), "Dia 13");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 13" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 28), "Dia 14");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 14" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 29), "Dia 15");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 15" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 30), "Dia 16");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 16" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 1), "Dia 17");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 17" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 2), "Dia 18");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 18" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 3), "Dia 19");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 19" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 4), "Dia 20");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 20" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 5), "Dia 21");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot3_4);
+            textoRetorno += "Dia 21" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 6), "Dia 22");
+            //irrirgSys.adjustmentPhenology(this.cropIrrigWeatherPivot3_4, new Stage(1, "v2", "Sin hojas"), new DateTime(2014, 12, 6));
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 22" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 7), "Dia 23");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 23" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 8), "Dia 24");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 24" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 9), "Dia 25");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 25" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 10), "Dia 26");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 26" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 11), "Dia 27");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 27" + printState(recP3_4, irrigationCalculated);
 
             return textoRetorno;
         }
@@ -627,6 +661,22 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
             textoRetorno += "Dia 50" + printState(recP5, irrigationCalculated);
 
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 8), "Dia 51");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 51" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 9), "Dia 52");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 52" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 10), "Dia 53");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 53" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 11), "Dia 54");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 54" + printState(recP5, irrigationCalculated);
+
             return textoRetorno;
         }
 
@@ -649,15 +699,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
             /*
              * 2.- Densidad de cultivo:
-2.1.- Maíz:
-Predeterminada 80.000 pl/ha
-Alta: más de 90.000 pl/ha. En este caso tomar el kc correspondiente a región Árida
-Baja: por el momento nada
+                2.1.- Maíz:
+                Predeterminada 80.000 pl/ha
+                Alta: más de 90.000 pl/ha. En este caso tomar el kc correspondiente a región Árida
+                Baja: por el momento nada
  
-2.2.- Soja
-Predeterminada: 350.000 pl/ha
-Alta: más de 400.000 pl/ha. En este caso tomar kc correspondiente a región Árida
-Baja: por el momento nada
+                2.2.- Soja
+                Predeterminada: 350.000 pl/ha
+                Alta: más de 400.000 pl/ha. En este caso tomar kc correspondiente a región Árida
+                Baja: por el momento nada
              */
             double lMaizMaxEvaporTransptoIrrigate = 35;
             double lSojaMaxEvaporTransptoIrrigate = 35;
@@ -665,18 +715,18 @@ Baja: por el momento nada
             double cropDensitySoja = 350000;
 
 
-            lCropCoefficientSoja = createMaizCropCoefficientWithList(lSpecieMaiz, lRegion);
-            lCropCoefficientMaiz = createSojaCropCoefficientWithList(lSpecieSoja, lRegion);
+            lCropCoefficientMaiz = createMaizCropCoefficientWithList(lSpecieMaiz, lRegion);
+            lCropCoefficientSoja = createSojaCropCoefficientWithList(lSpecieSoja, lRegion);
 
             initialPhenologicalState = new PhenologicalStage(1, lSpecieMaiz, new Stage(1, "v0", "Sin hojas"), 0, 60, 5);
-            
-            cropMaizPivot2 = createCrop(1, "Maiz SantaLucia Pivot 2", lSpecieMaiz, lLocation, lCropCoefficientSoja, cropDensityMaiz,
+
+            cropMaizPivot2 = createCrop(1, "Maiz SantaLucia Pivot 2", lSpecieMaiz, lLocation, lCropCoefficientMaiz, cropDensityMaiz,
                 initialPhenologicalState, new DateTime(2014, 10, 21), DateTime.Now, soil_2, lMaizMaxEvaporTransptoIrrigate);
 
             cropSojaPivot3_4 = createCrop(1, "Soja SantaLucia Pivot 3 4", lSpecieSoja, lLocation, lCropCoefficientSoja, cropDensitySoja,
                             initialPhenologicalState, new DateTime(2014, 11, 14), DateTime.Now, soil_3_4, lSojaMaxEvaporTransptoIrrigate);
 
-            cropSojaPivot5 = createCrop(1, "Maiz SantaLucia Pivot 5", lSpecieMaiz, lLocation, lCropCoefficientSoja, cropDensityMaiz,
+            cropSojaPivot5 = createCrop(1, "Maiz SantaLucia Pivot 5", lSpecieMaiz, lLocation, lCropCoefficientMaiz, cropDensityMaiz,
                                         initialPhenologicalState, new DateTime(2014, 10, 18), DateTime.Now, soil_5, lMaizMaxEvaporTransptoIrrigate);
 
 
@@ -726,10 +776,12 @@ Baja: por el momento nada
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 22), 27);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 29), 50);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 30), 51);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 8), 15);
 
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 22), 27);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 29), 50);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 30), 51);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 8), 15);
 
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 10, 29), 66);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 10, 31), 2.5);
@@ -739,6 +791,7 @@ Baja: por el momento nada
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 22), 27);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 29), 50);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 30), 51);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 8), 15);
 
             
         }
@@ -791,10 +844,14 @@ Baja: por el momento nada
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 2), 99, 0, 18, 18, 2.3);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 3), 99, 0, 20.2, 20.2, 5.9);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 4), 99, 0, 21.8, 21.8, 6.3);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 5), 99, 0, 22.7, 22.7, 7.6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 6), 99, 0, 24.7, 24.7, 7.3);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 7), 99, 0, 22.7, 22.7, 3.6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 8), 99, 0, 21, 21, 2.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 9), 99, 0, 24.3, 24.3, 5.2);
 
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 5), 99, 0, 21.8, 21.8, 5);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 6), 99, 0, 21.8, 21.8, 5);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 7), 99, 0, 21.8, 21.8, 5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 10), 99, 0, 21, 21, 2.5);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 11), 99, 0, 24.3, 24.3, 5.2);
 
         }
 
@@ -945,8 +1002,8 @@ Baja: por el momento nada
         {
             List<PhenologicalStage> lPhenolStageList = new List<PhenologicalStage>();
             lPhenolStageList.Add(cretePhenologicalStage(0, lSpecieMaiz, new Stage(1, "v0", "Sin hojas"), 0, 59, 5));
-            lPhenolStageList.Add( cretePhenologicalStage(1, lSpecieMaiz, new Stage(1, "ve", "Sin hojas"), 60, 114, 5));
-            lPhenolStageList.Add( cretePhenologicalStage(2, lSpecieMaiz, new Stage(1, "v1", "Sin hojas"), 115, 134, 5));
+            lPhenolStageList.Add(cretePhenologicalStage(1, lSpecieMaiz, new Stage(1, "ve", "Sin hojas"), 60, 114, 5));////CAMBIE de 5 A 6
+            lPhenolStageList.Add( cretePhenologicalStage(2, lSpecieMaiz, new Stage(1, "v1", "Sin hojas"), 115, 134, 7));////CAMBIE de 5 A 8
             lPhenolStageList.Add( cretePhenologicalStage(3, lSpecieMaiz, new Stage(1, "v2", "Sin hojas"), 135, 179, 10));
             lPhenolStageList.Add( cretePhenologicalStage(4, lSpecieMaiz, new Stage(1, "v3", "Sin hojas"), 180, 229, 15));
             lPhenolStageList.Add( cretePhenologicalStage(5, lSpecieMaiz, new Stage(1, "v4", "Sin hojas"), 230, 289, 20));
@@ -1197,8 +1254,9 @@ Baja: por el momento nada
             lCropCoefficient.addDayToList(4,0.35);
             lCropCoefficient.addDayToList(5,0.35);
             lCropCoefficient.addDayToList(6,0.35);
-            lCropCoefficient.addDayToList(7,0.35);
-            lCropCoefficient.addDayToList(9,0.35);
+            lCropCoefficient.addDayToList(7, 0.35);
+            lCropCoefficient.addDayToList(8, 0.35);
+            lCropCoefficient.addDayToList(9, 0.35);
             lCropCoefficient.addDayToList(10,0.35);
             lCropCoefficient.addDayToList(11,0.35);
             lCropCoefficient.addDayToList(12,0.35);

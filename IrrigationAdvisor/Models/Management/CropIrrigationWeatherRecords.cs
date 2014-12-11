@@ -308,12 +308,12 @@ namespace IrrigationAdvisor.Models.Management
             if (HydricBalance >= lFieldCapacity)
             {
                 this.HydricBalance = lFieldCapacity; ///CAMBIO 2
-                //this.LastBigWaterInput = pDailyRec.DateHour;
+                this.LastBigWaterInput = pDailyRec.DateHour;
             }
 
             //After a big rain the HidricBalance keep its value = FieldCapacity for two days
-            if (Utilities.Utils.getDaysDifference(this.LastBigWaterInput, pDailyRec.DateHour) < 3 )//CAMBIO 3
-            //if (Utilities.Utils.getDaysDifference(this.LastBigWaterInput, pDailyRec.DateHour) < 3 && this.HydricBalance < lFieldCapacity)
+            //if (Utilities.Utils.getDaysDifference(this.LastBigWaterInput, pDailyRec.DateHour) < 3 )//CAMBIO 3
+            if (Utilities.Utils.getDaysDifference(this.LastBigWaterInput, pDailyRec.DateHour) < 3 && this.HydricBalance < lFieldCapacity)
             {
                 this.HydricBalance = lFieldCapacity;
             }
@@ -419,6 +419,9 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         private void reviewPhenologicalStage()
         {
+            PhenologicalStage lOldPhenStage = this.CropIrrigationWeather.Crop.PhenologicalStage;
+            PhenologicalStage lNewPhenStage = null;
+
             List<PhenologicalStage> lPhenologicalStageList = this.CropIrrigationWeather.Crop.PhenologicalStageList;
             IEnumerable<PhenologicalStage> query = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
             double lDegree = this.ModifiedGrowingDegreeDays;
@@ -426,8 +429,15 @@ namespace IrrigationAdvisor.Models.Management
             {
                 if (lPhenStage != null && lPhenStage.Specie.Equals(this.CropIrrigationWeather.Crop.Specie) && lPhenStage.MinDegree <= lDegree && lPhenStage.MaxDegree >= lDegree)
                 {
+                    lNewPhenStage = lPhenStage;
                     this.CropIrrigationWeather.Crop.PhenologicalStage = lPhenStage;
                 }
+            }
+            ///Si cambio la profundidad de raiz agrego al balance hidrico el agua de la nueva parte del suelo que se considera (a Capacidad de campo)
+            if (lOldPhenStage!= null && lNewPhenStage != null && lOldPhenStage.RootDepth < lNewPhenStage.RootDepth)
+            {
+                double lRootDepthDifference = lNewPhenStage.RootDepth - lOldPhenStage.RootDepth;
+                this.HydricBalance += this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepthDifference);
             }
 
         }
@@ -589,6 +599,7 @@ namespace IrrigationAdvisor.Models.Management
             double lEvapotranspiration = lWeatherData.getEvapotranspiration();
             double lBaseTemperature = this.CropIrrigationWeather.Crop.getBaseTemperature();
             double lGrowingDegree = lAverageTemp - lBaseTemperature;
+            double lGrowingDegreeAcumulated = this.GrowingDegreeDays + lGrowingDegree;
             int lDays = this.getDaysForModifiedGrowingDegree();
             if(lDays ==0)
             {
@@ -597,8 +608,8 @@ namespace IrrigationAdvisor.Models.Management
             double lKC_CropCoefficient = this.CropIrrigationWeather.Crop.CropCoefficient.getKC(lDays);
             double lRealEvapotraspiration = lEvapotranspiration * lKC_CropCoefficient;
             Water.WaterOutput lEvapotranspirationCrop = new Water.EvapotranspirationCrop(this.CropIrrigationWeather, lWeatherData.Date, lRealEvapotraspiration);
-            
-            DailyRecord lNewDailyRecord = new DailyRecord(lMainWeatherData, lAlternativeWeatherData, lWeatherData.Date, lGrowingDegree, this.GrowingDegreeDays ,lGrowingDegree, lKC_CropCoefficient,
+
+            DailyRecord lNewDailyRecord = new DailyRecord(lMainWeatherData, lAlternativeWeatherData, lWeatherData.Date, lGrowingDegree, lGrowingDegreeAcumulated, lGrowingDegree, lKC_CropCoefficient,
                lEvapotranspirationCrop, lRain, lIrrigation, pObservations);
 
             int indexToRemove = -1;
@@ -628,7 +639,7 @@ namespace IrrigationAdvisor.Models.Management
             DateTime lDate = DateTime.MinValue;
             foreach (DailyRecord lDailyRec in this.DailyRecords)
             {
-                if (this.ModifiedGrowingDegreeDays < lDailyRec.GrowingDegreeAcumulated && this.ModifiedGrowingDegreeDays> lastGDRegistry)
+                if (this.ModifiedGrowingDegreeDays <= lDailyRec.GrowingDegreeAcumulated && this.ModifiedGrowingDegreeDays> lastGDRegistry)
                 {
                     lDate = lDailyRec.DateHour;
                     lReturn = Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, lDate);
