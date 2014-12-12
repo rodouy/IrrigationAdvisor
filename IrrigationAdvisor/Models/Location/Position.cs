@@ -44,6 +44,7 @@ namespace IrrigationAdvisor.Models.Location
         ///     - latitude double
         ///     - longitude double
         /// </summary>
+        private int idPosition;
         private double latitude;
         private double longitude;
 
@@ -56,6 +57,13 @@ namespace IrrigationAdvisor.Models.Location
         ///     - Longitude double read only
         /// 
         /// </summary>
+
+        public int IdPosition
+        {
+            get { return idPosition; }
+            set { idPosition = value; }
+        }
+        
         public double Latitude
         {
             get { return latitude; }
@@ -73,12 +81,14 @@ namespace IrrigationAdvisor.Models.Location
         /// </summary>
         public Position()
         {
+            this.IdPosition = 0;
             this.latitude = 0;
             this.longitude = 0;
         }
 
-        public Position(double pLatitude, double pLongitude)
+        public Position(int pIdPosition, double pLatitude, double pLongitude)
         {
+            this.IdPosition = pIdPosition;
             this.latitude = pLatitude;
             this.longitude = pLongitude;
         }
@@ -111,11 +121,11 @@ namespace IrrigationAdvisor.Models.Location
         /// <param name="pLatitude"></param>
         /// <param name="pLongitude"></param>
         /// <returns></returns>
-        public Position getNewPosition(Position pOrigin, double pLatitude, double pLongitude)
+        public Position getNewPosition(int pId, Position pOrigin, double pLatitude, double pLongitude)
         {
             double lNewLatitude = pOrigin.Latitude + pLatitude;
             double lNewLongitude = pOrigin.Longitude + pLongitude;
-            Position lPosition = new Position(lNewLatitude, lNewLongitude);
+            Position lPosition = new Position(pId, lNewLatitude, lNewLongitude);
             return lPosition;
         }
         #endregion
