@@ -99,6 +99,7 @@ namespace IrrigationAdvisor.Models.Management
             double pReturn =0;
             double irrigationEvapTrans = CalculusEvapotranspiration.howMuchToIrrigate( pCropIrrigationWeatherRecords);
             double irrigationAvWater = CalculusAvailableWater.howMuchToIrrigate(pCropIrrigationWeatherRecords);
+            double percentageAvailableWater = pCropIrrigationWeatherRecords.getPercentageOfAvailableWater();
             if (irrigationEvapTrans > irrigationAvWater && irrigationEvapTrans > 0)
             {
                 pReturn = irrigationEvapTrans;
@@ -106,6 +107,11 @@ namespace IrrigationAdvisor.Models.Management
             else if (irrigationAvWater > 0)
             {
                 pReturn = irrigationAvWater;
+            }
+            //If Available water is bigger than 60% : Not Irrigate
+            if (percentageAvailableWater >= 60)
+            {
+                pReturn = 0;
             }
             return pReturn;;
         }

@@ -88,9 +88,13 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             textLogPivot2 += " \tETCAc " +
                 " \t\tETCFromLWI " +
                 " \t G.Dia: " +
-                " \t\t G.D. Mod: " +
-                " \t\tB.Hid: " + 
-                " \tTotRain: " +
+                " \t G.D. Mod: " +
+                " \tB.Hid: " +
+                " \t% A.D.: " +
+                " \tA.D.: " +
+                " \t\tCC: " +
+                " \t\tPMP: " +
+                " \t\tTotRain: " +
                 " \tTotIrrig: " +
                 " \tLastWaterInput: " +
                 " \tRaiz " + 
@@ -114,8 +118,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             textLogPivot5 += Environment.NewLine + Environment.NewLine + irrirgSys.printDailyRecordsList(recP5);
             
             //this.printSystemData(textLogPivot2);
-            this.printSystemData(textLogPivot3_4);
-            //this.printSystemData(textLogPivot5);
+            //this.printSystemData(textLogPivot3_4);
+            this.printSystemData(textLogPivot5);
 
         }
 
@@ -240,11 +244,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             textoRetorno += "Dia 28" + printState(recP2, irrigationCalculated);
 
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 19), "Dia 29");
+            irrirgSys.adjustmentPhenology(this.cropIrrigWeatherPivot2, new Stage(1, "v2", "Sin hojas"), new DateTime(2014, 11, 19));
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
             textoRetorno += "Dia 29" + printState(recP2, irrigationCalculated);
 
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 20), "Dia 30");
-            irrirgSys.adjustmentPhenology(this.cropIrrigWeatherPivot2, new Stage(1, "v2", "Sin hojas"), new DateTime(2014, 11, 20));
+            //irrirgSys.adjustmentPhenology(this.cropIrrigWeatherPivot2, new Stage(1, "v2", "Sin hojas"), new DateTime(2014, 11, 20));
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
             textoRetorno += "Dia 30" + printState(recP2, irrigationCalculated);
 
@@ -866,12 +871,21 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             string modGrowDegre = rec.ModifiedGrowingDegreeDays + "        ";
             string totRain = rec.TotalEffectiveRain + "        ";
             string bHid = rec.HydricBalance.ToString() + "        ";
+            string PercentAD = rec.getPercentageOfAvailableWater() + "        ";
+            string AD = rec.getSoilAvailableWaterCapacity() + "        ";
+            string CC = rec.getSoilFieldCapacity() + "        ";
+            string PMP = rec.getSoilPermanentWiltingPoint() + "        ";
+
             
             ret = " \t " + etcAc.Substring(0, 7) +
                 " \t " + etcflwi.Substring(0,7) +
                 " \t " + growDegre.Substring(0, 7) +
-                " \t\t " + modGrowDegre.Substring(0, 7) +
-                " \t\t " + bHid.Substring(0, 7) +
+                " \t " + modGrowDegre.Substring(0, 7) +
+                " \t " + bHid.Substring(0, 7) +
+                " \t " + PercentAD.Substring(0, 7) +
+                " \t " + AD.Substring(0, 7) +
+                " \t " + CC.Substring(0, 7) +
+                " \t " + PMP.Substring(0, 7) +
                 " \t " + totRain.Substring(0, 7) +
                 " \t " + rec.TotalIrrigation +
                 " \t\t " + rec.LastWaterInput.ToString() +
