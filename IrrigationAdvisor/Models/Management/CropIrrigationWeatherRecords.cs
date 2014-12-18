@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using IrrigationAdvisor.Models.Water;
 namespace IrrigationAdvisor.Models.Management
 {
     
@@ -72,12 +72,14 @@ namespace IrrigationAdvisor.Models.Management
         #region Fields
 
         private int idCropIrrigationWeatherRecords;
+        private List<EffectiveRain> effectiveRain;
         private CropIrrigationWeather cropIrrigationWeather;
         private List<DailyRecord> dailyRecords;
         private double growingDegreeDays;
         private double modifiedGrowingDegreeDays;
         private double totalEvapotranspirationCrop;
         private double totalEffectiveRain;
+        private double totalRealRain;
         private double totalIrrigation;
         private double hydricBalance;
         private double soilHydricVolume;
@@ -100,6 +102,18 @@ namespace IrrigationAdvisor.Models.Management
             set { cropIrrigationWeather = value; }
         }
 
+        public List<EffectiveRain> EffectiveRain
+        {
+            get { return effectiveRain; }
+            set { effectiveRain = value; }
+        }
+
+        public double TotalRealRain
+        {
+            get { return totalRealRain; }
+            set { totalRealRain = value; }
+        }
+        
         public List<DailyRecord> DailyRecords
         {
             get { return dailyRecords; }
@@ -174,11 +188,13 @@ namespace IrrigationAdvisor.Models.Management
         {
             this.IdCropIrrigationWeatherRecords = 0;
             this.CropIrrigationWeather = new CropIrrigationWeather();
+            this.EffectiveRain = new List<EffectiveRain>();
             this.DailyRecords = new List<DailyRecord>();
             this.GrowingDegreeDays = 0;
             this.ModifiedGrowingDegreeDays = 0;
             this.TotalEvapotranspirationCrop = 0;
             this.TotalEffectiveRain = 0;
+            this.TotalRealRain = 0;
             this.TotalIrrigation = 0;
             this.HydricBalance = this.getInitialHidricBalance();
             this.SoilHydricVolume = 0;
@@ -188,18 +204,20 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         public CropIrrigationWeatherRecords(int pId, CropIrrigationWeather pCropIrrigationWeather,
-            List<DailyRecord> pDailyRecords, double pGrowingDegreeDays,
-            double pModifiedGrowingDegreeDays, double pTotalEvapotranspirationCrop,
-            double pTotalEffectiveRain, double pTotalIrrigation, double pHidricBalance, double pSoilHidricVolume,
+            List<EffectiveRain> pEffectiveRain, List<DailyRecord> pDailyRecords, double pGrowingDegreeDays,
+            double pModifiedGrowingDegreeDays, double pTotalEvapotranspirationCrop, double pTotalEffectiveRain,
+            double pTotalRealRain, double pTotalIrrigation, double pHidricBalance, double pSoilHidricVolume,
             DateTime pLastWaterInput, double pTotalEvapotranspirationCropFromLastWaterInput)
         {
             this.IdCropIrrigationWeatherRecords = pId;
             this.CropIrrigationWeather = pCropIrrigationWeather;
+            this.EffectiveRain = pEffectiveRain;
             this.DailyRecords = pDailyRecords;
             this.GrowingDegreeDays = pGrowingDegreeDays;
             this.ModifiedGrowingDegreeDays = pModifiedGrowingDegreeDays;
             this.TotalEvapotranspirationCrop = pTotalEvapotranspirationCrop;
             this.TotalEffectiveRain = pTotalEffectiveRain;
+            this.TotalRealRain = pTotalRealRain;
             this.TotalIrrigation = pTotalIrrigation;
             this.HydricBalance = pHidricBalance;
             this.SoilHydricVolume = pSoilHidricVolume;
@@ -261,16 +279,15 @@ namespace IrrigationAdvisor.Models.Management
             }
 
             // Rain adjustment
-            
             if (pDailyRec.Rain != null)
             {
-                double lEffectiveRain = pDailyRec.Rain.getTotalInput(); ///CAMBIO 1
-                //double lEffectiveRain = getEffectiveRainFromDailyRecord(pDailyRec);
+                double lEffectiveRain = pDailyRec.Rain.Input;
+                double lRealRain = pDailyRec.Rain.getTotalInput();
                 this.TotalEffectiveRain += lEffectiveRain;
+                this.TotalRealRain += lRealRain;
                 this.HydricBalance += lEffectiveRain;
-
-                // If the rain is bigger than 10 mm set the last water input
-                if (pDailyRec.Rain.getTotalInput() > 10)
+                // If the effective rain is bigger than 10 mm set the last water input
+                if (pDailyRec.Rain.Input > 10)
                 {
                     this.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
                     this.LastWaterInput = pDailyRec.DateHour;
@@ -294,7 +311,6 @@ namespace IrrigationAdvisor.Models.Management
             }
 
             //After a big rain the HidricBalance keep its value = FieldCapacity for two days
-            //if (Utilities.Utils.getDaysDifference(this.LastBigWaterInput, pDailyRec.DateHour) < 3 )//CAMBIO 3
             if (Utilities.Utils.getDaysDifference(this.LastBigWaterInput, pDailyRec.DateHour) < 3 && this.HydricBalance < lFieldCapacity)
             {
                 this.HydricBalance = lFieldCapacity;
@@ -310,23 +326,7 @@ namespace IrrigationAdvisor.Models.Management
             reviewPhenologicalStage();
         }
   
-        private double getEffectiveRainFromDailyRecord(DailyRecord pDailyRec)
-        {
-            ///TODO limitar a cc la lluvia
-            double lReturn = 0;
-            double lRootDepth = this.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
-            double lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
 
-            if (pDailyRec.Rain.getTotalInput() > lFieldCapacity)
-            {
-                lReturn=  lFieldCapacity;
-            }
-            else
-            {
-                lReturn = pDailyRec.Rain.getTotalInput();
-            }
-            return lReturn;
-        }
         private int getDaysForModifiedGrowingDegree()
         {
             int lReturn = 0;
@@ -399,6 +399,25 @@ namespace IrrigationAdvisor.Models.Management
             }
 
         }
+
+        private WaterInput getEffectiveRainValue(WaterInput pRain)
+        {
+            if (pRain != null)
+            {
+                IEnumerable<EffectiveRain> query = this.EffectiveRain.OrderBy(lEffectiveRain => lEffectiveRain.Month);
+                foreach (EffectiveRain lEffectiveRain in query)
+                {
+                    if (pRain.Date.Month == lEffectiveRain.Month && lEffectiveRain.MinRain <= pRain.getTotalInput() && lEffectiveRain.MaxRain >= pRain.getTotalInput())
+                    {
+                        //Use the "Input" atribute for the effective Rain and the "ExtraInput" atribute for the rain that is not used by the crop
+                        double totalInput = pRain.getTotalInput();
+                        pRain.Input = pRain.getTotalInput() * lEffectiveRain.Percentage / 100;
+                        pRain.ExtraInput = totalInput - pRain.Input;
+                    }
+                }
+            }
+            return pRain;
+        }
         #endregion
 
         #region Public Methods
@@ -423,30 +442,36 @@ namespace IrrigationAdvisor.Models.Management
         {
             return this.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
         }
-        public void addDailyRecord(WeatherStation.WeatherData lWeatherData, WeatherStation.WeatherData lMainWeatherData, WeatherStation.WeatherData lAlternativeWeatherData, Water.WaterInput lRain, Water.WaterInput lIrrigation, string pObservations)
+        public void addDailyRecord(WeatherStation.WeatherData pWeatherData, WeatherStation.WeatherData pMainWeatherData, WeatherStation.WeatherData pAlternativeWeatherData, Water.WaterInput pRain, Water.WaterInput pIrrigation, string pObservations)
         {
-            double lAverageTemp = lWeatherData.getAverageTemperature();
-            double lEvapotranspiration = lWeatherData.getEvapotranspiration();
+            double lAverageTemp = pWeatherData.getAverageTemperature();
+            double lEvapotranspiration = pWeatherData.getEvapotranspiration();
             double lBaseTemperature = this.CropIrrigationWeather.Crop.getBaseTemperature();
             double lGrowingDegree = lAverageTemp - lBaseTemperature;
             double lGrowingDegreeAcumulated = this.GrowingDegreeDays + lGrowingDegree;
+            //Calculate Rain Effective Value
+            if (pRain != null)
+            {
+                pRain = this.getEffectiveRainValue(pRain);
+            }
+            
             int lDays = this.getDaysForModifiedGrowingDegree();
             if(lDays ==0)
             {
-                Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, lWeatherData.Date);
+                Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, pWeatherData.Date);
             }
             double lKC_CropCoefficient = this.CropIrrigationWeather.Crop.CropCoefficient.getKC(lDays);
             double lRealEvapotraspiration = lEvapotranspiration * lKC_CropCoefficient;
-            Water.WaterOutput lEvapotranspirationCrop = new Water.EvapotranspirationCrop(this.CropIrrigationWeather, lWeatherData.Date, lRealEvapotraspiration);
-
-            DailyRecord lNewDailyRecord = new DailyRecord(lMainWeatherData, lAlternativeWeatherData, lWeatherData.Date, lGrowingDegree, lGrowingDegreeAcumulated, lGrowingDegree, lKC_CropCoefficient,
-               lEvapotranspirationCrop, lRain, lIrrigation, pObservations);
-
+            Water.WaterOutput lEvapotranspirationCrop = new Water.EvapotranspirationCrop(this.CropIrrigationWeather, pWeatherData.Date, lRealEvapotraspiration);
+            
+            DailyRecord lNewDailyRecord = new DailyRecord(pMainWeatherData, pAlternativeWeatherData, pWeatherData.Date, lGrowingDegree, lGrowingDegreeAcumulated, lGrowingDegree, lKC_CropCoefficient,
+               lEvapotranspirationCrop, pRain, pIrrigation, pObservations);
+            
             int indexToRemove = -1;
             int i = 0;
             foreach (DailyRecord lDailyRecord in this.dailyRecords)
             {
-                if (Utilities.Utils.isTheSameDay(lDailyRecord.DateHour.Date, lWeatherData.Date))
+                if (Utilities.Utils.isTheSameDay(lDailyRecord.DateHour.Date, pWeatherData.Date))
                 {
                     indexToRemove = i;
                 }

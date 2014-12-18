@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using IrrigationAdvisor.Models.Location;
 namespace IrrigationAdvisor.Models.Water
 {
     /// <summary>
@@ -13,17 +13,22 @@ namespace IrrigationAdvisor.Models.Water
     ///     
     /// References:
     ///     Region
+
     ///     
     /// Dependencies:
+    ///     Crop
     ///     IrrigationSystem
-    ///     CropIrrigationWeatherRecords
     /// 
-    /// TODO: OK
+    /// TODO: 
     ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - region Rivera - PK (Primary Key)
+    ///     - region  - PK (Primary Key)
+    ///     - month: int
+    ///     - minRain: double
+    ///     - maxRain: double
+    ///     - percentage: double
     /// 
     /// Methods:
     ///     - ClassTemplate()      -- constructor
@@ -33,12 +38,89 @@ namespace IrrigationAdvisor.Models.Water
     /// </summary>
     public class EffectiveRain
     {
-        /*
-        + region: Region
-+ month: int
-+ minRain: double
-+ maxRain: double
-+ percentage: double
-         * */
+        #region Consts
+        #endregion
+
+        #region Fields
+        /// <summary>
+        /// The fields are:
+        ///    + region: Region
+        ///    + month: int
+        ///    + minRain: double
+        ///    + maxRain: double 
+        ///    + percentage: double
+        /// </summary>
+
+
+        private Region region;
+        private int month;
+        private double minRain;
+        private double maxRain;
+        private double percentage;
+
+        #endregion
+
+        #region Properties
+        public Region Region
+        {
+            get { return region; }
+            set { region = value; }
+        }
+
+        public int Month
+        {
+            get { return month; }
+            set { month = value; }
+        }
+
+        public double MinRain
+        {
+            get { return minRain; }
+            set { minRain = value; }
+        }
+
+        public double MaxRain
+        {
+            get { return maxRain; }
+            set { maxRain = value; }
+        }
+
+        public double Percentage
+        {
+            get { return percentage; }
+            set { percentage = value; }
+        }
+
+
+        #endregion
+
+        #region Construction
+
+        public EffectiveRain()
+        {
+            this.Region = new Region();
+            this.Month = 0;
+            this.MinRain = 0;
+            this.MaxRain = 0;
+            this.Percentage = 0;
+        }
+        public EffectiveRain(Region pRegion, int pMonth, double pMinRain, double pMaxRain, double pPercentage)
+        {
+            this.Region = pRegion;
+            this.Month = pMonth;
+            this.MinRain = pMinRain;
+            this.MaxRain = pMaxRain;
+            this.Percentage = pPercentage;
+        }
+        #endregion
+
+        #region Private Helpers
+        #endregion
+
+        #region Public Methods
+        #endregion
+
+        #region Overrides
+        #endregion
     }
 }

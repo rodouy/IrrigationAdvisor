@@ -8,7 +8,7 @@ using IrrigationAdvisor.Models.Location;
 using IrrigationAdvisor.Models.Management;
 using IrrigationAdvisor.Models.Irrigation;
 using IrrigationAdvisor.Models.Utilities;
-
+using IrrigationAdvisor.Models.Water;
 namespace IrrigationAdvisor.Models.IrrigationSystem
 {
     [TestClass]
@@ -69,7 +69,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             
             irrirgSys = new IrrigationSystem();
             addPhenologicalStageListToSystem();
-
+            addEffectiveRainListToSystem();
             crearCultivosSantaLucia();
 
             crearUnidadesDeRiegoSantaLucia();
@@ -94,7 +94,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 " \tA.D.: " +
                 " \t\tCC: " +
                 " \t\tPMP: " +
-                " \t\tTotRain: " +
+                " \t\tEffRain: " +
+                " \tTotRain: " +
                 " \tTotIrrig: " +
                 " \tLastWaterInput: " +
                 " \tRaiz " + 
@@ -337,6 +338,34 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
             textoRetorno += "Dia 51" + printState(recP2, irrigationCalculated);
 
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 12), "Dia 52");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 52" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 13), "Dia 53");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 53" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 14), "Dia 54");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 54" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 15), "Dia 55");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 55" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 16), "Dia 56");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 56" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 17), "Dia 57");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 57" + printState(recP2, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 18), "Dia 58");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 58" + printState(recP2, irrigationCalculated);
+
             return textoRetorno;
         }
 
@@ -457,6 +486,34 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 11), "Dia 27");
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
             textoRetorno += "Dia 27" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 12), "Dia 28");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 28" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 13), "Dia 29");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 29" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 14), "Dia 30");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 30" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 15), "Dia 31");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 31" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 16), "Dia 32");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 32" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 17), "Dia 33");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 33" + printState(recP3_4, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 18), "Dia 34");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot2);
+            textoRetorno += "Dia 34" + printState(recP3_4, irrigationCalculated);
 
             return textoRetorno;
         }
@@ -684,6 +741,34 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
             textoRetorno += "Dia 54" + printState(recP5, irrigationCalculated);
 
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 12), "Dia 55");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 55" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 13), "Dia 56");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 56" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 14), "Dia 57");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 57" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 15), "Dia 58");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 58" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 16), "Dia 59");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 59" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 17), "Dia 60");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 60" + printState(recP5, irrigationCalculated);
+
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 18), "Dia 61");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            textoRetorno += "Dia 61" + printState(recP5, irrigationCalculated);
+
             return textoRetorno;
         }
 
@@ -856,9 +941,16 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 7), 99, 0, 22.7, 22.7, 3.6);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 8), 99, 0, 21, 21, 2.5);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 9), 99, 0, 24.3, 24.3, 5.2);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 10), 99, 0, 18.8, 18.8, 4.9);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 11), 99, 0, 17.6, 17.6, 5.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 12), 99, 0, 20.2, 20.2, 5.2);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 13), 99, 0, 21, 21, 5.4);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 14), 99, 0, 17.5, 17.5, 5.8);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 15), 99, 0, 18.9, 18.9, 6.2);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 16), 99, 0, 22.7, 22.7, 3.7);
 
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 10), 99, 0, 21, 21, 2.5);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 11), 99, 0, 24.3, 24.3, 5.2);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 17), 99, 0, 18.9, 18.9, 6.2);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 18), 99, 0, 22.7, 22.7, 3.7);
 
         }
 
@@ -869,7 +961,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             string etcflwi = rec.TotalEvapotranspirationCropFromLastWaterInput + "        ";
             string growDegre = rec.GrowingDegreeDays + "        ";
             string modGrowDegre = rec.ModifiedGrowingDegreeDays + "        ";
-            string totRain = rec.TotalEffectiveRain + "        ";
+            string effRain = rec.TotalEffectiveRain + "        ";
+            string totRain = rec.TotalRealRain + "        ";
             string bHid = rec.HydricBalance.ToString() + "        ";
             string PercentAD = rec.getPercentageOfAvailableWater() + "        ";
             string AD = rec.getSoilAvailableWaterCapacity() + "        ";
@@ -886,6 +979,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 " \t " + AD.Substring(0, 7) +
                 " \t " + CC.Substring(0, 7) +
                 " \t " + PMP.Substring(0, 7) +
+                " \t " + effRain.Substring(0, 7) +
                 " \t " + totRain.Substring(0, 7) +
                 " \t " + rec.TotalIrrigation +
                 " \t\t " + rec.LastWaterInput.ToString() +
@@ -1000,6 +1094,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             
             irrirgSys = new IrrigationSystem();
             addPhenologicalStageListToSystem();
+            addEffectiveRainListToSystem();
             
             crop = createCrop(1,"Soja en Minas", lSpecieSoja,lLocation, lCropCoefficientSoja, cropDensity,
                 initialPhenologicalState, lSowingDate, DateTime.Now, lSoil, lSojaMaxEvaporTransptoIrrigate);
@@ -1012,6 +1107,88 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             cropIrrigWeatherPrueba = new CropIrrigationWeather(irrigationUnit, crop, weatherStation, null);
 
+            
+        }
+
+        private void addEffectiveRainListToSystem()
+        {
+            List<EffectiveRain> effectiveRainList = new List<EffectiveRain>();
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 0, 10, 90));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 11, 20, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 21, 30, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 31, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 41, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 51, 60, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 61, 70, 65));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 71, 80, 60));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 81, 90, 60));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 91, 100, 55));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 10, 100, 1000, 50));
+
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 0, 10, 90));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 11, 20, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 21, 30, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 31, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 41, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 51, 60, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 61, 70, 65));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 71, 80, 60));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 81, 90, 60));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 91, 100, 55));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 11, 100, 1000, 50));
+
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 0, 10, 90));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 11, 20, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 21, 30, 85));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 31, 40, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 41, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 51, 60, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 61, 70, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 71, 80, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 81, 90, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 91, 100, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 12, 100, 1000, 60));
+
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 0, 10, 90));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 11, 20, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 21, 30, 85));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 31, 40, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 41, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 51, 60, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 61, 70, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 71, 80, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 81, 90, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 91, 100, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 1, 100, 1000, 60));
+
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 0, 10, 90));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 11, 20, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 21, 30, 85));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 31, 40, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 41, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 51, 60, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 61, 70, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 71, 80, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 81, 90, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 91, 100, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 2, 100, 1000, 60));
+
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 0, 10, 90));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 11, 20, 80));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 21, 30, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 31, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 41, 40, 75));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 51, 60, 70));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 61, 70, 65));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 71, 80, 60));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 81, 90, 60));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 91, 100, 55));
+            effectiveRainList.Add(new EffectiveRain(lRegion, 3, 100, 1000, 50));
+
+            
+            
+            Pair<Region, List<EffectiveRain>> lpair = new Pair<Region, List<EffectiveRain>>(lRegion, effectiveRainList);
+            this.irrirgSys.EffectiveRainList.Add(lpair);
             
         }
         
