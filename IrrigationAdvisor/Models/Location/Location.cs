@@ -12,6 +12,10 @@ namespace IrrigationAdvisor.Models.Location
         /// Author: monicarle
         /// Description: 
         ///     Describes a location defined by a Position
+        /// Update: 2014-12-21
+        /// Author: rodouy
+        /// Description:
+        ///     Serilizable class
         ///     
         /// References:
         ///     Position

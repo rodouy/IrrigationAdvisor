@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IrrigationAdvisor.Models.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,10 @@ namespace IrrigationAdvisor.Models.Location
     /// Author: rodouy
     /// Description: 
     ///     Class that describes the position (latitude, longitude)
+    /// Update: 2014-12-17
+    /// Author: rodouy
+    /// Description:
+    ///     Serilizable class
     ///     
     /// References:
     ///     none
@@ -46,6 +51,8 @@ namespace IrrigationAdvisor.Models.Location
         /// </summary>
         private double latitude;
         private double longitude;
+        //First = latitude; Second = longitude
+        private Pair<double, double> thePosition;
 
         #endregion
 
@@ -59,12 +66,28 @@ namespace IrrigationAdvisor.Models.Location
         public double Latitude
         {
             get { return latitude; }
+            set 
+            {
+                latitude = value;
+                this.thePosition.First = latitude;
+            }
         }
 
         public double Longitude
         {
             get { return longitude; }
+            set 
+            {
+                longitude = value;
+                this.thePosition.Second = longitude;
+            }
         }
+
+        public Pair<double, double> ThePosition
+        {
+            get { return thePosition; }
+        }
+
         #endregion
 
         #region Construction
@@ -75,12 +98,14 @@ namespace IrrigationAdvisor.Models.Location
         {
             this.latitude = 0;
             this.longitude = 0;
+            this.thePosition = new Pair<double, double>(this.latitude, this.longitude);
         }
 
         public Position(double pLatitude, double pLongitude)
         {
             this.latitude = pLatitude;
             this.longitude = pLongitude;
+            this.thePosition = new Pair<double, double> (this.latitude, this.longitude);
         }
         #endregion
 
@@ -90,7 +115,7 @@ namespace IrrigationAdvisor.Models.Location
         #region Public Methods
         /// <summary>
         /// Return the distance from two different Positions
-        /// TODO: implementation
+        /// TODO: implementation getDistance(origin, destiny)
         /// </summary>
         /// <param name="pOrigin"></param>
         /// <param name="pDestiny"></param>
@@ -113,11 +138,34 @@ namespace IrrigationAdvisor.Models.Location
         /// <returns></returns>
         public Position getNewPosition(Position pOrigin, double pLatitude, double pLongitude)
         {
+            Position lPosition = null;
             double lNewLatitude = pOrigin.Latitude + pLatitude;
             double lNewLongitude = pOrigin.Longitude + pLongitude;
-            Position lPosition = new Position(lNewLatitude, lNewLongitude);
+            lPosition = new Position(lNewLatitude, lNewLongitude);
             return lPosition;
         }
+
+        public double getLatitude(double pLatitude, double pKMWest)
+        {
+            double lLatitude = pLatitude;
+
+            return lLatitude;
+        }
+
+        public double getLongitude(double pLongitude, double pKMSouth)
+        {
+            double lLongitude = pLongitude;
+
+            return lLongitude;
+        }
+
+        public Position getNewPositionByKM(Position pOrigin, double pKMWest, double pKMSouht)
+        {
+            Position lPosition = null;
+
+            return lPosition;
+        }
+
         #endregion
 
         #region Overrides

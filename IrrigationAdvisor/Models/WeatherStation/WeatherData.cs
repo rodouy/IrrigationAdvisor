@@ -53,7 +53,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
     ///     - getEvapotranspiration(Datetime pDate) double
     /// 
     /// </summary>
-    public class WeatherData
+    [Serializable()]
+    public class WeatherData : System.ComponentModel.INotifyPropertyChanged
     {
 
         #region Consts
@@ -112,32 +113,62 @@ namespace IrrigationAdvisor.Models.WeatherStation
         public WeatherStation WeatherStation
         {
             get { return weatherStation; }
-            set { weatherStation = value; }
+            set 
+            { 
+                weatherStation = value;
+                PropertyChanged(this, 
+                    new System.ComponentModel.PropertyChangedEventArgs("WeatherStation"));
+            }
         }
         public DateTime Date
         {
             get { return date; }
-            set { date = value; }
+            set 
+            { 
+                date = value;
+                PropertyChanged(this,
+                    new System.ComponentModel.PropertyChangedEventArgs("Date"));
+            }
         }
         public double Temperature
         {
             get { return temperature; }
-            set { temperature = value; }
+            set 
+            { 
+                temperature = value;
+                PropertyChanged(this,
+                    new System.ComponentModel.PropertyChangedEventArgs("Temperature"));
+            }
         }
         public double TemperatureMax
         {
             get { return temperatureMax; }
-            set { temperatureMax = value; }
+            set 
+            { 
+                temperatureMax = value;
+                PropertyChanged(this,
+                    new System.ComponentModel.PropertyChangedEventArgs("TemperatureMax"));
+            }
         }
         public double TemperatureMin
         {
             get { return temperatureMin; }
-            set { temperatureMin = value; }
+            set 
+            { 
+                temperatureMin = value;
+                PropertyChanged(this,
+                    new System.ComponentModel.PropertyChangedEventArgs("TemperatureMin"));
+            }
         }
         public double TemperatureDewPoint
         {
             get { return temperatureDewPoint; }
-            set { temperatureDewPoint = value; }
+            set 
+            { 
+                temperatureDewPoint = value;
+                PropertyChanged(this,
+                    new System.ComponentModel.PropertyChangedEventArgs("TemperatureDewPoint"));
+            }
         }
         public double Humidity
         {
@@ -215,6 +246,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set { evapotranspirationYear = value; }
         }
         
+        [field: NonSerialized()]
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Construction

@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -192,6 +193,7 @@
     <Compile Include="Models\Management\CropIrrigationWeatherRecords.cs" />
     <Compile Include="Models\Management\DailyRecord.cs" />
     <Compile Include="Models\Management\IrrigationCalculus.cs" />
+    <Compile Include="Models\Utilities\OutputFileCSV.cs" />
     <Compile Include="Models\Water\EvapotranspirationCrop.cs" />
     <Compile Include="Models\Water\Irrigation.cs" />
     <Compile Include="Models\Water\Rain.cs" />

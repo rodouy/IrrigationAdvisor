@@ -49,7 +49,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
         private String responseData;
 
 
-        private WeatherData lWeatherData;
+        private WeatherData weatherData;
 
         #endregion
 
@@ -77,6 +77,12 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             get { return responseData; }
             set { responseData = value; }
+        }
+
+        public WeatherData WeatherData
+        {
+            get { return weatherData; }
+            set { weatherData = value; }
         }
 
         #endregion
@@ -124,7 +130,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
                         @"(<td.*?>.*?</td>)", 
                         RegexOptions.Singleline);
                     //Loop over each match
-                    this.lWeatherData = new WeatherData();
+                    this.WeatherData = new WeatherData();
                     foreach (Match iMatch in lMatchCollection)
                     {
                         String lValue = iMatch.Groups[1].Value;
@@ -148,13 +154,13 @@ namespace IrrigationAdvisor.Models.WeatherStation
                         SearchETs(lValue);
 
                     }
-                    lReturn = this.lWeatherData.ToString();
+                    lReturn = this.WeatherData.ToString();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 
-                throw;
+                throw ex;
             }
 
 
@@ -165,22 +171,22 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             if (this.isTemperature && pValue.Length > 2 && pValue.Contains(" C"))
             {
-                this.lWeatherData.Temperature = ObtainTemperature(pValue);
+                this.WeatherData.Temperature = ObtainTemperature(pValue);
                 this.isTemperature = false;
             }
             else if (this.isTemperatureMax && pValue.Length > 2 && pValue.Contains(" C"))
             {
-                this.lWeatherData.TemperatureMax = ObtainTemperature(pValue);
+                this.WeatherData.TemperatureMax = ObtainTemperature(pValue);
                 this.isTemperatureMax = false;
             }
             else if (this.isTemperatureMin && pValue.Length > 2 && pValue.Contains(" C"))
             {
-                this.lWeatherData.TemperatureMin = ObtainTemperature(pValue);
+                this.WeatherData.TemperatureMin = ObtainTemperature(pValue);
                 this.isTemperatureMin = false;
             }
             else if (this.isTemperatureDewPoint && pValue.Length > 2 && pValue.Contains(" C"))
             {
-                this.lWeatherData.TemperatureDewPoint = ObtainTemperature(pValue);
+                this.WeatherData.TemperatureDewPoint = ObtainTemperature(pValue);
                 this.isTemperatureDewPoint = false;
             }
             if (pValue.Contains("Outside Temp"))
@@ -200,17 +206,17 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             if (this.isHumidity && pValue.Length > 2 && pValue.Contains("%"))
             {
-                this.lWeatherData.Humidity = ObtainHumidity(pValue);
+                this.WeatherData.Humidity = ObtainHumidity(pValue);
                 this.isHumidity = false;
             }
             else if (this.isHumidityMax && pValue.Length > 2 && pValue.Contains("%"))
             {
-                this.lWeatherData.HumidityMax = ObtainHumidity(pValue);
+                this.WeatherData.HumidityMax = ObtainHumidity(pValue);
                 this.isHumidityMax = false;
             }
             else if (this.isHumidityMin && pValue.Length > 2 && pValue.Contains("%"))
             {
-                this.lWeatherData.HumidityMin = ObtainHumidity(pValue);
+                this.WeatherData.HumidityMin = ObtainHumidity(pValue);
                 this.isHumidityMin = false;
             }
             if (pValue.Contains("Outside Humidity"))
@@ -225,17 +231,17 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             if (this.isBarometer && pValue.Length > 2 && pValue.Contains("hPa"))
             {
-                this.lWeatherData.Barometer = ObtainBarometer(pValue);
+                this.WeatherData.Barometer = ObtainBarometer(pValue);
                 this.isBarometer = false;
             }
             else if (this.isBarometerMax && pValue.Length > 2 && pValue.Contains("hPa"))
             {
-                this.lWeatherData.BarometerMax = ObtainBarometer(pValue);
+                this.WeatherData.BarometerMax = ObtainBarometer(pValue);
                 this.isBarometerMax = false;
             }
             else if (this.isBarometerMin && pValue.Length > 2 && pValue.Contains("hPa"))
             {
-                this.lWeatherData.BarometerMin = ObtainBarometer(pValue);
+                this.WeatherData.BarometerMin = ObtainBarometer(pValue);
                 this.isBarometerMin = false;
             }
             if (pValue.Contains("Barometer"))
@@ -250,17 +256,17 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             if (this.isSolarRadiation && pValue.Length > 2 && pValue.Contains(" W/m"))
             {
-                this.lWeatherData.SolarRadiation = ObtainSolarRadiation(pValue);
+                this.WeatherData.SolarRadiation = ObtainSolarRadiation(pValue);
                 this.isSolarRadiation = false;
             }
             else if (this.isSolarRadiationDay && pValue.Length > 2 && pValue.Contains(" W/m"))
             {
-                this.lWeatherData.SolarRadiation = ObtainSolarRadiation(pValue);
+                this.WeatherData.SolarRadiation = ObtainSolarRadiation(pValue);
                 this.isSolarRadiationDay = false;
             }
             else if (this.isUVRadiation && pValue.Length > 2 && pValue.Contains(" Index"))
             {
-                this.lWeatherData.UVRadiation = ObtainUVRadiation(pValue);
+                this.WeatherData.UVRadiation = ObtainUVRadiation(pValue);
                 this.isUVRadiation = false;
             }
             if (pValue.Contains("Solar Radiation"))
@@ -278,22 +284,22 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             if (this.isRainDay && pValue.Length > 2 && pValue.Contains("mm<"))
             {
-                this.lWeatherData.RainDay = ObtainRain(pValue);
+                this.WeatherData.RainDay = ObtainRain(pValue);
                 this.isRainDay = false;
             }
             else if (this.isRainStorm && pValue.Length > 2 && pValue.Contains("mm<"))
             {
-                this.lWeatherData.RainStorm = ObtainRain(pValue);
+                this.WeatherData.RainStorm = ObtainRain(pValue);
                 this.isRainStorm = false;
             }
             else if (this.isRainMonth && pValue.Length > 2 && pValue.Contains("mm<"))
             {
-                this.lWeatherData.RainMonth = ObtainRain(pValue);
+                this.WeatherData.RainMonth = ObtainRain(pValue);
                 this.isRainMonth = false;
             }
             else if (this.isRainYear && pValue.Length > 2 && pValue.Contains("mm<"))
             {
-                this.lWeatherData.RainYear = ObtainRain(pValue);
+                this.WeatherData.RainYear = ObtainRain(pValue);
                 this.isRainYear = false;
             }
             if (pValue.Contains(">Rain<"))
@@ -309,17 +315,17 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             if (this.isEvapotranspiration && pValue.Length > 2 && pValue.Contains("mm<"))
             {
-                this.lWeatherData.Evapotranspiration = ObtainET(pValue);
+                this.WeatherData.Evapotranspiration = ObtainET(pValue);
                 this.isEvapotranspiration = false;
             }
             else if (this.isEvapotranspirationMonth && pValue.Length > 2 && pValue.Contains("mm<"))
             {
-                this.lWeatherData.EvapotranspirationMonth = ObtainET(pValue);
+                this.WeatherData.EvapotranspirationMonth = ObtainET(pValue);
                 this.isEvapotranspirationMonth = false;
             }
             else if (this.isEvapotranspirationYear && pValue.Length > 2 && pValue.Contains("mm<"))
             {
-                this.lWeatherData.EvapotranspirationYear = ObtainET(pValue);
+                this.WeatherData.EvapotranspirationYear = ObtainET(pValue);
                 this.isEvapotranspirationYear = false;
             }
             if (pValue.Contains(">ET<"))
@@ -434,6 +440,14 @@ namespace IrrigationAdvisor.Models.WeatherStation
             WebData = webClient.DownloadString(WebAddress);
 
             String lData = this.ExtractInformationFromData(WebData);
+        }
+
+        public void ExtractInformationWithSerialization()
+        {
+            WebData = webClient.DownloadString(WebAddress);
+
+            String lData = this.ExtractInformationFromData(WebData);
+
         }
 
         /*
