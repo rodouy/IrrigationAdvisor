@@ -322,8 +322,9 @@ namespace IrrigationAdvisor.Models.Management
             // Rain adjustment
             if (pDailyRec.Rain != null)
             {
-                double lEffectiveRain = pDailyRec.Rain.Input;
                 double lRealRain = pDailyRec.Rain.getTotalInput();
+                //Calculate Rain Effective Value
+                double lEffectiveRain = this.getEffectiveRainValue(pDailyRec.Rain);
                 this.TotalEffectiveRain += lEffectiveRain;
                 this.TotalRealRain += lRealRain;
                 this.HydricBalance += lEffectiveRain;
@@ -339,12 +340,18 @@ namespace IrrigationAdvisor.Models.Management
             // Irrigation adjustment
             if (pDailyRec.Irrigation != null)
             {
-                //TODO verificar que el riego sea mayor a 10 mm para setear thereIsWaterInput = true
                 this.TotalIrrigation += pDailyRec.Irrigation.Input;
-                this.totalExtraIrrigation += pDailyRec.Irrigation.ExtraInput;
+                this.TotalExtraIrrigation += pDailyRec.Irrigation.ExtraInput;
                 this.HydricBalance += pDailyRec.Irrigation.getTotalInput();
-                thereIsWaterInput = true;
+                // If the irrigation is bigger than 10 mm set the last water input
+                if (pDailyRec.Irrigation.getTotalInput() > CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                {
+                    this.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
+                    this.LastWaterInputDate = pDailyRec.DateHour;
+                    thereIsWaterInput = true;
+                }
             }
+           
             // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity
             if (HydricBalance >= lFieldCapacity)
             {
@@ -358,6 +365,7 @@ namespace IrrigationAdvisor.Models.Management
                 this.HydricBalance = lFieldCapacity;
             }
 
+            //TotalEvapotranspirationCropFromLastWaterInput adjustment
             if(!thereIsWaterInput)
             {
                 this.TotalEvapotranspirationCropFromLastWaterInput += pDailyRec.EvapotranspirationCrop.getTotalInput();
@@ -439,8 +447,9 @@ namespace IrrigationAdvisor.Models.Management
             }
 
         }
-        private WaterInput getEffectiveRainValue(WaterInput pRain)
+        private double  getEffectiveRainValue(WaterInput pRain)
         {
+            double pReturn = 0;
             if (pRain != null)
             {
                 IEnumerable<EffectiveRain> query = this.EffectiveRain.OrderBy(lEffectiveRain => lEffectiveRain.Month);
@@ -450,12 +459,12 @@ namespace IrrigationAdvisor.Models.Management
                     {
                         //Use the "Input" atribute for the effective Rain and the "ExtraInput" atribute for the rain that is not used by the crop
                         double totalInput = pRain.getTotalInput();
-                        pRain.Input = pRain.getTotalInput() * lEffectiveRain.Percentage / 100;
-                        pRain.ExtraInput = totalInput - pRain.Input;
+                        pReturn = pRain.getTotalInput() * lEffectiveRain.Percentage / 100;
+                        return pReturn;
                     }
                 }
             }
-            return pRain;
+            return pReturn;;
         }
         private string printHeader()
         {
@@ -476,8 +485,8 @@ namespace IrrigationAdvisor.Models.Management
                 " \tFech Ult Llu: " +
                 " \t\tRaiz " +
                 " \tFenol " +
-                "\tTotRiegoExtra: " +
                 "\tTotRiegoCalc: " +
+                "\tTotRiegoExtra: " +
                 Environment.NewLine;
 
             return lRetrun;
@@ -540,7 +549,7 @@ namespace IrrigationAdvisor.Models.Management
             // Rain revert
             if (lRecordToDelete.Rain != null)
             {
-                double lEffectiveRain = lRecordToDelete.Rain.Input;
+                double lEffectiveRain = lRecordToDelete.Rain.getTotalInput();
                 double lRealRain = lRecordToDelete.Rain.getTotalInput();
                 this.TotalEffectiveRain -= lEffectiveRain;
                 this.TotalRealRain -= lRealRain;
@@ -558,7 +567,8 @@ namespace IrrigationAdvisor.Models.Management
             if (lRecordToDelete.Irrigation != null)
             {
                 //TODO verificar que el riego sea mayor a 10 mm para setear thereIsWaterInput = true
-                this.TotalIrrigation -= lRecordToDelete.Irrigation.getTotalInput();
+                this.TotalIrrigation -= lRecordToDelete.Irrigation.Input;
+                this.TotalExtraIrrigation -= lRecordToDelete.Irrigation.ExtraInput;
                 this.HydricBalance -= lRecordToDelete.Irrigation.getTotalInput();
                 //thereIsWaterInput = true;
             }
@@ -618,12 +628,6 @@ namespace IrrigationAdvisor.Models.Management
             double lBaseTemperature = this.CropIrrigationWeather.Crop.getBaseTemperature();
             double lGrowingDegree = lAverageTemp - lBaseTemperature;
             double lGrowingDegreeAcumulated = this.GrowingDegreeDays + lGrowingDegree;
-            //Calculate Rain Effective Value
-            if (pRain != null)
-            {
-                pRain = this.getEffectiveRainValue(pRain);
-            }
-            
             int lDays = this.getDaysForModifiedGrowingDegree();
             if(lDays ==0)
             {

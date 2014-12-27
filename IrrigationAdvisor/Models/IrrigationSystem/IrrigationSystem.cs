@@ -561,20 +561,35 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             bool lReturn = false;
             try
             {
-                Water.Irrigation lNewIrrigation = new Water.Irrigation();
-                lNewIrrigation.CropIrrigationWeather = pCropIrrigationWeather;
-                lNewIrrigation.Date = pDate;
-                if (isExtra)
+                Water.WaterInput lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pDate);
+                if (lNewIrrigation == null)
                 {
-                    lNewIrrigation.Input = pInput;
-                }
+                    lNewIrrigation = new Water.Irrigation();
+                    lNewIrrigation.CropIrrigationWeather = pCropIrrigationWeather;
+                    lNewIrrigation.Date = pDate;
+                    if (isExtra)
+                    {
+                        lNewIrrigation.ExtraInput = pInput;
+                        lNewIrrigation.ExtraDate = pDate;
+                    }
+                    else
+                    {
+                        lNewIrrigation.Input = pInput;
+                    }
+                    this.IrrigationList.Add(lNewIrrigation);
+                }// If there is an Irrigation actualize the registry
                 else
                 {
-                    lNewIrrigation.ExtraInput = pInput;
-                    lNewIrrigation.ExtraDate = pDate;
+                    if (isExtra)
+                    {
+                        lNewIrrigation.ExtraInput += pInput;
+                        lNewIrrigation.ExtraDate = pDate;
+                    }
+                    else
+                    {
+                        lNewIrrigation.Input += pInput;
+                    }
                 }
-                
-                this.IrrigationList.Add(lNewIrrigation);
             }
             catch (Exception e)
             {
@@ -591,11 +606,21 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             bool lReturn = false;
             try
             {
-                Water.Rain lNewRain = new Water.Rain();
-                lNewRain.CropIrrigationWeather = pCropIrrigationWeather;
-                lNewRain.Date = pDate;
-                lNewRain.Input = pInput;
-                this.RainList.Add(lNewRain);
+                Water.WaterInput lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pDate);
+                if (lNewIrrigation == null)
+                {
+
+                    Water.Rain lNewRain = new Water.Rain();
+                    lNewRain.CropIrrigationWeather = pCropIrrigationWeather;
+                    lNewRain.Date = pDate;
+                    lNewRain.Input = pInput;
+                    this.RainList.Add(lNewRain);
+                }
+                else // If there is a Raub actualize the registry
+                {
+                    lNewIrrigation.ExtraInput += pInput;
+                    lNewIrrigation.ExtraDate = pDate;
+                }
             }
             catch (Exception e)
             {
