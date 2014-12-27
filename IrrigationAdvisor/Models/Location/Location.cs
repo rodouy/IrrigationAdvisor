@@ -101,7 +101,7 @@ namespace IrrigationAdvisor.Models.Location
         #region Construction
         public Location()
         {
-            this.Position = new Position(0,0,0);
+            this.Position = new Position(0,0);
             this.Country = null;
             this.Region = null;
             this.City = null;
