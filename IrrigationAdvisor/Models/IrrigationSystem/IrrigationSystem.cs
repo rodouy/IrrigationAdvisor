@@ -377,8 +377,26 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                         this.addDailyRecordToCropIrrigationWeather(pCropIrrigationWeather, lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);///Si ya existe registro para ese dia se sobre-escribe
 
                     }
+                    double irrigationCalculated = this.howMuchToIrrigate(pCropIrrigationWeather);
+                    if (irrigationCalculated > 0)
+                    {
+                        this.addIrrigationDataToList(pCropIrrigationWeather, pDateTime, this.IrrigationCalculus.PRDETERMINATED_IRRIGATION1, false);
+                        this.addDailyRecordToList(pCropIrrigationWeather, pDateTime, pDateTime.ToShortDateString());
+                    }
 
                 }
+                /*
+                 * 
+                 * irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 19), "Dia 62");
+            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
+            if (irrigationCalculated > 0)
+            {
+                irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 19), 20);
+                irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 19), "Dia 62");
+            }
+            textoRetorno += "Dia 62" + printState(recP5, irrigationCalculated);
+            
+                 * */
             }
             catch (Exception e)
             {
@@ -538,7 +556,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         }
 
         public bool addIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
-            DateTime pDate, double pInput)
+            DateTime pDate, double pInput, bool isExtra)
         {
             bool lReturn = false;
             try
@@ -546,7 +564,16 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 Water.Irrigation lNewIrrigation = new Water.Irrigation();
                 lNewIrrigation.CropIrrigationWeather = pCropIrrigationWeather;
                 lNewIrrigation.Date = pDate;
-                lNewIrrigation.Input = pInput;
+                if (isExtra)
+                {
+                    lNewIrrigation.Input = pInput;
+                }
+                else
+                {
+                    lNewIrrigation.ExtraInput = pInput;
+                    lNewIrrigation.ExtraDate = pDate;
+                }
+                
                 this.IrrigationList.Add(lNewIrrigation);
             }
             catch (Exception e)

@@ -33,7 +33,7 @@ namespace IrrigationAdvisor.Models.Management
     public class CalculusAvailableWater 
     {
         #region Consts
-        private double PRDETERMINATED_IRRIGATION = 20;
+        private double PREDETERMINATED_IRRIGATION = 20;
         #endregion
 
         #region Fields
@@ -73,7 +73,7 @@ namespace IrrigationAdvisor.Models.Management
             double lthreshold = Math.Round(lAvailableWater / 2, 2);
             if (lHidricBalance <= lthreshold)
             {
-                lReturn = this.PRDETERMINATED_IRRIGATION;
+                lReturn = this.PREDETERMINATED_IRRIGATION;
             }
 
             return lReturn;;

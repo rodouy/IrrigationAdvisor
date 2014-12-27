@@ -66,7 +66,7 @@ namespace IrrigationAdvisor.Tests.Models.Management
             Assert.AreEqual(lCropIrrigationWeatherRecords.TotalEvapotranspirationCrop, 11);
             Assert.AreEqual(lCropIrrigationWeatherRecords.TotalEffectiveRain, 22);
             Assert.AreEqual(lCropIrrigationWeatherRecords.TotalIrrigation, 10);
-            Assert.AreEqual(lCropIrrigationWeatherRecords.LastWaterInput, new DateTime(2014,11,5));
+            Assert.AreEqual(lCropIrrigationWeatherRecords.LastWaterInputDate, new DateTime(2014,11,5));
             
         }
     }
