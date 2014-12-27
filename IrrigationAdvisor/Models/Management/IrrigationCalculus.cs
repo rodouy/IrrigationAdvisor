@@ -35,6 +35,9 @@ namespace IrrigationAdvisor.Models.Management
     {
 
         #region Consts
+        private double PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE = 60;
+        private double PRDETERMINATED_IRRIGATION = 20;
+
         #endregion
 
         #region Fields
@@ -55,6 +58,12 @@ namespace IrrigationAdvisor.Models.Management
         /// The properties are:
         /// </summary>
 
+        public double PRDETERMINATED_IRRIGATION1
+        {
+            get { return PRDETERMINATED_IRRIGATION; }
+            set { PRDETERMINATED_IRRIGATION = value; }
+        }
+        
         public CalculusAvailableWater CalculusAvailableWater
         {
             get { return calculusAvailableWater; }
@@ -99,6 +108,7 @@ namespace IrrigationAdvisor.Models.Management
             double pReturn =0;
             double irrigationEvapTrans = CalculusEvapotranspiration.howMuchToIrrigate( pCropIrrigationWeatherRecords);
             double irrigationAvWater = CalculusAvailableWater.howMuchToIrrigate(pCropIrrigationWeatherRecords);
+            double percentageAvailableWater = pCropIrrigationWeatherRecords.getPercentageOfAvailableWater();
             if (irrigationEvapTrans > irrigationAvWater && irrigationEvapTrans > 0)
             {
                 pReturn = irrigationEvapTrans;
@@ -106,6 +116,11 @@ namespace IrrigationAdvisor.Models.Management
             else if (irrigationAvWater > 0)
             {
                 pReturn = irrigationAvWater;
+            }
+            //If Available water is bigger than 60% : Not Irrigate
+            if (percentageAvailableWater >= PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
+            {
+                pReturn = 0;
             }
             return pReturn;;
         }

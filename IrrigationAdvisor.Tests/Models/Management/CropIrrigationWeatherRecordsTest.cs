@@ -45,12 +45,12 @@ namespace IrrigationAdvisor.Tests.Models.Management
             lDailyRecord05.Rain.ExtraInput = 5.5;
             lDailyRecord05.ModifiedGrowingDegree = 5;
 
-            
-            lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord01);
-            lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord02);
-            lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord03);
-            lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord04);
-            lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord05);
+            /////Se privatizo el metodo
+            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord01);
+            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord02);
+            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord03);
+            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord04);
+            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord05);
 
             Assert.AreEqual(lCropIrrigationWeatherRecords.getEffectiveRain(new DateTime(2014, 11, 1)), 1.1);
             Assert.AreEqual(lCropIrrigationWeatherRecords.getEffectiveRain(new DateTime(2014, 11, 5)), 11);
@@ -66,7 +66,7 @@ namespace IrrigationAdvisor.Tests.Models.Management
             Assert.AreEqual(lCropIrrigationWeatherRecords.TotalEvapotranspirationCrop, 11);
             Assert.AreEqual(lCropIrrigationWeatherRecords.TotalEffectiveRain, 22);
             Assert.AreEqual(lCropIrrigationWeatherRecords.TotalIrrigation, 10);
-            Assert.AreEqual(lCropIrrigationWeatherRecords.LastWaterInput, new DateTime(2014,11,5));
+            Assert.AreEqual(lCropIrrigationWeatherRecords.LastWaterInputDate, new DateTime(2014,11,5));
             
         }
     }

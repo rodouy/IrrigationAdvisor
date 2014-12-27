@@ -160,26 +160,27 @@ namespace IrrigationAdvisor.Models.Crop
         {
             double lRootDepthSum = 0;
             double lReturnFieldCapacity = 0;
-            double lFactor = 0;
-            bool findLastHorizon = false;
+            double lRootPortionOnTheHorizon = 0;
+            bool lFindLastHorizon = false;
+            double lFieldCapacityDepthCM = 10;
             IEnumerable<Horizon> query = this.horizons.OrderBy(lHorizon => lHorizon.Order);
             foreach (Horizon lHorizon in query)
             {
 
                 lRootDepthSum += lHorizon.HorizonLayerDepth;
-                double remainRoot = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
+                double lRemainRootForThisHorizon = pRootDepth - (lRootDepthSum - lHorizon.HorizonLayerDepth);
                 // La raiz llega/termina en este horizonte, calculo y termino
-                if (lHorizon.HorizonLayerDepth > remainRoot && !findLastHorizon)
+                if (lHorizon.HorizonLayerDepth > lRemainRootForThisHorizon && !lFindLastHorizon)
                 {
                     
-                    lFactor = Math.Round(remainRoot / lHorizon.HorizonLayerDepth, 2);
-                    lReturnFieldCapacity += lFactor * lHorizon.getFieldCapacity() * lHorizon.HorizonLayerDepth / 10;
-                    findLastHorizon = true;
+                    lRootPortionOnTheHorizon = Math.Round(lRemainRootForThisHorizon / lHorizon.HorizonLayerDepth, 2);
+                    lReturnFieldCapacity += lRootPortionOnTheHorizon * lHorizon.getFieldCapacity() * lHorizon.HorizonLayerDepth / lFieldCapacityDepthCM;
+                    lFindLastHorizon = true;
                     return lReturnFieldCapacity;
                 }
                 else if (lRootDepthSum <= pRootDepth )// La raiz es mas grande que hasta este horizonte, calculo y sigo
                 {
-                    lReturnFieldCapacity += lHorizon.getFieldCapacity() * lHorizon.HorizonLayerDepth / 10;
+                    lReturnFieldCapacity += lHorizon.getFieldCapacity() * lHorizon.HorizonLayerDepth / lFieldCapacityDepthCM;
                 }
                 
                 //TODO ver que pasa si la raiz es mas grande que la suma de todos los horizontes

@@ -27,6 +27,7 @@ namespace IrrigationAdvisor.Models.Location
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
+    ///     - idRegion int
     ///     - name String
     ///     - location Location
     /// 
@@ -44,27 +45,37 @@ namespace IrrigationAdvisor.Models.Location
         #region Fields
         /// <summary>
         /// The fields are:
+        ///     - idRegion: identifier
         ///     - name: the name of the region
         ///     - location: the location of the region
         ///     
         /// </summary>
+        private int idRegion;
         private String name;
-        private Location location;
+        private Position position;
+
 
 
         #endregion
 
         #region Properties
+
+        public int IdRegion
+        {
+            get { return idRegion; }
+            set { idRegion = value; }
+        }
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        public Location Location
+
+        public Position Position
         {
-            get { return location; }
-            set { location = value; }
+            get { return position; }
+            set { position = value; }
         }
 
         #endregion
@@ -78,12 +89,12 @@ namespace IrrigationAdvisor.Models.Location
         public Region()
         {
             this.Name = "";
-            this.Location = new Location();
+            this.Position = new Position();
         }
-        public Region(String pName, Location pLocation)
+        public Region(String pName, Position pPosition)
         {
             this.Name = pName;
-            this.Location = pLocation;
+            this.Position = pPosition;
         }
         #endregion
 
@@ -106,7 +117,7 @@ namespace IrrigationAdvisor.Models.Location
             }
             Region lRegion = obj as Region;
             return this.Name.Equals(lRegion.Name);
-               // && this .Location.Equals(lRegion.Location);
+                //&& this .Position.Equals(lRegion.Position);
         }
 
         public override int GetHashCode()

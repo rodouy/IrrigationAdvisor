@@ -12,24 +12,26 @@ namespace IrrigationAdvisor.Models.Location
     ///     Describes a city
     ///     
     /// References:
-    ///     Location
+    ///     Position
     ///     
     /// Dependencies:
     ///     Country
-    ///     Location
+    ///     Position
     /// 
     /// TODO: 
     ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
+    ///     - idCity int
     ///     - name String
-    ///     - location Location
+    ///     - position Position
+    ///     City
     /// 
     /// Methods:
     ///     - City()      -- constructor
     ///     - City(name)  -- consturctor with parameters
-    ///     - SetLocation(Location): bool
+    ///     - SetPosition(Position): bool
     /// 
     /// </summary>
     public class City
@@ -40,28 +42,39 @@ namespace IrrigationAdvisor.Models.Location
         #region Fields
         /// <summary>
         /// The fields are:
+        ///     - idCity: identifier
         ///     - name: the name of the city
-        ///     - location: the location of the city
+        ///     - position: the position of the city
         ///     
         /// </summary>
+        private int idCity;
         private String name;
-        private Location location;
+        private Position position;
 
 
         #endregion
 
         #region Properties
+
+
+        public int IdCity
+        {
+            get { return idCity; }
+            set { idCity = value; }
+        }
+        
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        public Location Location
+        public Position Position
         {
-            get { return location; }
-            set { location = value; }
+            get { return position; }
+            set { position = value; }
         }
+
 
         #endregion
 
@@ -74,12 +87,12 @@ namespace IrrigationAdvisor.Models.Location
         public City()
         {
             this.Name = "";
-            this.Location = new Location();
+            this.Position = new Position ();
         }
-        public City(String pName, Location pLocation)
+        public City(String pName, Position pPosition)
         {
             this.Name = pName;
-            this.Location = pLocation;
+            this.Position = pPosition;
         }
         #endregion
 
@@ -100,7 +113,7 @@ namespace IrrigationAdvisor.Models.Location
                 return false;
             }
             City lCity = obj as City;
-            return (this.Name.Equals(lCity.Name) && this .Location.Equals(lCity.Location));
+            return (this.Name.Equals(lCity.Name) && this .Position.Equals(lCity.Position));
         }
 
         public override int GetHashCode()

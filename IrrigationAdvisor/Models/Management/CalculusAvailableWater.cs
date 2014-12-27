@@ -33,7 +33,7 @@ namespace IrrigationAdvisor.Models.Management
     public class CalculusAvailableWater 
     {
         #region Consts
-        private double PRDETERMINATED_IRRIGATION = 20;
+        private double PREDETERMINATED_IRRIGATION = 20;
         #endregion
 
         #region Fields
@@ -67,13 +67,13 @@ namespace IrrigationAdvisor.Models.Management
         public double howMuchToIrrigate(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
             double lReturn =0;
-            double lRootDepth = pCropIrrigationWeatherRecords.getRootDepth();
+            double lRootDepth = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
             double lAvailableWater = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.getAvailableWaterCapacity(lRootDepth);
             double lHidricBalance = pCropIrrigationWeatherRecords.HydricBalance;
             double lthreshold = Math.Round(lAvailableWater / 2, 2);
             if (lHidricBalance <= lthreshold)
             {
-                lReturn = this.PRDETERMINATED_IRRIGATION;
+                lReturn = this.PREDETERMINATED_IRRIGATION;
             }
 
             return lReturn;;

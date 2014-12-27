@@ -212,12 +212,13 @@ namespace IrrigationAdvisor.Models.Crop
         public double  getFieldCapacity()
         {
             double lReturn = 0;
+            ///TODO Ver respuesta para ver si el control es pertinente
             if(this.Sand !=0 && this.Clay!=0 && this.OrganicMatter !=0)
             { 
                 lReturn = this.FIELD_CAPACITY_GENERAL_ADJ_COEF 
-                -(this.FIELD_CAPACITY_SAND_ADJ_COEF*this.Sand)
-                +(this.FIELD_CAPACITY_CLAY_ADJ_COEF*this.Clay)
-                +(this.FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF*this.OrganicMatter);
+                            -(this.FIELD_CAPACITY_SAND_ADJ_COEF*this.Sand)
+                            +(this.FIELD_CAPACITY_CLAY_ADJ_COEF*this.Clay)
+                            +(this.FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF*this.OrganicMatter);
             }
             return lReturn;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+ 
 
 namespace IrrigationAdvisor.Models.Management
 {
@@ -132,6 +133,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             return this.Crop.MaxEvapotranspirationToIrrigate;
         }
+
         #endregion
 
         #region Overrides
@@ -151,6 +153,9 @@ namespace IrrigationAdvisor.Models.Management
             return this.Crop.GetHashCode();
         }
         #endregion
+
+
+
 
     }
 }
