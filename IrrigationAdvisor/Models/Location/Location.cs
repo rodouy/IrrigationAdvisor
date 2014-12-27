@@ -49,6 +49,7 @@ namespace IrrigationAdvisor.Models.Location
         /// 
         /// </summary>
         /// 
+    //[Serializable()]
     public class Location
     {
         #region Const

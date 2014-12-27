@@ -57,7 +57,7 @@ namespace IrrigationAdvisor.Tests.Models.WeatherStation
                 lWeatherInformation.WeatherData = (WeatherData)deserializer.Deserialize(TestFileStream);
                 TestFileStream.Close();
             }
-            lWeatherInformation.WeatherData.PropertyChanged += this.TemperaturePropertyChanged;
+            //lWeatherInformation.WeatherData.PropertyChanged += this.TemperaturePropertyChanged;
 
             lWeatherInformation.ExtractInfomationDownloadString();
             lWebData = lWeatherInformation.WebData;

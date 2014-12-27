@@ -35,8 +35,8 @@ namespace IrrigationAdvisor.Models.Utilities
     ///     - OutputFileCSV()           -- constructor
     ///     - OutputFileCSV(FileName)   -- consturctor with parameters
     ///     - AddTitle(pData)           -- method to set the titles of all the fields
-    ///     - AddMessage(pData)            -- method to set the line of fields
-    ///     - WriteFile()
+    ///     - AddMessage(pData)         -- method to set the line of fields
+    ///     - WriteFile()               -- method to write the file
     /// 
     /// </summary>
     public class OutputFileCSV
@@ -48,7 +48,6 @@ namespace IrrigationAdvisor.Models.Utilities
         private const String FOLDER_NAME = "ExitCSV\\";
         private const String FILE_NAME = "LOGcsv";
         private const String FILE_EXTENTION = ".csv";
-        private const String DATA_SPLIT = ";";
         
         #endregion
 
@@ -62,6 +61,7 @@ namespace IrrigationAdvisor.Models.Utilities
         private String fileFooter;
         private List<String> fileTitles;
         private List<List<String>> fileMessages;
+        private String dataSplit;
         
         #endregion
 
@@ -106,12 +106,12 @@ namespace IrrigationAdvisor.Models.Utilities
                 String lFileHeader = value;
                 if (String.IsNullOrEmpty(lFileHeader))
                 {
-                    lFileHeader = "NO Header" + DATA_SPLIT;
+                    lFileHeader = "NO Header" + DataSplit;
                 }
                 else
                 {
-                    if(!lFileHeader.EndsWith(DATA_SPLIT))
-                        lFileHeader += DATA_SPLIT;
+                    if(!lFileHeader.EndsWith(DataSplit))
+                        lFileHeader += DataSplit;
                 }
                 fileHeader = lFileHeader;
             }
@@ -125,12 +125,12 @@ namespace IrrigationAdvisor.Models.Utilities
                 String lFileFooter = value;
                 if (String.IsNullOrEmpty(lFileFooter))
                 {
-                    lFileFooter = "NO Footer" + DATA_SPLIT;
+                    lFileFooter = "NO Footer" + DataSplit;
                 }
                 else
                 {
-                    if(!lFileFooter.EndsWith(DATA_SPLIT))
-                        lFileFooter += DATA_SPLIT;
+                    if(!lFileFooter.EndsWith(DataSplit))
+                        lFileFooter += DataSplit;
                 }
                 fileFooter = lFileFooter;
             }
@@ -146,9 +146,9 @@ namespace IrrigationAdvisor.Models.Utilities
                 {
                     throw new ArgumentNullException();
                 }
-                if (lFileTitles.Count < 1 || lFileTitles.Any())
+                if (lFileTitles.Count < 1)
                 {
-                    lFileTitles.Add("NO Titles" + DATA_SPLIT);
+                    lFileTitles.Add("NO Titles" + DataSplit);
                 }
                 else
                 {
@@ -170,10 +170,10 @@ namespace IrrigationAdvisor.Models.Utilities
                 {
                     throw new ArgumentNullException();
                 }
-                if (lFileMessages.Count < 1 || lFileMessages.Any())
+                if (lFileMessages.Count < 1)
                 {
                     lMessage = new List<string>();
-                    lMessage.Add("NO Data" + DATA_SPLIT);
+                    lMessage.Add("NO Data" + DataSplit);
                     lFileMessages.Add(lMessage);
                 }
                 else
@@ -183,9 +183,9 @@ namespace IrrigationAdvisor.Models.Utilities
                     {
                         throw new ArgumentNullException();
                     }
-                    if (lMessage.Count < 1 || lMessage.Any())
+                    if (lMessage.Count < 1)
                     {
-                        lMessage.Add("NO Data" + DATA_SPLIT);
+                        lMessage.Add("NO Data" + DataSplit);
                         lFileMessages.Add(lMessage);
                     }
                     else
@@ -198,6 +198,18 @@ namespace IrrigationAdvisor.Models.Utilities
                     }
                 }
                 fileMessages = lFileMessages;
+            }
+        }
+
+        public String DataSplit
+        {
+            get { return dataSplit; }
+            set 
+            {
+                String lDataSplit = value;
+                if(String.IsNullOrEmpty(lDataSplit))
+                    lDataSplit = ";";
+                dataSplit = lDataSplit; 
             }
         }
 
@@ -235,6 +247,7 @@ namespace IrrigationAdvisor.Models.Utilities
             }
             this.fileName = FILE_NAME + lDate + FILE_EXTENTION;
             this.filePath = ConfigFilePath;
+            this.dataSplit = ";";
         }
 
         public OutputFileCSV(String pFileName)
@@ -244,6 +257,7 @@ namespace IrrigationAdvisor.Models.Utilities
             this.FolderName = FOLDER_ROOT + FOLDER_NAME;
             this.FileName = pFileName + lDate + FILE_EXTENTION;
             this.filePath = this.FolderName + this.FileName;
+            this.dataSplit = ";";
 
             if (!Directory.Exists(this.FolderName))
             {
@@ -271,10 +285,20 @@ namespace IrrigationAdvisor.Models.Utilities
             List<String> lReturn = pData;
             for (int i = 0; i < pData.Count; i++)
             {
-                if (!pData[i].EndsWith(DATA_SPLIT))
-                    pData[i] += DATA_SPLIT;
+                if (!pData[i].EndsWith(DataSplit))
+                    pData[i] += DataSplit;
             }
             lReturn = pData;
+            return lReturn;
+        }
+
+        private String GetAllData(List<String> pData)
+        {
+            String lReturn = "";
+            for (int i = 0; i < pData.Count; i++)
+            {
+                lReturn += pData[i];
+            }
             return lReturn;
         }
 
@@ -283,24 +307,42 @@ namespace IrrigationAdvisor.Models.Utilities
         #region Public Methods
 
         /// <summary>
-        /// Add a new Title
+        /// Add all Titles
         /// 
         /// PreCondition 
-        ///     Has data
+        ///     Parameter has data
         /// </summary>
         /// <param name="pData"></param>
-        public void AddTitle(List<String> pData)
+        public void AddAllTitles(List<String> pData)
         {
             if (pData != null)
             {
                 if (pData.Count > 0 || pData.Any())
                 {
                     pData = this.AddDataSplit(pData);
-                    this.FileMessages.Add(pData);
+                    this.FileTitles = pData;
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Add a Title
+        /// 
+        /// </summary>
+        /// <param name="pData"></param>
+        public void AddTitle(String pData)
+        {
+            if (!String.IsNullOrEmpty(pData))
+            {
+                this.FileTitles.Add(pData);
+            }
+        }
+
+        public String GetTitles()
+        {
+            return GetAllData(this.FileTitles);
+        }
+
         /// <summary>
         /// Add a new Message
         /// 
@@ -321,6 +363,24 @@ namespace IrrigationAdvisor.Models.Utilities
             }
         }
 
+        /// <summary>
+        /// Return the index Message from Messages in a string 
+        /// 
+        /// PreCondition
+        ///     index >= 0
+        ///     FileMessages has data
+        /// </summary>
+        /// <param name="pIndex"></param>
+        /// <returns></returns>
+        public String GetMessage(int pIndex)
+        {
+            String lReturn = "";
+            if (pIndex < 0)
+                pIndex = 0;
+            if(this.FileMessages.Count > 0)
+                lReturn = GetAllData(this.FileMessages[pIndex]);
+            return lReturn;
+        }
 
 
         public void WriteFile (String pMethodName, String pDescription, String pTime)
@@ -349,14 +409,15 @@ namespace IrrigationAdvisor.Models.Utilities
                     {
                         lFile.Close();
                         StreamWriter lStreamWriter = new StreamWriter(this.FilePath, true);
-                        lStreamWriter.WriteLine((((pTime + " - ") + this.FilePath + " - ") + pMethodName + " - ") + pDescription + DATA_SPLIT);
+                        lStreamWriter.WriteLine((((pTime + " - ") + this.FilePath + " - ") + pMethodName + " - ") + pDescription + DataSplit);
+                        lStreamWriter.WriteLine(this.FileHeader);
                         lStreamWriter.WriteLine(this.FileTitles);
                         for (int i = 0; i < this.FileMessages.Count; i++)
 			            {
                             lStreamWriter.WriteLine(this.FileMessages[i]);
 			 			}
                         lStreamWriter.WriteLine(this.FileFooter);
-                        lStreamWriter.WriteLine("---------------------------------------- " + DATA_SPLIT);
+                        lStreamWriter.WriteLine("---------------------------------------- " + DataSplit);
                         lStreamWriter.Close();
                     }
                 }
@@ -371,14 +432,14 @@ namespace IrrigationAdvisor.Models.Utilities
         {
             //String FolderPath = Environment.ExpandEnvironmentVariables("C:\\User\\LogFile.txt");
             String lReadLog = "";
-            if (File.Exists(ConfigFilePath))
+            if (File.Exists(FilePath))
             {
                 try
                 {
-                    using (FileStream lFile = new FileStream(ConfigFilePath, FileMode.Open, FileAccess.Read))
+                    using (FileStream lFile = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
                     {
                         lFile.Close();
-                        StreamReader lStreamReader = new StreamReader(ConfigFilePath, true);
+                        StreamReader lStreamReader = new StreamReader(FilePath, true);
                         lReadLog = lStreamReader.ReadToEnd();
                         lStreamReader.Close();
                     }

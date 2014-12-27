@@ -35,6 +35,7 @@ namespace IrrigationAdvisor.Models.Location
     ///     - add(City)
     /// 
     /// </summary>
+    //[Serializable()]
     public class Country
     {
         #region Consts

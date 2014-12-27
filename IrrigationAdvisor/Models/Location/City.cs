@@ -34,6 +34,7 @@ namespace IrrigationAdvisor.Models.Location
     ///     - SetPosition(Position): bool
     /// 
     /// </summary>
+    //[Serializable()]
     public class City
     {
         #region Consts

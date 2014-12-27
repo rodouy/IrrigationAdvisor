@@ -53,8 +53,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
     ///     - getEvapotranspiration(Datetime pDate) double
     /// 
     /// </summary>
-    [Serializable()]
-    public class WeatherData : System.ComponentModel.INotifyPropertyChanged
+    //[Serializable()]
+    public class WeatherData //: System.ComponentModel.INotifyPropertyChanged
     {
 
         #region Consts
@@ -116,8 +116,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set 
             { 
                 weatherStation = value;
-                PropertyChanged(this, 
-                    new System.ComponentModel.PropertyChangedEventArgs("WeatherStation"));
+                //PropertyChanged(this, 
+                //    new System.ComponentModel.PropertyChangedEventArgs("WeatherStation"));
             }
         }
         public DateTime Date
@@ -126,8 +126,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set 
             { 
                 date = value;
-                PropertyChanged(this,
-                    new System.ComponentModel.PropertyChangedEventArgs("Date"));
+                //PropertyChanged(this,
+                //    new System.ComponentModel.PropertyChangedEventArgs("Date"));
             }
         }
         public double Temperature
@@ -136,8 +136,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set 
             { 
                 temperature = value;
-                PropertyChanged(this,
-                    new System.ComponentModel.PropertyChangedEventArgs("Temperature"));
+                //PropertyChanged(this,
+                //    new System.ComponentModel.PropertyChangedEventArgs("Temperature"));
             }
         }
         public double TemperatureMax
@@ -146,8 +146,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set 
             { 
                 temperatureMax = value;
-                PropertyChanged(this,
-                    new System.ComponentModel.PropertyChangedEventArgs("TemperatureMax"));
+                //PropertyChanged(this,
+                //    new System.ComponentModel.PropertyChangedEventArgs("TemperatureMax"));
             }
         }
         public double TemperatureMin
@@ -156,8 +156,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set 
             { 
                 temperatureMin = value;
-                PropertyChanged(this,
-                    new System.ComponentModel.PropertyChangedEventArgs("TemperatureMin"));
+                //PropertyChanged(this,
+                //    new System.ComponentModel.PropertyChangedEventArgs("TemperatureMin"));
             }
         }
         public double TemperatureDewPoint
@@ -166,8 +166,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set 
             { 
                 temperatureDewPoint = value;
-                PropertyChanged(this,
-                    new System.ComponentModel.PropertyChangedEventArgs("TemperatureDewPoint"));
+                //PropertyChanged(this,
+                //    new System.ComponentModel.PropertyChangedEventArgs("TemperatureDewPoint"));
             }
         }
         public double Humidity
@@ -246,8 +246,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set { evapotranspirationYear = value; }
         }
         
-        [field: NonSerialized()]
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        //[field: NonSerialized()]
+        //public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Construction
@@ -287,7 +287,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             double pEvapotranspiration
             )
         {
-            this.WeatherStation = pWeatherStation;
+            //this.WeatherStation = pWeatherStation;
             this.Date = pDate;
             this.Temperature = pTemperature;
             this.TemperatureMax = pTemperatureMax;
@@ -335,7 +335,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             double pEvapotranspirationYear
             )
         {
-            this.WeatherStation = pWeatherStation;
+            //this.WeatherStation = pWeatherStation;
             this.Date = pDate;
             this.Temperature = pTemperature;
             this.TemperatureMax = pTemperatureMax;
@@ -371,7 +371,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             double lAverage = 0;
             try
             {
-                if (pMax == null || pMin == null)
+                if (pMax == 0 || pMin == 0)
                     return 0;
                 lAverage = Math.Round((pMax + pMin)/ 2, 2);
             }
@@ -437,8 +437,6 @@ namespace IrrigationAdvisor.Models.WeatherStation
             double lEvapotranspiration = 0;
             try
             {
-                if (this.Evapotranspiration == null)
-                    return 0;
                 if (this.Evapotranspiration != 0)
                     lEvapotranspiration = this.Evapotranspiration;
                 // TODO: lEvapotranspiration = do calculous for evapotranspiration;
@@ -456,7 +454,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             string lReturn = 
                 "Name " +
-                this.WeatherStation.Name + ";" +
+                //this.WeatherStation.Name + ";" +
                 "Date " +
                 this.Date.ToString() + ";" +
                 "Temperatures (now, max, min) " +

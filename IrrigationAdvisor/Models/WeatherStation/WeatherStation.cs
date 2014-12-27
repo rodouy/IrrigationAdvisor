@@ -38,7 +38,8 @@ namespace IrrigationAdvisor.Models.WeatherStation
     ///     - SetService(DateTime)  -- method to set the name field
     /// 
     /// </summary>
-    public class WeatherStation
+    //[Serializable()]
+    public class WeatherStation //: System.ComponentModel.INotifyPropertyChanged
     {
         #region Consts
         #endregion
@@ -134,6 +135,9 @@ namespace IrrigationAdvisor.Models.WeatherStation
             get { return giveET; }
             set { giveET = value; }
         }
+
+        //[field: NonSerialized()]
+        //public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         #endregion
 
@@ -150,7 +154,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             this.DateOfService = DateTime.Now;
             this.UpdateTime = DateTime.MinValue;
             this.WirelessTransmission = 0;
-            //this.Location = new Location.Location();
+            this.Location = new Location.Location();
             this.GiveET = false;
         }
 

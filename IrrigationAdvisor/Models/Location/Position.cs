@@ -37,6 +37,7 @@ namespace IrrigationAdvisor.Models.Location
     ///     - getDistance(pOrigin Position, pDestiny Position) double
     /// 
     /// </summary>
+    //[Serializable()]
     public class Position
     {
         #region Consts
