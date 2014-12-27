@@ -375,28 +375,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                         lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
                         lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
                         this.addDailyRecordToCropIrrigationWeather(pCropIrrigationWeather, lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);///Si ya existe registro para ese dia se sobre-escribe
-
+                        //Luego de que agrego un registro verifico si hay que regar.
+                        //Si es asi se agrega el riego a la lista y se reingresa el registro diario. 
+                        this.verifyNeddForIrrigation(pCropIrrigationWeather, pDateTime);
                     }
-                    double irrigationCalculated = this.howMuchToIrrigate(pCropIrrigationWeather);
-                    if (irrigationCalculated > 0)
-                    {
-                        this.addIrrigationDataToList(pCropIrrigationWeather, pDateTime, this.IrrigationCalculus.PRDETERMINATED_IRRIGATION1, false);
-                        this.addDailyRecordToList(pCropIrrigationWeather, pDateTime, pDateTime.ToShortDateString());
-                    }
-
                 }
-                /*
-                 * 
-                 * irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 19), "Dia 62");
-            irrigationCalculated = irrirgSys.howMuchToIrrigate(this.cropIrrigWeatherPivot5);
-            if (irrigationCalculated > 0)
-            {
-                irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 19), 20);
-                irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 19), "Dia 62");
-            }
-            textoRetorno += "Dia 62" + printState(recP5, irrigationCalculated);
-            
-                 * */
             }
             catch (Exception e)
             {
@@ -406,6 +389,16 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
             return lReturn;
 
+        }
+
+        private void verifyNeddForIrrigation(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        {
+            double irrigationCalculated = this.howMuchToIrrigate(pCropIrrigationWeather);
+            if (irrigationCalculated > 0)
+            {
+                this.addIrrigationDataToList(pCropIrrigationWeather, pDateTime, this.IrrigationCalculus.PRDETERMINATED_IRRIGATION1, false);
+                this.addDailyRecordToList(pCropIrrigationWeather, pDateTime, pDateTime.ToShortDateString());
+            }
         }
 
 
