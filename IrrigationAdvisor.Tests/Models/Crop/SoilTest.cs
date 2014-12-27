@@ -14,13 +14,16 @@ namespace IrrigationAdvisor.Tests.Models.Crop
             Horizon lHorizonA = new Horizon(1, "A", 0, "A", 14, 19, 53, 28, 4.4, 0, 1.2);
             Horizon lHorizonAB = new Horizon(2, "AB", 1, "AB", 23, 18, 45, 37, 3, 0, 1.3);
             Horizon lHorizonB = new Horizon(3, "B", 2, "B", 20, 19, 37, 44, 2, 0, 1.4);
+            Horizon lHorizonB1 = new Horizon(3, "A", 2, "B", 20, 19, 37, 44, 2, 0, 1.4);
 
             Soil lSoil = new Soil();
             lSoil.Name = "Suelo Pivot 2";
             lSoil.Horizons.Add(lHorizonA);
             lSoil.Horizons.Add(lHorizonAB);
             lSoil.Horizons.Add(lHorizonB);
-
+            lHorizonA.getPermanentWiltingPoint();
+            lHorizonAB.getAvailableWaterCapacity();
+            lHorizonB.getFieldCapacity();
             
             TextFileLogger lTextFileLogger = new TextFileLogger();
             String lFile = "SoilTest";
@@ -88,7 +91,14 @@ namespace IrrigationAdvisor.Tests.Models.Crop
 
             Assert.AreEqual(lHorizonA.getAvailableWaterCapacity(), 21.809856000000011);
             Assert.AreEqual(lHorizonAB.getAvailableWaterCapacity(), 17.270500000000009);
+
+            Assert.AreEqual(lHorizonB.getFieldCapacity(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB.getPermanentWiltingPoint(), 13.315680000000002);
             Assert.AreEqual(lHorizonB.getAvailableWaterCapacity(), 13.315680000000002);
+
+            Assert.AreEqual(lHorizonB1.getFieldCapacity(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB1.getPermanentWiltingPoint(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB1.getAvailableWaterCapacity(), 13.315680000000002);
 
             Assert.AreEqual(ad2, 40.861557400000017);
             Assert.AreEqual(ad4, 96.887308400000052);

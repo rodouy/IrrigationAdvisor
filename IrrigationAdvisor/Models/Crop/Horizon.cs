@@ -290,7 +290,8 @@ namespace IrrigationAdvisor.Models.Crop
             else
             {
                 lReturn = this.getFieldCapacityHorizonB();
-            } return lReturn;
+            } 
+            return lReturn;
         }
 
         public double getPermanentWiltingPoint() 

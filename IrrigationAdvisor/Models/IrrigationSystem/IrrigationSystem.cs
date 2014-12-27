@@ -59,24 +59,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Irrigation
         //Language
         //Location
-
         //Management
-        //////private List<DailyRecord> dailyRecordsList;
         private List<CropIrrigationWeather> cropIrrigationWeatherList;
         private List<CropIrrigationWeatherRecords> cropIrrigationWeatherRecordsList;
-
         private IrrigationCalculus irrigationCalculus;
-
-
 
         //Security 
         //Utitilities
-
         //Water
         private List<Water.WaterInput> rainList;
         private List<Water.WaterInput> irrigationList;
         private List<Pair<Region, List<EffectiveRain>>> effectiveRainList;
-
         
         //WeatherStation
         private List<WeatherStation.WeatherData> weatherDataList;
