@@ -287,7 +287,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             double pEvapotranspiration
             )
         {
-            //this.WeatherStation = pWeatherStation;
+            this.WeatherStation = pWeatherStation;
             this.Date = pDate;
             this.Temperature = pTemperature;
             this.TemperatureMax = pTemperatureMax;
@@ -335,7 +335,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             double pEvapotranspirationYear
             )
         {
-            //this.WeatherStation = pWeatherStation;
+            this.WeatherStation = pWeatherStation;
             this.Date = pDate;
             this.Temperature = pTemperature;
             this.TemperatureMax = pTemperatureMax;
@@ -454,7 +454,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
         {
             string lReturn = 
                 "Name " +
-                //this.WeatherStation.Name + ";" +
+                this.WeatherStation.Name + ";" +
                 "Date " +
                 this.Date.ToString() + ";" +
                 "Temperatures (now, max, min) " +
