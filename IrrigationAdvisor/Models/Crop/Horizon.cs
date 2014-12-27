@@ -51,17 +51,26 @@ namespace IrrigationAdvisor.Models.Crop
         /// <summary>
         /// 
         /// </summary>
-        private double FIELD_CAPACITY_GENERAL_ADJ_COEF = 21.977;
-        private double FIELD_CAPACITY_SAND_ADJ_COEF = 0.168;
-        private double FIELD_CAPACITY_CLAY_ADJ_COEF = 0.127;
-        private double FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF = 2.601;
-        
-        private double PERM_WILTING_POINT_GENERAL_ADJ_COEF = 58.1313;
-        private double PERM_WILTING_POINT_SAND_ADJ_COEF = 0.5683;
-        private double PERM_WILTING_POINT_LIMO_ADJ_COEF = 0.6414;
-        private double PERM_WILTING_POINT_CLAY_ADJ_COEF = 0.9755;
-        private double PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF = 0.3718;
+        private double HORIZON_A_FIELD_CAPACITY_GENERAL_ADJ_COEF = 21.977;
+        private double HORIZON_A_FIELD_CAPACITY_SAND_ADJ_COEF = 0.168;
+        private double HORIZON_A_FIELD_CAPACITY_CLAY_ADJ_COEF = 0.127;
+        private double HORIZON_A_FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF = 2.601;
 
+        private double HORIZON_A_PERM_WILTING_POINT_GENERAL_ADJ_COEF = 58.1313;
+        private double HORIZON_A_PERM_WILTING_POINT_SAND_ADJ_COEF = 0.5683;
+        private double HORIZON_A_PERM_WILTING_POINT_LIMO_ADJ_COEF = 0.6414;
+        private double HORIZON_A_PERM_WILTING_POINT_CLAY_ADJ_COEF = 0.9755;
+        private double HORIZON_A_PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF = 0.3718;
+
+        private double HORIZON_B_FIELD_CAPACITY_GENERAL_ADJ_COEF = 18.448;
+        private double HORIZON_B_FIELD_CAPACITY_SAND_ADJ_COEF = 0.125;
+        private double HORIZON_B_FIELD_CAPACITY_CLAY_ADJ_COEF = 0.295;
+        private double HORIZON_B_FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF = 1.923;
+        
+        private double HORIZON_B_PERM_WILTING_POINT_GENERAL_ADJ_COEF = 5;
+        private double HORIZON_B_PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF = 0.74;
+
+        
         #endregion
 
         #region Fields
@@ -206,6 +215,56 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Private Helpers
+        private double getFieldCapacityHorizonA()
+        {
+            double lReturn = 0;
+            if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
+            {
+                lReturn = this.HORIZON_A_FIELD_CAPACITY_GENERAL_ADJ_COEF
+                            - (this.HORIZON_A_FIELD_CAPACITY_SAND_ADJ_COEF * this.Sand)
+                            + (this.HORIZON_A_FIELD_CAPACITY_CLAY_ADJ_COEF * this.Clay)
+                            + (this.HORIZON_A_FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
+            }
+            return lReturn;
+        }
+
+        private double getFieldCapacityHorizonB()
+        {
+            double lReturn = 0;
+            if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
+            {
+                lReturn = this.HORIZON_B_FIELD_CAPACITY_GENERAL_ADJ_COEF
+                            - (this.HORIZON_B_FIELD_CAPACITY_SAND_ADJ_COEF * this.Sand)
+                            + (this.HORIZON_B_FIELD_CAPACITY_CLAY_ADJ_COEF * this.Clay)
+                            + (this.HORIZON_B_FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
+            }
+            return lReturn;
+        }
+
+        private  double getPermanentWiltingPointHorizonA()
+        {
+            double lReturn = 0;
+            if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
+            {
+                lReturn = -this.HORIZON_A_PERM_WILTING_POINT_GENERAL_ADJ_COEF
+                    + (this.HORIZON_A_PERM_WILTING_POINT_SAND_ADJ_COEF * this.Sand)
+                    + (this.HORIZON_A_PERM_WILTING_POINT_LIMO_ADJ_COEF * this.Limo)
+                    + (this.HORIZON_A_PERM_WILTING_POINT_CLAY_ADJ_COEF * this.Clay)
+                    + (this.HORIZON_A_PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
+            }
+            return lReturn;
+        }
+
+        private double getPermanentWiltingPointHorizonB()
+        {
+            double lReturn = 0;
+            if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
+            {
+                lReturn = -this.HORIZON_B_PERM_WILTING_POINT_GENERAL_ADJ_COEF
+                    + (this.HORIZON_B_PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF * this.getFieldCapacityHorizonB());
+            }
+            return lReturn;
+        }
         #endregion
 
         #region Public Methods
@@ -215,11 +274,12 @@ namespace IrrigationAdvisor.Models.Crop
             ///TODO Ver respuesta para ver si el control es pertinente
             if(this.Sand !=0 && this.Clay!=0 && this.OrganicMatter !=0)
             { 
-                lReturn = this.FIELD_CAPACITY_GENERAL_ADJ_COEF 
-                            -(this.FIELD_CAPACITY_SAND_ADJ_COEF*this.Sand)
-                            +(this.FIELD_CAPACITY_CLAY_ADJ_COEF*this.Clay)
-                            +(this.FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF*this.OrganicMatter);
+                lReturn = this.HORIZON_A_FIELD_CAPACITY_GENERAL_ADJ_COEF 
+                            -(this.HORIZON_A_FIELD_CAPACITY_SAND_ADJ_COEF*this.Sand)
+                            +(this.HORIZON_A_FIELD_CAPACITY_CLAY_ADJ_COEF*this.Clay)
+                            +(this.HORIZON_A_FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF*this.OrganicMatter);
             }
+
             return lReturn;
         }
 
@@ -228,11 +288,11 @@ namespace IrrigationAdvisor.Models.Crop
             double lReturn = 0;
             if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
             {
-                lReturn = -this.PERM_WILTING_POINT_GENERAL_ADJ_COEF
-                    + (this.PERM_WILTING_POINT_SAND_ADJ_COEF * this.Sand)
-                    + (this.PERM_WILTING_POINT_LIMO_ADJ_COEF * this.Limo)
-                    + (this.PERM_WILTING_POINT_CLAY_ADJ_COEF * this.Clay)
-                    + (this.PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
+                lReturn = -this.HORIZON_A_PERM_WILTING_POINT_GENERAL_ADJ_COEF
+                    + (this.HORIZON_A_PERM_WILTING_POINT_SAND_ADJ_COEF * this.Sand)
+                    + (this.HORIZON_A_PERM_WILTING_POINT_LIMO_ADJ_COEF * this.Limo)
+                    + (this.HORIZON_A_PERM_WILTING_POINT_CLAY_ADJ_COEF * this.Clay)
+                    + (this.HORIZON_A_PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
             }
             return lReturn;
         }
