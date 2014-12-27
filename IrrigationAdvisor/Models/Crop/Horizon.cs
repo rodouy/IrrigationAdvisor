@@ -215,6 +215,18 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Private Helpers
+
+        private bool isHorizonA()
+        {
+            //TODO verificar que la designacion de ser horizonte A es correcta (El horizonte AB se maneja como A)
+            bool lReturn = true;
+            if(!(this.order == 0 || this.Name .Equals("A") || this.Name.Equals("AB")))
+            {
+                lReturn = false;
+            }
+            return lReturn;
+        }
+        
         private double getFieldCapacityHorizonA()
         {
             double lReturn = 0;
@@ -228,20 +240,7 @@ namespace IrrigationAdvisor.Models.Crop
             return lReturn;
         }
 
-        private double getFieldCapacityHorizonB()
-        {
-            double lReturn = 0;
-            if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
-            {
-                lReturn = this.HORIZON_B_FIELD_CAPACITY_GENERAL_ADJ_COEF
-                            - (this.HORIZON_B_FIELD_CAPACITY_SAND_ADJ_COEF * this.Sand)
-                            + (this.HORIZON_B_FIELD_CAPACITY_CLAY_ADJ_COEF * this.Clay)
-                            + (this.HORIZON_B_FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
-            }
-            return lReturn;
-        }
-
-        private  double getPermanentWiltingPointHorizonA()
+        private double getPermanentWiltingPointHorizonA()
         {
             double lReturn = 0;
             if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
@@ -255,6 +254,19 @@ namespace IrrigationAdvisor.Models.Crop
             return lReturn;
         }
 
+
+        private double getFieldCapacityHorizonB()
+        {
+            double lReturn = 0;
+            if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
+            {
+                lReturn = this.HORIZON_B_FIELD_CAPACITY_GENERAL_ADJ_COEF
+                            - (this.HORIZON_B_FIELD_CAPACITY_SAND_ADJ_COEF * this.Sand)
+                            + (this.HORIZON_B_FIELD_CAPACITY_CLAY_ADJ_COEF * this.Clay)
+                            + (this.HORIZON_B_FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
+            }
+            return lReturn;
+        }
         private double getPermanentWiltingPointHorizonB()
         {
             double lReturn = 0;
@@ -271,31 +283,31 @@ namespace IrrigationAdvisor.Models.Crop
         public double  getFieldCapacity()
         {
             double lReturn = 0;
-            ///TODO Ver respuesta para ver si el control es pertinente
-            if(this.Sand !=0 && this.Clay!=0 && this.OrganicMatter !=0)
-            { 
-                lReturn = this.HORIZON_A_FIELD_CAPACITY_GENERAL_ADJ_COEF 
-                            -(this.HORIZON_A_FIELD_CAPACITY_SAND_ADJ_COEF*this.Sand)
-                            +(this.HORIZON_A_FIELD_CAPACITY_CLAY_ADJ_COEF*this.Clay)
-                            +(this.HORIZON_A_FIELD_CAPACITY_ORGANIC_MATTER_ADJ_COEF*this.OrganicMatter);
+            if (isHorizonA())
+            {
+                lReturn = this.getFieldCapacityHorizonA();
             }
-
+            else
+            {
+                lReturn = this.getFieldCapacityHorizonB();
+            } 
             return lReturn;
         }
 
         public double getPermanentWiltingPoint() 
         {
             double lReturn = 0;
-            if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
+            if (isHorizonA())
             {
-                lReturn = -this.HORIZON_A_PERM_WILTING_POINT_GENERAL_ADJ_COEF
-                    + (this.HORIZON_A_PERM_WILTING_POINT_SAND_ADJ_COEF * this.Sand)
-                    + (this.HORIZON_A_PERM_WILTING_POINT_LIMO_ADJ_COEF * this.Limo)
-                    + (this.HORIZON_A_PERM_WILTING_POINT_CLAY_ADJ_COEF * this.Clay)
-                    + (this.HORIZON_A_PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF * this.OrganicMatter);
+                lReturn = this.getPermanentWiltingPointHorizonA();
+            }
+            else 
+            {
+                lReturn = this.getPermanentWiltingPointHorizonB();
             }
             return lReturn;
         }
+
         public double getAvailableWaterCapacity() 
         {
             return (this.getFieldCapacity()-this.getPermanentWiltingPoint()) * this.BulkDensitySoil ;

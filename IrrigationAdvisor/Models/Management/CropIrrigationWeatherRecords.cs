@@ -301,7 +301,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Set the new values (after to add a new dailyRecord) for the variables used to resume the state of the crop.
         /// Use the last state (day before) to calculate the new state
         /// </summary>
-        private void reviewResumeData(DailyRecord pDailyRec)
+        private void reviewSummaryData(DailyRecord pDailyRec)
         {
             double lRootDepth = this.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
             double lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
@@ -407,7 +407,7 @@ namespace IrrigationAdvisor.Models.Management
                     
                 }
                 this.DailyRecords.Add(lDailyRecord);
-                reviewResumeData(lDailyRecord); // this way part form the last state (day before)
+                reviewSummaryData(lDailyRecord); // this way part form the last state (day before)
 
             }
             catch (Exception e)
