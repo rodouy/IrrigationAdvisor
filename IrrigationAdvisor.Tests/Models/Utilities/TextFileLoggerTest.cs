@@ -11,20 +11,23 @@ namespace IrrigationAdvisor.Tests.Models.Utilities
         {
             String lCompareTextFromFile;
             String lCompareText;
-            String lFile = "TextFileLoggerTest";
+            String lDate = System.DateTime.Today.Year.ToString() +
+               System.DateTime.Today.Month.ToString() +
+               System.DateTime.Today.Day.ToString();
+            String lFile = "TextFileLoggerTest-" + lDate;
             String lMethod = "WriteLogFileTest";
             String lMessage = "";
             String lTime = System.DateTime.Now.ToString();
 
             lMessage = "Datos para grabar.";
-            lMessage += "\n" + "Segunda linea con datos.";
-            lMessage += "\n" + "Tercera linea con datos.";
+            lMessage += "\r\n" + "Segunda linea con datos.";
+            lMessage += "\r\n" + "Tercera linea con datos.";
             //lMessage += "\n" + "";
             TextFileLogger lTextFileLogger = new TextFileLogger();
 
-            lCompareText = (((lTime + " - ") + lFile + " - ") + lMethod + " - ") + lMessage + "\r\n";
+            lCompareText = ((((lTime + " - ") + lFile + " - ") + lMethod + " - ") + lMessage + "\r\n");
             lCompareText += "\n";
-            lCompareText += "---------------------------------------- \n" + "";
+            lCompareText += "---------------------------------------- \n";
             lTextFileLogger.WriteLogFile(lFile, lMethod, lMessage, lTime);
 
             lCompareTextFromFile = lTextFileLogger.ReadLogFile();

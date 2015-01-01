@@ -53,6 +53,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #endregion
 
         private IrrigationSystem irrirgSys;
+        /// <summary>
+        /// this method is used to obtain the layout
+        /// </summary>
         [TestMethod]
         public void santaLuciaTest()
         {
@@ -74,19 +77,24 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             crearUnidadesDeRiegoSantaLucia();
             
+            //Add Information of Weather
             agregarDatosDelTiempo();
 
+            //Add Information of Rain
             agregarDatosDeLluvia();
 
+            //Add Information of Irrigation
             agregarDatosDeRiego();
 
+            //Adding to system the Irrigation Unit (pivots)
             irrirgSys.addCropIrrigWeatherToList(cropIrrigWeatherPivot2);
             irrirgSys.addCropIrrigWeatherToList(cropIrrigWeatherPivot3_4);
             irrirgSys.addCropIrrigWeatherToList(cropIrrigWeatherPivot5);
 
             //DAILY RECORDS
-            String textLogPivot2 = Environment.NewLine + Environment.NewLine;
-            textLogPivot2 += " \tETCAc " +
+            // Titles
+            /*
+             * " \tETCAc " +
                 " \t\tETCFromLWI " +
                 " \t G.Dia: " +
                 " \t G.D. Mod: " +
@@ -102,31 +110,46 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 " \tRaiz " + 
                 " \tFenol " +
                 "\tIrrigCalulated: " +
-                "\tIrrigExtra: " +
-                Environment.NewLine;
-            String textLogPivot3_4 = textLogPivot2;
-            String textLogPivot5 = textLogPivot2;
+                "\tIrrigExtra: "
+             */
+            String textLogPivot2 ;
+            String textLogPivot3_4 ;
+            String textLogPivot5 ;
             
+            //Find the records of Crop Irrigation Unit (Pivots)
             CropIrrigationWeatherRecords recP2 = irrirgSys.CropIrrigationWeatherRecordsList.Find(x => x.CropIrrigationWeather.Equals(cropIrrigWeatherPivot2));
             CropIrrigationWeatherRecords recP3_4 = irrirgSys.CropIrrigationWeatherRecordsList.Find(x => x.CropIrrigationWeather.Equals(cropIrrigWeatherPivot3_4));
             CropIrrigationWeatherRecords recP5 = irrirgSys.CropIrrigationWeatherRecordsList.Find(x => x.CropIrrigationWeather.Equals(cropIrrigWeatherPivot5));
 
+            //Add information to Irrigation Units to calculate irrigation for each one
             agregarDatosPivot2_SantaLucia(recP2);
             agregarDatosPivot3_4_SantaLucia(recP3_4);
             agregarDatosPivot5_SantaLucia(recP5);
 
+            //Layout from Irrigation Units
             textLogPivot2 = recP2.OutPut;
             textLogPivot3_4 = recP3_4.OutPut;
             textLogPivot5 = recP5.OutPut;
 
-
+            //Layout from System the daily records
             textLogPivot2 += Environment.NewLine + Environment.NewLine + irrirgSys.printDailyRecordsList(recP2);
             textLogPivot3_4 += Environment.NewLine + Environment.NewLine + irrirgSys.printDailyRecordsList(recP3_4);
             textLogPivot5 += Environment.NewLine + Environment.NewLine + irrirgSys.printDailyRecordsList(recP5);
 
-            //this.printSystemData(textLogPivot2);
-            //this.printSystemData(textLogPivot3_4);
-            this.printSystemData(textLogPivot5);
+
+            //Layout in txt format
+            this.printSystemData(textLogPivot2, "IrrigationSystemTestPivot2");
+            this.printSystemData(textLogPivot3_4, "IrrigationSystemTestPivot3_4");
+            this.printSystemData(textLogPivot5, "IrrigationSystemTestPivot5");
+
+            //Layout in CSV format
+            this.printSystemDataCSV("IrrigationSystem-TestPivot2", recP2.Titles, recP2.Messages);
+            this.printSystemDataCSV("IrrigationSystem-TestPivot3_4", recP3_4.Titles, recP3_4.Messages);
+            this.printSystemDataCSV("IrrigationSystem-TestPivot5", recP5.Titles, recP5.Messages);
+
+            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot2", recP2.TitlesDaily, recP2.MessagesDaily);
+            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot3_4", recP3_4.TitlesDaily, recP3_4.MessagesDaily);
+            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot5", recP5.TitlesDaily, recP5.MessagesDaily);
 
         }
 
@@ -162,6 +185,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 18), "Dia 28");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 19), "Dia 29");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 20), "Dia 30");
+            //Adjustment of Phenological Stage
+            irrirgSys.adjustmentPhenology(this.cropIrrigWeatherPivot2, new Stage(1, "v2", "2 Hojas"), new DateTime(2014, 11, 20));
+            
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 21), "Dia 31");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 22), "Dia 32");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 11, 23), "Dia 33");
@@ -199,6 +225,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 25), "Dia 65");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 26), "Dia 66");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 27), "Dia 67");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 28), "Dia 68");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 29), "Dia 69");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 30), "Dia 70");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot2, new DateTime(2014, 12, 31), "Dia 71");
         }
 
         private void agregarDatosPivot3_4_SantaLucia(CropIrrigationWeatherRecords recP3_4)
@@ -244,8 +274,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 23), "Dia 39");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 24), "Dia 40");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 25), "Dia 41");
+            //Adjustment of Phenological Stage
+            irrirgSys.adjustmentPhenology(this.cropIrrigWeatherPivot3_4, new Stage(1, "v4", "4 Hojas"), new DateTime(2014, 12, 25));
+            
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 26), "Dia 42");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 27), "Dia 43");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 28), "Dia 44");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 29), "Dia 45");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 30), "Dia 46");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 31), "Dia 47");
         }
 
         private void agregarDatosPivot5_SantaLucia(CropIrrigationWeatherRecords recP5)
@@ -320,8 +357,16 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 25), "Dia 68");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 26), "Dia 69");
             irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 27), "Dia 70");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 28), "Dia 71");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 29), "Dia 72");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 30), "Dia 73");
+            irrirgSys.addDailyRecordToList(this.cropIrrigWeatherPivot5, new DateTime(2014, 12, 31), "Dia 74");
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void crearUnidadesDeRiegoSantaLucia()
         {
             lBomb = new Bomb("Bomba1", 1234, DateTime.Now, DateTime.Now, lLocation);
@@ -379,15 +424,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             
             //Pivot 2
             //Riego inicial
-            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 10, 22), 22,true  );
-            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 17), 10,true  );
-            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 20), 10,true);
+            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 10, 22), 22, true);
+            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 17), 10, true);
+            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 20), 10, true);
             irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 24), 10, true);
             irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 26), 10, true);
 
             //PIVOT 3_4
             //Riego inicial
-            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 15), 5, true);
+            irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 15),  5, true);
             irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 19), 15, true);
             
             //dias 14, 18 y 22 de diciembre, todos de 5 mm
@@ -397,7 +442,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 14), 5, true);
             irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 18), 5, true);
             irrirgSys.addIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 22), 5, true);
-            
+
+
+            //TODO: 3 Layout Irrigation Weather Data
+
         }
 
         private void crearSuelosSantaLucia()
@@ -446,12 +494,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 30), 51);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 8), 15);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 21), 5);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 26), 4.5);
             
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 22), 27);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 29), 50);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 30), 51);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 8), 15);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 21), 5);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 26), 4.5);
 
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 10, 29), 66);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 10, 31), 2.5);
@@ -463,8 +513,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 30), 51);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 8), 15);
             irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 21), 5);
+            irrirgSys.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 26), 4.5);
 
+            //TODO: 2 Layout Rain Weather Data
             
+
         }
 
         private void agregarDatosDelTiempo()
@@ -530,18 +583,27 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 14), 99, 0, 17.5, 17.5, 5.8);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 15), 99, 0, 18.9, 18.9, 6.2);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 16), 99, 0, 22.7, 22.7, 3.7);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 17), 99, 0, 22, 22, 6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 17), 99, 0, 22.0, 22.0, 6.0);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 18), 99, 0, 23.2, 23.2, 6.9);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 19), 99, 0, 26.3, 26.3, 8.6);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 20), 99, 0, 22.6, 22.6, 4.5);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 21), 99, 0, 16.4, 16.4, 3.6);
             irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 22), 99, 0, 16.2, 16.2, 5.3);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 23), 99, 0, 17, 17, 6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 23), 99, 0, 17.0, 17.0, 6.0);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 24), 99, 0, 19.4, 19.4, 6.8);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 25), 99, 0, 24.3, 24.3, 6.9);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 26), 99, 0, 25.1, 25.1, 3.8);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 27), 99, 0, 23.3, 23.3, 5.2);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 28), 99, 0, 24.5, 24.5, 5.8);
 
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 24), 99, 0, 22.7, 22.7, 3.7);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 25), 99, 0, 16.4, 16.4, 3.6);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 26), 99, 0, 16.2, 16.2, 5.3);
-            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 27), 99, 0, 17, 17, 6);
+            //TODO: 1 Layout WeatherStation Weather Data
+            
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 29), 99, 0, 23, 23, 6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 30), 99, 0, 23, 23, 6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2014, 12, 31), 99, 0, 23, 23, 6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2015, 01, 01), 99, 0, 17, 17, 6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2015, 01, 02), 99, 0, 17, 17, 6);
+            irrirgSys.addWeatherDataToList(weatherStation, new DateTime(2015, 01, 03), 99, 0, 17, 17, 6);
 
         }
 
@@ -654,14 +716,75 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             String lTime = System.DateTime.Now.ToString();
             lTextFileLogger.WriteLogFile(lFile, lMethod, lMessage, lTime);
         }
-        private void printSystemData(String pText)
+
+        /// <summary>
+        /// Layout in txt with a name to the file
+        /// </summary>
+        /// <param name="pText"></param>
+        /// <param name="pFileName"></param>
+        private void printSystemData(String pText, String pFileName)
         {
             TextFileLogger lTextFileLogger = new TextFileLogger();
-            String lFile = "IrrigationSystemTest";
             String lMethod = "createACropIrrigationWeather";
             String lMessage = pText;
             String lTime = System.DateTime.Now.ToString();
+            String lDate = System.DateTime.Today.Year.ToString() +
+                System.DateTime.Today.Month.ToString() +
+                System.DateTime.Today.Day.ToString();
+            String lFile;
+            if (String.IsNullOrEmpty(pFileName))
+            {
+                lFile = "IrrigationSystemTest-" + lDate;
+            }
+            else
+            {
+                lFile = pFileName + "-" + lDate;
+            }
+            
             lTextFileLogger.WriteLogFile(lFile, lMethod, lMessage, lTime);
+        }
+
+
+        private void printSystemDataCSV(
+            String pFileName, 
+            List<String> pTitles,
+            List<List<String>> pMessages )
+        {
+            String lFilePath;
+            String lFolderName;
+            String lDataSplit; 
+            
+            String lMethod;
+            String lDescription;
+            String lTime;
+
+            String lDate;
+            
+            OutputFileCSV lOutputFile;
+         
+            //create the file
+            lOutputFile = new OutputFileCSV(pFileName);
+            lFolderName = lOutputFile.FolderName;
+            lFilePath = lOutputFile.FilePath;
+            lDataSplit = lOutputFile.DataSplit;
+
+            lMethod = "createACropIrrigationWeather";
+            lDescription = "All the data neccesary for doing a Irrigation Advisor.";
+            lTime = System.DateTime.Now.ToString();
+            lDate = System.DateTime.Today.Year.ToString() +
+                System.DateTime.Today.Month.ToString() +
+                System.DateTime.Today.Day.ToString();
+            
+            //Input of file information
+            lOutputFile.FileHeader = "Table with all the irrigation results.";
+            lOutputFile.FileTitles = pTitles;
+            lOutputFile.FileMessages = pMessages;
+            lOutputFile.FileFooter = "Finish all the information.";
+
+            //Writes the CSV file in the FilePath
+            lOutputFile.WriteFile(lMethod, lDescription, lTime);
+
+
         }
 
         public void createTestingUnityPruebaInicial()

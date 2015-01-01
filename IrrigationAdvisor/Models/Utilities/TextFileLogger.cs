@@ -39,24 +39,56 @@ namespace IrrigationAdvisor.Models.Utilities
 
         #region Consts
         private const String FOLDER_NAME = "C:\\TextLog\\";
-        private const String FILE_NAME = "LogTextFile.txt";
+        private const String FILE_EXTENTION = ".txt";
+        private const String FILE_NAME = "LogTextFile";
         
         #endregion
 
         #region Fields
+        private String fileName;
+        private String filePath;
+                
         #endregion
 
         #region Properties
+        public String FileName
+        {
+            get { return fileName; }
+            set { fileName = value; }
+        }
+
+        public String FilePath
+        {
+            get { return filePath; }
+            set { filePath = value; }
+        }
+
+
         private static String ConfigFilePath
         {
             get 
             {
                 String lFilePath = "";
-                lFilePath = Application.UserAppDataPath + FILE_NAME;
-                lFilePath = Environment.ExpandEnvironmentVariables(FOLDER_NAME + FILE_NAME);
-                return  lFilePath;}
+                lFilePath = Application.UserAppDataPath + FILE_NAME + FILE_EXTENTION;
+                lFilePath = Environment.ExpandEnvironmentVariables(FOLDER_NAME + FILE_NAME + FILE_EXTENTION);
+                return  lFilePath;
+            }
         }
-        
+
+        private String GetFilePath()
+        { 
+            String lFilePath = "";
+            if (String.IsNullOrEmpty(this.FileName))
+            {
+                lFilePath = Environment.ExpandEnvironmentVariables(FOLDER_NAME + FILE_NAME + FILE_EXTENTION);
+            }
+            else
+            {
+                lFilePath = Environment.ExpandEnvironmentVariables(FOLDER_NAME + this.FileName + FILE_EXTENTION);
+            }
+            return  lFilePath;
+        }
+
         #endregion
 
         #region Construction
@@ -72,6 +104,11 @@ namespace IrrigationAdvisor.Models.Utilities
                 
                 File.Delete(ConfigFilePath);
             }
+
+            if (!String.IsNullOrEmpty(this.FilePath) && File.Exists(this.FilePath))
+            {
+                File.Delete(this.FilePath);
+            }
         }
         #endregion
 
@@ -83,16 +120,28 @@ namespace IrrigationAdvisor.Models.Utilities
         {
             //String FolderPath = Environment.ExpandEnvironmentVariables("C:\\TextLog\\LogFile.txt");
             FileStream fs = null;
-            if (!File.Exists(ConfigFilePath))
+            if (String.IsNullOrEmpty(pFileName))
             {
-                using (fs = File.Create(ConfigFilePath))
-                {
-                    //fs.Close();
-                }
+                this.FileName = ConfigFilePath;
             }
             else
             {
-                File.Delete(ConfigFilePath);
+                this.FileName = pFileName; 
+                this.FilePath = GetFilePath();
+            }
+            if (!String.IsNullOrEmpty(this.FileName))
+            {
+                if (!File.Exists(this.FilePath))
+                {
+                    using (fs = File.Create(this.FilePath))
+                    {
+                        //fs.Close();
+                    }
+                }
+                else
+                {
+                    File.Delete(this.FilePath);
+                }
             }
             try
             {
@@ -100,11 +149,11 @@ namespace IrrigationAdvisor.Models.Utilities
                     pTime = System.DateTime.Now.ToString();
                 if (!string.IsNullOrEmpty(pMessage))
                 {
-                    using (FileStream lFile = new FileStream(ConfigFilePath, FileMode.OpenOrCreate, FileAccess.Write))
+                    using (FileStream lFile = new FileStream(this.FilePath, FileMode.OpenOrCreate, FileAccess.Write))
                     {
                         lFile.Close();
-                        StreamWriter lStreamWriter = new StreamWriter(ConfigFilePath, true);
-                        lStreamWriter.WriteLine((((pTime + " - ") + pFileName + " - ") + pMethodName + " - ") + pMessage + "\r\n");
+                        StreamWriter lStreamWriter = new StreamWriter(this.FilePath, true);
+                        lStreamWriter.WriteLine((((pTime + " - ") + this.FileName + " - ") + pMethodName + " - ") + pMessage + "\r\n");
                         lStreamWriter.WriteLine("---------------------------------------- ");
                         lStreamWriter.Close();
                     }
@@ -121,14 +170,19 @@ namespace IrrigationAdvisor.Models.Utilities
         {
             //String FolderPath = Environment.ExpandEnvironmentVariables("C:\\User\\LogFile.txt");
             String lReadLog = "";
-            if (File.Exists(ConfigFilePath))
+            if (String.IsNullOrEmpty(this.FileName))
+            {
+                this.FileName = ConfigFilePath;
+            }
+            
+            if (File.Exists(this.FilePath))
             {
                 try
                 {
-                    using (FileStream lFile = new FileStream(ConfigFilePath, FileMode.Open, FileAccess.Read))
+                    using (FileStream lFile = new FileStream(this.FilePath, FileMode.Open, FileAccess.Read))
                     {
                         lFile.Close();
-                        StreamReader lStreamReader = new StreamReader(ConfigFilePath, true);
+                        StreamReader lStreamReader = new StreamReader(this.FilePath, true);
                         lReadLog = lStreamReader.ReadToEnd();
                         lStreamReader.Close();
                     }

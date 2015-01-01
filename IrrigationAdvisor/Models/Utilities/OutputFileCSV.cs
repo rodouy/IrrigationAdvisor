@@ -409,12 +409,12 @@ namespace IrrigationAdvisor.Models.Utilities
                     {
                         lFile.Close();
                         StreamWriter lStreamWriter = new StreamWriter(this.FilePath, true);
-                        lStreamWriter.WriteLine((((pTime + " - ") + this.FilePath + " - ") + pMethodName + " - ") + pDescription + DataSplit);
+                        lStreamWriter.WriteLine((((pTime + " - ") + this.FileName + " - ") + pMethodName + " - ") + pDescription + DataSplit);
                         lStreamWriter.WriteLine(this.FileHeader);
-                        lStreamWriter.WriteLine(this.FileTitles);
+                        lStreamWriter.WriteLine(this.GetTitles());
                         for (int i = 0; i < this.FileMessages.Count; i++)
 			            {
-                            lStreamWriter.WriteLine(this.FileMessages[i]);
+                            lStreamWriter.WriteLine(this.GetMessage(i));
 			 			}
                         lStreamWriter.WriteLine(this.FileFooter);
                         lStreamWriter.WriteLine("---------------------------------------- " + DataSplit);

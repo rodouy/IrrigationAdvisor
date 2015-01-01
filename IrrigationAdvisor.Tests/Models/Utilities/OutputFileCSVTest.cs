@@ -72,7 +72,7 @@ namespace IrrigationAdvisor.Tests.Models.Utilities
             lOutputFile.WriteFile(lMethod, lDescription, lTime);
 
 
-            lCompareText = ((((lTime + " - ") + lFilePath + " - ") + lMethod + " - ") + lDescription + lDataSplit);
+            lCompareText = ((((lTime + " - ") + lFileName + " - ") + lMethod + " - ") + lDescription + lDataSplit);
             lCompareText += "\n";
             lCompareText += lOutputFile.FileHeader;
             lCompareText += "\n";

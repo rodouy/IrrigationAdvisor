@@ -180,7 +180,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Public Methods
 
-
+        //TODO DailyRecord - public methods
         ///     - getBaseTemperature(): double
         ///     - getDailyAverageTemperature(): double
         ///     - getEvapotranspiration(): double
@@ -205,13 +205,14 @@ namespace IrrigationAdvisor.Models.Management
                 irrigation = this.Irrigation.getTotalInput().ToString() + "           ";
 
             }
-            string lReturn = "Date: " + this.DateHour.ToString() + "\t\t" +
-               "D.Dia: " + this.GrowingDegree + "\t\t" +
-               "ETc:" + etc.Substring(0,index) + "\t\t" +
-               "Rain: " + rain.Substring(0, index) + "\t\t" +
-               "Irrig:" + irrigation.Substring(0, index) + "\t\t" +
-               "KC:" + this.Kc + "\t\t" +
-               "Obs:  " + this.Observations + "\t\t";
+            string lReturn = 
+                "Fecha: " + this.DateHour.ToString() + "\t\t" +
+                "G.Dia: " + this.GrowingDegree + "\t\t" +
+                "ETc:" + etc.Substring(0,index) + "\t\t" +
+                "Lluvia: " + rain.Substring(0, index) + "\t\t" +
+                "Riego:" + irrigation.Substring(0, index) + "\t\t" +
+                "KC:" + this.Kc + "\t\t" +
+                "Obs:  " + this.Observations + "\t\t";
             return lReturn;
 
         }
