@@ -352,16 +352,16 @@ namespace IrrigationAdvisor.Models.Management
             double lEffectiveRain;
             double lDaysAfterBigInputWater;
 
-            lRootDepth = this.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
-            lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
             lDayAfterSowing = this.DayAfterSowing.First+1;
             this.DayAfterSowing = new Pair<int, DateTime>(lDayAfterSowing, pDailyRec.DateHour);
             this.GrowingDegreeDays += pDailyRec.GrowingDegree;
             this.ModifiedGrowingDegreeDays += pDailyRec.ModifiedGrowingDegree;
-
-            //Update the Phenological Stage depending in Growing Degree
-            reviewPhenologicalStage();
-
+            
+            
+            lRootDepth = this.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
+            lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
+            
+            
             // Evapotraspiration adjustment
             if (pDailyRec.EvapotranspirationCrop !=null)
             {
@@ -428,6 +428,8 @@ namespace IrrigationAdvisor.Models.Management
             {
                 this.TotalEvapotranspirationCropFromLastWaterInput += pDailyRec.EvapotranspirationCrop.getTotalInput();
             }
+            //Update the Phenological Stage depending in Growing Degree
+            reviewPhenologicalStage();
             
         }
   
@@ -492,29 +494,50 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         private void reviewPhenologicalStage()
         {
-            PhenologicalStage lOldPhenStage = this.CropIrrigationWeather.Crop.PhenologicalStage;
+            PhenologicalStage lOldPhenStage =null;
             PhenologicalStage lNewPhenStage = null;
+            List<PhenologicalStage> lPhenologicalStageList;
+            IEnumerable<PhenologicalStage> lPhenologicalTableOrderByMinDegree;
+            double lModifiedGrowingDegreeDays;
+            double lRootDepthDifference;
+            double lPercentageOfAvailableWater;
 
-            List<PhenologicalStage> lPhenologicalStageList = this.CropIrrigationWeather.Crop.PhenologicalStageList;
-            IEnumerable<PhenologicalStage> query = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
-            double lDegree = this.ModifiedGrowingDegreeDays;
-            foreach (PhenologicalStage lPhenStage in query)
+            lOldPhenStage = this.CropIrrigationWeather.Crop.PhenologicalStage;
+            //Order the phenological table
+            lPhenologicalStageList = this.CropIrrigationWeather.Crop.PhenologicalStageList;
+            lPhenologicalTableOrderByMinDegree = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
+            //get the modified degrees days
+            lModifiedGrowingDegreeDays = this.ModifiedGrowingDegreeDays;
+            //Get the percentage of availableWater before to actualize the phenology state 
+            lPercentageOfAvailableWater = this.getPercentageOfAvailableWater();
+                
+            foreach (PhenologicalStage lPhenStage in lPhenologicalTableOrderByMinDegree)
             {
-                if (lPhenStage != null && lPhenStage.Specie.Equals(this.CropIrrigationWeather.Crop.Specie) && lPhenStage.MinDegree <= lDegree && lPhenStage.MaxDegree >= lDegree)
+                if (lPhenStage != null && lPhenStage.Specie.Equals(this.CropIrrigationWeather.Crop.Specie) 
+                    && lPhenStage.MinDegree <= lModifiedGrowingDegreeDays && lPhenStage.MaxDegree >= lModifiedGrowingDegreeDays)
                 {
                     lNewPhenStage = lPhenStage;
                     this.CropIrrigationWeather.Crop.PhenologicalStage = lPhenStage;
-                   
+                    break;
                 }
             }
-            //Si cambio la profundidad de raiz agrego al balance hidrico el agua de la nueva 
+
+            //Si aumenta la profundidad de raiz agrego al balance hidrico el agua de la nueva 
             //parte del suelo que se considera (a Capacidad de campo)
             if (lOldPhenStage!= null && lNewPhenStage != null && lOldPhenStage.RootDepth < lNewPhenStage.RootDepth)
             {
-                double lRootDepthDifference = lNewPhenStage.RootDepth - lOldPhenStage.RootDepth;
+                //TODO get field capacity by horizon of soil (parameters: horizon depth, root depth difference)
+                lRootDepthDifference = lNewPhenStage.RootDepth - lOldPhenStage.RootDepth;
                 this.HydricBalance += this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepthDifference);
             }
 
+            //Si disminuye la profundidad de raiz agrego al balance hidrico el agua de la nueva 
+            //parte del suelo que se considera (a Capacidad de campo)
+            if (lOldPhenStage != null && lNewPhenStage != null && lOldPhenStage.RootDepth > lNewPhenStage.RootDepth)
+            {
+                this.HydricBalance = (this.getSoilAvailableWaterCapacity() * lPercentageOfAvailableWater / 100 ) 
+                                    + this.getSoilPermanentWiltingPoint();
+            }
         }
 
         /// <summary>
@@ -881,10 +904,18 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public double  getPercentageOfAvailableWater()
         {
-            double lHidricBalance = this.HydricBalance;
-            double lFieldCapacity = this.getSoilFieldCapacity();
-            double lAvailableWater = Math.Round((lHidricBalance * 100) / lFieldCapacity, 2);
-            return lAvailableWater;            
+            double lHidricBalance;
+            double lFieldCapacity;
+            double lPermanentWiltingPoint;
+            double lPercentageOfAvailableWater;
+
+            lHidricBalance = this.HydricBalance;
+            lFieldCapacity = this.getSoilFieldCapacity();
+            lPermanentWiltingPoint = this.getSoilPermanentWiltingPoint();
+
+            lPercentageOfAvailableWater = Math.Round(((lHidricBalance - lPermanentWiltingPoint) * 100)
+                                        / (lFieldCapacity - lPermanentWiltingPoint), 2);
+            return lPercentageOfAvailableWater;            
         }
 
         /// <summary>
@@ -894,8 +925,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public double getSoilPermanentWiltingPoint()
         {
-            double lRootDepth = this.getRootDepth();
-            double lSoilPermanentWiltingPoint = this.CropIrrigationWeather.Crop.Soil.getPermanentWiltingPoint(lRootDepth);
+            double lRootDepth;
+            double lSoilPermanentWiltingPoint;
+
+            lRootDepth = this.getRootDepth();
+            lSoilPermanentWiltingPoint = this.CropIrrigationWeather.Crop.Soil.getPermanentWiltingPoint(lRootDepth);
             return lSoilPermanentWiltingPoint;
         }
 
@@ -906,8 +940,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public double getSoilAvailableWaterCapacity()
         {
-            double lRootDepth = this.getRootDepth();
-            double lSoilAvailableWaterCapacity = this.CropIrrigationWeather.Crop.Soil.getAvailableWaterCapacity(lRootDepth);
+            double lRootDepth;
+            double lSoilAvailableWaterCapacity;
+
+            lRootDepth = this.getRootDepth();
+            lSoilAvailableWaterCapacity = this.CropIrrigationWeather.Crop.Soil.getAvailableWaterCapacity(lRootDepth);
             return lSoilAvailableWaterCapacity;
         }
 

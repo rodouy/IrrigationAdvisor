@@ -138,7 +138,9 @@ namespace IrrigationAdvisor.Models.Crop
         #region Public Methods
         public double getAverageDegree()
         {
-            return this.MinDegree + this.MaxDegree / 2;
+            double lReturn;
+            lReturn= (this.MinDegree + this.MaxDegree) / 2;
+            return lReturn;
         }
         #endregion
 

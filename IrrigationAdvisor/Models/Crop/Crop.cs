@@ -69,7 +69,7 @@ namespace IrrigationAdvisor.Models.Crop
         private double density;
         private PhenologicalStage phenologicalStage;
         private List<PhenologicalStage> phenologicalStageList;
-private DateTime sowingDate;
+        private DateTime sowingDate;
         private DateTime harvestDate;
         private Soil soil;
         private double maxEvapotranspirationToIrrigate;
@@ -229,7 +229,10 @@ private DateTime sowingDate;
         /// <returns></returns>
         public double getAvailableWaterCapacity(double pRootDepth)
         {
-            return this.Soil.getAvailableWaterCapacity(pRootDepth);
+            double lReturn;
+            lReturn = this.Soil.getAvailableWaterCapacity(pRootDepth);
+            lReturn = this.Soil.getAvailableWaterCapacityByProration(pRootDepth);
+            return lReturn;
         }
 
         #endregion

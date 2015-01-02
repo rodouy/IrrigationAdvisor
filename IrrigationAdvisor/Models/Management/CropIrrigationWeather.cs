@@ -59,9 +59,12 @@ namespace IrrigationAdvisor.Models.Management
         private Crop.Crop crop;
         private WeatherStation.WeatherStation mainWeatherStation;
         private WeatherStation.WeatherStation alternativeWeatherStation;
+        private double predeterminatedIrrigationQuantity;
+
         #endregion
 
         #region Properties
+
         public Irrigation.IrrigationUnit IrrigationUnit
         {
             get { return irrigationUnit; }
@@ -86,6 +89,12 @@ namespace IrrigationAdvisor.Models.Management
             set { alternativeWeatherStation = value; }
         }
 
+        public double PredeterminatedIrrigationQuantity
+        {
+            get { return predeterminatedIrrigationQuantity; }
+            set { predeterminatedIrrigationQuantity = value; }
+        }
+
         #endregion
 
         #region Construction
@@ -93,19 +102,22 @@ namespace IrrigationAdvisor.Models.Management
         public CropIrrigationWeather() 
         {
             this.IrrigationUnit = new Irrigation.IrrigationUnit();
-            this.Crop=new Crop.Crop();
+            this.Crop = new Crop.Crop();
             this.MainWeatherStation = new WeatherStation.WeatherStation();
             this.AlternativeWeatherStation = new WeatherStation.WeatherStation();
+            this.PredeterminatedIrrigationQuantity = 20;
         }
 
         public CropIrrigationWeather(Irrigation.IrrigationUnit pIrrigationUnit,
             Crop.Crop pCrop, WeatherStation.WeatherStation pMainWS,
-            WeatherStation.WeatherStation pAlternativeWS)
+            WeatherStation.WeatherStation pAlternativeWS,
+            double pPredeterminatedIrrigationQuantity)
         {
             this.IrrigationUnit = pIrrigationUnit;
             this.Crop = pCrop;
             this.MainWeatherStation = pMainWS;
             this.AlternativeWeatherStation = pAlternativeWS;
+            this.PredeterminatedIrrigationQuantity = pPredeterminatedIrrigationQuantity;
         }
         #endregion
 

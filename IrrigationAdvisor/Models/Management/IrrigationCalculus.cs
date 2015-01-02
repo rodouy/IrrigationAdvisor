@@ -36,8 +36,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Consts
         private double PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE = 60;
-        private double PRDETERMINATED_IRRIGATION = 20;
-
+        
         #endregion
 
         #region Fields
@@ -58,11 +57,6 @@ namespace IrrigationAdvisor.Models.Management
         /// The properties are:
         /// </summary>
 
-        public double PRDETERMINATED_IRRIGATION1
-        {
-            get { return PRDETERMINATED_IRRIGATION; }
-            set { PRDETERMINATED_IRRIGATION = value; }
-        }
         
         public CalculusAvailableWater CalculusAvailableWater
         {
@@ -105,24 +99,27 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pNewName">new name</param>
         public double howMuchToIrrigate(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
-            double pReturn =0;
-            double irrigationEvapTrans = CalculusEvapotranspiration.howMuchToIrrigate( pCropIrrigationWeatherRecords);
-            double irrigationAvWater = CalculusAvailableWater.howMuchToIrrigate(pCropIrrigationWeatherRecords);
-            double percentageAvailableWater = pCropIrrigationWeatherRecords.getPercentageOfAvailableWater();
-            if (irrigationEvapTrans > irrigationAvWater && irrigationEvapTrans > 0)
+            double lReturn;
+            bool lIrrigationByEvapotranspiration;
+            bool lIrrigationByHydricBalance;
+            double lPercentageAvailableWater;
+
+            lReturn = 0;
+            lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeatherRecords);
+            lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeatherRecords);
+            lPercentageAvailableWater = pCropIrrigationWeatherRecords.getPercentageOfAvailableWater();
+
+            //If we need to irrigate by Evapotranspiraton, then Available water has to be lower than 60% 
+            if (lIrrigationByEvapotranspiration && lPercentageAvailableWater < PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
             {
-                pReturn = irrigationEvapTrans;
+                lReturn = pCropIrrigationWeatherRecords.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
             }
-            else if (irrigationAvWater > 0)
+            else if (lIrrigationByHydricBalance)
             {
-                pReturn = irrigationAvWater;
+                lReturn = pCropIrrigationWeatherRecords.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
             }
-            //If Available water is bigger than 60% : Not Irrigate
-            if (percentageAvailableWater >= PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
-            {
-                pReturn = 0;
-            }
-            return pReturn;;
+
+            return lReturn;
         }
 
         

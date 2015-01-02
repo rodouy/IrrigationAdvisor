@@ -104,7 +104,9 @@ namespace IrrigationAdvisor.Models.Crop
         private double clay;
         private double organicMatter;
         private double nitrogenAnalysis;
+        //TODO Horizon.bulkDensitySoil question to be calculated?
         private double bulkDensitySoil;
+
         #endregion
 
         #region Properties
@@ -207,26 +209,31 @@ namespace IrrigationAdvisor.Models.Crop
             this.OrganicMatter = pOrganicMatter;
             this.NitrogenAnalysis = pNitrogenAnalysis;
             this.BulkDensitySoil = pBulkDensitySoil;
-
         }
-
-
 
         #endregion
 
         #region Private Helpers
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private bool isHorizonA()
         {
             //TODO verificar que la designacion de ser horizonte A es correcta (El horizonte AB se maneja como A)
             bool lReturn = true;
-            if(!(this.order == 0 || this.Name .Equals("A") || this.Name.Equals("AB")))
+            if(!(this.order == 0 || this.Name.Equals("A") || this.Name.Equals("AB")))
             {
                 lReturn = false;
             }
             return lReturn;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private double getFieldCapacityHorizonA()
         {
             double lReturn = 0;
@@ -240,6 +247,10 @@ namespace IrrigationAdvisor.Models.Crop
             return lReturn;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private double getPermanentWiltingPointHorizonA()
         {
             double lReturn = 0;
@@ -254,7 +265,10 @@ namespace IrrigationAdvisor.Models.Crop
             return lReturn;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private double getFieldCapacityHorizonB()
         {
             double lReturn = 0;
@@ -267,13 +281,19 @@ namespace IrrigationAdvisor.Models.Crop
             }
             return lReturn;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private double getPermanentWiltingPointHorizonB()
         {
             double lReturn = 0;
             if (this.Sand != 0 && this.Clay != 0 && this.OrganicMatter != 0)
             {
-                lReturn = -this.HORIZON_B_PERM_WILTING_POINT_GENERAL_ADJ_COEF
-                    + (this.HORIZON_B_PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF * this.getFieldCapacityHorizonB());
+                lReturn = (this.HORIZON_B_PERM_WILTING_POINT_ORGANIC_MATTER_ADJ_COEF 
+                    * this.getFieldCapacityHorizonB())
+                    - this.HORIZON_B_PERM_WILTING_POINT_GENERAL_ADJ_COEF;
             }
             return lReturn;
         }
@@ -290,10 +310,15 @@ namespace IrrigationAdvisor.Models.Crop
             else
             {
                 lReturn = this.getFieldCapacityHorizonB();
-            } 
+            }
+            lReturn = lReturn * this.BulkDensitySoil;
             return lReturn;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public double getPermanentWiltingPoint() 
         {
             double lReturn = 0;
@@ -305,12 +330,24 @@ namespace IrrigationAdvisor.Models.Crop
             {
                 lReturn = this.getPermanentWiltingPointHorizonB();
             }
+            lReturn = lReturn * this.BulkDensitySoil;
             return lReturn;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public double getAvailableWaterCapacity() 
         {
-            return (this.getFieldCapacity()-this.getPermanentWiltingPoint()) * this.BulkDensitySoil ;
+            double lFieldCapacity;
+            double lPermanentWiltingPoint;
+            double lAvailableWaterCapacity;
+            lFieldCapacity = this.getFieldCapacity();
+            lPermanentWiltingPoint = this.getPermanentWiltingPoint();
+            lAvailableWaterCapacity = lFieldCapacity - lPermanentWiltingPoint;
+            
+            return lAvailableWaterCapacity;
         }
 
         #endregion
@@ -323,9 +360,11 @@ namespace IrrigationAdvisor.Models.Crop
                 return false;
             }
             Horizon lHorizon = obj as Horizon;
-            return this.Name.Equals(lHorizon.Name) &&
-                this.Limo == lHorizon.Limo && this.Clay== lHorizon.Clay &&
-                this.Sand == lHorizon.Sand && this.OrganicMatter==lHorizon.OrganicMatter; 
+            return this.Name.Equals(lHorizon.Name) 
+                && this.Limo == lHorizon.Limo 
+                && this.Clay == lHorizon.Clay 
+                && this.Sand == lHorizon.Sand 
+                && this.OrganicMatter == lHorizon.OrganicMatter; 
         }
 
         public override int GetHashCode()

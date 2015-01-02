@@ -212,11 +212,19 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //Security 
         //Utitilities
         //Water
-         
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
         private Water.WaterInput getIrrigationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
             Water.WaterInput lReturn = null;
-            foreach (Water.WaterInput lWaterInput in this.irrigationList)
+            IEnumerable<Water.WaterInput> lIrrigationListOrderByDescendingByDate;
+            lIrrigationListOrderByDescendingByDate = this.irrigationList.OrderByDescending(lWaterInput => lWaterInput.Date);
+            foreach (Water.WaterInput lWaterInput in lIrrigationListOrderByDescendingByDate)
                 if (Utilities.Utils.isTheSameDay(lWaterInput.Date, pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
                     lReturn = lWaterInput;
@@ -239,20 +247,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         }
   
         //WeatherStation
-        private WeatherStation.WeatherData getWeatherDataFromList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime) 
-        {
-            WeatherStation.WeatherData lReturn = null;
-            foreach(WeatherStation.WeatherData lWeatherData in this.WeatherDataList)
-            {
-                if (lWeatherData.WeatherStation.Equals(pWeatherStation) && lWeatherData.Date.Equals(pDateTime.Date))
-                {
-                    lReturn = lWeatherData;
-                    return lReturn;
-                }
-            }
-            return lReturn;
+        
 
-        }
         /// <summary>
         /// Return the WeatherData for the available weather station.
         /// First search in the main station. If there is no data, then search in the alternative wheather station.
@@ -314,15 +310,18 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         public bool addCropIrrigWeatherToList(CropIrrigationWeather pCropIrrigationWeather) 
         {
             bool lReturn = true;
+            CropIrrigationWeatherRecords lCropIrrigationWeatherRecords;
+            List<EffectiveRain> lEffectiveRain;
+            double bhi;
             try
             {
 
                 //Create the CropIrrigationWeatherRecords for the CropIrrigationWeather
-                CropIrrigationWeatherRecords lCropIrrigationWeatherRecords = new CropIrrigationWeatherRecords();
-                List<EffectiveRain> lEffectiveRain = this.getEffectiveRainList(pCropIrrigationWeather.getRegion());
+                lCropIrrigationWeatherRecords = new CropIrrigationWeatherRecords();
+                lEffectiveRain = this.getEffectiveRainList(pCropIrrigationWeather.getRegion());
                 lCropIrrigationWeatherRecords.EffectiveRain = lEffectiveRain;
                 lCropIrrigationWeatherRecords.CropIrrigationWeather = pCropIrrigationWeather;
-                double bhi = lCropIrrigationWeatherRecords.getInitialHidricBalance();
+                bhi = lCropIrrigationWeatherRecords.getInitialHidricBalance();
                 lCropIrrigationWeatherRecords.HydricBalance = bhi;
                 
                 //Add to the system list 
@@ -396,10 +395,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private void verifyNeedForIrrigation(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
-            double irrigationCalculated = this.howMuchToIrrigate(pCropIrrigationWeather);
-            if (irrigationCalculated > 0)
+            double lQuantityOfWaterToIrrigate;
+            lQuantityOfWaterToIrrigate = this.howMuchToIrrigate(pCropIrrigationWeather);
+            if (lQuantityOfWaterToIrrigate > 0)
             {
-                this.addIrrigationDataToList(pCropIrrigationWeather, pDateTime, this.IrrigationCalculus.PRDETERMINATED_IRRIGATION1, false);
+                this.addOrUpdateIrrigationDataToList(pCropIrrigationWeather, pDateTime, lQuantityOfWaterToIrrigate, false);
                 this.addDailyRecordToList(pCropIrrigationWeather, pDateTime, pDateTime.ToShortDateString());
             }
         }
@@ -410,14 +410,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
             double lReturn = 0;
             CropIrrigationWeatherRecords lCropIrrigationWeatherRecords = null;
+            //Find the Crop Irrigation Weather Records
             foreach (CropIrrigationWeatherRecords oneCropIrrigationWeatherRecords in this.CropIrrigationWeatherRecordsList)
             {
                 if (oneCropIrrigationWeatherRecords.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
                     lCropIrrigationWeatherRecords = oneCropIrrigationWeatherRecords;
+                    break;
                 }
 
             }
+            //With the Crop Irrigation Weather Records Calculate how much water to irrigate
             if (lCropIrrigationWeatherRecords != null)
             {
                 lReturn = this.IrrigationCalculus.howMuchToIrrigate(lCropIrrigationWeatherRecords);
@@ -528,10 +531,29 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
             return lReturn;
         }
+
         //Water
         //WeatherStation
+
+        public WeatherStation.WeatherData getWeatherDataFromList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime)
+        {
+            WeatherStation.WeatherData lReturn = null;
+            IEnumerable<WeatherStation.WeatherData> lWeatherDataListOrderByDescendingDate;
+            lWeatherDataListOrderByDescendingDate = this.WeatherDataList.OrderByDescending(lWeatherData => lWeatherData.Date);
+            foreach (WeatherStation.WeatherData lWeatherData in lWeatherDataListOrderByDescendingDate)
+            {
+                if (lWeatherData.WeatherStation.Equals(pWeatherStation) && lWeatherData.Date.Equals(pDateTime.Date))
+                {
+                    lReturn = lWeatherData;
+                    return lReturn;
+                }
+            }
+            return lReturn;
+        }
+
+
         public bool addWeatherDataToList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime,
-            double pTemperature, int pSolarRadiation, double pTemMax,
+            double pTemperature, double pSolarRadiation, double pTemMax,
             double pTemMin, double pEvapotranspiration)
         {
             bool lReturn = false;
@@ -552,39 +574,43 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
  
         }
 
-        public bool addIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
-            DateTime pDate, double pInput, bool isExtra)
+        public bool addOrUpdateIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
+            DateTime pIrrigationDate, double pQuantityOfWaterToIrrigate, bool pIsExtraIrrigation)
         {
             bool lReturn = false;
+            Water.WaterInput lNewIrrigation;
+
             try
             {
-                Water.WaterInput lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pDate);
+                lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pIrrigationDate);
+                //If there is not a registry then it is created 
+                //If there is an Irrigation Registry it is actualized 
                 if (lNewIrrigation == null)
                 {
                     lNewIrrigation = new Water.Irrigation();
                     lNewIrrigation.CropIrrigationWeather = pCropIrrigationWeather;
-                    lNewIrrigation.Date = pDate;
-                    if (isExtra)
+                    lNewIrrigation.Date = pIrrigationDate;
+                    if (pIsExtraIrrigation)
                     {
-                        lNewIrrigation.ExtraInput = pInput;
-                        lNewIrrigation.ExtraDate = pDate;
+                        lNewIrrigation.ExtraInput = pQuantityOfWaterToIrrigate;
+                        lNewIrrigation.ExtraDate = pIrrigationDate;
                     }
                     else
                     {
-                        lNewIrrigation.Input = pInput;
+                        lNewIrrigation.Input = pQuantityOfWaterToIrrigate;
                     }
                     this.IrrigationList.Add(lNewIrrigation);
-                }// If there is an Irrigation actualize the registry
+                }
                 else
                 {
-                    if (isExtra)
+                    if (pIsExtraIrrigation)
                     {
-                        lNewIrrigation.ExtraInput += pInput;
-                        lNewIrrigation.ExtraDate = pDate;
+                        lNewIrrigation.ExtraInput += pQuantityOfWaterToIrrigate;
+                        lNewIrrigation.ExtraDate = pIrrigationDate;
                     }
                     else
                     {
-                        lNewIrrigation.Input += pInput;
+                        lNewIrrigation.Input += pQuantityOfWaterToIrrigate;
                     }
                 }
             }

@@ -33,7 +33,6 @@ namespace IrrigationAdvisor.Models.Management
     public class CalculusEvapotranspiration 
     {
         #region Consts
-        private double PRDETERMINATED_IRRIGATION = 20;
         #endregion
 
         #region Fields
@@ -64,16 +63,28 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Public Methods
-        public  double howMuchToIrrigate(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
+
+        /// <summary>
+        /// If the evapotranspiration Acumulated from last water input is bigger than max evapotranspiration to irrigatte
+        /// we need to irrigate
+        /// </summary>
+        /// <param name="pCropIrrigationWeatherRecords"></param>
+        /// <returns></returns>
+        public  bool IrrigateByEvapotranspiration(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
-            double lReturn = 0;
-            double lMaxEvapotrToIrr = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.MaxEvapotranspirationToIrrigate;
-            double lEvapotrAcum = pCropIrrigationWeatherRecords.TotalEvapotranspirationCropFromLastWaterInput;
+            bool lReturn = false;
+            double lMaxEvapotrToIrr;
+            double lEvapotrAcum;
+            
+            lMaxEvapotrToIrr = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.MaxEvapotranspirationToIrrigate;
+            lEvapotrAcum = pCropIrrigationWeatherRecords.TotalEvapotranspirationCropFromLastWaterInput;
+            //If the evapotranspiration Acumulated from last water input is bigger than max evapotranspiration to irrigatte
+            //we need to irrigate
             if (lEvapotrAcum >= lMaxEvapotrToIrr)
             {
-                lReturn = this.PRDETERMINATED_IRRIGATION; ;
+                lReturn = true;
             }
-            return lReturn; ;
+            return lReturn; 
         }
         #endregion
 

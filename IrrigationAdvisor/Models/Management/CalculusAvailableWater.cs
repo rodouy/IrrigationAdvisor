@@ -33,7 +33,6 @@ namespace IrrigationAdvisor.Models.Management
     public class CalculusAvailableWater 
     {
         #region Consts
-        private double PREDETERMINATED_IRRIGATION = 20;
         #endregion
 
         #region Fields
@@ -64,19 +63,34 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Public Methods
-        public double howMuchToIrrigate(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
+
+        /// <summary>
+        /// If the Hydric Balance is lower than the Water Threhold we need to Irrigate
+        /// The water Threhold is the half of the Available Water
+        /// </summary>
+        /// <param name="pCropIrrigationWeatherRecords"></param>
+        /// <returns></returns>
+        public bool IrrigateByHydricBalance(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
-            double lReturn =0;
-            double lRootDepth = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
-            double lAvailableWater = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.getAvailableWaterCapacity(lRootDepth);
-            double lHidricBalance = pCropIrrigationWeatherRecords.HydricBalance;
-            double lthreshold = Math.Round(lAvailableWater / 2, 2);
-            if (lHidricBalance <= lthreshold)
+            bool lReturn = false;
+            double lRootDepth;
+            double lAvailableWater;
+            double lHydricBalance;
+            double PermanentWiltingPoint;
+            double lThreshold;
+
+            lRootDepth = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
+            lAvailableWater = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.getAvailableWaterCapacity(lRootDepth);
+            lHydricBalance = pCropIrrigationWeatherRecords.HydricBalance;
+            PermanentWiltingPoint = pCropIrrigationWeatherRecords.getSoilPermanentWiltingPoint();
+            lThreshold = Math.Round(lAvailableWater / 2, 2) + PermanentWiltingPoint;
+            
+            if (lHydricBalance <= lThreshold)
             {
-                lReturn = this.PREDETERMINATED_IRRIGATION;
+                lReturn = true;
             }
 
-            return lReturn;;
+            return lReturn;
         }
         #endregion
 
