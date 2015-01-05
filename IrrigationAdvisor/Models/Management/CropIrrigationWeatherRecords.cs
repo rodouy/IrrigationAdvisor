@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Water;
 using IrrigationAdvisor.Models.Utilities;
+using IrrigationAdvisor.Models.Data;
 
 namespace IrrigationAdvisor.Models.Management
 {
@@ -67,10 +68,7 @@ namespace IrrigationAdvisor.Models.Management
     {
     
         #region Consts
-        private double INITIAL_ROOT_DEPTH = 5;
-        private double CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED = 10;
-        private double DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT = 2;
-
+        
         #endregion
 
         #region Fields
@@ -361,7 +359,12 @@ namespace IrrigationAdvisor.Models.Management
             lRootDepth = this.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
             lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
             
-            
+            //To debug
+            //if (pDailyRec.DateHour.Equals(new DateTime(2014, 12, 02)))
+            //    return;
+
+
+
             // Evapotraspiration adjustment
             if (pDailyRec.EvapotranspirationCrop !=null)
             {
@@ -383,11 +386,17 @@ namespace IrrigationAdvisor.Models.Management
                 this.HydricBalance += lEffectiveRain;
 
                 // If the effective rain is bigger than 10 mm set the last water input
-                if (pDailyRec.Rain.Input > CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                if (pDailyRec.Rain.Input > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
                 {
                     this.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
                     this.LastWaterInputDate = pDailyRec.DateHour;
                     lThereIsWaterInput = true;
+                }
+
+                if (HydricBalance >= lFieldCapacity)
+                {
+                    //We have to save the date to keep the hidric balance unchangable
+                    this.LastBigWaterInputDate = pDailyRec.DateHour;
                 }
             }
   
@@ -399,7 +408,7 @@ namespace IrrigationAdvisor.Models.Management
                 this.HydricBalance += pDailyRec.Irrigation.getTotalInput();
 
                 // If the irrigation is bigger than 10 mm set the last water input
-                if (pDailyRec.Irrigation.getTotalInput() > CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                if (pDailyRec.Irrigation.getTotalInput() > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
                 {
                     this.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
                     this.LastWaterInputDate = pDailyRec.DateHour;
@@ -411,26 +420,26 @@ namespace IrrigationAdvisor.Models.Management
             if (HydricBalance >= lFieldCapacity)
             {
                 this.HydricBalance = lFieldCapacity; 
-                //We have to save the date to keep the hidric balance unchangable
-                this.LastBigWaterInputDate = pDailyRec.DateHour;
             }
-
-            //After a big rain the HidricBalance keep its value = FieldCapacity for two days
-            lDaysAfterBigInputWater = Utilities.Utils.getDaysDifference(this.LastBigWaterInputDate, pDailyRec.DateHour);
-            if (lDaysAfterBigInputWater <= DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT
-                && this.HydricBalance < lFieldCapacity)
-            {
-                this.HydricBalance = lFieldCapacity;
-            }
-
+            
             //TotalEvapotranspirationCropFromLastWaterInput adjustment
             if(!lThereIsWaterInput)
             {
                 this.TotalEvapotranspirationCropFromLastWaterInput += pDailyRec.EvapotranspirationCrop.getTotalInput();
             }
+
             //Update the Phenological Stage depending in Growing Degree
             reviewPhenologicalStage();
-            
+
+            //After a big rain the HidricBalance keep its value = FieldCapacity for two days
+            lDaysAfterBigInputWater = Utilities.Utils.getDaysDifference(this.LastBigWaterInputDate, pDailyRec.DateHour);
+            if (lDaysAfterBigInputWater <= InitialTables.DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT)
+            {
+                lRootDepth = this.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
+                lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
+                this.HydricBalance = lFieldCapacity;
+            }
+
         }
   
 
@@ -461,24 +470,24 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// Add a Daily Record 
         /// </summary>
-        /// <param name="lDailyRecord"></param>
+        /// <param name="pDailyRecord"></param>
         /// <returns></returns>
-        private bool addDailyRecord(DailyRecord lDailyRecord)
+        private bool addDailyRecord(DailyRecord pDailyRecord)
         {
             bool lReturn = true;
             try
             {
-                int days = Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, lDailyRecord.DateHour);
+                int days = Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, pDailyRecord.DateHour);
                 //If it's the initial registry set the initial Hidric Balance
                 if (days == 0)
                 {
                     this.HydricBalance = this.getInitialHidricBalance();
                     this.DayAfterSowing = new Pair<int, DateTime>(-1, this.CropIrrigationWeather.Crop.SowingDate);
                 }
-                this.DailyRecords.Add(lDailyRecord);
                 // this way part form the last state (day before)
-                reviewSummaryData(lDailyRecord); 
-
+                reviewSummaryData(pDailyRecord);
+                
+                this.DailyRecords.Add(pDailyRecord);
             }
             catch (Exception e)
             {
@@ -782,7 +791,7 @@ namespace IrrigationAdvisor.Models.Management
         public double getInitialHidricBalance()
         {
             double lReturn = 0;
-            double lFieldCapacity = this.CropIrrigationWeather.Crop.getFieldCapacity(INITIAL_ROOT_DEPTH);
+            double lFieldCapacity = this.CropIrrigationWeather.Crop.getFieldCapacity(InitialTables.INITIAL_ROOT_DEPTH);
             lReturn = lFieldCapacity;
             return lReturn;
         }

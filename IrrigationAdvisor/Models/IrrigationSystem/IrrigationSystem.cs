@@ -174,7 +174,6 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         #endregion
 
-
         #region Private Helpers
 
         //Crop
@@ -295,11 +294,29 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         #region Public Methods
 
-        //Crop
-        //Irrigation
-        //Language
-        //Location
-        //Management
+        #region Crop
+        
+        public PhenologicalStage CreatePhenologicalStage(int pId, Specie pSpecie, Stage pStage, double pMinDegree, double pMaxDegree, double pRootDepth)
+        {
+            PhenologicalStage lPhenologicalStage;
+
+            lPhenologicalStage = new PhenologicalStage(pId, pSpecie, pStage, pMinDegree, pMaxDegree, pRootDepth);
+            return lPhenologicalStage;
+        }
+
+        #endregion
+
+        #region Irrigation
+        #endregion
+
+        #region Language
+        #endregion
+
+        #region Location
+        #endregion
+
+        #region Management
+        
         /// <summary>
         /// Add to the system a new CropIrrigationWeather
         /// Aditionaly create a CropIrrigationWeatherRecords for this CropIrrigationWeather
@@ -393,7 +410,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         }
 
-        private void verifyNeedForIrrigation(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        public void verifyNeedForIrrigation(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
             double lQuantityOfWaterToIrrigate;
             lQuantityOfWaterToIrrigate = this.howMuchToIrrigate(pCropIrrigationWeather);
@@ -404,8 +426,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
         }
 
-
-
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <returns></returns>
         public double howMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
         {
             double lReturn = 0;
@@ -427,6 +452,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
             return lReturn;
         }
+
+
         /// <summary>
         /// Return the Phenological Stage for a Specie in a Region given the rootDepth
         /// </summary>
@@ -457,6 +484,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
 
         }
+
+
         /// <summary>
         /// Return the List of PhenologicalStages for a Specie in a Region
         /// </summary>
@@ -487,13 +516,19 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         }
 
+        #endregion
 
 
+        #region Security 
+        #endregion
 
+        #region Utitilities
 
-        //Security 
-        //Utitilities
-
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pCropIrrigationWeatherRecords"></param>
+        /// <returns></returns>
         public String printDailyRecordsList(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
             String lReturn = Environment.NewLine + "DAILY RECORDS" + Environment.NewLine ;
@@ -508,6 +543,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
         }
 
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <returns></returns>
         public String printDailyrecordsList(CropIrrigationWeather pCropIrrigationWeather)
         {
             String lReturn = "";
@@ -521,7 +561,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
         }
 
-
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <returns></returns>
         public String printWeatherDataList()
         {
             String lReturn = Environment.NewLine + "WEATHER DATA" + Environment.NewLine;
@@ -532,9 +575,19 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
         }
 
-        //Water
-        //WeatherStation
+        #endregion
 
+        #region Water
+        #endregion
+
+        #region WeatherStation
+
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pWeatherStation"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
         public WeatherStation.WeatherData getWeatherDataFromList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime)
         {
             WeatherStation.WeatherData lReturn = null;
@@ -551,7 +604,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
         }
 
-
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pWeatherStation"></param>
+        /// <param name="pDateTime"></param>
+        /// <param name="pTemperature"></param>
+        /// <param name="pSolarRadiation"></param>
+        /// <param name="pTemMax"></param>
+        /// <param name="pTemMin"></param>
+        /// <param name="pEvapotranspiration"></param>
+        /// <returns></returns>
         public bool addWeatherDataToList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime,
             double pTemperature, double pSolarRadiation, double pTemMax,
             double pTemMin, double pEvapotranspiration)
@@ -574,6 +637,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
  
         }
 
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pIrrigationDate"></param>
+        /// <param name="pQuantityOfWaterToIrrigate"></param>
+        /// <param name="pIsExtraIrrigation"></param>
+        /// <returns></returns>
         public bool addOrUpdateIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
             DateTime pIrrigationDate, double pQuantityOfWaterToIrrigate, bool pIsExtraIrrigation)
         {
@@ -623,6 +694,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lReturn;
         }
 
+
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDate"></param>
+        /// <param name="pInput"></param>
+        /// <returns></returns>
         public bool addRainDataToList(CropIrrigationWeather pCropIrrigationWeather,
             DateTime pDate, double pInput)
         {
@@ -653,7 +732,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
             return lReturn;
         }
-        
+        #endregion
+
         #endregion
 
         #region Overrides
@@ -720,5 +800,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
             return lReturn;
         }
+
+
+
     }
 }

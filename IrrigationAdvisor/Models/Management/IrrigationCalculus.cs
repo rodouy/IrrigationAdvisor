@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using IrrigationAdvisor.Models.Data;
+
 namespace IrrigationAdvisor.Models.Management
 {
     /// <summary>
@@ -35,7 +37,6 @@ namespace IrrigationAdvisor.Models.Management
     {
 
         #region Consts
-        private double PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE = 60;
         
         #endregion
 
@@ -110,7 +111,7 @@ namespace IrrigationAdvisor.Models.Management
             lPercentageAvailableWater = pCropIrrigationWeatherRecords.getPercentageOfAvailableWater();
 
             //If we need to irrigate by Evapotranspiraton, then Available water has to be lower than 60% 
-            if (lIrrigationByEvapotranspiration && lPercentageAvailableWater < PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
+            if (lIrrigationByEvapotranspiration && lPercentageAvailableWater < InitialTables.PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
             {
                 lReturn = pCropIrrigationWeatherRecords.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
             }

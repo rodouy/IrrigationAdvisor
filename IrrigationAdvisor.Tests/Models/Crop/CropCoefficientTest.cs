@@ -23,9 +23,9 @@ namespace IrrigationAdvisor.Tests.Models.Crop
             double lKC3 = 4;
 
             CropCoefficient lCropCoefficient = new CropCoefficient();
-            lCropCoefficient.addDayToList(lDay1, lKC1);
-            lCropCoefficient.addDayToList(lDay2, lKC2);
-            lCropCoefficient.addDayToList(lDay3, lKC3);
+            lCropCoefficient.addKCforDayAfterSowing(lDay1, lKC1);
+            lCropCoefficient.addKCforDayAfterSowing(lDay2, lKC2);
+            lCropCoefficient.addKCforDayAfterSowing(lDay3, lKC3);
 
             Assert.IsTrue(lCropCoefficient.getKC(1) == lKC1);
             Assert.IsTrue(lCropCoefficient.getKC(2) == lKC2);

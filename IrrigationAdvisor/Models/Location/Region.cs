@@ -118,7 +118,7 @@ namespace IrrigationAdvisor.Models.Location
             }
             Region lRegion = obj as Region;
             return this.Name.Equals(lRegion.Name);
-                //&& this .Position.Equals(lRegion.Position);
+                //&& this .Position.Equals(pRegion.Position);
         }
 
         public override int GetHashCode()
