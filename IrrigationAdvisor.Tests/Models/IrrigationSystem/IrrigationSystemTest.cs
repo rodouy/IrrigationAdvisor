@@ -371,10 +371,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private void crearSuelosSantaLucia()
         {
-            soil_1 = new Soil(1, "Suelo Pivot 1", lLocation);
-            soil_2 = new Soil(2, "Suelo Pivot 2", lLocation);
-            soil_3_4 = new Soil(3, "Suelo Pivot 3_4", lLocation);
-            soil_5 = new Soil(4, "Suelo Pivot 5", lLocation);
+            soil_1 = new Soil(1, "Suelo Pivot 1","Suelo Pivot 1",lLocation, DateTime.MinValue, 30);
+            soil_2 = new Soil(2, "Suelo Pivot 2", "Suelo Pivot 2", lLocation, DateTime.MinValue, 30);
+            soil_3_4 = new Soil(3, "Suelo Pivot 3_4", "Suelo Pivot 3_4", lLocation, DateTime.MinValue, 30);
+            soil_5 = new Soil(4, "Suelo Pivot 5", "Suelo Pivot 5", lLocation, DateTime.MinValue, 30);
 
             // horizon_1A = new Horizon(1,"Horizonte A - Suelo 1", 1, "A",)
             Horizon horizon_2A = new Horizon(1, "A", 0, "A", 14, 19, 53, 28, 4.4, 0, 1.2);

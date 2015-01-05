@@ -54,17 +54,21 @@ namespace IrrigationAdvisor.Models.Crop
 
         #region Fields
 
-        private int idSoil;
+        private long idSoil;
         private String name;
+        private String description;
         private Location.Location location;
         private List<Horizon> horizons;
+        private DateTime testDate;
+        private double depthLimit;
+
 
         #endregion
 
         #region Properties
 
 
-        public int IdSoil
+        public long IdSoil
         {
             get { return idSoil; }
             set { idSoil = value; }
@@ -73,6 +77,12 @@ namespace IrrigationAdvisor.Models.Crop
         {
             get { return name; }
             set { name = value; }
+        }
+
+        public String Description
+        {
+            get { return description; }
+            set { description = value; }
         }
        
         public Location.Location Location
@@ -85,7 +95,19 @@ namespace IrrigationAdvisor.Models.Crop
             get { return horizons; }
             set { horizons = value; }
         }
-        
+
+        public DateTime TestDate
+        {
+            get { return testDate; }
+            set { testDate = value; }
+        }
+
+        public double DepthLimit
+        {
+            get { return depthLimit; }
+            set { depthLimit = value; }
+        }
+
         
         #endregion
 
@@ -94,17 +116,24 @@ namespace IrrigationAdvisor.Models.Crop
         {
             this.IdSoil = 0;
             this.Name= "";
+            this.Description = "";
             this.Location = null;
             this.Horizons = new List<Horizon>();
+            this.TestDate = DateTime.MinValue;
+            this.DepthLimit = 0;
+            
             
         }
 
-        public Soil(int pId, String pName, Location.Location pLocation)
+        public Soil(long pId, String pName, String pDescription, Location.Location pLocation, DateTime pTestDate, double pDepthLimit)
         {
             this.IdSoil = pId;
             this.Name = pName;
+            this.Description = pDescription;
             this.Location = pLocation;
             this.Horizons = new List<Horizon>();
+            this.TestDate = pTestDate;
+            this.DepthLimit = pDepthLimit;
 
         }
         public Soil (int pId,String pName,Location.Location pLocation,List <Horizon > pListHorizon)
