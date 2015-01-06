@@ -348,6 +348,7 @@ namespace IrrigationAdvisor.Models.Management
 
             double lRealRain;
             double lEffectiveRain;
+            double lIrrigationEfficiency;
             double lDaysAfterBigInputWater;
 
             lDayAfterSowing = this.DayAfterSowing.First+1;
@@ -386,7 +387,7 @@ namespace IrrigationAdvisor.Models.Management
                 this.HydricBalance += lEffectiveRain;
 
                 // If the effective rain is bigger than 10 mm set the last water input
-                if (pDailyRec.Rain.Input > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                if (pDailyRec.Rain.getTotalInput() > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
                 {
                     this.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
                     this.LastWaterInputDate = pDailyRec.DateHour;
@@ -403,9 +404,11 @@ namespace IrrigationAdvisor.Models.Management
             // Irrigation adjustment
             if (pDailyRec.Irrigation != null)
             {
-                this.TotalIrrigation += pDailyRec.Irrigation.Input;
-                this.TotalExtraIrrigation += pDailyRec.Irrigation.ExtraInput;
-                this.HydricBalance += pDailyRec.Irrigation.getTotalInput();
+                // Calculate de effective irrigation depending on the irrigatioin efficiency of the Pivot
+                lIrrigationEfficiency = this.CropIrrigationWeather.IrrigationUnit.IrrigationEfficiency;
+                this.TotalIrrigation += pDailyRec.Irrigation.Input * lIrrigationEfficiency;
+                this.TotalExtraIrrigation += pDailyRec.Irrigation.ExtraInput * lIrrigationEfficiency;
+                this.HydricBalance += pDailyRec.Irrigation.getTotalInput() * lIrrigationEfficiency;
 
                 // If the irrigation is bigger than 10 mm set the last water input
                 if (pDailyRec.Irrigation.getTotalInput() > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
