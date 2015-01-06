@@ -312,5 +312,29 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
 
+
+        public PhenologicalStage actualizePhenologicalStage(double lModifiedGrowingDegreeDays)
+        {
+            List<PhenologicalStage> lPhenologicalStageList;
+            IEnumerable<PhenologicalStage> lPhenologicalTableOrderByMinDegree;
+            PhenologicalStage lNewPhenStage = null;
+            
+            //Order the phenological table
+            lPhenologicalStageList = this.PhenologicalStageList;
+            lPhenologicalTableOrderByMinDegree = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
+            
+            foreach (PhenologicalStage lPhenStage in lPhenologicalTableOrderByMinDegree)
+            {
+                if (lPhenStage != null && lPhenStage.Specie.Equals(this.Specie) && lPhenStage.MinDegree <= lModifiedGrowingDegreeDays 
+                    && lPhenStage.MaxDegree >= lModifiedGrowingDegreeDays)
+                {
+                    this.PhenologicalStage = lPhenStage;
+                    lNewPhenStage = lPhenStage;
+                    return lNewPhenStage;
+                }
+            }
+
+            return lNewPhenStage;
+        }
     }
 }

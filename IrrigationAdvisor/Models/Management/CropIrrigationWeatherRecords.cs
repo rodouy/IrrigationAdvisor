@@ -510,34 +510,23 @@ namespace IrrigationAdvisor.Models.Management
             double lOldRootDepth = 0;
             PhenologicalStage lNewPhenStage = null;
             double lNewRootDepth = 0;
-            List<PhenologicalStage> lPhenologicalStageList;
-            IEnumerable<PhenologicalStage> lPhenologicalTableOrderByMinDegree;
             double lModifiedGrowingDegreeDays;
             double lRootDepthDifference;
             double lPercentageOfAvailableWater;
 
             lOldPhenStage = this.CropIrrigationWeather.Crop.PhenologicalStage;
             lOldRootDepth = this.CropIrrigationWeather.Crop.getRootDepth();
-            //Order the phenological table
-            lPhenologicalStageList = this.CropIrrigationWeather.Crop.PhenologicalStageList;
-            lPhenologicalTableOrderByMinDegree = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
+
             //get the modified degrees days
             lModifiedGrowingDegreeDays = this.ModifiedGrowingDegreeDays;
             //Get the percentage of availableWater before to actualize the phenology state 
             lPercentageOfAvailableWater = this.getPercentageOfAvailableWater();
-                
-            foreach (PhenologicalStage lPhenStage in lPhenologicalTableOrderByMinDegree)
-            {
-                if (lPhenStage != null && lPhenStage.Specie.Equals(this.CropIrrigationWeather.Crop.Specie) 
-                    && lPhenStage.MinDegree <= lModifiedGrowingDegreeDays && lPhenStage.MaxDegree >= lModifiedGrowingDegreeDays)
-                {
-                    lNewPhenStage = lPhenStage;
-                    this.CropIrrigationWeather.Crop.PhenologicalStage = lPhenStage;
-                    lNewRootDepth = this.CropIrrigationWeather.Crop.getRootDepth();
-                    break;
-                }
-            }
 
+            //Actualize Phenological Stage depending on the ModifiedGrowingDegreeDays
+            this.CropIrrigationWeather.Crop.actualizePhenologicalStage(lModifiedGrowingDegreeDays);
+            lNewRootDepth = this.CropIrrigationWeather.Crop.getRootDepth();
+            lNewPhenStage = this.CropIrrigationWeather.Crop.PhenologicalStage;
+            
             //Si aumenta la profundidad de raiz agrego al balance hidrico el agua de la nueva 
             //parte del suelo que se considera (a Capacidad de campo)
             if (lOldPhenStage!= null && lNewPhenStage != null && lOldRootDepth < lNewRootDepth)
