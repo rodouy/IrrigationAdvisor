@@ -197,30 +197,80 @@ namespace IrrigationAdvisor.Models.Crop
 
         #region Public Methods
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Region getRegion()
         {
-            return this.Soil.Location.Region;
+            Region lRegion;
+            lRegion = this.Soil.Location.Region;
+            return lRegion;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public double getRootDepth()
+        {
+            double lRootDepth;
+            lRootDepth = this.PhenologicalStage.getRootDepth();
+            if (lRootDepth > this.Soil.DepthLimit)
+            {
+                lRootDepth = this.Soil.DepthLimit;
+            }
+            return lRootDepth;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public double getBaseTemperature ()
         {
-            return this.Specie.BaseTemperature;
+            Double lBaseTemperature;
+            lBaseTemperature = this.Specie.BaseTemperature;
+            return lBaseTemperature;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int getDaysAfterSowing() 
         {
-            return DateTime.Now.Subtract( this.SowingDate).Days;
+            int lDaysAfterSowing;
+            DateTime lSowingDate;
+            lSowingDate = this.SowingDate;
+            lDaysAfterSowing = DateTime.Now.Subtract(lSowingDate).Days;
+            return lDaysAfterSowing;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
         public double getFieldCapacity(double pRootDepth) 
         {
-            return this.Soil.getFieldCapacity(pRootDepth);
+            double lFieldCapacity;
+            lFieldCapacity = this.Soil.getFieldCapacity(pRootDepth);
+            return lFieldCapacity;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
         public double getPermanentWiltingPoint(double pRootDepth)
         {
-            return this.Soil.getPermanentWiltingPoint(pRootDepth);
+            double lPermanentWiltingPoint;
+            lPermanentWiltingPoint = this.Soil.getPermanentWiltingPoint(pRootDepth);
+            return lPermanentWiltingPoint;
         }
+
         /// <summary>
         /// Return the AvailableWaterCapacity.
         /// Is calculated as the FieldCapacity minus PermanentWiltingPoint of the Soil.
@@ -229,10 +279,9 @@ namespace IrrigationAdvisor.Models.Crop
         /// <returns></returns>
         public double getAvailableWaterCapacity(double pRootDepth)
         {
-            double lReturn;
-            lReturn = this.Soil.getAvailableWaterCapacity(pRootDepth);
-            lReturn = this.Soil.getAvailableWaterCapacityByProration(pRootDepth);
-            return lReturn;
+            double lAvailableWaterCapacit;            
+            lAvailableWaterCapacit = this.Soil.getAvailableWaterCapacityByProration(pRootDepth);
+            return lAvailableWaterCapacit;
         }
 
         #endregion

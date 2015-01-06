@@ -79,7 +79,7 @@ namespace IrrigationAdvisor.Models.Management
             double PermanentWiltingPoint;
             double lThreshold;
 
-            lRootDepth = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.PhenologicalStage.RootDepth;
+            lRootDepth = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.getRootDepth();
             lAvailableWater = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.getAvailableWaterCapacity(lRootDepth);
             lHydricBalance = pCropIrrigationWeatherRecords.HydricBalance;
             PermanentWiltingPoint = pCropIrrigationWeatherRecords.getSoilPermanentWiltingPoint();

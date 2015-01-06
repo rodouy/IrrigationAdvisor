@@ -127,9 +127,9 @@ namespace IrrigationAdvisor.Tests.Models.Crop
             double cc = lSoil.getFieldCapacity(5);
             double ad = lSoil.getAvailableWaterCapacity(5);
 
-            //double pmp10 = lSoil.getPermanentWiltingPoint(10);
+            //double pmp10 = testSoil.getPermanentWiltingPoint(10);
             double cc10 = lSoil.getFieldCapacity(10);
-            //double ad10 = lSoil.getAvailableWaterCapacity(10);
+            //double ad10 = testSoil.getAvailableWaterCapacity(10);
 
             double pmp0 = lSoil.getPermanentWiltingPoint(0);
             double cc0 = lSoil.getFieldCapacity(0);

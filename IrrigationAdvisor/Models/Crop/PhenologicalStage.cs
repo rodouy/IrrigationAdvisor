@@ -94,7 +94,7 @@ namespace IrrigationAdvisor.Models.Crop
         
         public double RootDepth
         {
-            get { return rootDepth; }
+            //get { return rootDepth; }
             set { rootDepth = value; }
         }
 
@@ -136,11 +136,27 @@ namespace IrrigationAdvisor.Models.Crop
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public double getAverageDegree()
         {
             double lReturn;
             lReturn= (this.MinDegree + this.MaxDegree) / 2;
             return lReturn;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public double getRootDepth()
+        {
+            double lRootDepth;
+            lRootDepth = this.rootDepth;
+            return lRootDepth;
         }
         #endregion
 

@@ -119,7 +119,7 @@ namespace IrrigationAdvisor.Models.Security
 
         /*public bool allAccess(Access access)
         {
-            bool lReturn = false;
+            bool lAvailableWaterCapacitbleWaterCapacity = false;
             try
             {
                 foreach (SiteItem siteItem in GoTo)
@@ -133,8 +133,8 @@ namespace IrrigationAdvisor.Models.Security
                 Console.Write("SiteMap allAccesss exception");
                 throw e;
             }
-            lReturn = true;
-            return lReturn;
+            lAvailableWaterCapacitbleWaterCapacity = true;
+            return lAvailableWaterCapacitbleWaterCapacity;
         }*/
 
         /*public bool setAccess(SiteItem pSiteItem, Access access)

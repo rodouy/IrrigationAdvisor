@@ -136,17 +136,7 @@ namespace IrrigationAdvisor.Models.Crop
             this.DepthLimit = pDepthLimit;
 
         }
-        public Soil (int pId,String pName,Location.Location pLocation,List <Horizon > pListHorizon)
-    
-         {
-            this.IdSoil = pId;
-            this.Name = pName ;
-            this.Location = pLocation;
-            this.Horizons = pListHorizon;
-            
-        }
-
-
+        
         
         #endregion
 
@@ -277,8 +267,12 @@ namespace IrrigationAdvisor.Models.Crop
         public double  getFieldCapacity(double pRootDepth)
         {
             double lReturnFieldCapacity = 0;
-            
-            lReturnFieldCapacity = this.getLayerCapacityByProrationOfHorizon(pRootDepth, SoilLayer.FieldCapacity);
+            double lRootDepth = pRootDepth;
+            if (pRootDepth > this.DepthLimit)
+            {
+                lRootDepth = this.DepthLimit;
+            }
+            lReturnFieldCapacity = this.getLayerCapacityByProrationOfHorizon(lRootDepth, SoilLayer.FieldCapacity);
             return lReturnFieldCapacity;
         }
 
@@ -290,8 +284,12 @@ namespace IrrigationAdvisor.Models.Crop
         public double getPermanentWiltingPoint(double pRootDepth)
         {
             double lReturnPermanentWiltingPoingSum = 0;
-            
-            lReturnPermanentWiltingPoingSum = this.getLayerCapacityByProrationOfHorizon(pRootDepth, SoilLayer.PermanentWiltingPoint);
+            double lRootDepth = pRootDepth;
+            if (pRootDepth > this.DepthLimit)
+            {
+                lRootDepth = this.DepthLimit;
+            }
+            lReturnPermanentWiltingPoingSum = this.getLayerCapacityByProrationOfHorizon(lRootDepth, SoilLayer.PermanentWiltingPoint);
             return lReturnPermanentWiltingPoingSum;
         }
 
@@ -303,8 +301,12 @@ namespace IrrigationAdvisor.Models.Crop
         public double getAvailableWaterCapacityByProration(double pRootDepth)
         {
             double lReturnAvalilableWaterCapSum = 0;
-            
-            lReturnAvalilableWaterCapSum = this.getLayerCapacityByProrationOfHorizon(pRootDepth, SoilLayer.AvailableWater);
+            double lRootDepth = pRootDepth;
+            if (pRootDepth > this.DepthLimit)
+            {
+                lRootDepth = this.DepthLimit;
+            }
+            lReturnAvalilableWaterCapSum = this.getLayerCapacityByProrationOfHorizon(lRootDepth, SoilLayer.AvailableWater);
             return lReturnAvalilableWaterCapSum;
         }
 
@@ -315,9 +317,14 @@ namespace IrrigationAdvisor.Models.Crop
         /// <returns></returns>
          public double getAvailableWaterCapacity(double pRootDepth)
          {
-            double lReturn;
-            lReturn = this.getFieldCapacity(pRootDepth) - this.getPermanentWiltingPoint(pRootDepth);
-            return lReturn;
+            double lAvailableWaterCapacity;
+            double lRootDepth = pRootDepth;
+            if (pRootDepth > this.DepthLimit)
+            {
+                lRootDepth = this.DepthLimit;
+            }
+            lAvailableWaterCapacity = this.getFieldCapacity(lRootDepth) - this.getPermanentWiltingPoint(lRootDepth);
+            return lAvailableWaterCapacity;
         }
 
 
