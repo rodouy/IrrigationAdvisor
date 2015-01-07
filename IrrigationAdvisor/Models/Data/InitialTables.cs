@@ -11,8 +11,46 @@ using System.Web;
 
 namespace IrrigationAdvisor.Models.Data
 {
+
+    /// <summary>
+    /// Create: 2015-01-05
+    /// Author: rodouy
+    /// Description: 
+    ///     These class will contain all the data that initialize the system.
+    ///     
+    /// References:
+    ///     - Specie
+    ///     - Region
+    ///     - IrrigationSystem
+    ///     - CropCoefficient
+    ///     - EffectiveRain
+    ///     - PhenologicalStage
+    ///     
+    /// Dependencies:
+    ///     - IrrigationAdvisor
+    ///     - IrrigationCalculous
+    ///     - Horizon
+    ///     - CropIrrigationWeatherRecords
+    ///     - IrrigationSystem
+    /// 
+    /// TODO: OK
+    ///     UnitTest
+    ///     
+    /// -----------------------------------------------------------------
+    /// Fields of Class:
+    ///     
+    /// 
+    /// Methods:
+    ///     - CreateMaizCropCoefficientWithList(Specie pSpecie, Region pRegion) 
+    ///     - CreateSojaCropCoefficientWithList(Specie pSpecie, Region pRegion)
+    ///     - AddEffectiveRainListToSystem(Region lRegion)
+    ///     - CreatePhenologicalStageList(IrrigationSystem.IrrigationSystem pIrrigationSystem,
+    ///                    Specie pSpecieMaiz,  Specie pSpecieSoja)
+    /// 
+    /// </summary>
     public static class InitialTables
     {
+
         #region Constants
 
         #region IrrigationCalculous
@@ -51,10 +89,16 @@ namespace IrrigationAdvisor.Models.Data
 
         #endregion
 
+        
+        #region Private Helpers
+        #endregion
+
+        #region Static Methods
+
         #region CropCoefficient
 
         /// <summary>
-        /// 
+        /// TODO explain CreateMaizCropCoefficientWithList
         /// </summary>
         /// <param name="pSpecie"></param>
         /// <param name="pRegion"></param>
@@ -216,7 +260,7 @@ namespace IrrigationAdvisor.Models.Data
         }
 
         /// <summary>
-        /// 
+        /// TODO Explain CreateSojaCropCoefficientWithList(Specie pSpecie, Region pRegion)
         /// </summary>
         /// <param name="pSpecie"></param>
         /// <param name="pRegion"></param>
@@ -384,7 +428,12 @@ namespace IrrigationAdvisor.Models.Data
 
         #region EffectiveRains
 
-        public static List<EffectiveRain> addEffectiveRainListToSystem(Region lRegion)
+        /// <summary>
+        /// TODO Explain AddEffectiveRainListToSystem
+        /// </summary>
+        /// <param name="lRegion"></param>
+        /// <returns></returns>
+        public static List<EffectiveRain> AddEffectiveRainListToSystem(Region lRegion)
         {
             List<EffectiveRain> lEffectiveRainList = new List<EffectiveRain>();
             lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 0, 10, 90));
@@ -468,7 +517,15 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
         #region PhenologicalStage
-        public static List<PhenologicalStage> createPhenologicalStageList(IrrigationSystem.IrrigationSystem pIrrigationSystem,
+
+        /// <summary>
+        /// TODO Explain CreatePhenologicalStageList
+        /// </summary>
+        /// <param name="pIrrigationSystem"></param>
+        /// <param name="pSpecieMaiz"></param>
+        /// <param name="pSpecieSoja"></param>
+        /// <returns></returns>
+        public static List<PhenologicalStage> CreatePhenologicalStageList(IrrigationSystem.IrrigationSystem pIrrigationSystem,
                         Specie pSpecieMaiz,  Specie pSpecieSoja)
         {
             List<PhenologicalStage> lPhenolStageList = new List<PhenologicalStage>();
@@ -523,6 +580,7 @@ namespace IrrigationAdvisor.Models.Data
 
         #endregion
 
+        #endregion
 
 
     }
