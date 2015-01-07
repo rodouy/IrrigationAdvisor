@@ -58,6 +58,7 @@ namespace IrrigationAdvisor.Models.Crop
         private double minDegree;
         private double maxDegree;
         private double rootDepth;
+
         #endregion
 
         #region Properties

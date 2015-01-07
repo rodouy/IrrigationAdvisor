@@ -417,6 +417,7 @@ namespace IrrigationAdvisor.Models.Management
                     this.LastWaterInputDate = pDailyRec.DateHour;
                     lThereIsWaterInput = true;
                 }
+                
             }
            
             // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity
@@ -433,16 +434,22 @@ namespace IrrigationAdvisor.Models.Management
 
             //Update the Phenological Stage depending in Growing Degree
             reviewPhenologicalStage();
-
+            
+            lRootDepth = this.CropIrrigationWeather.Crop.getRootDepth();
+            lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
+                
             //After a big rain the HidricBalance keep its value = FieldCapacity for two days
             lDaysAfterBigInputWater = Utilities.Utils.getDaysDifference(this.LastBigWaterInputDate, pDailyRec.DateHour);
-            if (lDaysAfterBigInputWater <= InitialTables.DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT)
+            if (lDaysAfterBigInputWater <= InitialTables.DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT )
             {
-                lRootDepth = this.CropIrrigationWeather.Crop.getRootDepth();
-                lFieldCapacity = this.CropIrrigationWeather.Crop.Soil.getFieldCapacity(lRootDepth);
                 this.HydricBalance = lFieldCapacity;
             }
 
+            //The first days after sowing, hydric balance is maintained at field capacity
+            if (lDayAfterSowing <= InitialTables.DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_SOWING)
+            {
+                this.HydricBalance = lFieldCapacity;
+            }
         }
   
 
@@ -478,11 +485,12 @@ namespace IrrigationAdvisor.Models.Management
         private bool addDailyRecord(DailyRecord pDailyRecord)
         {
             bool lReturn = true;
+            int lDays = 0;
             try
             {
-                int days = Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, pDailyRecord.DateHour);
+                lDays = Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, pDailyRecord.DateHour);
                 //If it's the initial registry set the initial Hidric Balance
-                if (days == 0)
+                if (lDays == 0)
                 {
                     this.HydricBalance = this.getInitialHidricBalance();
                     this.DayAfterSowing = new Pair<int, DateTime>(-1, this.CropIrrigationWeather.Crop.SowingDate);

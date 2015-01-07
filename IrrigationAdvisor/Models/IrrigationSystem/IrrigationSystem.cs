@@ -492,11 +492,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         /// <param name="pRegion"></param>
         /// <param name="pSpecie"></param>
         /// <returns></returns>
-        public List<PhenologicalStage> getPhenologicalStage(Region pRegion, Specie pSpecie)
+        public List<PhenologicalStage> getPhenologicalStage(Region pRegion, Specie pSpecie,
+            List<Pair<Region, List<PhenologicalStage>>> pPhenologicalStageList)
         {
             List<PhenologicalStage> lReturn = new List<PhenologicalStage>();
             List<PhenologicalStage> lPhenologicalStageListByRegion = null;
-            foreach (Pair<Region, List<PhenologicalStage>> lPair in this.PhenologicalStageList)
+            foreach (Pair<Region, List<PhenologicalStage>> lPair in pPhenologicalStageList)
             {
                 if (lPair != null && lPair.First.Equals(pRegion))
                 {

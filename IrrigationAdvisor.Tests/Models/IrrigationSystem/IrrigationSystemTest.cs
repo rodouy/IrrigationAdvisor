@@ -731,7 +731,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             List<PhenologicalStage> lPhenologicalStageList;
             Crop.Crop lCrop;
  
-            lPhenologicalStageList = irrigationSystem.getPhenologicalStage(testRegion, pSpecie);
+            lPhenologicalStageList = irrigationSystem.getPhenologicalStage(testRegion, pSpecie, this.irrigationSystem.PhenologicalStageList);
             lCrop = new Crop.Crop(pId, pName, pSpecie, lLocation, lCropCoefficient, cropDensity,
                                     lPhenologicalState, lPhenologicalStageList, lSowingDate, 
                                     dateTime, lSoil, lSojaMaxEvaporTransptoIrrigate);

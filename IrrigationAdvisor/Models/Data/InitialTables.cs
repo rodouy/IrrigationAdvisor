@@ -45,6 +45,7 @@ namespace IrrigationAdvisor.Models.Data
         public const double INITIAL_ROOT_DEPTH = 5;
         public const double CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED = 10;
         public const double DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT = 2;
+        public const double DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_SOWING = 5;
 
         #endregion
 
