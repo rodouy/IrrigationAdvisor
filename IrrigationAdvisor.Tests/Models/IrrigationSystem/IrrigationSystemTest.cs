@@ -71,6 +71,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private DateTime dateBeginCrop_Pivot3_4;
         private DateTime dateBeginCrop_Pivot5;
 
+        private DateTime testWeatherDataStartDate;
+
         #endregion
 
         private IrrigationSystem irrigationSystem;
@@ -80,6 +82,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         [TestMethod]
         public void santaLuciaTest()
         {   
+            testWeatherDataStartDate = new DateTime(2014, 10, 18);
 
             testPosition = new Position(0,0);
             testRegion = new Region("Templada", testPosition);
@@ -98,12 +101,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             
             irrigationSystem = new IrrigationSystem();
 
-            testPhenologicalStageList = InitialTables.createPhenologicalStageList(irrigationSystem, testSpecieMaiz, testSpecieSoja);
+            testPhenologicalStageList = InitialTables.CreatePhenologicalStageList(irrigationSystem, testSpecieMaiz, testSpecieSoja);
             testPhenologicalStagesForRegion = new Pair<Region, List<PhenologicalStage>>(testRegion, testPhenologicalStageList);
             this.irrigationSystem.PhenologicalStageList.Add(testPhenologicalStagesForRegion);
             
 
-            testEffectiveRainsList = InitialTables.addEffectiveRainListToSystem(testRegion);
+            testEffectiveRainsList = InitialTables.AddEffectiveRainListToSystem(testRegion);
             testEffectiveRainsForRegion = new Pair<Region, List<EffectiveRain>>(testRegion, testEffectiveRainsList);
             this.irrigationSystem.EffectiveRainList.Add(testEffectiveRainsForRegion);
 
@@ -112,7 +115,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             crearUnidadesDeRiegoSantaLucia();
             
             //Add Information of Weather
-            agregarDatosDelTiempo();
+            ExternalData.AgregarDatosDelTiempo(irrigationSystem, testWeatherStation, testWeatherDataStartDate);
 
             //Add Information of Rain
             agregarDatosDeLluvia();
@@ -452,142 +455,6 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         }
 
-        private void agregarDatosDelTiempo()
-        {
-            WeatherStation.WeatherStation lWeatherStation;
-            DateTime lLastDay;
-            DateTime lNextDay;
-            WeatherStation.WeatherData lWeatherData;
-            double lTemperature;
-            double lSolarRadiation;
-            double lTemperatureMax;
-            double lTemperatureMin;
-            double lEvapotranspiration;
-            double lEvapotranspirationLast3;
-            double lEvapotranspirationLast3Weight;
-            double lEvapotranspirationLast2;
-            double lEvapotranspirationLast2Weight;
-            double lEvapotranspirationLast1;
-            double lEvapotranspirationLast1Weight;
-
-            // DATOS DEL TIEMPO
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 18), 99, 0, 19.6, 19.6, 2.4);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 19), 99, 0, 18.3, 18.3, 4.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 20), 99, 0, 15.9, 15.9, 4.1);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 21), 99, 0, 16.9, 16.9, 4.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 22), 99, 0, 19.5, 19.5, 5.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 23), 99, 0, 20.1, 20.1, 5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 24), 99, 0, 19.7, 19.7, 4.6);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 25), 99, 0, 20.1, 20.1, 5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 26), 99, 0, 11.7, 11.7, 5.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 27), 99, 0, 23.5, 23.5, 6.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 28), 99, 0, 20, 20, 5.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 29), 99, 0, 15.3, 15.3, 1.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 30), 99, 0, 12.5, 12.5, 4.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 10, 31), 99, 0, 11.3, 11.3, 3.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 1), 99, 0, 12.6, 12.6, 3.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 2), 99, 0, 12.4, 12.4, 2.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 3), 99, 0, 14.2, 14.2, 2.1);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 4), 99, 0, 12.9, 12.9, 4.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 5), 99, 0, 14.9, 14.9, 4.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 6), 99, 0, 16.2, 16.2, 4.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 7), 99, 0, 17.7, 17.7, 4.6);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 8), 99, 0, 17, 17, 5.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 9), 99, 0, 17.1, 17.1, 5.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 10), 99, 0, 19.2, 19.2, 4.4);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 11), 99, 0, 19.6, 19.6, 4.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 12), 99, 0, 16.1, 16.1, 5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 13), 99, 0, 13, 13, 4.7);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 14), 99, 0, 15.8, 15.8, 5.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 15), 99, 0, 20.9, 20.9, 6.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 16), 99, 0, 18.3, 18.3, 5.7);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 17), 99, 0, 18.8, 18.8, 6.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 18), 99, 0, 21.1, 21.1, 6.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 19), 99, 0, 19.4, 19.4, 3.7);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 20), 99, 0, 17.8, 17.8, 3.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 21), 99, 0, 17, 17, 2.6);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 22), 99, 0, 17.3, 17.3, 4.4);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 23), 99, 0, 19.6, 19.6, 6.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 24), 99, 0, 17.3, 17.3, 2.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 25), 99, 0, 17.2, 17.2, 5.1);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 26), 99, 0, 15.7, 15.7, 3.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 27), 99, 0, 17.9, 17.9, 5.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 28), 99, 0, 20.7, 20.7, 7);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 29), 99, 0, 24, 24, 6.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 11, 30), 99, 0, 19.5, 19.5, 2.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 1), 99, 0, 18, 18, 2.7);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 2), 99, 0, 18, 18, 2.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 3), 99, 0, 20.2, 20.2, 5.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 4), 99, 0, 21.8, 21.8, 6.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 5), 99, 0, 22.7, 22.7, 7.6);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 6), 99, 0, 24.7, 24.7, 7.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 7), 99, 0, 22.7, 22.7, 3.6);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 8), 99, 0, 21, 21, 2.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 9), 99, 0, 24.3, 24.3, 5.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 10), 99, 0, 18.8, 18.8, 4.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 11), 99, 0, 17.6, 17.6, 5.4);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 12), 99, 0, 20.2, 20.2, 5.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 13), 99, 0, 21, 21, 5.4);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 14), 99, 0, 17.5, 17.5, 5.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 15), 99, 0, 18.9, 18.9, 6.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 16), 99, 0, 22.7, 22.7, 3.7);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 17), 99, 0, 22.0, 22.0, 6.0);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 18), 99, 0, 23.2, 23.2, 6.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 19), 99, 0, 26.3, 26.3, 8.6);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 20), 99, 0, 22.6, 22.6, 4.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 21), 99, 0, 16.4, 16.4, 3.6);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 22), 99, 0, 16.2, 16.2, 5.3);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 23), 99, 0, 17.0, 17.0, 6.0);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 24), 99, 0, 19.4, 19.4, 6.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 25), 99, 0, 24.3, 24.3, 6.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 26), 99, 0, 25.1, 25.1, 3.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 27), 99, 0, 23.3, 23.3, 5.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 28), 99, 0, 24.5, 24.5, 5.8);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 29), 99, 0, 25.4, 25.4, 6.9);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 30), 99, 0, 26.6, 26.6, 7.2);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2014, 12, 31), 99, 0, 24.6, 24.6, 4.5);
-            irrigationSystem.addWeatherDataToList(testWeatherStation, new DateTime(2015, 01, 01), 99, 0, 21.3, 21.3, 4.8);
-
-            //TODO: Step 1 Layout WeatherStation Weather Data
-
-
-            //Last data record
-            lWeatherStation = testWeatherStation;
-            lLastDay = irrigationSystem.WeatherDataList[irrigationSystem.WeatherDataList.Count - 1].Date;
-            lEvapotranspirationLast3Weight = 0.2;
-            lEvapotranspirationLast2Weight = 0.3;
-            lEvapotranspirationLast1Weight = 0.5;
-
-            for (int i = 0; i < InitialTables.DAYS_FOR_PREDICTION; i++)
-            {
-                lWeatherData = irrigationSystem.getWeatherDataFromList(lWeatherStation, lLastDay);
-                lNextDay = lLastDay.AddDays(1);
-                lTemperature = lWeatherData.Temperature;
-                lSolarRadiation = lWeatherData.SolarRadiation;
-                lTemperatureMax = lWeatherData.TemperatureMax;
-                lTemperatureMin = lWeatherData.TemperatureMin;
-
-                lEvapotranspirationLast1 = lWeatherData.Evapotranspiration;
-                lWeatherData = irrigationSystem.getWeatherDataFromList(lWeatherStation, lLastDay.AddDays(-1));
-                lEvapotranspirationLast2 = lWeatherData.Evapotranspiration;
-                lWeatherData = irrigationSystem.getWeatherDataFromList(lWeatherStation, lLastDay.AddDays(-2));
-                lEvapotranspirationLast3 = lWeatherData.Evapotranspiration;
-
-                lEvapotranspiration = Math.Round(
-                    lEvapotranspirationLast3 * lEvapotranspirationLast3Weight
-                    + lEvapotranspirationLast2 * lEvapotranspirationLast2Weight
-                    + lEvapotranspirationLast1 * lEvapotranspirationLast1Weight, 2);
-
-                irrigationSystem.addWeatherDataToList(testWeatherStation, lNextDay, lTemperature,
-                                                lSolarRadiation, lTemperatureMax, lTemperatureMin,
-                                                lEvapotranspiration);
-                lLastDay = lLastDay.AddDays(1);
-            
-            }
-
-            
-
-        }
 
         private string printState(CropIrrigationWeatherRecords rec)
         {
