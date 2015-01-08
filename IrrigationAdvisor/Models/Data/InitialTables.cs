@@ -497,27 +497,27 @@ namespace IrrigationAdvisor.Models.Data
             lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(21, pSpecieMaiz, new Stage(1, "R5", "Estado de diente"), 1450, 1649, 45));
             lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(22, pSpecieMaiz, new Stage(1, "R6", "Madurez fisiologica"), 1650, 2000, 45));
 
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(23, pSpecieSoja, new Stage(1, "v0", "Siembra"), 0, 59, 5));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(24, pSpecieSoja, new Stage(1, "ve", "Emergencia"), 60, 114, 5));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(25, pSpecieSoja, new Stage(1, "v1", "1 nudo"), 115, 134, 5));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(26, pSpecieSoja, new Stage(1, "v2", "2 nudo"), 135, 179, 10));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(27, pSpecieSoja, new Stage(1, "v3", "3 nudo"), 180, 229, 15));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(28, pSpecieSoja, new Stage(1, "v4", "4 nudo"), 230, 289, 20));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(29, pSpecieSoja, new Stage(1, "v5", "5 nudo"), 290, 339, 20));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(30, pSpecieSoja, new Stage(1, "v6", "6 nudo"), 340, 404, 25));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(31, pSpecieSoja, new Stage(1, "v7", "7 nudo"), 405, 459, 25));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(32, pSpecieSoja, new Stage(1, "v8", "8 nudo"), 460, 519, 30));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(33, pSpecieSoja, new Stage(1, "v9", "9 nudo"), 520, 589, 32));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(34, pSpecieSoja, new Stage(1, "v10", "10 nudo"), 590, 649, 35));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(40, pSpecieSoja, new Stage(1, "R1", "Inicio Floracion"), 955, 1149, 45));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(42, pSpecieSoja, new Stage(1, "R2", "Floracion Completa"), 1150, 1289, 45));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(43, pSpecieSoja, new Stage(1, "R3", "Inicio Vainas"), 1290, 1359, 45));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(44, pSpecieSoja, new Stage(1, "R4", "Vainas Completas"), 1360, 1449, 45));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(45, pSpecieSoja, new Stage(1, "R5", "Formacion de semillas"), 1450, 1649, 45));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(45, pSpecieSoja, new Stage(1, "R6", "Semillas Completas"), 1650, 2000, 45));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(45, pSpecieSoja, new Stage(1, "R7", "Inicio Maduracion"), 1650, 2000, 45));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(45, pSpecieSoja, new Stage(1, "R8", "Maduracion Completa"), 1650, 2000, 45));
-
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(23, pSpecieSoja, new Stage(1, "v0", "Siembra"), 0, 114, 7));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(24, pSpecieSoja, new Stage(1, "ve", "Emergencia"), 115, 141, 10));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(25, pSpecieSoja, new Stage(1, "v1", "1 nudo"), 142, 191, 10));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(26, pSpecieSoja, new Stage(1, "v2", "2 nudo"), 192, 242, 12));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(27, pSpecieSoja, new Stage(1, "v3", "3 nudo"), 243, 313, 15));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(28, pSpecieSoja, new Stage(1, "v4", "4 nudo"), 314, 348, 20));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(29, pSpecieSoja, new Stage(1, "v5", "5 nudo"), 349, 397, 20));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(30, pSpecieSoja, new Stage(1, "v6", "6 nudo"), 398, 445, 25));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(31, pSpecieSoja, new Stage(1, "v7", "7 nudo"), 446, 471, 25));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(32, pSpecieSoja, new Stage(1, "v8", "8 nudo"), 472, 515, 30));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(33, pSpecieSoja, new Stage(1, "v9", "9 nudo"), 516, 565, 32));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(34, pSpecieSoja, new Stage(1, "v10", "10 nudo"), 566, 653, 35));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(34, pSpecieSoja, new Stage(1, "v11", "11 nudo"), 654, 741, 35));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(40, pSpecieSoja, new Stage(1, "R1", "Inicio Floracion"), 742, 843, 45));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(42, pSpecieSoja, new Stage(1, "R2", "Floracion Completa"), 845, 911, 45));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(43, pSpecieSoja, new Stage(1, "R3", "Inicio Vainas"), 812, 879, 45));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(44, pSpecieSoja, new Stage(1, "R4", "Vainas Completas"), 980, 1098, 45));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(45, pSpecieSoja, new Stage(1, "R5", "Formacion de semillas"), 1099, 1217, 45));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(45, pSpecieSoja, new Stage(1, "R6", "Semillas Completas"), 1218, 1608, 45));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(45, pSpecieSoja, new Stage(1, "R7", "Inicio Maduracion"), 1609, 1999, 45));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(45, pSpecieSoja, new Stage(1, "R8", "Maduracion Completa"), 2000, 4000, 45));
             return lPhenolStageList;
         }
 
