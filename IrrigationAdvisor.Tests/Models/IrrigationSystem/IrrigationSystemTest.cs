@@ -358,13 +358,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 10, 22), 22, true);
             irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 17), 10, true);
             irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 20), 10, true);
-            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 24), 10, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 23), 10, true);
             irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 26), 10, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 30), 10, true);
 
             //PIVOT 3_4
             //Riego inicial
             irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 15),  5, true);
-            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 19), 15, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 19), 7, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 16), 10, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 28), 10, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot3_4, new DateTime(2015, 01, 02), 10, true);
             
             //dias 14, 18 y 22 de diciembre, todos de 5 mm
             //PIVOT 5
@@ -372,8 +376,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 10, 19), 7, true);
             irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 10, 21), 7, true);
             irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 14), 5, true);
-            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 18), 5, true);
-            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 22), 5, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 19), 5, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 23), 5, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 29), 10, true);
+            irrigationSystem.addOrUpdateIrrigationDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 31), 10, true);
 
 
             //TODO: 3 Layout Irrigation Weather Data
@@ -422,33 +428,36 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 2), 10);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 3), 35);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 22), 27);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 29), 50);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 30), 51);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 11, 30), 130);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 8), 15);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 21), 5);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 23), 5);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 26), 4.5);
-            
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 27), 4.5);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2014, 12, 31), 3.5);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot2, new DateTime(2015, 01, 06), 15);
+
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 22), 27);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 29), 50);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 30), 51);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 11, 30), 130);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 8), 15);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 21), 5);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 23), 5);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 26), 4.5);
-
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 27), 4.5);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2014, 12, 31), 3.5);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot3_4, new DateTime(2015, 01, 06), 15);
+            
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 10, 29), 66);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 10, 31), 2.5);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 1), 2.5);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 2), 10);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 3), 35);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 22), 27);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 29), 50);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 30), 51);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 11, 30), 130);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 8), 15);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 21), 5);
             irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 23), 5);
-            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 26), 4.5);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 27), 4.5);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2014, 12, 31), 3.5);
+            irrigationSystem.addRainDataToList(cropIrrigWeatherPivot5, new DateTime(2015, 01, 06), 15);
 
             //TODO: 2 Layout Rain Weather Data
             

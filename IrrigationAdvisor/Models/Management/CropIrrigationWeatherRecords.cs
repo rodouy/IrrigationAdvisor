@@ -348,6 +348,7 @@ namespace IrrigationAdvisor.Models.Management
 
             double lRealRain;
             double lEffectiveRain;
+            double lEffectiveIrrigation;
             double lIrrigationEfficiency;
             double lDaysAfterBigInputWater;
 
@@ -387,7 +388,7 @@ namespace IrrigationAdvisor.Models.Management
                 this.HydricBalance += lEffectiveRain;
 
                 // If the effective rain is bigger than 10 mm set the last water input
-                if (pDailyRec.Rain.getTotalInput() > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                if (lEffectiveRain > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
                 {
                     this.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
                     this.LastWaterInputDate = pDailyRec.DateHour;
@@ -408,10 +409,11 @@ namespace IrrigationAdvisor.Models.Management
                 lIrrigationEfficiency = this.CropIrrigationWeather.IrrigationUnit.IrrigationEfficiency;
                 this.TotalIrrigation += pDailyRec.Irrigation.Input * lIrrigationEfficiency;
                 this.TotalExtraIrrigation += pDailyRec.Irrigation.ExtraInput * lIrrigationEfficiency;
-                this.HydricBalance += pDailyRec.Irrigation.getTotalInput() * lIrrigationEfficiency;
+                lEffectiveIrrigation = pDailyRec.Irrigation.getTotalInput() * lIrrigationEfficiency;
+                this.HydricBalance += lEffectiveIrrigation;
 
                 // If the irrigation is bigger than 10 mm set the last water input
-                if (pDailyRec.Irrigation.getTotalInput() > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                if (lEffectiveIrrigation > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
                 {
                     this.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
                     this.LastWaterInputDate = pDailyRec.DateHour;
