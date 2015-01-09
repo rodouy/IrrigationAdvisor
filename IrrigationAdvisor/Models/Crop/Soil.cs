@@ -255,6 +255,23 @@ namespace IrrigationAdvisor.Models.Crop
             return lReturn;
         }
 
+        /// <summary>
+        /// Return the Available Water of the soil calculating the Available water of each Horizon
+        /// </summary>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
+        private double getAvailableWaterCapacityByProration(double pRootDepth)
+        {
+            double lReturnAvalilableWaterCapSum = 0;
+            double lRootDepth = pRootDepth;
+            if (pRootDepth > this.DepthLimit)
+            {
+                lRootDepth = this.DepthLimit;
+            }
+            lReturnAvalilableWaterCapSum = this.getLayerCapacityByProrationOfHorizon(lRootDepth, SoilLayer.AvailableWater);
+            return lReturnAvalilableWaterCapSum;
+        }
+
         #endregion
 
         #region Public Methods
@@ -293,23 +310,7 @@ namespace IrrigationAdvisor.Models.Crop
             return lReturnPermanentWiltingPoingSum;
         }
 
-        /// <summary>
-        /// Return the Available Water of the soil calculating the Available water of each Horizon
-        /// </summary>
-        /// <param name="pRootDepth"></param>
-        /// <returns></returns>
-        public double getAvailableWaterCapacityByProration(double pRootDepth)
-        {
-            double lReturnAvalilableWaterCapSum = 0;
-            double lRootDepth = pRootDepth;
-            if (pRootDepth > this.DepthLimit)
-            {
-                lRootDepth = this.DepthLimit;
-            }
-            lReturnAvalilableWaterCapSum = this.getLayerCapacityByProrationOfHorizon(lRootDepth, SoilLayer.AvailableWater);
-            return lReturnAvalilableWaterCapSum;
-        }
-
+        
         /// <summary>
         /// Return the Available Water of the soil as the difference between the Field Capacity and the Permanent WiltingPoint
         /// </summary>

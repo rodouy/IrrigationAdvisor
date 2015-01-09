@@ -10,35 +10,42 @@ namespace IrrigationAdvisor.Models.Crop
     /// <summary>
     /// Create: 2014-10-25
     /// Author: monicarle
+    /// Modified: 2015-01-08
+    /// Author: rodouy
     /// Description: 
     ///     Describes a specie
     ///     
     /// References:
     ///     Region
+    ///     CropCoefficient
+    ///     PhenologicalStage
+    ///     
     ///     
     /// Dependencies:
-    ///     IrrigationRecords
     ///     Crop
     ///     CropCoefficient
     ///     PhenologicalStage
-    ///     IrrigationRecords
+    ///     IrrigationSystem
+    ///     InitialTables
     /// 
     /// TODO: OK
     ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - id int
+    ///     - idSpecie long
     ///     - name String
     ///     - region Region
     ///     - baseTemeperature double
+    ///     - cropCoefficient CropCoefficient
+    ///     - phenologicalStages List<PhenologicalStage>
     /// 
-    /// Methods:
-    /// 
+    /// Methods: 
     ///     - Specie()      -- constructor
-    ///     - Specie(name)  -- consturctor with parameters
-    ///     - setBT(double): double
-    ///     - getRegion(): Region
+    ///     - Specie(idSpecie, name, region, baseTemperature)  -- consturctor with parameters
+    ///     - Specie(idSpecie, name, region, baseTemperature, cropCoefficient, phenologicalStages)  -- consturctor with parameters
+    ///     - (double): double
+    ///     - (): Region
     /// 
     /// </summary>
     public class Specie
@@ -53,24 +60,28 @@ namespace IrrigationAdvisor.Models.Crop
         ///     - name: the name of the specie    -  PK
         ///     - region: region of the specie    -  PK
         ///     - baseTemperature: base temperature of the specie for the region of the instance
-        ///     
+        ///     - cropCoefficient: crop coefficient
+        ///     - phenologicalStages: list of phenolocical stages
+        /// 
         /// </summary>
-        private int idSpecie;
+        private long idSpecie;
         private string name;
-        private double baseTemperature;
         private Region region;
+        private double baseTemperature;
+        private CropCoefficient cropCoefficient;
+        private List<PhenologicalStage> phenologicalStages;
 
         #endregion
 
         #region Properties
 
-        public int IdSpecie
+        public long IdSpecie
         {
             get { return idSpecie; }
             set { idSpecie = value; }
         }
 
-        public string Name
+        public String Name
         {
             get { return name; }
             set { name = value; }
@@ -88,25 +99,56 @@ namespace IrrigationAdvisor.Models.Crop
             set { baseTemperature = value; }
         }
 
+        public CropCoefficient CropCoefficient
+        {
+            get { return cropCoefficient; }
+            set { cropCoefficient = value; }
+        }
 
-
+        public List<PhenologicalStage> PhenologicalStages
+        {
+            get { return phenologicalStages; }
+            set { phenologicalStages = value; }
+        }
+        
 
         #endregion
+       
         #region Construction
+
         public Specie() 
         {
             this.IdSpecie = 0;
-            this.Name = "noname";
+            this.Name = "noName";
             this.Region = new Region();
             this.BaseTemperature = 0;
+            this.CropCoefficient = new CropCoefficient();
+            this.PhenologicalStages = new List<PhenologicalStage>();
         }
-        public Specie(int pId, String name, Region region, double baseTemperature)
+
+        public Specie(int pId, String pName, Region pRegion, 
+            double pBaseTemperature)
         {
             this.IdSpecie = pId;
-            this.Name = name;
-            this.Region = region;
-            this.BaseTemperature = baseTemperature;
+            this.Name = pName;
+            this.Region = pRegion;
+            this.BaseTemperature = pBaseTemperature;
+            this.CropCoefficient = new CropCoefficient();
+            this.PhenologicalStages = new List<PhenologicalStage>();
         }
+
+        public Specie(int pId, String pName, Region pRegion,
+            double pBaseTemperature, CropCoefficient pCropCoefficient,
+            List<PhenologicalStage> pPhenologicalStages)
+        {
+            this.IdSpecie = pId;
+            this.Name = pName;
+            this.Region = pRegion;
+            this.BaseTemperature = pBaseTemperature;
+            this.CropCoefficient = pCropCoefficient;
+            this.PhenologicalStages = pPhenologicalStages;
+        }
+
         #endregion
 
         #region Private Helpers
@@ -119,18 +161,22 @@ namespace IrrigationAdvisor.Models.Crop
         // Different region for each class override
 
         /// <summary>
-        /// Overrides equals
+        /// Overrides equals:
+        /// name, region
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(object obj)
         {
+            bool lReturn = false;
             if (obj == null || obj.GetType() != this.GetType())
             {
-                return false;
+                return lReturn;
             }
             Specie lSpecie = obj as Specie;
-            return this.Name.Equals(lSpecie.Name);
+            lReturn = this.Name.Equals(lSpecie.Name) 
+                && this.Region.Equals(lSpecie.Region);
+            return lReturn;
         }
 
         public override int GetHashCode()
@@ -138,5 +184,6 @@ namespace IrrigationAdvisor.Models.Crop
             return this.Name.GetHashCode();
         }
         #endregion
+    
     }
 }
