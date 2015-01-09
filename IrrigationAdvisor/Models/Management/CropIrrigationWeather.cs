@@ -173,7 +173,7 @@ namespace IrrigationAdvisor.Models.Management
             this.MainWeatherStation = new WeatherStation.WeatherStation();
             this.AlternativeWeatherStation = new WeatherStation.WeatherStation();
             this.PredeterminatedIrrigationQuantity = 20;
-            this.CropIrrigationWeatherRecords = new CropIrrigationWeatherRecords();
+            //this.CropIrrigationWeatherRecords = new CropIrrigationWeatherRecords();//La agrega sistema
             this.PhenologicalStage = new PhenologicalStage();
             this.Location = new Location.Location();
             this.SowingDate = new DateTime();
@@ -185,7 +185,7 @@ namespace IrrigationAdvisor.Models.Management
             Crop.Crop pCrop, WeatherStation.WeatherStation pMainWeatherStation,
             WeatherStation.WeatherStation pAlternativeWeatherStation,
             double pPredeterminatedIrrigationQuantity, 
-            CropIrrigationWeatherRecords pCropIrrigationWeatherRecordsList,
+            //CropIrrigationWeatherRecords pCropIrrigationWeatherRecordsList,
             PhenologicalStage pPhenologicalStage, Location.Location pLocation,
             DateTime pSowingDate, DateTime pHarvestDate, Soil pSoil)
         {
@@ -194,7 +194,7 @@ namespace IrrigationAdvisor.Models.Management
             this.MainWeatherStation = pMainWeatherStation;
             this.AlternativeWeatherStation = pAlternativeWeatherStation;
             this.PredeterminatedIrrigationQuantity = pPredeterminatedIrrigationQuantity;
-            this.CropIrrigationWeatherRecords = pCropIrrigationWeatherRecordsList;
+            //this.CropIrrigationWeatherRecords = pCropIrrigationWeatherRecordsList; //La agrega sistema
             this.PhenologicalStage = pPhenologicalStage;
             this.Location = pLocation;
             this.SowingDate = pSowingDate;
@@ -746,7 +746,7 @@ namespace IrrigationAdvisor.Models.Management
                 }
 
                 this.addDailyRecord(lNewDailyRecord);
-                //this.OutPut += this.printState();
+                this.CropIrrigationWeatherRecords.OutPut += this.CropIrrigationWeatherRecords.printState();
             }
             catch (Exception ex)
             {

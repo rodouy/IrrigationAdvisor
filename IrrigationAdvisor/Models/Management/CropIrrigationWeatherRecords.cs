@@ -448,7 +448,7 @@ namespace IrrigationAdvisor.Models.Management
         /// 
         /// </summary>
         /// <returns></returns>
-        private string printState()
+        public string printState()
         {
             List<String> lMessage;
 
@@ -845,6 +845,7 @@ namespace IrrigationAdvisor.Models.Management
                 this.MessagesDaily.Add(lMessageDaily);
             }
         }
+
 
         #endregion
 

@@ -340,6 +340,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lCropIrrigationWeatherRecords.CropIrrigationWeather = pCropIrrigationWeather;
                 bhi = pCropIrrigationWeather.getInitialHidricBalance();
                 lCropIrrigationWeatherRecords.HydricBalance = bhi;
+                pCropIrrigationWeather.CropIrrigationWeatherRecords = lCropIrrigationWeatherRecords;
                 
                 //Add to the system list 
                 this.CropIrrigationWeatherList.Add(pCropIrrigationWeather);
