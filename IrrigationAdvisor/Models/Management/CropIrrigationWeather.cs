@@ -6,6 +6,7 @@ using IrrigationAdvisor.Models.Crop;
 using IrrigationAdvisor.Models.Utilities;
 using IrrigationAdvisor.Models.Data;
 using IrrigationAdvisor.Models.Utilities;
+using IrrigationAdvisor.Models.Water;
 
 
 namespace IrrigationAdvisor.Models.Management
@@ -124,13 +125,12 @@ namespace IrrigationAdvisor.Models.Management
             this.MainWeatherStation = new WeatherStation.WeatherStation();
             this.AlternativeWeatherStation = new WeatherStation.WeatherStation();
             this.PredeterminatedIrrigationQuantity = 20;
-            this.CropIrrigationWeatherRecords = new List<CropIrrigationWeatherRecords>();
         }
 
         public CropIrrigationWeather(Irrigation.IrrigationUnit pIrrigationUnit,
             Crop.Crop pCrop, WeatherStation.WeatherStation pMainWS,
             WeatherStation.WeatherStation pAlternativeWS,
-            double pPredeterminatedIrrigationQuantity, List<CropIrrigationWeatherRecords> pCropIrrigationWeatherList)
+            double pPredeterminatedIrrigationQuantity, CropIrrigationWeatherRecords pCropIrrigationWeatherList)
         {
             this.IrrigationUnit = pIrrigationUnit;
             this.Crop = pCrop;
@@ -337,7 +337,7 @@ namespace IrrigationAdvisor.Models.Management
             {
                 lRealRain = pDailyRec.Rain.getTotalInput();
                 //Calculate Rain Effective Value
-                lEffectiveRain = this.getEffectiveRainValue(pDailyRec.Rain);
+                lEffectiveRain = this.CropIrrigationWeatherRecords.getEffectiveRainValue(pDailyRec.Rain);
                 this.CropIrrigationWeatherRecords.TotalEffectiveRain += lEffectiveRain;
                 this.CropIrrigationWeatherRecords.TotalRealRain += lRealRain;
                 this.CropIrrigationWeatherRecords.HydricBalance += lEffectiveRain;
