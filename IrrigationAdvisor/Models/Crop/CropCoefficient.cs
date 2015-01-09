@@ -182,8 +182,8 @@ namespace IrrigationAdvisor.Models.Crop
         public CropCoefficient()
         {
             this.UsingTable = false;
-            this.Specie = new Specie();
-            this.Region = new Location.Region();
+            this.Specie = null;
+            this.Region = null;
             this.InitialDays = 0;
             this.InitialKC = 0;
             this.DevelopmentDays = 0;
@@ -192,7 +192,7 @@ namespace IrrigationAdvisor.Models.Crop
             this.MidSeasonKC = 0;
             this.LateSeasonDays = 0;
             this.LateSeasonKC = 0;
-            this.listOfKC = new DataTable("KC_"+ this.Specie.Name);
+            this.listOfKC = new DataTable("KC_0");
             this.makeListOfKC();
 
         }

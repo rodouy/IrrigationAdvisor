@@ -133,8 +133,8 @@ namespace IrrigationAdvisor.Models.Crop
             this.Name = pName;
             this.Region = pRegion;
             this.BaseTemperature = pBaseTemperature;
-            this.CropCoefficient = new CropCoefficient();
-            this.PhenologicalStages = new List<PhenologicalStage>();
+            this.CropCoefficient = null;
+            this.PhenologicalStages = null;
         }
 
         public Specie(int pId, String pName, Region pRegion,
