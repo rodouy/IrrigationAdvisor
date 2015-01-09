@@ -8,15 +8,18 @@ namespace IrrigationAdvisor.Models.Crop
     /// <summary>
     /// Create: 2014-10-25
     /// Author:  monicarle
+    /// Modified: 2015-01-08
+    /// Author: rodouy
     /// Description: 
     ///     Describes a phenological stage
     ///     
     /// References:
+    ///     Region
     ///     Specie
     ///     Stage
     ///     
     /// Dependencies:
-    ///     Crop
+    ///     Specie
     ///     
     /// 
     /// TODO: OK

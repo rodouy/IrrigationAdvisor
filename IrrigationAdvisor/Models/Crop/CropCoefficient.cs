@@ -9,16 +9,18 @@ namespace IrrigationAdvisor.Models.Crop
     /// <summary>
     /// Create: 2014-10-26
     /// Author: monicarle
+    /// Modified: 2015-01-08
+    /// Author: rodouy
     /// Description: 
     ///     Returns the Kc for a Specie in a Region 
     ///     It depends on the days after sowing
     ///     
     /// References:
-    ///     Specie
     ///     Region
+    ///     Specie
     ///     
     /// Dependencies:
-    ///     Crop
+    ///     Specie
     /// 
     /// TODO: 
     ///     
