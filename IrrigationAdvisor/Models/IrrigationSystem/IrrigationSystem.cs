@@ -199,11 +199,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             WeatherStation.WeatherData lAlternativeWeatherData, Water.WaterInput lRain, 
             Water.WaterInput lIrrigation, string pObservations)
         {
-            foreach (CropIrrigationWeatherRecords lCropIrrigationWeatherRecord in this.CropIrrigationWeatherRecordsList)
+            foreach (CropIrrigationWeather lCropIrrigationWeather in this.CropIrrigationWeatherList)
             {
-                if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                if (lCropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    lCropIrrigationWeatherRecord.addDailyRecord(lWeatherData,  lMainWeatherData, lAlternativeWeatherData,  lRain, lIrrigation, pObservations);
+                    lCropIrrigationWeather.addDailyRecord(lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);
                 }
             }
 
@@ -338,7 +338,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lEffectiveRain = this.getEffectiveRainList(pCropIrrigationWeather.getRegion());
                 lCropIrrigationWeatherRecords.EffectiveRain = lEffectiveRain;
                 lCropIrrigationWeatherRecords.CropIrrigationWeather = pCropIrrigationWeather;
-                bhi = lCropIrrigationWeatherRecords.getInitialHidricBalance();
+                bhi = pCropIrrigationWeather.getInitialHidricBalance();
                 lCropIrrigationWeatherRecords.HydricBalance = bhi;
                 
                 //Add to the system list 
@@ -434,21 +434,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         public double howMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
         {
             double lReturn = 0;
-            CropIrrigationWeatherRecords lCropIrrigationWeatherRecords = null;
-            //Find the Crop Irrigation Weather Records
-            foreach (CropIrrigationWeatherRecords oneCropIrrigationWeatherRecords in this.CropIrrigationWeatherRecordsList)
-            {
-                if (oneCropIrrigationWeatherRecords.CropIrrigationWeather.Equals(pCropIrrigationWeather))
-                {
-                    lCropIrrigationWeatherRecords = oneCropIrrigationWeatherRecords;
-                    break;
-                }
-
-            }
             //With the Crop Irrigation Weather Records Calculate how much water to irrigate
-            if (lCropIrrigationWeatherRecords != null)
+            if (pCropIrrigationWeather != null)
             {
-                lReturn = this.IrrigationCalculus.howMuchToIrrigate(lCropIrrigationWeatherRecords);
+                lReturn = this.IrrigationCalculus.howMuchToIrrigate(pCropIrrigationWeather);
             }
             return lReturn;
         }
@@ -540,7 +529,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lReturn += lDailyrecord.ToString() + Environment.NewLine;
             }
             //Add all the messages and titles to print the daily records
-            pCropIrrigationWeatherRecords.addToPrintDailyRecords();
+            this.addToPrintDailyRecords(pCropIrrigationWeatherRecords);
             return lReturn;
         }
 
@@ -756,7 +745,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 {
                     lActualStage = lCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.PhenologicalStage.Stage;
                     lModification = calculateDegreeStageDifference(lActualStage, pNewStage, pCropIrrigationWeather.Crop.Specie);
-                    lCropIrrigationWeatherRecords.adjustmentPhenology(pNewStage, pDateTime, lModification);
+                    pCropIrrigationWeather.adjustmentPhenology(pNewStage, pDateTime, lModification);
         
                 }
             }
@@ -800,6 +789,52 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lReturn= newDegree-oldDegree;
             }
             return lReturn;
+        }
+
+        public void addToPrintDailyRecords(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
+        {
+
+            List<String> lMessageDaily;
+
+            if (pCropIrrigationWeatherRecords.TitlesDaily == null)
+                pCropIrrigationWeatherRecords.TitlesDaily = new List<string>();
+            pCropIrrigationWeatherRecords.TitlesDaily.Add("Fecha");
+            pCropIrrigationWeatherRecords.TitlesDaily.Add("GDia");
+            pCropIrrigationWeatherRecords.TitlesDaily.Add("ETc");
+            pCropIrrigationWeatherRecords.TitlesDaily.Add("LLuvia");
+            pCropIrrigationWeatherRecords.TitlesDaily.Add("Riego");
+            pCropIrrigationWeatherRecords.TitlesDaily.Add("KC");
+            pCropIrrigationWeatherRecords.TitlesDaily.Add("Observaciones");
+
+
+            if (pCropIrrigationWeatherRecords.MessagesDaily == null)
+                pCropIrrigationWeatherRecords.MessagesDaily = new List<List<string>>();
+            foreach (DailyRecord lDR in pCropIrrigationWeatherRecords.DailyRecords)
+            {
+                lMessageDaily = new List<string>();
+                lMessageDaily.Add(lDR.DateHour.ToString());
+                lMessageDaily.Add(lDR.GrowingDegree.ToString());
+                lMessageDaily.Add(lDR.EvapotranspirationCrop.getTotalInput().ToString());
+                if (lDR.Rain == null)
+                {
+                    lMessageDaily.Add("0");
+                }
+                else
+                {
+                    lMessageDaily.Add(lDR.Rain.getTotalInput().ToString());
+                }
+                if (lDR.Irrigation == null)
+                {
+                    lMessageDaily.Add("0");
+                }
+                else
+                {
+                    lMessageDaily.Add(lDR.Irrigation.getTotalInput().ToString());
+                }
+                lMessageDaily.Add(lDR.Kc.ToString());
+                lMessageDaily.Add(lDR.Observations);
+                pCropIrrigationWeatherRecords.MessagesDaily.Add(lMessageDaily);
+            }
         }
 
 

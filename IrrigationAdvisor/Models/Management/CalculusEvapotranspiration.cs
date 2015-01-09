@@ -70,14 +70,14 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pCropIrrigationWeatherRecords"></param>
         /// <returns></returns>
-        public  bool IrrigateByEvapotranspiration(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
+        public  bool IrrigateByEvapotranspiration(CropIrrigationWeather pCropIrrigationWeather)
         {
             bool lReturn = false;
             double lMaxEvapotrToIrr;
             double lEvapotrAcum;
             
-            lMaxEvapotrToIrr = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.MaxEvapotranspirationToIrrigate;
-            lEvapotrAcum = pCropIrrigationWeatherRecords.TotalEvapotranspirationCropFromLastWaterInput;
+            lMaxEvapotrToIrr = pCropIrrigationWeather.Crop.MaxEvapotranspirationToIrrigate;
+            lEvapotrAcum =  pCropIrrigationWeather.CropIrrigationWeatherRecords.TotalEvapotranspirationCropFromLastWaterInput;
             //If the evapotranspiration Acumulated from last water input is bigger than max evapotranspiration to irrigatte
             //we need to irrigate
             if (lEvapotrAcum >= lMaxEvapotrToIrr)

@@ -65,7 +65,13 @@ namespace IrrigationAdvisor.Models.Management
         private WeatherStation.WeatherStation mainWeatherStation;
         private WeatherStation.WeatherStation alternativeWeatherStation;
         private double predeterminatedIrrigationQuantity;
-        private List<CropIrrigationWeatherRecords> cropIrrigationWeatherRecords;
+        private CropIrrigationWeatherRecords cropIrrigationWeatherRecords;
+
+        public CropIrrigationWeatherRecords CropIrrigationWeatherRecords
+        {
+            get { return cropIrrigationWeatherRecords; }
+            set { cropIrrigationWeatherRecords = value; }
+        }
 
         private PhenologicalStage phenologicalStage;
         private DateTime sowingDate;
@@ -106,12 +112,6 @@ namespace IrrigationAdvisor.Models.Management
             set { predeterminatedIrrigationQuantity = value; }
         }
 
-
-        public List<CropIrrigationWeatherRecords> CropIrrigationWeatherRecords
-        {
-            get { return cropIrrigationWeatherRecords; }
-            set { cropIrrigationWeatherRecords = value; }
-        }
 
         #endregion
 

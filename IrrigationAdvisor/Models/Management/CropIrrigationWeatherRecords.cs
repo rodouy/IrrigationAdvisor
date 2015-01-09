@@ -326,30 +326,7 @@ namespace IrrigationAdvisor.Models.Management
 
   
 
-        /// <summary>
-        /// Get Days after Sowing for Modified Growing Degree
-        /// </summary>
-        /// <returns></returns>
-        private int getDaysAfterSowingForModifiedGrowingDegree()
-        {
-            int lReturn = 0;
-            double lastGDRegistry = 0;
-            DateTime lDate = DateTime.MinValue;
-            //TODO Order DailyRecords list by Date
-            //this.DailyRecords.OrderBy();
-            foreach (DailyRecord lDailyRec in this.DailyRecords)
-            {
-                if (this.ModifiedGrowingDegreeDays <= lDailyRec.GrowingDegreeAcumulated && this.ModifiedGrowingDegreeDays > lastGDRegistry)
-                {
-                    lDate = lDailyRec.DateHour;
-                    lReturn = Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, lDate);
-                    return lReturn;
-                }
-                lastGDRegistry = lDailyRec.GrowingDegreeAcumulated;
-            }
-            return lReturn;
-        }
-
+ 
 
 
         /// <summary>
@@ -524,6 +501,29 @@ namespace IrrigationAdvisor.Models.Management
         //     - getSoilHydricVolume(): double
 
 
+        /// <summary>
+        /// Get Days after Sowing for Modified Growing Degree
+        /// </summary>
+        /// <returns></returns>
+        public int getDaysAfterSowingForModifiedGrowingDegree()
+        {
+            int lReturn = 0;
+            double lastGDRegistry = 0;
+            DateTime lDate = DateTime.MinValue;
+            //TODO Order DailyRecords list by Date
+            //this.DailyRecords.OrderBy();
+            foreach (DailyRecord lDailyRec in this.DailyRecords)
+            {
+                if (this.ModifiedGrowingDegreeDays <= lDailyRec.GrowingDegreeAcumulated && this.ModifiedGrowingDegreeDays > lastGDRegistry)
+                {
+                    lDate = lDailyRec.DateHour;
+                    lReturn = Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.Crop.SowingDate, lDate);
+                    return lReturn;
+                }
+                lastGDRegistry = lDailyRec.GrowingDegreeAcumulated;
+            }
+            return lReturn;
+        }
 
 
  
