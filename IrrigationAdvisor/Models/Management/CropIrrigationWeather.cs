@@ -208,7 +208,7 @@ namespace IrrigationAdvisor.Models.Management
 
         
         /// <summary>
-        /// TODO explain reviewPhenologicalStage
+        /// Change the PhenologicalStage of the crop depending of the growing degree acumulated plus the adjustment
         /// </summary>
         private void reviewPhenologicalStage()
         {
@@ -746,7 +746,7 @@ namespace IrrigationAdvisor.Models.Management
                 }
 
                 this.addDailyRecord(lNewDailyRecord);
-                this.OutPut += this.printState();
+                //this.OutPut += this.printState();
             }
             catch (Exception ex)
             {

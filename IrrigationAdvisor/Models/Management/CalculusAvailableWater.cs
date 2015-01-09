@@ -73,14 +73,12 @@ namespace IrrigationAdvisor.Models.Management
         public bool IrrigateByHydricBalance(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
         {
             bool lReturn = false;
-            double lRootDepth;
             double lAvailableWater;
             double lHydricBalance;
             double PermanentWiltingPoint;
             double lThreshold;
 
-            lRootDepth = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.getRootDepth();
-            lAvailableWater = pCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.getAvailableWaterCapacity(lRootDepth);
+            lAvailableWater = pCropIrrigationWeatherRecords.CropIrrigationWeather.getSoilAvailableWaterCapacity();
             lHydricBalance = pCropIrrigationWeatherRecords.HydricBalance;
             PermanentWiltingPoint = pCropIrrigationWeatherRecords.getSoilPermanentWiltingPoint();
             lThreshold = Math.Round(lAvailableWater / 2, 2) + PermanentWiltingPoint;

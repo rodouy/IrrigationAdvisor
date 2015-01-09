@@ -98,7 +98,7 @@ namespace IrrigationAdvisor.Models.Crop
         
         public double RootDepth
         {
-            //get { return rootDepth; }
+            get { return rootDepth; }
             set { rootDepth = value; }
         }
 

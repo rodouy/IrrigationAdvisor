@@ -25,10 +25,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Specie testSpecieSoja;
         private Specie testSpecieMaiz;
 
-        private Soil soil_1;
-        private Soil soil_2;
-        private Soil soil_3_4;
-        private Soil soil_5;
+        private Soil testSoil_1;
+        private Soil testSoil_2;
+        private Soil testSoil_3_4;
+        private Soil testSoil_5;
         private PhenologicalStage testInitialPhenologicalState;
         private CropCoefficient testCropCoefficientSoja;
         private CropCoefficient testCropCoefficientMaiz;
@@ -232,7 +232,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             String lObservation;
 
             //The start day is one day after sowing because the first day is created when the testCrop is created
-            lFromDate = pCropIrrigationWeather.Crop.SowingDate.AddDays(1);
+            lFromDate = pCropIrrigationWeather.SowingDate.AddDays(1);
             lToDate = DateTime.Now.AddDays(7);
 
             lDiffDays = lToDate.Subtract(lFromDate).TotalDays;
@@ -306,9 +306,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             testWeatherStation = new WeatherStation.WeatherStation(1, "WeatherStation1", "Model?", DateTime.Now, DateTime.Now, DateTime.Now, 1, testLocation, true);
 
-            cropIrrigWeatherPivot2 = new CropIrrigationWeather(testIU_Pivot_2, cropMaizPivot2, testWeatherStation, null, testPREDETERMINATED_IRRIGATION);
-            cropIrrigWeatherPivot3_4 = new CropIrrigationWeather(testIU_Pivot_3_4, cropSojaPivot3_4, testWeatherStation, null, testPREDETERMINATED_IRRIGATION);
-            cropIrrigWeatherPivot5 = new CropIrrigationWeather(testIU_Pivot_5, cropSojaPivot5, testWeatherStation, null, testPREDETERMINATED_IRRIGATION);
+            cropIrrigWeatherPivot2 = new CropIrrigationWeather(testIU_Pivot_2, cropMaizPivot2, testWeatherStation, null, testPREDETERMINATED_IRRIGATION,
+                new CropIrrigationWeatherRecords(), testInitialPhenologicalState, testLocation, dateBeginCrop_Pivot2, DateTime.Now, testSoil_2);
+            
+            cropIrrigWeatherPivot3_4 = new CropIrrigationWeather(testIU_Pivot_3_4, cropSojaPivot3_4, testWeatherStation, null, testPREDETERMINATED_IRRIGATION,
+                new CropIrrigationWeatherRecords(), testInitialPhenologicalState, testLocation, dateBeginCrop_Pivot3_4, DateTime.Now, testSoil_3_4);
+            
+            cropIrrigWeatherPivot5 = new CropIrrigationWeather(testIU_Pivot_5, cropSojaPivot5, testWeatherStation, null, testPREDETERMINATED_IRRIGATION,
+                new CropIrrigationWeatherRecords(), testInitialPhenologicalState, testLocation, dateBeginCrop_Pivot5, DateTime.Now, testSoil_5);
 
 
         }
@@ -339,13 +344,13 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testInitialPhenologicalState = new PhenologicalStage(1, testSpecieMaiz, new Stage(1, "v0", "Sin hojas"), 0, 60, 5);
 
             cropMaizPivot2 = createCrop(1, "Maiz SantaLucia Pivot 2", testSpecieMaiz, testLocation, testCropCoefficientMaiz, cropDensityMaiz,
-                testInitialPhenologicalState, dateBeginCrop_Pivot2, DateTime.Now, soil_2, lMaizMaxEvaporTransptoIrrigate);
+                testInitialPhenologicalState, dateBeginCrop_Pivot2, DateTime.Now, testSoil_2, lMaizMaxEvaporTransptoIrrigate);
 
             cropSojaPivot3_4 = createCrop(1, "Soja SantaLucia Pivot 3 4", testSpecieSoja, testLocation, testCropCoefficientSoja, cropDensitySoja,
-                            testInitialPhenologicalState, dateBeginCrop_Pivot3_4, DateTime.Now, soil_3_4, lSojaMaxEvaporTransptoIrrigate);
+                            testInitialPhenologicalState, dateBeginCrop_Pivot3_4, DateTime.Now, testSoil_3_4, lSojaMaxEvaporTransptoIrrigate);
 
             cropSojaPivot5 = createCrop(1, "Maiz SantaLucia Pivot 5", testSpecieMaiz, testLocation, testCropCoefficientMaiz, cropDensityMaiz,
-                                        testInitialPhenologicalState, dateBeginCrop_Pivot5, DateTime.Now, soil_5, lMaizMaxEvaporTransptoIrrigate);
+                                        testInitialPhenologicalState, dateBeginCrop_Pivot5, DateTime.Now, testSoil_5, lMaizMaxEvaporTransptoIrrigate);
 
 
         }
@@ -388,33 +393,33 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private void crearSuelosSantaLucia()
         {
-            soil_1 = new Soil(1, "Suelo Pivot 1", "Suelo Pivot 1", testLocation, DateTime.MinValue, 30);
-            soil_2 = new Soil(2, "Suelo Pivot 2", "Suelo Pivot 2", testLocation, DateTime.MinValue, 30);
-            soil_3_4 = new Soil(3, "Suelo Pivot 3_4", "Suelo Pivot 3_4", testLocation, DateTime.MinValue, 30);
-            soil_5 = new Soil(4, "Suelo Pivot 5", "Suelo Pivot 5", testLocation, DateTime.MinValue, 30);
+            testSoil_1 = new Soil(1, "Suelo Pivot 1", "Suelo Pivot 1", testLocation, DateTime.MinValue, 30);
+            testSoil_2 = new Soil(2, "Suelo Pivot 2", "Suelo Pivot 2", testLocation, DateTime.MinValue, 30);
+            testSoil_3_4 = new Soil(3, "Suelo Pivot 3_4", "Suelo Pivot 3_4", testLocation, DateTime.MinValue, 30);
+            testSoil_5 = new Soil(4, "Suelo Pivot 5", "Suelo Pivot 5", testLocation, DateTime.MinValue, 30);
 
             // horizon_1A = new Horizon(1,"Horizonte A - Suelo 1", 1, "A",)
             Horizon horizon_2A = new Horizon(1, "A", 0, "A", 14, 19, 53, 28, 4.4, 0, 1.2);
             Horizon horizon_2AB = new Horizon(2, "AB", 1, "AB", 23, 18, 45, 37, 3, 0, 1.3);
             Horizon horizon_2B = new Horizon(3, "B", 2, "B", 20, 19, 37, 44, 2, 0, 1.4);
 
-            soil_2.Horizons.Add(horizon_2A);
-            soil_2.Horizons.Add(horizon_2AB);
-            soil_2.Horizons.Add(horizon_2B);
+            testSoil_2.Horizons.Add(horizon_2A);
+            testSoil_2.Horizons.Add(horizon_2AB);
+            testSoil_2.Horizons.Add(horizon_2B);
 
             Horizon horizon_3_4A = new Horizon(1, "A", 0, "A", 15, 33, 40, 26, 4.4, 0, 1.3);
             Horizon horizon_3_4B = new Horizon(2, "B", 1, "B", 20, 20, 28, 52, 4.4, 0, 1.4);
 
-            soil_3_4.Horizons.Add(horizon_3_4A);
-            soil_3_4.Horizons.Add(horizon_3_4B);
+            testSoil_3_4.Horizons.Add(horizon_3_4A);
+            testSoil_3_4.Horizons.Add(horizon_3_4B);
 
             Horizon horizon_5A = new Horizon(1, "A", 0, "A",14, 19, 53, 28, 4.4, 0, 1.2);
             Horizon horizon_5AB = new Horizon(2, "AB", 1, "AB", 23, 18, 45, 37, 3, 0, 1.3);
             Horizon horizon_5B = new Horizon(3, "B", 2, "B", 20, 19, 37, 44, 2, 0, 1.4);
 
-            soil_5.Horizons.Add(horizon_5A);
-            soil_5.Horizons.Add(horizon_5AB);
-            soil_5.Horizons.Add(horizon_5B);
+            testSoil_5.Horizons.Add(horizon_5A);
+            testSoil_5.Horizons.Add(horizon_5AB);
+            testSoil_5.Horizons.Add(horizon_5B);
 
 
         }
@@ -497,7 +502,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 " \t " + rec.TotalIrrigation +
                 " \t\t " + rec.LastWaterInputDate.ToString() +
                 " \t " + rec.getRootDepth() +
-                " \tf " + rec.CropIrrigationWeather.Crop.PhenologicalStage.Stage.Name +
+                " \tf " + rec.CropIrrigationWeather.PhenologicalStage.Stage.Name +
                 " \t " + totIrr.Substring(0, 7) +
                 " \t " + totExtraIrr.Substring(0, 7) +
                 Environment.NewLine;
@@ -608,9 +613,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             Crop.Crop lCrop;
  
             lPhenologicalStageList = irrigationSystem.getPhenologicalStage(testRegion, pSpecie, this.irrigationSystem.PhenologicalStageList);
-            lCrop = new Crop.Crop(pId, pName, pSpecie, lLocation, lCropCoefficient, cropDensity,
-                                    lPhenologicalState, lPhenologicalStageList, lSowingDate, 
-                                    dateTime, lSoil, lSojaMaxEvaporTransptoIrrigate);
+            lCrop = new Crop.Crop(pId, pName, pSpecie, cropDensity, lSojaMaxEvaporTransptoIrrigate);
             return lCrop;           
         }
 

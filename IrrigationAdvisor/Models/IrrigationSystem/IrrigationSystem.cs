@@ -203,7 +203,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             {
                 if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    lCropIrrigationWeatherRecord.addDailyRecord(lWeatherData,  lMainWeatherData, lAlternativeWeatherData,  lRain, lIrrigation, pObservations);
+                    pCropIrrigationWeather.addDailyRecord(lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);
                 }
             }
 
@@ -338,7 +338,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lEffectiveRain = this.getEffectiveRainList(pCropIrrigationWeather.getRegion());
                 lCropIrrigationWeatherRecords.EffectiveRain = lEffectiveRain;
                 lCropIrrigationWeatherRecords.CropIrrigationWeather = pCropIrrigationWeather;
-                bhi = lCropIrrigationWeatherRecords.getInitialHidricBalance();
+                bhi = pCropIrrigationWeather.getInitialHidricBalance();
                 lCropIrrigationWeatherRecords.HydricBalance = bhi;
                 
                 //Add to the system list 
@@ -346,7 +346,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 this.CropIrrigationWeatherRecordsList.Add(lCropIrrigationWeatherRecords);
                 
                 //Create the initial registry
-                DateTime lSowingDate = pCropIrrigationWeather.Crop.SowingDate;
+                DateTime lSowingDate = pCropIrrigationWeather.SowingDate;
                 this.addDailyRecordToList(pCropIrrigationWeather, lSowingDate, "Initial registry");
             }
             catch (Exception e)
@@ -754,7 +754,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             {
                 if (lCropIrrigationWeatherRecords.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    lActualStage = lCropIrrigationWeatherRecords.CropIrrigationWeather.Crop.PhenologicalStage.Stage;
+                    lActualStage = lCropIrrigationWeatherRecords.CropIrrigationWeather.PhenologicalStage.Stage;
                     lModification = calculateDegreeStageDifference(lActualStage, pNewStage, pCropIrrigationWeather.Crop.Specie);
                     lCropIrrigationWeatherRecords.adjustmentPhenology(pNewStage, pDateTime, lModification);
         
