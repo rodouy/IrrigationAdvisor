@@ -544,7 +544,7 @@ namespace IrrigationAdvisor.Models.Data
             lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(11, pSpecieMaiz, new Stage(1, "v10", "10 nudo"), 590, 649, 35));
             lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(12, pSpecieMaiz, new Stage(1, "v11", "11 nudo"), 650, 689, 37));
             lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(13, pSpecieMaiz, new Stage(1, "v12", "12 nudo"), 690, 714, 40));
-            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(14, pSpecieMaiz, new Stage(1, "v13", "13 nudo"), 715, 749, 42));
+            lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(14, pSpecieMaiz, new Stage(1, "v13", "13 nudo"), 715, 749, 40));
             lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(15, pSpecieMaiz, new Stage(1, "v14", "14 nudo"), 750, 764, 45));
             lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(16, pSpecieMaiz, new Stage(1, "vt", "Floracion"), 775, 954, 45));
             lPhenolStageList.Add(pIrrigationSystem.CreatePhenologicalStage(17, pSpecieMaiz, new Stage(1, "R1", "Estambres 50%"), 955, 1149, 45));

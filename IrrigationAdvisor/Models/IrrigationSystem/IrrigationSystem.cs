@@ -176,14 +176,22 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         #region Private Helpers
 
-        //Crop
-        //Irrigation
-        //Language
-        //Location
-        //Management
+        #region Crop
+        #endregion
 
+        #region Irrigation
+        #endregion
+
+        #region Language
+        #endregion
         
-        
+        #region Location
+        #endregion
+
+        #region Management
+        #endregion
+
+
         /// <summary>
         /// Search the CropIrrigationWeatherRecords of the CropIrrigationWeather and delegate the creation of the daily record
         /// </summary>
@@ -208,6 +216,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             }
 
         }
+
         //Security 
         //Utitilities
         //Water
@@ -288,6 +297,45 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 }
             }
             return lReturnEffectiveRain;
+        }
+
+        /// <summary>
+        /// TODO description calculateDegreeStageDifference
+        /// </summary>
+        /// <param name="oldStage"></param>
+        /// <param name="newStage"></param>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        private double calculateDegreeStageDifference(Stage oldStage, Stage newStage, Specie pSpecie)
+        {
+            double oldDegree = 0;
+            double newDegree = 0;
+
+            double lReturn = 0;
+            foreach (Pair<Region, List<PhenologicalStage>> lPair in this.PhenologicalStageList)
+            {
+                if (lPair.First.Equals(pSpecie.Region))
+                {
+                    List<PhenologicalStage> lPhenologicalStageList = lPair.Second;
+                    foreach (PhenologicalStage lPhenologicalStage in lPhenologicalStageList)
+                    {
+                        if (lPhenologicalStage.Stage.Equals(oldStage) && lPhenologicalStage.Specie.Equals(pSpecie))
+                        {
+                            oldDegree = lPhenologicalStage.getAverageDegree();
+                        }
+                        if (lPhenologicalStage.Stage.Equals(newStage) && lPhenologicalStage.Specie.Equals(pSpecie))
+                        {
+                            newDegree = lPhenologicalStage.getAverageDegree();
+                        }
+                    }
+                }
+
+            }
+            if (newDegree != 0 && oldDegree != 0)
+            {
+                lReturn = newDegree - oldDegree;
+            }
+            return lReturn;
         }
 
         #endregion
@@ -519,7 +567,6 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         }
 
         #endregion
-
 
         #region Security 
         #endregion
@@ -764,45 +811,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         }
 
-        /// <summary>
-        /// TODO description calculateDegreeStageDifference
-        /// </summary>
-        /// <param name="oldStage"></param>
-        /// <param name="newStage"></param>
-        /// <param name="pSpecie"></param>
-        /// <returns></returns>
-        private double calculateDegreeStageDifference(Stage oldStage, Stage newStage, Specie pSpecie)
-        {
-            double oldDegree = 0;
-            double newDegree = 0;
-
-            double lReturn = 0;
-            foreach (Pair<Region, List<PhenologicalStage>> lPair in this.PhenologicalStageList)
-            {
-                if(lPair.First.Equals(pSpecie.Region))
-                {
-                    List<PhenologicalStage> lPhenologicalStageList = lPair.Second;
-                    foreach(PhenologicalStage lPhenologicalStage in lPhenologicalStageList)
-                    {
-                        if (lPhenologicalStage.Stage.Equals(oldStage) && lPhenologicalStage.Specie.Equals(pSpecie))
-                        {
-                            oldDegree = lPhenologicalStage.getAverageDegree();
-                        }
-                        if (lPhenologicalStage.Stage.Equals(newStage) && lPhenologicalStage.Specie.Equals(pSpecie))
-                        {
-                            newDegree = lPhenologicalStage.getAverageDegree();
-                        }
-                    }
-                }
-
-            }
-            if(newDegree!=0 && oldDegree!=0)
-            {
-                lReturn= newDegree-oldDegree;
-            }
-            return lReturn;
-        }
-
+        
 
 
     }
