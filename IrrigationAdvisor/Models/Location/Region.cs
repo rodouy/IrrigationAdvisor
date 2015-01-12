@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using IrrigationAdvisor.Models.Water;
+using IrrigationAdvisor.Models.Crop;
+
 
 namespace IrrigationAdvisor.Models.Location
 {
@@ -30,6 +33,8 @@ namespace IrrigationAdvisor.Models.Location
     ///     - idRegion int
     ///     - name String
     ///     - location Location
+    ///     - species: List<Specie>
+    ///     - effectiveRain List <EffectiveRain>
     /// 
     /// Methods:
     ///     - Region()      -- constructor
@@ -51,17 +56,18 @@ namespace IrrigationAdvisor.Models.Location
         ///     - location: the location of the region
         ///     
         /// </summary>
-        private int idRegion;
+        private long idRegion;
         private String name;
         private Position position;
-
+        private List<Specie> species;
+        private List<EffectiveRain> effectiveRains;
 
 
         #endregion
 
         #region Properties
 
-        public int IdRegion
+        public long IdRegion
         {
             get { return idRegion; }
             set { idRegion = value; }
@@ -72,6 +78,17 @@ namespace IrrigationAdvisor.Models.Location
             set { name = value; }
         }
 
+        public List<EffectiveRain> EffectiveRains
+        {
+            get { return effectiveRains; }
+            set { effectiveRains = value; }
+        }
+
+        public List<Specie> Species
+        {
+            get { return species; }
+            set { species = value; }
+        }
 
         public Position Position
         {
@@ -91,11 +108,16 @@ namespace IrrigationAdvisor.Models.Location
         {
             this.Name = "";
             this.Position = new Position();
+            this.EffectiveRains = new List<EffectiveRain>();
+            this.Species = new List<Specie>();
         }
         public Region(String pName, Position pPosition)
         {
             this.Name = pName;
             this.Position = pPosition;
+            this.EffectiveRains = new List<EffectiveRain>();
+            this.Species = new List<Specie>();
+ 
         }
         #endregion
 

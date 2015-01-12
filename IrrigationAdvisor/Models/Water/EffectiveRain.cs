@@ -44,7 +44,6 @@ namespace IrrigationAdvisor.Models.Water
         #region Fields
         /// <summary>
         /// The fields are:
-        ///    + region: Region
         ///    + month: int
         ///    + minRain: double
         ///    + maxRain: double 
@@ -52,7 +51,6 @@ namespace IrrigationAdvisor.Models.Water
         /// </summary>
 
 
-        private Region region;
         private int month;
         private double minRain;
         private double maxRain;
@@ -61,12 +59,7 @@ namespace IrrigationAdvisor.Models.Water
         #endregion
 
         #region Properties
-        public Region Region
-        {
-            get { return region; }
-            set { region = value; }
-        }
-
+        
         public int Month
         {
             get { return month; }
@@ -98,15 +91,13 @@ namespace IrrigationAdvisor.Models.Water
 
         public EffectiveRain()
         {
-            this.Region = new Region();
             this.Month = 0;
             this.MinRain = 0;
             this.MaxRain = 0;
             this.Percentage = 0;
         }
-        public EffectiveRain(Region pRegion, int pMonth, double pMinRain, double pMaxRain, double pPercentage)
+        public EffectiveRain(int pMonth, double pMinRain, double pMaxRain, double pPercentage)
         {
-            this.Region = pRegion;
             this.Month = pMonth;
             this.MinRain = pMinRain;
             this.MaxRain = pMaxRain;

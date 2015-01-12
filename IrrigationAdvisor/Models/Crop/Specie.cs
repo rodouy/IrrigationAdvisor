@@ -16,7 +16,6 @@ namespace IrrigationAdvisor.Models.Crop
     ///     Describes a specie
     ///     
     /// References:
-    ///     Region
     ///     CropCoefficient
     ///     PhenologicalStage
     ///     
@@ -35,7 +34,6 @@ namespace IrrigationAdvisor.Models.Crop
     /// Fields of Class:
     ///     - idSpecie long
     ///     - name String
-    ///     - region Region
     ///     - baseTemeperature double
     ///     - cropCoefficient CropCoefficient
     ///     - phenologicalStages List<PhenologicalStage>
@@ -66,7 +64,6 @@ namespace IrrigationAdvisor.Models.Crop
         /// </summary>
         private long idSpecie;
         private string name;
-        private Region region;
         private double baseTemperature;
         private CropCoefficient cropCoefficient;
         private List<PhenologicalStage> phenologicalStages;
@@ -85,12 +82,6 @@ namespace IrrigationAdvisor.Models.Crop
         {
             get { return name; }
             set { name = value; }
-        }
-        
-        public Region Region
-        {
-            get { return region; }
-            set { region = value; }
         }
         
         public double BaseTemperature
@@ -120,30 +111,27 @@ namespace IrrigationAdvisor.Models.Crop
         {
             this.IdSpecie = 0;
             this.Name = "noName";
-            this.Region = new Region();
             this.BaseTemperature = 0;
             this.CropCoefficient = new CropCoefficient();
             this.PhenologicalStages = new List<PhenologicalStage>();
         }
 
-        public Specie(int pId, String pName, Region pRegion, 
+        public Specie(int pId, String pName,  
             double pBaseTemperature)
         {
             this.IdSpecie = pId;
             this.Name = pName;
-            this.Region = pRegion;
             this.BaseTemperature = pBaseTemperature;
             this.CropCoefficient = null;
             this.PhenologicalStages = null;
         }
 
-        public Specie(int pId, String pName, Region pRegion,
+        public Specie(int pId, String pName,
             double pBaseTemperature, CropCoefficient pCropCoefficient,
             List<PhenologicalStage> pPhenologicalStages)
         {
             this.IdSpecie = pId;
             this.Name = pName;
-            this.Region = pRegion;
             this.BaseTemperature = pBaseTemperature;
             this.CropCoefficient = pCropCoefficient;
             this.PhenologicalStages = pPhenologicalStages;
@@ -174,8 +162,7 @@ namespace IrrigationAdvisor.Models.Crop
                 return lReturn;
             }
             Specie lSpecie = obj as Specie;
-            lReturn = this.Name.Equals(lSpecie.Name) 
-                && this.Region.Equals(lSpecie.Region);
+            lReturn = this.Name.Equals(lSpecie.Name);
             return lReturn;
         }
 

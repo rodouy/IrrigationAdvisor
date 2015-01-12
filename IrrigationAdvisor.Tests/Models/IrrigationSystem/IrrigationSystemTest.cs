@@ -100,17 +100,19 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             
             testIrrigationSystem = new IrrigationSystem();
 
-            testSpecieSoja = createSpecie(1, "Soja", testRegion, testSojaBaseTemp);
-            testSpecieMaiz = createSpecie(1, "Maiz", testRegion, testMaizBaseTemp);
+            testSpecieSoja = createSpecie(1, "Soja", testSojaBaseTemp);
+            testSpecieMaiz = createSpecie(1, "Maiz", testMaizBaseTemp);
 
             testPhenologicalStageList = InitialTables.CreatePhenologicalStageList(testIrrigationSystem, testSpecieMaiz, testSpecieSoja);
             testPhenologicalStagesForRegion = new Pair<Region, List<PhenologicalStage>>(testRegion, testPhenologicalStageList);
             this.testIrrigationSystem.PhenologicalStageList.Add(testPhenologicalStagesForRegion);
             
 
-            testEffectiveRainsList = InitialTables.AddEffectiveRainListToSystem(testRegion);
-            testEffectiveRainsForRegion = new Pair<Region, List<EffectiveRain>>(testRegion, testEffectiveRainsList);
-            this.testIrrigationSystem.EffectiveRainList.Add(testEffectiveRainsForRegion);
+            testEffectiveRainsList = InitialTables.CreateEffectiveRainListToSystem();
+            testRegion.EffectiveRains = testEffectiveRainsList;
+            this.testIrrigationSystem.addRegionToList(testRegion);
+            //testEffectiveRainsForRegion = new Pair<Region, List<EffectiveRain>>(testRegion, testEffectiveRainsList);
+            //this.testIrrigationSystem.EffectiveRainList.Add(testEffectiveRainsForRegion);
 
             crearCultivosSantaLucia();
 
@@ -351,8 +353,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             lSojaPhenologicalStageList = testIrrigationSystem.getPhenologicalStage(testRegion, testSpecieSoja, this.testIrrigationSystem.PhenologicalStageList);
             lMaizPhenologicalStageList = testIrrigationSystem.getPhenologicalStage(testRegion, testSpecieMaiz, this.testIrrigationSystem.PhenologicalStageList);
 
-            testSpecieSoja = createSpecie(1, "Soja", testRegion, testSojaBaseTemp, testCropCoefficientSoja, lSojaPhenologicalStageList);
-            testSpecieMaiz = createSpecie(1, "Maiz", testRegion, testMaizBaseTemp, testCropCoefficientMaiz, lMaizPhenologicalStageList);
+            testSpecieSoja = createSpecie(1, "Soja", testSojaBaseTemp, testCropCoefficientSoja, lSojaPhenologicalStageList);
+            testSpecieMaiz = createSpecie(1, "Maiz", testMaizBaseTemp, testCropCoefficientMaiz, lMaizPhenologicalStageList);
 
             
             
@@ -666,15 +668,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lLocation;
         }
 
-        public Specie createSpecie(int pId, String  pName, Region  pRegion, double pBaseTemp, CropCoefficient pCropCoefficient, List<PhenologicalStage> pPhenologicalStageList)
+        public Specie createSpecie(int pId, String  pName, double pBaseTemp, CropCoefficient pCropCoefficient, List<PhenologicalStage> pPhenologicalStageList)
         {
-            Specie lSpecie = new Specie(pId, pName, pRegion, pBaseTemp, pCropCoefficient,pPhenologicalStageList);
+            Specie lSpecie = new Specie(pId, pName, pBaseTemp, pCropCoefficient,pPhenologicalStageList);
             return lSpecie;
         }
 
-        public Specie createSpecie(int pId, String pName, Region pRegion, double pBaseTemp)
+        public Specie createSpecie(int pId, String pName, double pBaseTemp)
         {
-            Specie lSpecie = new Specie(pId, pName, pRegion, pBaseTemp);
+            Specie lSpecie = new Specie(pId, pName, pBaseTemp);
             return lSpecie;
         }
         #endregion

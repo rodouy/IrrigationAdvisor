@@ -587,80 +587,80 @@ namespace IrrigationAdvisor.Models.Data
         /// </summary>
         /// <param name="lRegion"></param>
         /// <returns></returns>
-        public static List<EffectiveRain> AddEffectiveRainListToSystem(Region lRegion)
+        public static List<EffectiveRain> CreateEffectiveRainListToSystem()
         {
             List<EffectiveRain> lEffectiveRainList = new List<EffectiveRain>();
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 0, 10, 90));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 11, 20, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 21, 30, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 31, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 41, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 51, 60, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 61, 70, 65));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 71, 80, 60));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 81, 90, 60));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 91, 100, 55));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 10, 100, 1000, 50));
+            lEffectiveRainList.Add(new EffectiveRain(10, 0, 10, 90));
+            lEffectiveRainList.Add(new EffectiveRain(10, 11, 20, 80));
+            lEffectiveRainList.Add(new EffectiveRain(10, 21, 30, 80));
+            lEffectiveRainList.Add(new EffectiveRain(10, 31, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(10, 41, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(10, 51, 60, 70));
+            lEffectiveRainList.Add(new EffectiveRain(10, 61, 70, 65));
+            lEffectiveRainList.Add(new EffectiveRain(10, 71, 80, 60));
+            lEffectiveRainList.Add(new EffectiveRain(10, 81, 90, 60));
+            lEffectiveRainList.Add(new EffectiveRain(10, 91, 100, 55));
+            lEffectiveRainList.Add(new EffectiveRain(10, 100, 1000, 50));
 
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 0, 10, 90));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 11, 20, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 21, 30, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 31, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 41, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 51, 60, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 61, 70, 65));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 71, 80, 60));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 81, 90, 60));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 91, 100, 55));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 11, 100, 1000, 50));
+            lEffectiveRainList.Add(new EffectiveRain(11, 0, 10, 90));
+            lEffectiveRainList.Add(new EffectiveRain(11, 11, 20, 80));
+            lEffectiveRainList.Add(new EffectiveRain(11, 21, 30, 80));
+            lEffectiveRainList.Add(new EffectiveRain(11, 31, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(11, 41, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(11, 51, 60, 70));
+            lEffectiveRainList.Add(new EffectiveRain(11, 61, 70, 65));
+            lEffectiveRainList.Add(new EffectiveRain(11, 71, 80, 60));
+            lEffectiveRainList.Add(new EffectiveRain(11, 81, 90, 60));
+            lEffectiveRainList.Add(new EffectiveRain(11, 91, 100, 55));
+            lEffectiveRainList.Add(new EffectiveRain(11, 100, 1000, 50));
 
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 0, 10, 90));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 11, 20, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 21, 30, 85));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 31, 40, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 41, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 51, 60, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 61, 70, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 71, 80, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 81, 90, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 91, 100, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 12, 100, 1000, 60));
+            lEffectiveRainList.Add(new EffectiveRain(12, 0, 10, 90));
+            lEffectiveRainList.Add(new EffectiveRain(12, 11, 20, 80));
+            lEffectiveRainList.Add(new EffectiveRain(12, 21, 30, 85));
+            lEffectiveRainList.Add(new EffectiveRain(12, 31, 40, 80));
+            lEffectiveRainList.Add(new EffectiveRain(12, 41, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(12, 51, 60, 75));
+            lEffectiveRainList.Add(new EffectiveRain(12, 61, 70, 70));
+            lEffectiveRainList.Add(new EffectiveRain(12, 71, 80, 70));
+            lEffectiveRainList.Add(new EffectiveRain(12, 81, 90, 70));
+            lEffectiveRainList.Add(new EffectiveRain(12, 91, 100, 70));
+            lEffectiveRainList.Add(new EffectiveRain(12, 100, 1000, 60));
 
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 0, 10, 90));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 11, 20, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 21, 30, 85));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 31, 40, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 41, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 51, 60, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 61, 70, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 71, 80, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 81, 90, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 91, 100, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 1, 100, 1000, 60));
+            lEffectiveRainList.Add(new EffectiveRain(1, 0, 10, 90));
+            lEffectiveRainList.Add(new EffectiveRain(1, 11, 20, 80));
+            lEffectiveRainList.Add(new EffectiveRain(1, 21, 30, 85));
+            lEffectiveRainList.Add(new EffectiveRain(1, 31, 40, 80));
+            lEffectiveRainList.Add(new EffectiveRain(1, 41, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(1, 51, 60, 75));
+            lEffectiveRainList.Add(new EffectiveRain(1, 61, 70, 70));
+            lEffectiveRainList.Add(new EffectiveRain(1, 71, 80, 70));
+            lEffectiveRainList.Add(new EffectiveRain(1, 81, 90, 70));
+            lEffectiveRainList.Add(new EffectiveRain(1, 91, 100, 70));
+            lEffectiveRainList.Add(new EffectiveRain(1, 100, 1000, 60));
 
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 0, 10, 90));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 11, 20, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 21, 30, 85));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 31, 40, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 41, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 51, 60, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 61, 70, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 71, 80, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 81, 90, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 91, 100, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 2, 100, 1000, 60));
+            lEffectiveRainList.Add(new EffectiveRain(2, 0, 10, 90));
+            lEffectiveRainList.Add(new EffectiveRain(2, 11, 20, 80));
+            lEffectiveRainList.Add(new EffectiveRain(2, 21, 30, 85));
+            lEffectiveRainList.Add(new EffectiveRain(2, 31, 40, 80));
+            lEffectiveRainList.Add(new EffectiveRain(2, 41, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(2, 51, 60, 75));
+            lEffectiveRainList.Add(new EffectiveRain(2, 61, 70, 70));
+            lEffectiveRainList.Add(new EffectiveRain(2, 71, 80, 70));
+            lEffectiveRainList.Add(new EffectiveRain(2, 81, 90, 70));
+            lEffectiveRainList.Add(new EffectiveRain(2, 91, 100, 70));
+            lEffectiveRainList.Add(new EffectiveRain(2, 100, 1000, 60));
 
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 0, 10, 90));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 11, 20, 80));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 21, 30, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 31, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 41, 40, 75));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 51, 60, 70));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 61, 70, 65));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 71, 80, 60));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 81, 90, 60));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 91, 100, 55));
-            lEffectiveRainList.Add(new EffectiveRain(lRegion, 3, 100, 1000, 50));
+            lEffectiveRainList.Add(new EffectiveRain(3, 0, 10, 90));
+            lEffectiveRainList.Add(new EffectiveRain(3, 11, 20, 80));
+            lEffectiveRainList.Add(new EffectiveRain(3, 21, 30, 75));
+            lEffectiveRainList.Add(new EffectiveRain(3, 31, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(3, 41, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(3, 51, 60, 70));
+            lEffectiveRainList.Add(new EffectiveRain(3, 61, 70, 65));
+            lEffectiveRainList.Add(new EffectiveRain(3, 71, 80, 60));
+            lEffectiveRainList.Add(new EffectiveRain(3, 81, 90, 60));
+            lEffectiveRainList.Add(new EffectiveRain(3, 91, 100, 55));
+            lEffectiveRainList.Add(new EffectiveRain(3, 100, 1000, 50));
 
 
             return lEffectiveRainList;

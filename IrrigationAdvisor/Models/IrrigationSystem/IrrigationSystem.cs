@@ -48,49 +48,101 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #endregion
 
         #region Consts
+
+        #region Crop
+        #endregion
+
+        #region Irrigation
+        #endregion
+
+        #region Language
+        #endregion
+
+        #region Location
+        #endregion
+
+        #region Management
+        #endregion
+       
+        #region Security
+        #endregion
+        
+        #region Utilities
+        #endregion
+        
+        #region Water
+        #endregion
+       
+        #region WeatherStation
+        #endregion
+        
         #endregion
 
         #region Fields
 
-        //Crop
+        #region Crop
         private List<Pair<Region, List<PhenologicalStage>>> phenologicalStageList;
+        #endregion
 
+        #region Irrigation
+        #endregion
 
-        //Irrigation
-        //Language
-        //Location
-        //Management
+        #region Language
+        #endregion
+
+        #region Location
+        private List<Region> regions;
+        #endregion
+
+        #region Management
         private List<CropIrrigationWeather> cropIrrigationWeatherList;
         private List<CropIrrigationWeatherRecords> cropIrrigationWeatherRecordsList;
         private IrrigationCalculus irrigationCalculus;
+        #endregion
 
-        //Security 
-        //Utitilities
-        //Water
+        #region Security 
+        #endregion
+
+        #region Utitilities
+        #endregion
+
+        #region Water
         private List<Water.WaterInput> rainList;
         private List<Water.WaterInput> irrigationList;
-        private List<Pair<Region, List<EffectiveRain>>> effectiveRainList;
-        
-        //WeatherStation
+        #endregion
+
+        #region WeatherStation
         private List<WeatherStation.WeatherData> weatherDataList;
+        #endregion
 
         #endregion
 
         #region Properties
 
-        //Crop
-
-
+        #region Crop
         public List<Pair<Region, List<PhenologicalStage>>> PhenologicalStageList
         {
             get { return phenologicalStageList; }
             set { phenologicalStageList = value; }
         }
-        
-        //Irrigation
-        //Language
-        //Location
-        //Management
+        #endregion
+
+        #region Irrigation
+        #endregion
+
+        #region Language
+        #endregion
+
+        #region Location
+
+        public List<Region> Regions
+        {
+            get { return regions; }
+            set { regions = value; }
+        }
+        #endregion
+
+        #region Management
         public List<CropIrrigationWeather> CropIrrigationWeatherList
         {
             get { return cropIrrigationWeatherList; }
@@ -109,10 +161,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             get { return irrigationCalculus; }
             set { irrigationCalculus = value; }
         }
-        //Security 
-        //Utitilities
+        #endregion
 
-        //Water
+        #region Security
+        #endregion
+
+        #region Utitilities
+        #endregion
+
+        #region Water
         public List<Water.WaterInput> RainList
         {
             get { return rainList; }
@@ -125,20 +182,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             set { irrigationList = value; }
         }
 
-        public List<Pair<Region, List<EffectiveRain>>> EffectiveRainList
-        {
-            get { return effectiveRainList; }
-            set { effectiveRainList = value; }
-        }
-        
+        #endregion
 
-        //WeatherStation
+        #region WeatherStation
         public List<WeatherStation.WeatherData> WeatherDataList
         {
             get { return weatherDataList; }
             set { weatherDataList = value; }
         }
-
+        #endregion
         
         #endregion
 
@@ -147,28 +199,40 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         public IrrigationSystem()
         {
 
-            //Crop
+            #region Crop
             this.PhenologicalStageList = new List<Pair< Region, List<PhenologicalStage>>>();
-            //Irrigation
+            #endregion
 
-            //Language
+            #region Irrigation
+            #endregion
 
-            //Location
+            #region Language
+            #endregion
 
-            //Management
+            #region Location
+            this.Regions = new List<Region>();
+            #endregion
+            
+            #region Management
             this.CropIrrigationWeatherList = new List<CropIrrigationWeather>();
             this.CropIrrigationWeatherRecordsList = new List<CropIrrigationWeatherRecords>();
             this.IrrigationCalculus = new IrrigationCalculus();
-            //Security 
+            #endregion
+            
+            #region Security 
+            #endregion
 
-            //Utitilities
+            #region Utitilities
+            #endregion
 
-            //Water
+            #region Water
             this.IrrigationList = new List<Water.WaterInput>();
             this.RainList = new List<Water.WaterInput>();
-            this.effectiveRainList = new List<Pair<Region, List<EffectiveRain>>>();
-            //WeatherStation
+            #endregion
+            
+            #region WeatherStation
             this.WeatherDataList = new List<WeatherStation.WeatherData>();
+            #endregion
 
         }
 
@@ -288,11 +352,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private List<EffectiveRain> getEffectiveRainList(Region pRegion)
         {
             List <EffectiveRain> lReturnEffectiveRain = new List<EffectiveRain>();
-            foreach(Pair<Region, List<EffectiveRain>> lPair in this.EffectiveRainList)
+            foreach(Region lRegion in this.Regions)
             {
-                if (lPair.First.Equals(pRegion))
+                if (lRegion.Equals(pRegion))
                 {
-                    lReturnEffectiveRain = lPair.Second;
+                    lReturnEffectiveRain = lRegion.EffectiveRains;
                     return lReturnEffectiveRain;
                 }
             }
@@ -310,26 +374,20 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
             double oldDegree = 0;
             double newDegree = 0;
-
             double lReturn = 0;
-            foreach (Pair<Region, List<PhenologicalStage>> lPair in this.PhenologicalStageList)
-            {
-                if (lPair.First.Equals(pSpecie.Region))
-                {
-                    List<PhenologicalStage> lPhenologicalStageList = lPair.Second;
-                    foreach (PhenologicalStage lPhenologicalStage in lPhenologicalStageList)
-                    {
-                        if (lPhenologicalStage.Stage.Equals(oldStage) && lPhenologicalStage.Specie.Equals(pSpecie))
-                        {
-                            oldDegree = lPhenologicalStage.getAverageDegree();
-                        }
-                        if (lPhenologicalStage.Stage.Equals(newStage) && lPhenologicalStage.Specie.Equals(pSpecie))
-                        {
-                            newDegree = lPhenologicalStage.getAverageDegree();
-                        }
-                    }
-                }
+            List<PhenologicalStage> lPhenologicalStageList;
 
+            lPhenologicalStageList = pSpecie.PhenologicalStages;
+            foreach (PhenologicalStage lPhenologicalStage in lPhenologicalStageList)
+            {
+                if (lPhenologicalStage.Stage.Equals(oldStage) && lPhenologicalStage.Specie.Equals(pSpecie))
+                {
+                    oldDegree = lPhenologicalStage.getAverageDegree();
+                }
+                if (lPhenologicalStage.Stage.Equals(newStage) && lPhenologicalStage.Specie.Equals(pSpecie))
+                {
+                    newDegree = lPhenologicalStage.getAverageDegree();
+                }
             }
             if (newDegree != 0 && oldDegree != 0)
             {
@@ -361,6 +419,20 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #endregion
 
         #region Location
+        public bool addRegionToList(Region pRegion)
+        {
+            bool lReturn = false;
+            try
+            {
+                this.Regions.Add(pRegion);
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+                //TODO Log the exception
+            } return lReturn;
+        }
         #endregion
 
         #region Management
@@ -383,7 +455,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                 //Create the CropIrrigationWeatherRecords for the CropIrrigationWeather
                 lCropIrrigationWeatherRecords = new CropIrrigationWeatherRecords();
-                lEffectiveRain = this.getEffectiveRainList(pCropIrrigationWeather.getRegion());
+                lEffectiveRain = this.getEffectiveRainList(pCropIrrigationWeather.IrrigationUnit.Location.Region);
                 lCropIrrigationWeatherRecords.EffectiveRain = lEffectiveRain;
                 lCropIrrigationWeatherRecords.CropIrrigationWeather = pCropIrrigationWeather;
                 bhi = pCropIrrigationWeather.getInitialHidricBalance();

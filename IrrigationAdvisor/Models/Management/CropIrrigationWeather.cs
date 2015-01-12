@@ -492,7 +492,7 @@ namespace IrrigationAdvisor.Models.Management
         public Region getRegion() 
         {
             Region lRegion;
-            lRegion = this.Crop.getRegion();
+            lRegion = this.IrrigationUnit.Location.Region;
             return lRegion;
         }
 

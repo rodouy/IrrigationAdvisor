@@ -123,16 +123,7 @@ namespace IrrigationAdvisor.Models.Crop
 
         #region Public Methods
 
-        /// <summary>
-        /// Return the Region of the Specie of the Crop
-        /// </summary>
-        /// <returns></returns>
-        public Region getRegion()
-        {
-            Region lRegion;
-            lRegion = this.Specie.Region;
-            return lRegion;
-        }
+
 
         /// <summary>
         /// Return the Base Temperature for the Specie of the Crop
@@ -166,7 +157,6 @@ namespace IrrigationAdvisor.Models.Crop
             }
             Crop lCrop = obj as Crop;
             lReturn = this.Name.Equals(lCrop.Name) 
-                && this.getRegion().Equals(lCrop.getRegion()) 
                 && this.Specie.Equals(lCrop.Specie);
             return lReturn;
         }
