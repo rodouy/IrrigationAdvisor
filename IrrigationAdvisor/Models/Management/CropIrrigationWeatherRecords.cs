@@ -345,9 +345,9 @@ namespace IrrigationAdvisor.Models.Management
             int lReturn = 0;
             double lastGDRegistry = 0;
             DateTime lDate = DateTime.MinValue;
-            //TODO Order DailyRecords list by Date
-            //this.DailyRecords.OrderBy();
-            foreach (DailyRecord lDailyRec in this.DailyRecords)
+            IEnumerable<DailyRecord> lDailyRecordOrderByDate = this.DailyRecords.OrderBy(lDailyRec => lDailyRec.DateHour);
+                
+            foreach (DailyRecord lDailyRec in lDailyRecordOrderByDate)
             {
                 if (this.ModifiedGrowingDegreeDays <= lDailyRec.GrowingDegreeAcumulated && this.ModifiedGrowingDegreeDays > lastGDRegistry)
                 {
@@ -363,7 +363,10 @@ namespace IrrigationAdvisor.Models.Management
        
        
         /// <summary>
-        /// TODO explain getEffectiveRainValue
+        /// Return the effective rain for a Rain dependin on:
+        /// -the amount of rain 
+        /// -the month of the year
+        /// This information is stored as a percentage in a field called EffectiveRain that is a List<EffectiveRain>
         /// </summary>
         /// <param name="pRain"></param>
         /// <returns></returns>
@@ -372,12 +375,11 @@ namespace IrrigationAdvisor.Models.Management
             double pReturn = 0;
             if (pRain != null)
             {
-                IEnumerable<EffectiveRain> query = this.EffectiveRain.OrderBy(lEffectiveRain => lEffectiveRain.Month);
-                foreach (EffectiveRain lEffectiveRain in query)
+                IEnumerable<EffectiveRain> lEffectiveRainListOrderByMonth = this.EffectiveRain.OrderBy(lEffectiveRain => lEffectiveRain.Month);
+                foreach (EffectiveRain lEffectiveRain in lEffectiveRainListOrderByMonth)
                 {
                     if (pRain.Date.Month == lEffectiveRain.Month && lEffectiveRain.MinRain <= pRain.getTotalInput() && lEffectiveRain.MaxRain >= pRain.getTotalInput())
                     {
-                        //Use the "Input" atribute for the effective Rain and the "ExtraInput" atribute for the rain that is not used by the crop
                         double totalInput = pRain.getTotalInput();
                         pReturn = pRain.getTotalInput() * lEffectiveRain.Percentage / 100;
                         return pReturn;
@@ -627,7 +629,9 @@ namespace IrrigationAdvisor.Models.Management
         //}
 
         /// <summary>
-        /// TODO explain adjustmentPhenology
+        /// Search the DailyRecord for the date passed by parameter.
+        /// If find one change the ModifiedGrowingDegree for this DailyRecord and change the ModifiedGrowingDegreeDays field 
+        /// adding the value passed by parameter as lModification
         /// </summary>
         /// <param name="pStage"></param>
         /// <param name="pDateTime"></param>
