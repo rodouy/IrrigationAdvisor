@@ -105,7 +105,161 @@ namespace IrrigationAdvisor.Models.Data
         /// <returns></returns>
         public static CropCoefficient CreateMaizCropCoefficientWithList(Specie pSpecie, Region pRegion)
         {
-            //KC Para maiz sacado de la carpeta Calculos
+            //KC Para maiz sacado de la carpeta Datos Prueba
+
+
+            CropCoefficient lCropCoefficient = new CropCoefficient(pSpecie, pRegion);
+            lCropCoefficient.addKCforDayAfterSowing(0, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(1, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(2, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(3, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(4, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(5, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(6, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(7, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(8, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(9, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(10, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(11, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(12, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(13, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(14, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(15, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(16, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(17, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(18, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(19, 0.35);
+            lCropCoefficient.addKCforDayAfterSowing(20, 0.36);
+            lCropCoefficient.addKCforDayAfterSowing(21, 0.36);
+            lCropCoefficient.addKCforDayAfterSowing(22, 0.36);
+            lCropCoefficient.addKCforDayAfterSowing(23, 0.37);
+            lCropCoefficient.addKCforDayAfterSowing(24, 0.37);
+            lCropCoefficient.addKCforDayAfterSowing(25, 0.38);
+            lCropCoefficient.addKCforDayAfterSowing(26, 0.38);
+            lCropCoefficient.addKCforDayAfterSowing(27, 0.39);
+            lCropCoefficient.addKCforDayAfterSowing(28, 0.39);
+            lCropCoefficient.addKCforDayAfterSowing(29, 0.40);
+            lCropCoefficient.addKCforDayAfterSowing(30, 0.40);
+            lCropCoefficient.addKCforDayAfterSowing(31, 0.41);
+            lCropCoefficient.addKCforDayAfterSowing(32, 0.41);
+            lCropCoefficient.addKCforDayAfterSowing(33, 0.42);
+            lCropCoefficient.addKCforDayAfterSowing(34, 0.42);
+            lCropCoefficient.addKCforDayAfterSowing(35, 0.43);
+            lCropCoefficient.addKCforDayAfterSowing(36, 0.43);
+            lCropCoefficient.addKCforDayAfterSowing(37, 0.44);
+            lCropCoefficient.addKCforDayAfterSowing(38, 0.44);
+            lCropCoefficient.addKCforDayAfterSowing(39, 0.45);
+            lCropCoefficient.addKCforDayAfterSowing(40, 0.45);
+            lCropCoefficient.addKCforDayAfterSowing(41, 0.46);
+            lCropCoefficient.addKCforDayAfterSowing(42, 0.47);
+            lCropCoefficient.addKCforDayAfterSowing(43, 0.48);
+            lCropCoefficient.addKCforDayAfterSowing(44, 0.49);
+            lCropCoefficient.addKCforDayAfterSowing(45, 0.5);///////
+            lCropCoefficient.addKCforDayAfterSowing(46, 0.52);
+            lCropCoefficient.addKCforDayAfterSowing(47, 0.54);
+            lCropCoefficient.addKCforDayAfterSowing(48, 0.56);
+            lCropCoefficient.addKCforDayAfterSowing(49, 0.58);
+            lCropCoefficient.addKCforDayAfterSowing(50, 0.59);
+            lCropCoefficient.addKCforDayAfterSowing(51, 0.6);////////////
+            lCropCoefficient.addKCforDayAfterSowing(52, 0.62);
+            lCropCoefficient.addKCforDayAfterSowing(53, 0.64);
+            lCropCoefficient.addKCforDayAfterSowing(54, 0.66);
+            lCropCoefficient.addKCforDayAfterSowing(55, 0.68);
+            lCropCoefficient.addKCforDayAfterSowing(56, 0.7);/////
+            lCropCoefficient.addKCforDayAfterSowing(57, 0.72);
+            lCropCoefficient.addKCforDayAfterSowing(58, 0.74);
+            lCropCoefficient.addKCforDayAfterSowing(59, 0.76);
+            lCropCoefficient.addKCforDayAfterSowing(60, 0.78);
+            lCropCoefficient.addKCforDayAfterSowing(61, 0.8);//////
+            lCropCoefficient.addKCforDayAfterSowing(62, 0.82);
+            lCropCoefficient.addKCforDayAfterSowing(63, 0.84);
+            lCropCoefficient.addKCforDayAfterSowing(64, 0.86);
+            lCropCoefficient.addKCforDayAfterSowing(65, 0.88);
+            lCropCoefficient.addKCforDayAfterSowing(66, 0.9);
+            lCropCoefficient.addKCforDayAfterSowing(67, 0.92);
+            lCropCoefficient.addKCforDayAfterSowing(68, 0.95);
+            lCropCoefficient.addKCforDayAfterSowing(69, 0.97);
+            lCropCoefficient.addKCforDayAfterSowing(70, 1.00);
+            lCropCoefficient.addKCforDayAfterSowing(71, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(72, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(73, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(74, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(75, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(76, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(77, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(78, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(79, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(80, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(81, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(82, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(83, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(84, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(85, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(86, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(87, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(88, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(89, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(90, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(91, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(92, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(93, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(94, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(95, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(96, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(97, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(98, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(99, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(100, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(101, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(102, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(103, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(104, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(105, 1.10);
+            lCropCoefficient.addKCforDayAfterSowing(106, 1.08);
+            lCropCoefficient.addKCforDayAfterSowing(107, 1.07);
+            lCropCoefficient.addKCforDayAfterSowing(108, 1.05);
+            lCropCoefficient.addKCforDayAfterSowing(109, 1.03);
+            lCropCoefficient.addKCforDayAfterSowing(110, 1.01);
+            lCropCoefficient.addKCforDayAfterSowing(111, 1.00);
+            lCropCoefficient.addKCforDayAfterSowing(112, 0.98);
+            lCropCoefficient.addKCforDayAfterSowing(113, 0.96);
+            lCropCoefficient.addKCforDayAfterSowing(114, 0.94);
+            lCropCoefficient.addKCforDayAfterSowing(115, 0.93);
+            lCropCoefficient.addKCforDayAfterSowing(116, 0.91);
+            lCropCoefficient.addKCforDayAfterSowing(117, 0.89);
+            lCropCoefficient.addKCforDayAfterSowing(118, 0.87);
+            lCropCoefficient.addKCforDayAfterSowing(119, 0.86);
+            lCropCoefficient.addKCforDayAfterSowing(120, 0.84);
+            lCropCoefficient.addKCforDayAfterSowing(121, 0.82);
+            lCropCoefficient.addKCforDayAfterSowing(122, 0.80);
+            lCropCoefficient.addKCforDayAfterSowing(123, 0.79);
+            lCropCoefficient.addKCforDayAfterSowing(124, 0.77);
+            lCropCoefficient.addKCforDayAfterSowing(125, 0.75);
+            lCropCoefficient.addKCforDayAfterSowing(126, 0.73);
+            lCropCoefficient.addKCforDayAfterSowing(127, 0.72);
+            lCropCoefficient.addKCforDayAfterSowing(128, 0.70);
+            lCropCoefficient.addKCforDayAfterSowing(129, 0.68);
+            lCropCoefficient.addKCforDayAfterSowing(130, 0.66);
+            lCropCoefficient.addKCforDayAfterSowing(131, 0.65);
+            lCropCoefficient.addKCforDayAfterSowing(132, 0.63);
+            lCropCoefficient.addKCforDayAfterSowing(133, 0.61);
+            lCropCoefficient.addKCforDayAfterSowing(134, 0.59);
+            lCropCoefficient.addKCforDayAfterSowing(135, 0.58);
+            lCropCoefficient.addKCforDayAfterSowing(136, 0.56);
+            lCropCoefficient.addKCforDayAfterSowing(137, 0.54);
+            lCropCoefficient.addKCforDayAfterSowing(138, 0.52);
+            lCropCoefficient.addKCforDayAfterSowing(139, 0.51);
+            lCropCoefficient.addKCforDayAfterSowing(140, 0.49);
+            lCropCoefficient.addKCforDayAfterSowing(141, 0.47);
+            lCropCoefficient.addKCforDayAfterSowing(142, 0.45);
+            lCropCoefficient.addKCforDayAfterSowing(143, 0.44);
+            lCropCoefficient.addKCforDayAfterSowing(144, 0.42);
+            lCropCoefficient.addKCforDayAfterSowing(145, 0.40);
+
+
+
+            //Version anterior a la correccion del dia 11/01/2015 segun mail de Sebastian
+            /*
             CropCoefficient lCropCoefficient = new CropCoefficient(pSpecie, pRegion);
             lCropCoefficient.addKCforDayAfterSowing(0, 0.35);
             lCropCoefficient.addKCforDayAfterSowing(1, 0.35);
@@ -253,7 +407,7 @@ namespace IrrigationAdvisor.Models.Data
             lCropCoefficient.addKCforDayAfterSowing(143, 0.44);
             lCropCoefficient.addKCforDayAfterSowing(144, 0.42);
             lCropCoefficient.addKCforDayAfterSowing(145, 0.40);
-
+            */
 
             return lCropCoefficient;
 
