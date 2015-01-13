@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace IrrigationAdvisor.Models.Location
+namespace IrrigationAdvisor.Models.Localization
 {
     /// <summary>
     /// Create: 2014-10-22

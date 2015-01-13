@@ -1,4 +1,4 @@
-﻿using IrrigationAdvisor.Models.Crop;
+﻿using IrrigationAdvisor.Models.Agriculture;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -555,7 +555,7 @@ namespace IrrigationAdvisor.Models.Management
         ///// <param name="pRain"></param>
         ///// <param name="pIrrigation"></param>
         ///// <param name="pObservations"></param>
-        //public void addDailyRecord(WeatherStation.WeatherData pWeatherData, WeatherStation.WeatherData pMainWeatherData, WeatherStation.WeatherData pAlternativeWeatherData, Water.WaterInput pRain, Water.WaterInput pIrrigation, string pObservations)
+        //public void addDailyRecord(WeatherData pWeatherData, WeatherData pMainWeatherData, WeatherData pAlternativeWeatherData, Water.WaterInput pRain, Water.WaterInput pIrrigation, string pObservations)
         //{
         //    try
         //    {

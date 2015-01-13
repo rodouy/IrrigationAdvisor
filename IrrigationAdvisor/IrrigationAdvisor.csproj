@@ -167,13 +167,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Crop\Crop.cs" />
-    <Compile Include="Models\Crop\CropCoefficient.cs" />
-    <Compile Include="Models\Crop\Horizon.cs" />
-    <Compile Include="Models\Crop\PhenologicalStage.cs" />
-    <Compile Include="Models\Crop\Soil.cs" />
-    <Compile Include="Models\Crop\Specie.cs" />
-    <Compile Include="Models\Crop\Stage.cs" />
+    <Compile Include="Models\Agriculture\Crop.cs" />
+    <Compile Include="Models\Agriculture\CropCoefficient.cs" />
+    <Compile Include="Models\Agriculture\Horizon.cs" />
+    <Compile Include="Models\Agriculture\PhenologicalStage.cs" />
+    <Compile Include="Models\Agriculture\Soil.cs" />
+    <Compile Include="Models\Agriculture\Specie.cs" />
+    <Compile Include="Models\Agriculture\Stage.cs" />
     <Compile Include="Models\Data\ExternalData.cs" />
     <Compile Include="Models\Data\InitialTables.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -184,11 +184,11 @@
     <Compile Include="Models\Irrigation\Pivot.cs" />
     <Compile Include="Models\Irrigation\Sprinkler.cs" />
     <Compile Include="Models\Language\Language.cs" />
-    <Compile Include="Models\Location\City.cs" />
-    <Compile Include="Models\Location\Country.cs" />
-    <Compile Include="Models\Location\Location.cs" />
-    <Compile Include="Models\Location\Position.cs" />
-    <Compile Include="Models\Location\Region.cs" />
+    <Compile Include="Models\Localization\City.cs" />
+    <Compile Include="Models\Localization\Country.cs" />
+    <Compile Include="Models\Localization\Location.cs" />
+    <Compile Include="Models\Localization\Position.cs" />
+    <Compile Include="Models\Localization\Region.cs" />
     <Compile Include="Models\Management\CalculusAvailableWater.cs" />
     <Compile Include="Models\Management\CalculusEvapotranspiration.cs" />
     <Compile Include="Models\Management\CropIrrigationWeather.cs" />
@@ -213,9 +213,9 @@
     <Compile Include="Models\Utilities\Utils.cs" />
     <Compile Include="Models\Water\WaterInput.cs" />
     <Compile Include="Models\Water\WaterOutput.cs" />
-    <Compile Include="Models\WeatherStation\WeatherData.cs" />
-    <Compile Include="Models\WeatherStation\WeatherInformation.cs" />
-    <Compile Include="Models\WeatherStation\WeatherStation.cs" />
+    <Compile Include="Models\Weather\WeatherData.cs" />
+    <Compile Include="Models\Weather\WeatherInformation.cs" />
+    <Compile Include="Models\Weather\WeatherStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Templates\ClassTemplate.cs" />

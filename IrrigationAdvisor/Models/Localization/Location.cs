@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 
-namespace IrrigationAdvisor.Models.Location
+namespace IrrigationAdvisor.Models.Localization
 {
    
         /// <summary>

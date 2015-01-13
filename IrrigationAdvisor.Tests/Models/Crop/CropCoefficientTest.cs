@@ -2,9 +2,9 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IrrigationAdvisor.Models.Crop;
+using IrrigationAdvisor.Models.Agriculture;
 
-namespace IrrigationAdvisor.Tests.Models.Crop
+namespace IrrigationAdvisor.Tests.Models.Agriculture
 {
     /// <summary>
     /// Descripción resumida de CropCoefficientTest

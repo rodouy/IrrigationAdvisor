@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 using IrrigationAdvisor.Models.IrrigationSystem;
-using IrrigationAdvisor.Models.WeatherStation;
+using IrrigationAdvisor.Models.Weather;
 
 namespace IrrigationAdvisor.Models.Data
 {
@@ -49,13 +49,13 @@ namespace IrrigationAdvisor.Models.Data
 
 
         public static void AgregarDatosDelTiempo(IrrigationSystem.IrrigationSystem pIrrigationSystem,
-                                WeatherStation.WeatherStation pWeatherStation, DateTime pStartDate)
+                                WeatherStation pWeatherStation, DateTime pStartDate)
         {
-            WeatherStation.WeatherStation lWeatherStation;
+            WeatherStation lWeatherStation;
             DateTime lFirstDay;
             DateTime lLastDay;
             DateTime lNextDay;
-            WeatherStation.WeatherData lWeatherData;
+            WeatherData lWeatherData;
             double lTemperature;
             double lSolarRadiation;
             double lTemperatureMax;

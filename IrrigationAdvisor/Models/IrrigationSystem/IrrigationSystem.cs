@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Management;
-using IrrigationAdvisor.Models.Crop;
-using IrrigationAdvisor.Models.Location;
+using IrrigationAdvisor.Models.Agriculture;
+using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Utilities;
 using IrrigationAdvisor.Models.Water;
+using IrrigationAdvisor.Models.Weather;
 namespace IrrigationAdvisor.Models.IrrigationSystem
 {
     /// <summary>
@@ -82,7 +83,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         #region Crop
         private List<Pair<Region, List<PhenologicalStage>>> phenologicalStageList;
-        //private List<Crop.Crop> corpList;
+        private List<Crop> corpList;
+        private List<Specie> specieList;
         #endregion
 
         #region Irrigation
@@ -113,7 +115,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #endregion
 
         #region WeatherStation
-        private List<WeatherStation.WeatherData> weatherDataList;
+        private List<WeatherData> weatherDataList;
         #endregion
 
         #endregion
@@ -186,7 +188,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         #endregion
 
         #region WeatherStation
-        public List<WeatherStation.WeatherData> WeatherDataList
+        public List<WeatherData> WeatherDataList
         {
             get { return weatherDataList; }
             set { weatherDataList = value; }
@@ -232,7 +234,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
             
             #region WeatherStation
-            this.WeatherDataList = new List<WeatherStation.WeatherData>();
+            this.WeatherDataList = new List<WeatherData>();
             #endregion
 
         }
@@ -268,8 +270,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         /// <param name="lIrrigation"></param>
         /// <param name="pObservations"></param>
         private void addDailyRecordToCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather, 
-            WeatherStation.WeatherData lWeatherData, WeatherStation.WeatherData lMainWeatherData, 
-            WeatherStation.WeatherData lAlternativeWeatherData, Water.WaterInput lRain, 
+            WeatherData lWeatherData, WeatherData lMainWeatherData, 
+            WeatherData lAlternativeWeatherData, Water.WaterInput lRain, 
             Water.WaterInput lIrrigation, string pObservations)
         {
             foreach (CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
@@ -329,10 +331,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pDateTime"></param>
         /// <returns></returns>
-        private WeatherStation.WeatherData getAvailableWeatherStationData(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        private WeatherData getAvailableWeatherStationData(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
-            WeatherStation.WeatherData lReturn = null;
-            WeatherStation.WeatherData lWeatherData = getWeatherDataFromList(pCropIrrigationWeather.MainWeatherStation, pDateTime);
+            WeatherData lReturn = null;
+            WeatherData lWeatherData = getWeatherDataFromList(pCropIrrigationWeather.MainWeatherStation, pDateTime);
             if (lWeatherData != null)
             {
                 lReturn = lWeatherData;
@@ -491,9 +493,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         public bool addDailyRecordToList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime, String pObservations)
         {
             bool lReturn = false;
-            WeatherStation.WeatherData lWeatherData = null;
-            WeatherStation.WeatherData lMainWeatherData = null;
-            WeatherStation.WeatherData lAlternativeWeatherData = null;
+            WeatherData lWeatherData = null;
+            WeatherData lMainWeatherData = null;
+            WeatherData lAlternativeWeatherData = null;
             Water.WaterInput lRain = null;
             Water.WaterInput lIrrigation = null;
 
@@ -690,7 +692,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         public String printWeatherDataList()
         {
             String lReturn = Environment.NewLine + "WEATHER DATA" + Environment.NewLine;
-            foreach (WeatherStation.WeatherData lWeatherData in this.WeatherDataList)
+            foreach (WeatherData lWeatherData in this.WeatherDataList)
             {
                 lReturn += lWeatherData.ToString() + Environment.NewLine;
             }
@@ -710,12 +712,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         /// <param name="pWeatherStation"></param>
         /// <param name="pDateTime"></param>
         /// <returns></returns>
-        public WeatherStation.WeatherData getWeatherDataFromList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime)
+        public WeatherData getWeatherDataFromList(WeatherStation pWeatherStation, DateTime pDateTime)
         {
-            WeatherStation.WeatherData lReturn = null;
-            IEnumerable<WeatherStation.WeatherData> lWeatherDataListOrderByDescendingDate;
+            WeatherData lReturn = null;
+            IEnumerable<WeatherData> lWeatherDataListOrderByDescendingDate;
             lWeatherDataListOrderByDescendingDate = this.WeatherDataList.OrderByDescending(lWeatherData => lWeatherData.Date);
-            foreach (WeatherStation.WeatherData lWeatherData in lWeatherDataListOrderByDescendingDate)
+            foreach (WeatherData lWeatherData in lWeatherDataListOrderByDescendingDate)
             {
                 if (lWeatherData.WeatherStation.Equals(pWeatherStation) && lWeatherData.Date.Equals(pDateTime.Date))
                 {
@@ -737,14 +739,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         /// <param name="pTemMin"></param>
         /// <param name="pEvapotranspiration"></param>
         /// <returns></returns>
-        public bool addWeatherDataToList(WeatherStation.WeatherStation pWeatherStation, DateTime pDateTime,
+        public bool addWeatherDataToList(WeatherStation pWeatherStation, DateTime pDateTime,
             double pTemperature, double pSolarRadiation, double pTemMax,
             double pTemMin, double pEvapotranspiration)
         {
             bool lReturn = false;
             try
             {
-                WeatherStation.WeatherData lData = new WeatherStation.WeatherData(pWeatherStation, pDateTime,
+                WeatherData lData = new WeatherData(pWeatherStation, pDateTime,
                     pTemperature, pTemMax, pTemMin, pSolarRadiation, pEvapotranspiration);
                 this.WeatherDataList.Add(lData);
                 lReturn = true;

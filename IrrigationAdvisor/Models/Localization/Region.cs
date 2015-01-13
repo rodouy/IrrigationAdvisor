@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Water;
-using IrrigationAdvisor.Models.Crop;
+using IrrigationAdvisor.Models.Agriculture;
 
 
-namespace IrrigationAdvisor.Models.Location
+namespace IrrigationAdvisor.Models.Localization
 {
     /// <summary>
     /// Create: 2014-10-22

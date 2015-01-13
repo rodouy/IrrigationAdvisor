@@ -1,9 +1,10 @@
-﻿using System;
+﻿using IrrigationAdvisor.Models.Localization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace IrrigationAdvisor.Models.WeatherStation
+namespace IrrigationAdvisor.Models.Weather
 {
     /// <summary>
     /// Create: 2014-10-14
@@ -64,7 +65,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
         private DateTime dateOfService;
         private DateTime updateTime;
         private int wirelessTransmission;
-        private Location.Location location;
+        private Location location;
         private bool giveET;
         
         #endregion
@@ -124,7 +125,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             set { wirelessTransmission = value; }
         }
 
-        public Location.Location Location
+        public Location Location
         {
             get { return location; }
             set { location = value; }
@@ -154,7 +155,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             this.DateOfService = DateTime.Now;
             this.UpdateTime = DateTime.MinValue;
             this.WirelessTransmission = 0;
-            this.Location = new Location.Location();
+            this.Location = new Location();
             this.GiveET = false;
         }
 
@@ -162,7 +163,7 @@ namespace IrrigationAdvisor.Models.WeatherStation
             int pId, String pName, String pModel,
             DateTime pDateOfInstallation, DateTime pDateOfService,
             DateTime pUpdateTime, int pWirelessTransmission,
-            Location.Location pLocation, bool pGiveET
+            Location pLocation, bool pGiveET
             )
         {
             this.Id = pId;

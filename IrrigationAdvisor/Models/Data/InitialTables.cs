@@ -1,6 +1,6 @@
-﻿using IrrigationAdvisor.Models.Crop;
+﻿using IrrigationAdvisor.Models.Agriculture;
 using IrrigationAdvisor.Models.IrrigationSystem;
-using IrrigationAdvisor.Models.Location;
+using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Water;
 using System;
 using System.Collections.Generic;

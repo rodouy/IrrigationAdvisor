@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace IrrigationAdvisor.Models.Crop
+namespace IrrigationAdvisor.Models.Agriculture
 {
     /// <summary>
     /// Create: 2014-10-25

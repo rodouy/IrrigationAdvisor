@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Utilities;
-using IrrigationAdvisor.Models.Crop;
+using IrrigationAdvisor.Models.Agriculture;
+using IrrigationAdvisor.Models.Localization;
 
 namespace IrrigationAdvisor.Models.Irrigation
 {
@@ -45,9 +46,9 @@ namespace IrrigationAdvisor.Models.Irrigation
         private double irrigationEfficiency;
         private List<Pair<DateTime, double>> irrigations;
         private double surface;
-        private List<Crop.Crop> irrigationCrops;
+        private List<Crop> irrigationCrops;
         private Bomb bomb;
-        private Location.Location location;
+        private Location location;
         #endregion
 
         #region Properties
@@ -87,7 +88,7 @@ namespace IrrigationAdvisor.Models.Irrigation
             set { surface = value; }
         }
         
-        public List<Crop.Crop> IrrigationCrops
+        public List<Crop> IrrigationCrops
         {
             get { return irrigationCrops; }
             set { irrigationCrops = value; }
@@ -99,7 +100,7 @@ namespace IrrigationAdvisor.Models.Irrigation
             set { bomb = value; }
         }
         
-        public Location.Location Location
+        public Location Location
         {
             get { return location; }
             set { location = value; }
@@ -116,13 +117,13 @@ namespace IrrigationAdvisor.Models.Irrigation
             this.IrrigationEfficiency = 0;
             this.Irrigations = new List<Pair<DateTime, double>>();
             this.Surface = 0;
-            this.IrrigationCrops = new List<Crop.Crop>();
+            this.IrrigationCrops = new List<Crop>();
             this.Bomb = new Bomb();
-            this.Location = new Location.Location();
+            this.Location = new Location();
         }
         public IrrigationUnit(int pId, String pName, String pIrrigationType,
             double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigations,
-            double pSurface, List<Crop.Crop> pIrrigationCrops, Bomb pBomb, Location.Location pLocation)
+            double pSurface, List<Crop> pIrrigationCrops, Bomb pBomb, Location pLocation)
         {
             this.Id = pId;
             this.Name = pName;
@@ -157,7 +158,7 @@ namespace IrrigationAdvisor.Models.Irrigation
             return lReturn;
 
         }
-        public bool  addCrop(Crop.Crop pCrop)
+        public bool  addCrop(Crop pCrop)
         {
             bool lReturn = true;
             try

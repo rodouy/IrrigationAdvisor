@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using IrrigationAdvisor.Models.Location;
+using IrrigationAdvisor.Models.Localization;
+using IrrigationAdvisor.Models.Weather;
+using IrrigationAdvisor.Models.Water;
 
 namespace IrrigationAdvisor.Models.Management
 {
@@ -57,16 +59,16 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Fields
 
-        private WeatherStation.WeatherData mainWeatherData;
-        private WeatherStation.WeatherData alternativeWeatherData;
+        private WeatherData mainWeatherData;
+        private WeatherData alternativeWeatherData;
         private DateTime dateHour;
         private double growingDegree;
         private double growingDegreeAcumulated;
         private double modifiedGrowingDegree;
         private double kc;
-        private Water.WaterOutput evapotranspirationCrop;
-        private Water.WaterInput rain;
-        private Water.WaterInput irrigation;
+        private WaterOutput evapotranspirationCrop;
+        private WaterInput rain;
+        private WaterInput irrigation;
         private String observations;
 
         
@@ -74,13 +76,13 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Properties
         
-        public WeatherStation.WeatherData MainWeatherData
+        public WeatherData MainWeatherData
         {
             get { return mainWeatherData; }
             set { mainWeatherData = value; }
         }
 
-        public WeatherStation.WeatherData AlternativeWeatherData
+        public WeatherData AlternativeWeatherData
         {
             get { return alternativeWeatherData; }
             set { alternativeWeatherData = value; }
@@ -143,8 +145,8 @@ namespace IrrigationAdvisor.Models.Management
 
         public DailyRecord() 
         {
-            this.MainWeatherData = new WeatherStation.WeatherData();
-            this.AlternativeWeatherData = new WeatherStation.WeatherData();
+            this.MainWeatherData = new WeatherData();
+            this.AlternativeWeatherData = new WeatherData();
             this.DateHour = new DateTime();
             this.GrowingDegree = 0;
             this.GrowingDegreeAcumulated = 0;
@@ -157,7 +159,7 @@ namespace IrrigationAdvisor.Models.Management
 
         }
 
-        public DailyRecord(WeatherStation.WeatherData pMainWeatherData, WeatherStation.WeatherData pAlternativeWeatherData,
+        public DailyRecord(WeatherData pMainWeatherData, WeatherData pAlternativeWeatherData,
             DateTime pDateHour, double pGrowingDegree, double pGrowingDegreeAcumulated, double pModifiedGrowingDegree, double pKc, Water.WaterOutput pEvapotranspirationCrop,
             Water.WaterInput pRain, Water.WaterInput pIrrigation, String pObservations) 
         {

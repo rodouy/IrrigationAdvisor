@@ -1,10 +1,10 @@
-﻿using IrrigationAdvisor.Models.Location;
+﻿using IrrigationAdvisor.Models.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace IrrigationAdvisor.Models.Crop
+namespace IrrigationAdvisor.Models.Agriculture
 {
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace IrrigationAdvisor.Models.Crop
         private long idSoil;
         private String name;
         private String description;
-        private Location.Location location;
+        private Location location;
         private List<Horizon> horizons;
         private DateTime testDate;
         private double depthLimit;
@@ -85,7 +85,7 @@ namespace IrrigationAdvisor.Models.Crop
             set { description = value; }
         }
        
-        public Location.Location Location
+        public Location Location
         {
             get { return location; }
             set { location = value; }
@@ -125,7 +125,7 @@ namespace IrrigationAdvisor.Models.Crop
             
         }
 
-        public Soil(long pId, String pName, String pDescription, Location.Location pLocation, DateTime pTestDate, double pDepthLimit)
+        public Soil(long pId, String pName, String pDescription, Location pLocation, DateTime pTestDate, double pDepthLimit)
         {
             this.IdSoil = pId;
             this.Name = pName;

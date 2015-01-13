@@ -5,7 +5,7 @@ using System.Web;
 
 using IrrigationAdvisor.Models.Data;
 
-namespace IrrigationAdvisor.Models.Crop
+namespace IrrigationAdvisor.Models.Agriculture
 {
     /// <summary>
     /// Create: 2014-10-28

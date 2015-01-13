@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using IrrigationAdvisor.Models.Location;
+using IrrigationAdvisor.Models.Localization;
 namespace IrrigationAdvisor.Models.Water
 {
     /// <summary>

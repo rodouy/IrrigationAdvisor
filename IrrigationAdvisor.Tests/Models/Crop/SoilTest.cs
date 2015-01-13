@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IrrigationAdvisor.Models.Crop;
+using IrrigationAdvisor.Models.Agriculture;
 using IrrigationAdvisor.Models.Utilities;
 
-namespace IrrigationAdvisor.Tests.Models.Crop
+namespace IrrigationAdvisor.Tests.Models.Agriculture
 {
     [TestClass]
     public class SoilTest

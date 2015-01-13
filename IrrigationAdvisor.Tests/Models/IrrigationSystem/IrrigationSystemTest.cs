@@ -3,14 +3,15 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IrrigationAdvisor.Models.IrrigationSystem;
-using IrrigationAdvisor.Models.Crop;
-using IrrigationAdvisor.Models.Location;
+using IrrigationAdvisor.Models.Agriculture;
+using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Management;
 using IrrigationAdvisor.Models.Irrigation;
 using IrrigationAdvisor.Models.Utilities;
 using IrrigationAdvisor.Models.Water;
 
 using IrrigationAdvisor.Models.Data;
+using IrrigationAdvisor.Models.Weather;
 
 namespace IrrigationAdvisor.Models.IrrigationSystem
 {
@@ -21,7 +22,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Position testPosition;
         private Country testCountry;
         private Region testRegion;
-        private Location.Location testLocation;
+        private Location testLocation;
         private Specie testSpecieSoja;
         private Specie testSpecieMaiz;
 
@@ -33,7 +34,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private CropCoefficient testCropCoefficientSoja;
         private CropCoefficient testCropCoefficientMaiz;
         private Bomb testBomb;
-        private WeatherStation.WeatherStation testWeatherStation;
+        private WeatherStation testWeatherStation;
         
         
         enum SantaLuciaPivots
@@ -46,9 +47,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Irrigation.IrrigationUnit testIU_Pivot_3_4;
         private Irrigation.IrrigationUnit testIU_Pivot_5;
         
-        private Crop.Crop testCropMaizPivot2;
-        private Crop.Crop testCropSojaPivot3_4;
-        private Crop.Crop testCropSojaPivot5;
+        private Crop testCropMaizPivot2;
+        private Crop testCropSojaPivot3_4;
+        private Crop testCropSojaPivot5;
 
         private CropIrrigationWeather testCropIrrigWeatherPivot2;
         private CropIrrigationWeather testCropIrrigWeatherPivot3_4;
@@ -298,17 +299,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             testIU_Pivot_2 = creteIrrigationUnit(1, "Pivot 2", "Pivot",
                             0.85, new List<Utilities.Pair<DateTime, double>>(), 300, 
-                            new List<Crop.Crop>(), testBomb, testLocation);
+                            new List<Crop>(), testBomb, testLocation);
 
             testIU_Pivot_3_4 = creteIrrigationUnit(2, "Pivot 3 y 4", "Pivot",
                             0.85, new List<Utilities.Pair<DateTime, double>>(), 300, 
-                            new List<Crop.Crop>(), testBomb, testLocation);
+                            new List<Crop>(), testBomb, testLocation);
 
             testIU_Pivot_5 = creteIrrigationUnit(3, "Pivot 5", "Pivot",
                             0.85, new List<Utilities.Pair<DateTime, double>>(), 300, 
-                            new List<Crop.Crop>(), testBomb, testLocation);
+                            new List<Crop>(), testBomb, testLocation);
 
-            testWeatherStation = new WeatherStation.WeatherStation(1, "WeatherStation1", "Model?", DateTime.Now, DateTime.Now, DateTime.Now, 1, testLocation, true);
+            testWeatherStation = new WeatherStation(1, "WeatherStation1", "Model?", DateTime.Now, DateTime.Now, DateTime.Now, 1, testLocation, true);
 
             testCropIrrigWeatherPivot2 = new CropIrrigationWeather(testIU_Pivot_2, testCropMaizPivot2, testWeatherStation, null, testPREDETERMINATED_IRRIGATION,
                 //new CropIrrigationWeatherRecords(), 
@@ -608,36 +609,36 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private IrrigationUnit creteIrrigationUnit(int pId, string pName, string pType, double pEfficiency, 
                                                     List<Utilities.Pair<DateTime, double>> list1, int pSurface, 
-                                                    List<Crop.Crop> list2, Bomb lBomb, Location.Location lLocation)
+                                                    List<Crop> list2, Bomb lBomb, Location lLocation)
         {
             Irrigation.IrrigationUnit lIrrigationUnit;
             List<Utilities.Pair<DateTime, Double>> lIrrigations;
-            List<Crop.Crop> lIrrigationCrops;
+            List<Crop> lIrrigationCrops;
 
             lIrrigations = new List<Utilities.Pair<DateTime, Double>>();
-            lIrrigationCrops =  new List<Crop.Crop>();
+            lIrrigationCrops =  new List<Crop>();
 
             lIrrigationUnit = new Irrigation.IrrigationUnit(pId, pName, pType, pEfficiency, lIrrigations, 
                                                             pSurface, lIrrigationCrops, lBomb, lLocation);
             return lIrrigationUnit;
         }
 
-        private Crop.Crop createCrop(int pId, String pName, Specie pSpecie, Location.Location lLocation, CropCoefficient lCropCoefficient, 
+        private Crop createCrop(int pId, String pName, Specie pSpecie, Location lLocation, CropCoefficient lCropCoefficient, 
                                     Double cropDensity, PhenologicalStage lPhenologicalState, DateTime lSowingDate, 
                                     DateTime dateTime, Soil lSoil, Double lSojaMaxEvaporTransptoIrrigate)
         {
             List<PhenologicalStage> lPhenologicalStageList;
-            Crop.Crop lCrop;
+            Crop lCrop;
  
             lPhenologicalStageList = testIrrigationSystem.getPhenologicalStage(testRegion, pSpecie, this.testIrrigationSystem.PhenologicalStageList);
-            lCrop = new Crop.Crop(pId, pName, pSpecie, cropDensity, lSojaMaxEvaporTransptoIrrigate);
+            lCrop = new Crop(pId, pName, pSpecie, cropDensity, lSojaMaxEvaporTransptoIrrigate);
             return lCrop;           
         }
 
         
         
 
-        private Soil createSoil(Location.Location lLocation)
+        private Soil createSoil(Location lLocation)
         {
             double sand = 17.3;
             double limo = 53.9;
@@ -657,14 +658,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lSoil;
         }
 
-        public Location.Location createLocation(Position lPosition,Country lCountry, Region lRegion, City lCity)
+        public Location createLocation(Position lPosition,Country lCountry, Region lRegion, City lCity)
         {
             lPosition = new Position(34, 55);
             lCountry = new Country();
             lCountry.Name = "Uruguay";
             lRegion = new Region("Templada", null);
             lCity = new City("Minas",null );
-            Location.Location lLocation = new Location.Location(lPosition,lCountry, lRegion, lCity);
+            Location lLocation = new Location(lPosition,lCountry, lRegion, lCity);
             return lLocation;
         }
 

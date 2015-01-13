@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using IrrigationAdvisor.Models.Crop;
+using IrrigationAdvisor.Models.Agriculture;
 using IrrigationAdvisor.Models.Utilities;
 using IrrigationAdvisor.Models.Data;
-using IrrigationAdvisor.Models.Location;
+using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Water;
+using IrrigationAdvisor.Models.Weather;
 
 
 namespace IrrigationAdvisor.Models.Management
@@ -80,13 +81,13 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
 
         private Irrigation.IrrigationUnit irrigationUnit;
-        private Crop.Crop crop;
-        private WeatherStation.WeatherStation mainWeatherStation;
-        private WeatherStation.WeatherStation alternativeWeatherStation;
+        private Crop crop;
+        private WeatherStation mainWeatherStation;
+        private WeatherStation alternativeWeatherStation;
         private double predeterminatedIrrigationQuantity;
         private CropIrrigationWeatherRecord cropIrrigationWeatherRecord;
         private PhenologicalStage phenologicalStage;
-        private Location.Location location;
+        private Location location;
         private DateTime sowingDate;
         private DateTime harvestDate;
         private Soil soil;
@@ -101,19 +102,19 @@ namespace IrrigationAdvisor.Models.Management
             set { irrigationUnit = value; }
         }
 
-        public Crop.Crop Crop
+        public Crop Crop
         {
             get { return crop; }
             set { crop = value; }
         }
         
-        public WeatherStation.WeatherStation MainWeatherStation
+        public WeatherStation MainWeatherStation
         {
             get { return mainWeatherStation; }
             set { mainWeatherStation = value; }
         }
         
-        public WeatherStation.WeatherStation AlternativeWeatherStation
+        public WeatherStation AlternativeWeatherStation
         {
             get { return alternativeWeatherStation; }
             set { alternativeWeatherStation = value; }
@@ -137,7 +138,7 @@ namespace IrrigationAdvisor.Models.Management
             set { phenologicalStage = value; }
         }
 
-        public Location.Location Location
+        public Location Location
         {
             get { return location; }
             set { location = value; }
@@ -168,24 +169,24 @@ namespace IrrigationAdvisor.Models.Management
         public CropIrrigationWeather() 
         {
             this.IrrigationUnit = new Irrigation.IrrigationUnit();
-            this.Crop = new Crop.Crop();
-            this.MainWeatherStation = new WeatherStation.WeatherStation();
-            this.AlternativeWeatherStation = new WeatherStation.WeatherStation();
+            this.Crop = new Crop();
+            this.MainWeatherStation = new WeatherStation();
+            this.AlternativeWeatherStation = new WeatherStation();
             this.PredeterminatedIrrigationQuantity = 20;
             //this.cropIrrigationWeatherRecord = new cropIrrigationWeatherRecord();//La agrega sistema
             this.PhenologicalStage = new PhenologicalStage();
-            this.Location = new Location.Location();
+            this.Location = new Location();
             this.SowingDate = new DateTime();
             this.HarvestDate = new DateTime();
             this.Soil = new Soil();
         }
 
         public CropIrrigationWeather(Irrigation.IrrigationUnit pIrrigationUnit,
-            Crop.Crop pCrop, WeatherStation.WeatherStation pMainWeatherStation,
-            WeatherStation.WeatherStation pAlternativeWeatherStation,
+            Crop pCrop, WeatherStation pMainWeatherStation,
+            WeatherStation pAlternativeWeatherStation,
             double pPredeterminatedIrrigationQuantity, 
             //cropIrrigationWeatherRecord pCropIrrigationWeatherRecordList,
-            PhenologicalStage pPhenologicalStage, Location.Location pLocation,
+            PhenologicalStage pPhenologicalStage, Location pLocation,
             DateTime pSowingDate, DateTime pHarvestDate, Soil pSoil)
         {
             this.IrrigationUnit = pIrrigationUnit;
@@ -678,9 +679,9 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pRain"></param>
         /// <param name="pIrrigation"></param>
         /// <param name="pObservations"></param>
-        public void addDailyRecord(WeatherStation.WeatherData pWeatherData, 
-            WeatherStation.WeatherData pMainWeatherData, 
-            WeatherStation.WeatherData pAlternativeWeatherData, 
+        public void addDailyRecord(WeatherData pWeatherData, 
+            WeatherData pMainWeatherData, 
+            WeatherData pAlternativeWeatherData, 
             Water.WaterInput pRain, Water.WaterInput pIrrigation, string pObservations)
         {
             try

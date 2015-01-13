@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IrrigationAdvisor.Models.Localization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -46,7 +47,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         private int serialNumber;
         private DateTime serviceDate;
         private DateTime purchaseDate;
-        private Location.Location location;
+        private Location location;
         #endregion
 
         #region Properties
@@ -75,7 +76,7 @@ namespace IrrigationAdvisor.Models.Irrigation
             set { purchaseDate = value; }
         }
 
-        public Location.Location Location
+        public Location Location
         {
             get { return location; }
             set { location = value; }
@@ -94,11 +95,11 @@ namespace IrrigationAdvisor.Models.Irrigation
             this.SerialNumber = 0;
             this.ServiceDate = DateTime.Now;
             this.PurchaseDate = DateTime.Now;
-            this.Location = new Location.Location();
+            this.Location = new Location();
 
         }
         public Bomb(String pName, int pSerialNumber, DateTime pServiceDate,
-            DateTime pPurchaseDate, Location.Location pLocation) 
+            DateTime pPurchaseDate, Location pLocation) 
         {
             this.Name = pName;
             this.SerialNumber = pSerialNumber;

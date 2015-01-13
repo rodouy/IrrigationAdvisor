@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using IrrigationAdvisor.Models.Localization;
 
-namespace IrrigationAdvisor.Models.Crop
+namespace IrrigationAdvisor.Models.Agriculture
 {
     /// <summary>
     /// Create: 2014-10-26
@@ -75,7 +76,7 @@ namespace IrrigationAdvisor.Models.Crop
         /// </summary>
         private bool usingTable;
         private Specie specie;
-        private Location.Region region;
+        private Region region;
         private int initialDays;
         private double initialKC;
         private int developmentDays;
@@ -103,7 +104,7 @@ namespace IrrigationAdvisor.Models.Crop
             set { specie = value; }
         }
         
-        public Location.Region Region
+        public Region Region
         {
             get { return region; }
             set { region = value; }
@@ -201,7 +202,7 @@ namespace IrrigationAdvisor.Models.Crop
         /// Constructor of ClassTemplate with parameters for a list mode
         /// </summary>
         /// <param name="pNewName"></param>
-        public CropCoefficient(Specie pSpecie, Location.Region pRegion)
+        public CropCoefficient(Specie pSpecie, Region pRegion)
         {
             this.UsingTable = false ;
             this.Specie = pSpecie;
@@ -214,7 +215,7 @@ namespace IrrigationAdvisor.Models.Crop
         /// Constructor of ClassTemplate with all parameters
         /// </summary>
         /// <param name="pNewName"></param>
-        public CropCoefficient(bool pUsingTable, Specie pSpecie, Location.Region pRegion, int pInitialDays,
+        public CropCoefficient(bool pUsingTable, Specie pSpecie, Region pRegion, int pInitialDays,
             double pInitialDaysKC,int pDevelopmentDays , double pDevelopmentKC,
                int pMidSeasonDays, double pMidSeasonKC, int pLateSeasonDays, double pLateSeasonKC )
         {

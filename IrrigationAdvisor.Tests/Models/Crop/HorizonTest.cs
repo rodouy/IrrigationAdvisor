@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IrrigationAdvisor.Models.Crop;
+using IrrigationAdvisor.Models.Agriculture;
 
-namespace IrrigationAdvisor.Tests.Models.Crop
+namespace IrrigationAdvisor.Tests.Models.Agriculture
 {
     [TestClass]
     public class HorizonTest

@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using IrrigationAdvisor.Models.WeatherStation;
+using IrrigationAdvisor.Models.Weather;
 
 using System.Runtime.Serialization.Formatters.Soap;
 using System.IO;
 
 
-namespace IrrigationAdvisor.Tests.Models.WeatherStation
+namespace IrrigationAdvisor.Tests.Models.Weather
 {
     [TestClass]
     public class WeatherInformationTest
