@@ -98,7 +98,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Use both ways to calculate: by available water and by acumulated evapotranspirationCrop
         /// </summary>
         /// <param name="pNewName">new name</param>
-        public double howMuchToIrrigate(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
+        public double howMuchToIrrigate(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
         {
             double lReturn;
             bool lIrrigationByEvapotranspiration;
@@ -106,18 +106,18 @@ namespace IrrigationAdvisor.Models.Management
             double lPercentageAvailableWater;
 
             lReturn = 0;
-            lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeatherRecords);
-            lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeatherRecords);
-            lPercentageAvailableWater = pCropIrrigationWeatherRecords.getPercentageOfAvailableWater();
+            lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeatherRecord);
+            lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeatherRecord);
+            lPercentageAvailableWater = pCropIrrigationWeatherRecord.getPercentageOfAvailableWater();
 
             //If we need to irrigate by Evapotranspiraton, then Available water has to be lower than 60% 
             if (lIrrigationByEvapotranspiration && lPercentageAvailableWater < InitialTables.PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
             {
-                lReturn = pCropIrrigationWeatherRecords.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
             }
             else if (lIrrigationByHydricBalance)
             {
-                lReturn = pCropIrrigationWeatherRecords.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
             }
 
             return lReturn;

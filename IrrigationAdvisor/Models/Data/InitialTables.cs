@@ -30,7 +30,7 @@ namespace IrrigationAdvisor.Models.Data
     ///     - IrrigationAdvisor
     ///     - IrrigationCalculous
     ///     - Horizon
-    ///     - CropIrrigationWeatherRecords
+    ///     - cropIrrigationWeatherRecord
     ///     - IrrigationSystem
     /// 
     /// TODO: OK

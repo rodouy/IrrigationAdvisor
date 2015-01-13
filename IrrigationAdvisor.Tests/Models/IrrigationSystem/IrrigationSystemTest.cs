@@ -138,9 +138,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             String textLogPivot5 ;
             
             //Find the records of Crop Irrigation Unit (Pivots)
-            CropIrrigationWeatherRecords recP2 = testIrrigationSystem.CropIrrigationWeatherRecordsList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigWeatherPivot2));
-            CropIrrigationWeatherRecords recP3_4 = testIrrigationSystem.CropIrrigationWeatherRecordsList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigWeatherPivot3_4));
-            CropIrrigationWeatherRecords recP5 = testIrrigationSystem.CropIrrigationWeatherRecordsList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigWeatherPivot5));
+            CropIrrigationWeatherRecord recP2 = testIrrigationSystem.CropIrrigationWeatherRecordList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigWeatherPivot2));
+            CropIrrigationWeatherRecord recP3_4 = testIrrigationSystem.CropIrrigationWeatherRecordList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigWeatherPivot3_4));
+            CropIrrigationWeatherRecord recP5 = testIrrigationSystem.CropIrrigationWeatherRecordList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigWeatherPivot5));
 
             //Add Phenological Stege Ajustements
             PhenologicalStageChange_Pivot2 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivots.Pivot2);
@@ -487,7 +487,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         }
 
 
-        private string printState(CropIrrigationWeatherRecords rec)
+        private string printState(CropIrrigationWeatherRecord rec)
         {
             string ret = "";
             string etcAc = rec.TotalEvapotranspirationCrop + "        ";

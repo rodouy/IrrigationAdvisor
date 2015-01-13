@@ -68,9 +68,9 @@ namespace IrrigationAdvisor.Models.Management
         /// If the Hydric Balance is lower than the Water Threhold we need to Irrigate
         /// The water Threhold is the half of the Available Water
         /// </summary>
-        /// <param name="pCropIrrigationWeatherRecords"></param>
+        /// <param name="pCropIrrigationWeatherRecord"></param>
         /// <returns></returns>
-        public bool IrrigateByHydricBalance(CropIrrigationWeatherRecords pCropIrrigationWeatherRecords)
+        public bool IrrigateByHydricBalance(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
         {
             bool lReturn = false;
             double lAvailableWater;
@@ -78,9 +78,9 @@ namespace IrrigationAdvisor.Models.Management
             double PermanentWiltingPoint;
             double lThreshold;
 
-            lAvailableWater = pCropIrrigationWeatherRecords.CropIrrigationWeather.getSoilAvailableWaterCapacity();
-            lHydricBalance = pCropIrrigationWeatherRecords.HydricBalance;
-            PermanentWiltingPoint = pCropIrrigationWeatherRecords.getSoilPermanentWiltingPoint();
+            lAvailableWater = pCropIrrigationWeatherRecord.CropIrrigationWeather.getSoilAvailableWaterCapacity();
+            lHydricBalance = pCropIrrigationWeatherRecord.HydricBalance;
+            PermanentWiltingPoint = pCropIrrigationWeatherRecord.getSoilPermanentWiltingPoint();
             lThreshold = Math.Round(lAvailableWater / 2, 2) + PermanentWiltingPoint;
             
             if (lHydricBalance <= lThreshold)

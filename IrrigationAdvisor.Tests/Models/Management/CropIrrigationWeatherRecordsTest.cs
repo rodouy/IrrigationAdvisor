@@ -11,7 +11,7 @@ namespace IrrigationAdvisor.Tests.Models.Management
         public void cropIrrigationWeatherRecordsTest()
         {
             CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather();
-            CropIrrigationWeatherRecords lCropIrrigationWeatherRecords = new CropIrrigationWeatherRecords();
+            CropIrrigationWeatherRecord lCropIrrigationWeatherRecords = new CropIrrigationWeatherRecord();
             
             DailyRecord lDailyRecord01 = new DailyRecord();
             lDailyRecord01.DateHour = new DateTime(2014, 11, 1);
