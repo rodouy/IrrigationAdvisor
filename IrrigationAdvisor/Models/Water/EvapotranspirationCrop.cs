@@ -1,4 +1,5 @@
 ﻿using IrrigationAdvisor.Models.Management;
+using IrrigationAdvisor.Models.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,24 +35,32 @@ namespace IrrigationAdvisor.Models.Water
     {
         #region Consts
 
-        private String TYPE = "EVAPOTRANSPIRATION";
-
         #endregion
 
         #region Fields
+
+        private Utils.WaterOutputType type;
+
         #endregion
 
         #region Properties
+
+        public Utils.WaterOutputType Type
+        {
+            get { return type; }
+        }
+
         #endregion
 
         #region Construction
         public EvapotranspirationCrop() 
         {
-
+            this.type = Utils.WaterOutputType.Evapotranspiration;
         }
 
         public EvapotranspirationCrop(CropIrrigationWeather pCropIrrigationWeather, DateTime pDate, double pInput)
         {
+            this.type = Utils.WaterOutputType.Evapotranspiration;
             this.CropIrrigationWeather = pCropIrrigationWeather;
             this.Date = pDate;
             this.Input = pInput;
@@ -64,10 +73,7 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Public Methods
 
-        public String getInputType()
-        {
-            return this.TYPE;
-        }
+        
         #endregion
 
             #region Overrides

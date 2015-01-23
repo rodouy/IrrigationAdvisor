@@ -25,6 +25,7 @@ namespace IrrigationAdvisor.Models.Utilities
         #endregion
         
         #region Enums
+
         public enum NotificationType
         {
             /// <summary>
@@ -43,8 +44,43 @@ namespace IrrigationAdvisor.Models.Utilities
             /// </summary>
             Ask
         }
-        
- 
+
+        public enum IrrigationUnitType
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            Pivot,
+            /// <summary>
+            /// 
+            /// </summary>
+            Sprinkler,
+            /// <summary>
+            /// 
+            /// </summary>
+            Drip
+        }
+
+        public enum WaterInputType
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            Rain,
+            /// <summary>
+            /// 
+            /// </summary>
+            Irrigation,
+        }
+
+        public enum WaterOutputType
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            Evapotranspiration
+        }
+
         #endregion
 
         #region Fields

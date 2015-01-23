@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using IrrigationAdvisor.Models.Utilities;
+
 namespace IrrigationAdvisor.Models.Water
 {
         /// <summary>
@@ -33,14 +35,23 @@ namespace IrrigationAdvisor.Models.Water
         {
             #region Consts
 
-            private String TYPE = "IRRIGATION";
-
+            
             #endregion
 
             #region Fields
+
+            private Utils.WaterInputType type;
+
             #endregion
 
             #region Properties
+
+            public Utils.WaterInputType Type
+            {
+                get { return type; }
+                set { type = value; }
+            }
+
             #endregion
 
             #region Construction
@@ -49,7 +60,7 @@ namespace IrrigationAdvisor.Models.Water
             /// </summary>
             public Irrigation()
             {
-
+                this.Type = Utils.WaterInputType.Irrigation;
             }
 
 
@@ -60,10 +71,7 @@ namespace IrrigationAdvisor.Models.Water
 
             #region Public Methods
 
-            public String getInputType()
-            {
-                return this.TYPE;
-            }
+            
             #endregion
 
             #region Overrides

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using IrrigationAdvisor.Models.IrrigationSystem;
+using IrrigationAdvisor.Models.Management;
 using IrrigationAdvisor.Models.Weather;
 
 namespace IrrigationAdvisor.Models.Data
@@ -48,7 +48,7 @@ namespace IrrigationAdvisor.Models.Data
         #region a
 
 
-        public static void AgregarDatosDelTiempo(IrrigationSystem.IrrigationSystem pIrrigationSystem,
+        public static void AgregarDatosDelTiempo(IrrigationSystem pIrrigationSystem,
                                 WeatherStation pWeatherStation, DateTime pStartDate)
         {
             WeatherStation lWeatherStation;

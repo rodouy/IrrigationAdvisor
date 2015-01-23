@@ -12,11 +12,11 @@ namespace IrrigationAdvisor.Models.Water
     ///     Return the real value of a rain depending on the date and the mm of the rain
     ///     
     /// References:
-    ///     Region
+    ///     none
 
     ///     
     /// Dependencies:
-    ///     Crop
+    ///     Region
     ///     IrrigationSystem
     /// 
     /// TODO: 
@@ -24,8 +24,7 @@ namespace IrrigationAdvisor.Models.Water
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - region  - PK (Primary Key)
-    ///     - month: int
+    ///     - month: int   - PK (Primary Key)
     ///     - minRain: double
     ///     - maxRain: double
     ///     - percentage: double
@@ -96,6 +95,14 @@ namespace IrrigationAdvisor.Models.Water
             this.MaxRain = 0;
             this.Percentage = 0;
         }
+        
+        /// <summary>
+        /// Constructor with parameters
+        /// </summary>
+        /// <param name="pMonth"></param>
+        /// <param name="pMinRain"></param>
+        /// <param name="pMaxRain"></param>
+        /// <param name="pPercentage"></param>
         public EffectiveRain(int pMonth, double pMinRain, double pMaxRain, double pPercentage)
         {
             this.Month = pMonth;
@@ -103,12 +110,25 @@ namespace IrrigationAdvisor.Models.Water
             this.MaxRain = pMaxRain;
             this.Percentage = pPercentage;
         }
+
         #endregion
 
         #region Private Helpers
         #endregion
 
         #region Public Methods
+
+
+        public EffectiveRain UpdateEffectiveRain(int pMonth, double pMinRain, 
+                                                double pMaxRain, double pPercentage)
+        {
+            this.Month = pMonth;
+            this.MinRain = pMinRain;
+            this.MaxRain = pMaxRain;
+            this.Percentage = pPercentage;
+            return this;
+        }
+
         #endregion
 
         #region Overrides

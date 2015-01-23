@@ -30,7 +30,7 @@ namespace IrrigationAdvisor.Models.Weather
         private bool isSolarRadiation = false;
         private bool isSolarRadiationDay = false;
         private bool isUVRadiation = false;
-        private bool isRain = false;
+        //private bool isRain = false;
         private bool isRainDay = false;
         private bool isRainStorm = false;
         private bool isRainMonth = false;
@@ -44,7 +44,7 @@ namespace IrrigationAdvisor.Models.Weather
         private String webAddress;
         private byte[] raw;
         private String webData;
-        private WebRequest webRequest;
+        //private WebRequest webRequest;
         private String requestData;
         private String responseData;
 

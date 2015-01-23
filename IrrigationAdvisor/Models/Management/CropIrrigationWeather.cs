@@ -652,7 +652,7 @@ namespace IrrigationAdvisor.Models.Management
             PhenologicalStage lNewPhenStage = null;
 
             //Order the phenological table
-            lPhenologicalStageList = this.Crop.Specie.PhenologicalStages;
+            lPhenologicalStageList = this.Crop.Specie.PhenologicalStageList;
             lPhenologicalTableOrderByMinDegree = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
 
             foreach (PhenologicalStage lPhenStage in lPhenologicalTableOrderByMinDegree)

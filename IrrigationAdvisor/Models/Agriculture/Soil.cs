@@ -29,11 +29,11 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     - idSoil
     ///     - name String
     ///     - location Location
-    ///     - horizons List<Horizon>
+    ///     - horizonList List<Horizon>
     /// 
     /// Methods:
     ///     - Soil()      -- constructor
-    ///     - Soil(location, horizons)  -- consturctor with parameters
+    ///     - Soil(location, horizonList)  -- consturctor with parameters
     /// 
     /// </summary>
     public class Soil
@@ -58,7 +58,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         private String name;
         private String description;
         private Location location;
-        private List<Horizon> horizons;
+        private List<Horizon> horizonList;
         private DateTime testDate;
         private double depthLimit;
 
@@ -67,12 +67,12 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Properties
 
-
         public long IdSoil
         {
             get { return idSoil; }
             set { idSoil = value; }
         }
+        
         public String Name
         {
             get { return name; }
@@ -90,10 +90,11 @@ namespace IrrigationAdvisor.Models.Agriculture
             get { return location; }
             set { location = value; }
         }
-        public List<Horizon> Horizons
+        
+        public List<Horizon> HorizonList
         {
-            get { return horizons; }
-            set { horizons = value; }
+            get { return horizonList; }
+            set { horizonList = value; }
         }
 
         public DateTime TestDate
@@ -108,35 +109,32 @@ namespace IrrigationAdvisor.Models.Agriculture
             set { depthLimit = value; }
         }
 
-        
         #endregion
 
         #region Construction
+        
         public Soil() 
         {
             this.IdSoil = 0;
             this.Name= "";
             this.Description = "";
             this.Location = null;
-            this.Horizons = new List<Horizon>();
+            this.HorizonList = new List<Horizon>();
             this.TestDate = DateTime.MinValue;
             this.DepthLimit = 0;
-            
-            
         }
 
-        public Soil(long pId, String pName, String pDescription, Location pLocation, DateTime pTestDate, double pDepthLimit)
+        public Soil(long pIdSoil, String pName, String pDescription, 
+            Location pLocation, DateTime pTestDate, double pDepthLimit)
         {
-            this.IdSoil = pId;
+            this.IdSoil = pIdSoil;
             this.Name = pName;
             this.Description = pDescription;
             this.Location = pLocation;
-            this.Horizons = new List<Horizon>();
+            this.HorizonList = new List<Horizon>();
             this.TestDate = pTestDate;
             this.DepthLimit = pDepthLimit;
-
         }
-        
         
         #endregion
 
@@ -163,7 +161,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
             try
             {
-                query = this.horizons.OrderBy(lHorizon => lHorizon.Order);
+                query = this.horizonList.OrderBy(lHorizon => lHorizon.Order);
                 foreach (Horizon lHorizon in query)
                 {
                     //To the root substract the passed horizon depth
@@ -198,7 +196,7 @@ namespace IrrigationAdvisor.Models.Agriculture
                         break;
                     }
                 }
-                //If the root is bigger than all the horizons i have defined
+                //If the root is bigger than all the horizonList i have defined
                 if (lRootDepthSum < pRootDepth)
                 {
                     lReturnLayerWaterSum += lLastHorizonLayerCapacity * lRemainRoot / lFieldCapacityDepthCM;
@@ -220,7 +218,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         private Horizon getHorizonByOrder(int pOrder)
         {
             Horizon pReturn = new Horizon();
-            foreach (Horizon lHorizon in this.horizons)
+            foreach (Horizon lHorizon in this.horizonList)
             {
                 if(pOrder == lHorizon.Order)
                 {
@@ -242,7 +240,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             Horizon lReturn = null;
             double lRootDepthSum =0;
 
-            IEnumerable<Horizon> query = this.horizons.OrderBy(lHorizon => lHorizon.Order);
+            IEnumerable<Horizon> query = this.horizonList.OrderBy(lHorizon => lHorizon.Order);
             foreach (Horizon lHorizon in query)
             {
                 lRootDepthSum += lHorizon.HorizonLayerDepth;
@@ -277,7 +275,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Return the Field Capacity, depends on RootDepth
         /// </summary>
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
@@ -294,7 +292,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// 
+        /// Return the Permanent Wilting Point, depends on Root Depth
         /// </summary>
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
@@ -310,9 +308,9 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lReturnPermanentWiltingPoingSum;
         }
 
-        
         /// <summary>
-        /// Return the Available Water of the soil as the difference between the Field Capacity and the Permanent WiltingPoint
+        /// Return the Available Water of the soil as 
+        ///     the difference between the Field Capacity and the Permanent WiltingPoint
         /// </summary>
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
@@ -351,7 +349,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         public override string ToString()
         {
             string lReturn = Environment.NewLine + Environment.NewLine + this.Name + Environment.NewLine;
-               foreach(Horizon lHorizon in this.Horizons)
+               foreach(Horizon lHorizon in this.HorizonList)
                {
                    lReturn += lHorizon.ToString()+ Environment.NewLine;
                }

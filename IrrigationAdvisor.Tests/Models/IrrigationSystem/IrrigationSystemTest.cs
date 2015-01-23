@@ -2,7 +2,6 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IrrigationAdvisor.Models.IrrigationSystem;
 using IrrigationAdvisor.Models.Agriculture;
 using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Management;
@@ -77,16 +76,20 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         #endregion
 
-        private IrrigationSystem testIrrigationSystem;
+        private Management.IrrigationSystem testIrrigationSystem;
         /// <summary>
         /// this method is used to obtain the layout
         /// </summary>
         [TestMethod]
         public void santaLuciaTest()
-        {   
+        {
+            testIrrigationSystem = Management.IrrigationSystem.Instance;
+
             testWeatherDataStartDate = new DateTime(2014, 10, 18);
 
             testPosition = new Position(0,0);
+
+
             testRegion = new Region("Templada", testPosition);
             testCountry = new Country();
             testCountry.Name = "Uruguay";
@@ -99,19 +102,18 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             crearSuelosSantaLucia();
             
-            testIrrigationSystem = new IrrigationSystem();
-
+            
             testSpecieSoja = createSpecie(1, "Soja", testSojaBaseTemp);
             testSpecieMaiz = createSpecie(1, "Maiz", testMaizBaseTemp);
 
             testPhenologicalStageList = InitialTables.CreatePhenologicalStageList(testIrrigationSystem, testSpecieMaiz, testSpecieSoja);
             testPhenologicalStagesForRegion = new Pair<Region, List<PhenologicalStage>>(testRegion, testPhenologicalStageList);
-            this.testIrrigationSystem.PhenologicalStageList.Add(testPhenologicalStagesForRegion);
+            //this.testIrrigationSystem.PhenologicalStageList.Add(testPhenologicalStagesForRegion);
             
 
             testEffectiveRainsList = InitialTables.CreateEffectiveRainListToSystem();
-            testRegion.EffectiveRains = testEffectiveRainsList;
-            this.testIrrigationSystem.addRegionToList(testRegion);
+            testRegion.EffectiveRainList = testEffectiveRainsList;
+            this.testIrrigationSystem.AddRegion(testRegion);
             //testEffectiveRainsForRegion = new Pair<Region, List<EffectiveRain>>(testRegion, testEffectiveRainsList);
             //this.testIrrigationSystem.EffectiveRainList.Add(testEffectiveRainsForRegion);
 
@@ -421,23 +423,23 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             Horizon horizon_2AB = new Horizon(2, "AB", 1, "AB", 23, 18, 45, 37, 3, 0, 1.3);
             Horizon horizon_2B = new Horizon(3, "B", 2, "B", 20, 19, 37, 44, 2, 0, 1.4);
 
-            testSoil_2.Horizons.Add(horizon_2A);
-            testSoil_2.Horizons.Add(horizon_2AB);
-            testSoil_2.Horizons.Add(horizon_2B);
+            testSoil_2.HorizonList.Add(horizon_2A);
+            testSoil_2.HorizonList.Add(horizon_2AB);
+            testSoil_2.HorizonList.Add(horizon_2B);
 
             Horizon horizon_3_4A = new Horizon(1, "A", 0, "A", 15, 33, 40, 26, 4.4, 0, 1.3);
             Horizon horizon_3_4B = new Horizon(2, "B", 1, "B", 20, 20, 28, 52, 4.4, 0, 1.4);
 
-            testSoil_3_4.Horizons.Add(horizon_3_4A);
-            testSoil_3_4.Horizons.Add(horizon_3_4B);
+            testSoil_3_4.HorizonList.Add(horizon_3_4A);
+            testSoil_3_4.HorizonList.Add(horizon_3_4B);
 
             Horizon horizon_5A = new Horizon(1, "A", 0, "A",14, 19, 53, 28, 4.4, 0, 1.2);
             Horizon horizon_5AB = new Horizon(2, "AB", 1, "AB", 23, 18, 45, 37, 3, 0, 1.3);
             Horizon horizon_5B = new Horizon(3, "B", 2, "B", 20, 19, 37, 44, 2, 0, 1.4);
 
-            testSoil_5.Horizons.Add(horizon_5A);
-            testSoil_5.Horizons.Add(horizon_5AB);
-            testSoil_5.Horizons.Add(horizon_5B);
+            testSoil_5.HorizonList.Add(horizon_5A);
+            testSoil_5.HorizonList.Add(horizon_5AB);
+            testSoil_5.HorizonList.Add(horizon_5B);
 
 
         }
@@ -653,7 +655,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             lHorizon.Order = 0;
             lHorizon.HorizonLayerDepth = 5.3;
             Soil lSoil = new Soil();
-            lSoil.Horizons.Add(lHorizon);
+            lSoil.HorizonList.Add(lHorizon);
             lSoil.Location = lLocation;
             return lSoil;
         }

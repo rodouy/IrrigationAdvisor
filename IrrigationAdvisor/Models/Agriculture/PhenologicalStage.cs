@@ -55,7 +55,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - rootDepth: double
         ///     
         /// </summary>
-        private int idPhenologicalStage;
+        private long idPhenologicalStage;
         private Specie specie;
         private Stage stage;
         private double minDegree;
@@ -66,10 +66,9 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Properties
 
-        public int IdPhenologicalStage
+        public long IdPhenologicalStage
         {
             get { return idPhenologicalStage; }
-            set { idPhenologicalStage = value; }
         }
         
         public Specie Specie
@@ -105,28 +104,34 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Construction
+
+        /// <summary>
+        /// Constructor without parameters
+        /// </summary>
         public PhenologicalStage() 
         {
-            this.idPhenologicalStage=0;
+            this.idPhenologicalStage = 0;
             this.Specie = new Specie();
             this.Stage = new Stage();
             this.MinDegree = 0;
             this.MaxDegree = 0;
             this.RootDepth = 0;
         }
+
         /// <summary>
         /// Build an instance of a phenological stage for a specie. 
-        /// It is used for a range between the max and min degree. 
+        /// It is used for a range between the max and min degree.
         /// </summary>
+        /// <param name="pIDPhenologicalStage"></param>
         /// <param name="pSpecie"></param>
         /// <param name="pStage"></param>
         /// <param name="pMinDegree"></param>
         /// <param name="pMaxDegree"></param>
         /// <param name="pRootDepth"></param>
-        public PhenologicalStage(int pId,Specie pSpecie, Stage pStage, double pMinDegree,
-            double pMaxDegree, double pRootDepth)
+        public PhenologicalStage(long pIDPhenologicalStage, Specie pSpecie, Stage pStage, 
+                                Double pMinDegree, Double pMaxDegree, Double pRootDepth)
         {
-            this.idPhenologicalStage = pId;
+            this.idPhenologicalStage = pIDPhenologicalStage;
             this.Specie = pSpecie;
             this.Stage = pStage;
             this.MinDegree = pMinDegree;
@@ -142,7 +147,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Return the Average Degree between MinDegree and MaxDegree
         /// </summary>
         /// <returns></returns>
         public double getAverageDegree()
@@ -153,7 +158,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// 
+        /// Return the Root Depth
         /// </summary>
         /// <returns></returns>
         public double getRootDepth()
@@ -162,6 +167,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             lRootDepth = this.rootDepth;
             return lRootDepth;
         }
+
         #endregion
 
         #region Overrides
@@ -174,19 +180,23 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <returns></returns>
         public override bool Equals(object obj)
         {
+            bool lReturn = false;
             if (obj == null || obj.GetType() != this.GetType())
             {
                 return false;
             }
             PhenologicalStage lPhenologicalStage = obj as PhenologicalStage;
-            return this.Specie.Equals(lPhenologicalStage.Specie) &&
-                this.Stage.Equals(lPhenologicalStage.Stage);
+            lReturn = this.Specie.Equals(lPhenologicalStage.Specie) &&
+                        this.Stage.Equals(lPhenologicalStage.Stage);
+            return lReturn;
         }
 
         public override int GetHashCode()
         {
             return this.Specie.GetHashCode();
         }
+
         #endregion
+
     }
 }

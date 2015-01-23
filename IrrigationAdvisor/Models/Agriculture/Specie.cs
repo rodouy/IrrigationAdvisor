@@ -36,12 +36,12 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     - name String
     ///     - baseTemeperature double
     ///     - cropCoefficient CropCoefficient
-    ///     - phenologicalStages List<PhenologicalStage>
+    ///     - phenologicalStageList List<PhenologicalStage>
     /// 
     /// Methods: 
     ///     - Specie()      -- constructor
     ///     - Specie(idSpecie, name, region, baseTemperature)  -- consturctor with parameters
-    ///     - Specie(idSpecie, name, region, baseTemperature, cropCoefficient, phenologicalStages)  -- consturctor with parameters
+    ///     - Specie(idSpecie, name, region, baseTemperature, cropCoefficient, phenologicalStageList)  -- consturctor with parameters
     ///     - (double): double
     ///     - (): Region
     /// 
@@ -59,14 +59,14 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - region: region of the specie    -  PK
         ///     - baseTemperature: base temperature of the specie for the region of the instance
         ///     - cropCoefficient: crop coefficient
-        ///     - phenologicalStages: list of phenolocical stages
+        ///     - phenologicalStageList: list of phenolocical stages
         /// 
         /// </summary>
         private long idSpecie;
         private string name;
         private double baseTemperature;
         private CropCoefficient cropCoefficient;
-        private List<PhenologicalStage> phenologicalStages;
+        private List<PhenologicalStage> phenologicalStageList;
 
         #endregion
 
@@ -75,7 +75,6 @@ namespace IrrigationAdvisor.Models.Agriculture
         public long IdSpecie
         {
             get { return idSpecie; }
-            set { idSpecie = value; }
         }
 
         public String Name
@@ -96,10 +95,10 @@ namespace IrrigationAdvisor.Models.Agriculture
             set { cropCoefficient = value; }
         }
 
-        public List<PhenologicalStage> PhenologicalStages
+        public List<PhenologicalStage> PhenologicalStageList
         {
-            get { return phenologicalStages; }
-            set { phenologicalStages = value; }
+            get { return phenologicalStageList; }
+            set { phenologicalStageList = value; }
         }
         
 
@@ -109,40 +108,79 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         public Specie() 
         {
-            this.IdSpecie = 0;
+            this.idSpecie = 0;
             this.Name = "noName";
             this.BaseTemperature = 0;
             this.CropCoefficient = new CropCoefficient();
-            this.PhenologicalStages = new List<PhenologicalStage>();
+            this.PhenologicalStageList = new List<PhenologicalStage>();
         }
 
-        public Specie(int pId, String pName,  
+        public Specie(long pIdSpecie, String pName,  
             double pBaseTemperature)
         {
-            this.IdSpecie = pId;
+            this.idSpecie = pIdSpecie;
             this.Name = pName;
             this.BaseTemperature = pBaseTemperature;
-            this.CropCoefficient = null;
-            this.PhenologicalStages = null;
+            this.CropCoefficient = new CropCoefficient();
+            this.PhenologicalStageList = new List<PhenologicalStage>();
         }
 
-        public Specie(int pId, String pName,
+        public Specie(long pIdSpecie, String pName,
             double pBaseTemperature, CropCoefficient pCropCoefficient,
-            List<PhenologicalStage> pPhenologicalStages)
+            List<PhenologicalStage> pPhenologicalStageList)
         {
-            this.IdSpecie = pId;
+            this.idSpecie = pIdSpecie;
             this.Name = pName;
             this.BaseTemperature = pBaseTemperature;
             this.CropCoefficient = pCropCoefficient;
-            this.PhenologicalStages = pPhenologicalStages;
+            this.PhenologicalStageList = pPhenologicalStageList;
         }
 
         #endregion
 
         #region Private Helpers
+
+        
         #endregion
 
         #region Public Methods
+        
+        /// <summary>
+        /// If PhenologicalStage exist in List return the PhenologicalStage, else null
+        /// </summary>
+        /// <param name="pPhenologicalStage"></param>
+        /// <returns></returns>
+        public PhenologicalStage ExistPhenologicalStage(PhenologicalStage pPhenologicalStage)
+        {
+            PhenologicalStage lReturn = null;
+            foreach (PhenologicalStage item in PhenologicalStageList)
+            {
+                if(item.Equals(pPhenologicalStage))
+                {
+                    lReturn = item;
+                    break;
+                }
+                
+            }
+            return lReturn;
+        }
+
+
+        public PhenologicalStage AddPhenologicalStage(Specie pSpecie, Stage pStage, 
+                                Double pMinDegree, Double pMaxDegree, Double pRootDepth)
+        {
+            PhenologicalStage lReturn = null;
+            long lIDPhenologicalStage = this.PhenologicalStageList.Count();
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIDPhenologicalStage,
+                    pSpecie, pStage, pMinDegree, pMaxDegree, pRootDepth);
+            if(ExistPhenologicalStage(lPhenologicalStage) == null)
+            {
+                this.PhenologicalStageList.Add(lPhenologicalStage);
+                lReturn = lPhenologicalStage;
+            }
+            return lReturn;
+        }
+
         #endregion
 
         #region Overrides

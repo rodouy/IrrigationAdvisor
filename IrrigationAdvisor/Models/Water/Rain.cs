@@ -1,4 +1,5 @@
 ﻿using IrrigationAdvisor.Models.Management;
+using IrrigationAdvisor.Models.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,32 +35,41 @@ namespace IrrigationAdvisor.Models.Water
     {
         #region Consts
 
-        private String TYPE = "RAIN";
-
         #endregion
 
         #region Fields
+
+        private Utils.WaterInputType type;
+
         #endregion
 
         #region Properties
+
+        public Utils.WaterInputType Type
+        {
+            get { return type; }
+        }
+
         #endregion
 
         #region Construction
+
         /// <summary>
-        /// Constructor of ClassTemplate
+        /// Constructor of Rain
         /// </summary>
         public Rain()
         {
-            
+            this.type = Utils.WaterInputType.Rain;            
         }
 
         public Rain(CropIrrigationWeather pCropIrrigationWeather, DateTime pDate, double pInput)
         {
+            this.type = Utils.WaterInputType.Rain;
             this.CropIrrigationWeather = pCropIrrigationWeather;
             this.Date = pDate;
             this.Input = pInput;
-
         }
+
         #endregion
 
         #region Private Helpers
@@ -67,10 +77,7 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Public Methods
 
-        public String getInputType()
-        {
-            return this.TYPE;
-        }
+        
         #endregion
 
         #region Overrides

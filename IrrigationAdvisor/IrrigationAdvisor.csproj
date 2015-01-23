@@ -177,7 +177,8 @@
     <Compile Include="Models\Data\ExternalData.cs" />
     <Compile Include="Models\Data\InitialTables.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\IrrigationSystem\IrrigationSystem.cs" />
+    <Compile Include="Models\Localization\Farm.cs" />
+    <Compile Include="Models\Management\IrrigationSystem.cs" />
     <Compile Include="Models\Irrigation\Bomb.cs" />
     <Compile Include="Models\Irrigation\Drip.cs" />
     <Compile Include="Models\Irrigation\IrrigationUnit.cs" />

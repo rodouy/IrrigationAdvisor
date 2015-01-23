@@ -18,9 +18,9 @@ namespace IrrigationAdvisor.Tests.Models.Agriculture
 
             Soil lSoil = new Soil();
             lSoil.Name = "Suelo Pivot 2";
-            lSoil.Horizons.Add(lHorizonA);
-            lSoil.Horizons.Add(lHorizonAB);
-            lSoil.Horizons.Add(lHorizonB);
+            lSoil.HorizonList.Add(lHorizonA);
+            lSoil.HorizonList.Add(lHorizonAB);
+            lSoil.HorizonList.Add(lHorizonB);
             lHorizonA.getPermanentWiltingPoint();
             lHorizonAB.getAvailableWaterCapacity();
             lHorizonB.getFieldCapacity();
@@ -121,7 +121,7 @@ namespace IrrigationAdvisor.Tests.Models.Agriculture
             lHorizon.HorizonLayerDepth = 5.3;
 
             Soil lSoil = new Soil();
-            lSoil.Horizons.Add(lHorizon);
+            lSoil.HorizonList.Add(lHorizon);
 
             double pmp = lSoil.getPermanentWiltingPoint(5);
             double cc = lSoil.getFieldCapacity(5);

@@ -31,6 +31,8 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     - idCrop long
     ///     - name String              
     ///     - specie Specie                                 - PK
+    ///     - phenologicalStageList List<PhenologicalStage>
+    ///     - 
     ///     - density double
     ///     - maxEvapotranspirationToIrrigate double
     ///     
@@ -53,6 +55,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         private long idCrop;
         private String name;
         private Specie specie;
+        private List<PhenologicalStage> phenologicalStageList;
+
         private double density;
         private double maxEvapotranspirationToIrrigate;
         
@@ -75,6 +79,12 @@ namespace IrrigationAdvisor.Models.Agriculture
         {
             get { return specie; }
             set { specie = value; }
+        }
+
+        public List<PhenologicalStage> PhenologicalStageList
+        {
+            get { return phenologicalStageList; }
+            set { phenologicalStageList = value; }
         }
 
         public double Density
@@ -101,19 +111,21 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.idCrop = 0;
             this.Name = "noName";
             this.Specie = new Specie();
+            this.PhenologicalStageList = new List<PhenologicalStage>();
             this.Density = 0;
             this.MaxEvapotranspirationToIrrigate = 0;
         }
 
         public Crop(int pId, String pName, Specie pSpecie, 
+            List<PhenologicalStage> pPhenologicalStageList,
             double pDensity, double pMaxEvapotranspirationToIrrigate)
         {
             this.IdCrop = pId;
             this.Name = pName;
             this.Specie = pSpecie;
+            this.PhenologicalStageList = pPhenologicalStageList;
             this.Density = pDensity;
             this.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
-
         }
 
         #endregion
@@ -122,7 +134,6 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Public Methods
-
 
 
         /// <summary>
@@ -135,6 +146,29 @@ namespace IrrigationAdvisor.Models.Agriculture
             lBaseTemperature = this.Specie.BaseTemperature;
             return lBaseTemperature;
         }
+
+        /// <summary>
+        /// Return if the Phenological Stage exists in the list
+        /// </summary>
+        /// <param name="pPhenologicalStage"></param>
+        /// <returns></returns>
+        public bool ExistPhenologicalStage(PhenologicalStage pPhenologicalStage)
+        {
+            bool lReturn = false;
+            if (pPhenologicalStage != null)
+            {
+                foreach (PhenologicalStage item in this.PhenologicalStageList)
+                {
+                    if (item.Equals(pPhenologicalStage))
+                    {
+                        lReturn = true;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
 
 
         #endregion
