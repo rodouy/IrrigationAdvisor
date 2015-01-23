@@ -26,14 +26,20 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - idSoil
+    ///     - idSoil long
     ///     - name String
+    ///     - description String
     ///     - location Location
     ///     - horizonList List<Horizon>
+    ///     - testDate DateTime
+    ///     - depthLimit double
     /// 
     /// Methods:
     ///     - Soil()      -- constructor
-    ///     - Soil(location, horizonList)  -- consturctor with parameters
+    ///     - Soil(name, description location, testDate, depthLimit)  -- consturctor with parameters
+    ///     - GetFieldCapacity(double: RootDepth)
+    ///     - GetPermanentWiltingPoint(double: RootDepth)
+    ///     - GetAvailableWaterCapacity(double: RootDepth)
     /// 
     /// </summary>
     public class Soil
@@ -170,13 +176,13 @@ namespace IrrigationAdvisor.Models.Agriculture
                     switch (pSoilLayer)
                     {
                         case SoilLayer.AvailableWater:
-                            lLastHorizonLayerCapacity = lHorizon.getAvailableWaterCapacity();
+                            lLastHorizonLayerCapacity = lHorizon.GetAvailableWaterCapacity();
                             break;
                         case SoilLayer.FieldCapacity:
-                            lLastHorizonLayerCapacity = lHorizon.getFieldCapacity();
+                            lLastHorizonLayerCapacity = lHorizon.GetFieldCapacity();
                             break;
                         case SoilLayer.PermanentWiltingPoint:
-                            lLastHorizonLayerCapacity = lHorizon.getPermanentWiltingPoint();
+                            lLastHorizonLayerCapacity = lHorizon.GetPermanentWiltingPoint();
                             break;
                         default:
                             lLastHorizonLayerCapacity = 0;
@@ -274,12 +280,75 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Public Methods
 
+        #region Horizon
+
+        public Horizon ExistHorizon(Horizon pHorizon)
+        {
+            Horizon lReturn = null;
+            foreach (Horizon item in HorizonList)
+            {
+                if(item.Equals(pHorizon))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        public Horizon AddHorizon(String pName, int pOrder,
+                        String pHorizonLayer, double pHorizonLayerDepth, double pSand,
+                        double pLimo, double pClay, double pOrganicMatter, 
+                        double pNitrogenAnalysis, double pBulkDensitySoil)
+        {
+            Horizon lReturn = null;
+            long lIdHorizon = this.HorizonList.Count();
+            Horizon lHorizon = new Horizon(lIdHorizon, pName, pOrder,
+                pHorizonLayer, pHorizonLayerDepth, pSand, pLimo,
+                pClay, pOrganicMatter, pNitrogenAnalysis, pBulkDensitySoil);
+            if (this.ExistHorizon(lHorizon) == null)
+            {
+                this.HorizonList.Add(lHorizon);
+                lReturn = lHorizon;
+            }
+            return lReturn;
+        }
+
+        public Horizon UpdateHorizon(String pName, int pOrder,
+                        String pHorizonLayer, double pHorizonLayerDepth, double pSand,
+                        double pLimo, double pClay, double pOrganicMatter,
+                        double pNitrogenAnalysis, double pBulkDensitySoil)
+        {
+            Horizon lReturn = null;
+            long lIdHorizon = this.HorizonList.Count();
+            Horizon lHorizon = new Horizon(lIdHorizon, pName, pOrder,
+                pHorizonLayer, pHorizonLayerDepth, pSand, pLimo,
+                pClay, pOrganicMatter, pNitrogenAnalysis, pBulkDensitySoil);
+            lReturn = this.ExistHorizon(lHorizon);
+            if (lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.Order = pOrder;
+                lReturn.HorizonLayer = pHorizonLayer;
+                lReturn.HorizonLayerDepth = pHorizonLayerDepth;
+                lReturn.Sand = pSand;
+                lReturn.Limo = pLimo;
+                lReturn.Clay = pClay;
+                lReturn.OrganicMatter = pOrganicMatter;
+                lReturn.NitrogenAnalysis = pNitrogenAnalysis;
+                lReturn.BulkDensitySoil = pBulkDensitySoil;
+            }
+            return lReturn;
+        }
+
+        #endregion
+
         /// <summary>
         /// Return the Field Capacity, depends on RootDepth
         /// </summary>
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
-        public double  getFieldCapacity(double pRootDepth)
+        public double  GetFieldCapacity(double pRootDepth)
         {
             double lReturnFieldCapacity = 0;
             double lRootDepth = pRootDepth;
@@ -296,7 +365,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
-        public double getPermanentWiltingPoint(double pRootDepth)
+        public double GetPermanentWiltingPoint(double pRootDepth)
         {
             double lReturnPermanentWiltingPoingSum = 0;
             double lRootDepth = pRootDepth;
@@ -314,7 +383,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
-         public double getAvailableWaterCapacity(double pRootDepth)
+         public double GetAvailableWaterCapacity(double pRootDepth)
          {
             double lAvailableWaterCapacity;
             double lRootDepth = pRootDepth;
@@ -322,7 +391,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             {
                 lRootDepth = this.DepthLimit;
             }
-            lAvailableWaterCapacity = this.getFieldCapacity(lRootDepth) - this.getPermanentWiltingPoint(lRootDepth);
+            lAvailableWaterCapacity = this.GetFieldCapacity(lRootDepth) - this.GetPermanentWiltingPoint(lRootDepth);
             return lAvailableWaterCapacity;
         }
 

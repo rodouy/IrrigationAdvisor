@@ -554,7 +554,7 @@ namespace IrrigationAdvisor.Models.Management
         public double getFieldCapacity(double pRootDepth)
         {
             double lReturn;
-            lReturn = this.Soil.getFieldCapacity(pRootDepth);
+            lReturn = this.Soil.GetFieldCapacity(pRootDepth);
             return lReturn;
         }
 
@@ -571,7 +571,7 @@ namespace IrrigationAdvisor.Models.Management
             double lSoilPermanentWiltingPoint;
 
             lRootDepth = this.getPhenologicalStageRootDepth(this.PhenologicalStage);
-            lSoilPermanentWiltingPoint = this.Soil.getPermanentWiltingPoint(lRootDepth);
+            lSoilPermanentWiltingPoint = this.Soil.GetPermanentWiltingPoint(lRootDepth);
             return lSoilPermanentWiltingPoint;
         }
 
@@ -586,7 +586,7 @@ namespace IrrigationAdvisor.Models.Management
             double lSoilAvailableWaterCapacity;
 
             lRootDepth = this.getPhenologicalStageRootDepth(this.PhenologicalStage);
-            lSoilAvailableWaterCapacity = this.Soil.getAvailableWaterCapacity(lRootDepth);
+            lSoilAvailableWaterCapacity = this.Soil.GetAvailableWaterCapacity(lRootDepth);
             return lSoilAvailableWaterCapacity;
         }
 
@@ -599,7 +599,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             double lReturn;
             double lRootDepth = this.getPhenologicalStageRootDepth(this.PhenologicalStage);
-            lReturn = this.Soil.getFieldCapacity(lRootDepth);
+            lReturn = this.Soil.GetFieldCapacity(lRootDepth);
             return lReturn;
         }
 

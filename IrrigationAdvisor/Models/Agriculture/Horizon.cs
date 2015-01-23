@@ -26,6 +26,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
+    ///     - idSoil long
     ///     - name String
     ///     - location Location
     ///     - order int
@@ -70,7 +71,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - bulkDensitySoil: double
         /// </summary>
 
-        private int idHorizon;
+        private long idHorizon;
         private String name;
         private int order;
         private String horizonLayer;
@@ -90,7 +91,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Properties
 
-        public int IdHorizon
+        public long IdHorizon
         {
             get { return idHorizon; }
             set { idHorizon = value; }
@@ -107,6 +108,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             get { return order; }
             set { order = value; }
         }
+        
         public String HorizonLayer
         {
             get { return horizonLayer; }
@@ -137,7 +139,6 @@ namespace IrrigationAdvisor.Models.Agriculture
             set { clay = value; }
         }
 
-
         public double OrganicMatter
         {
             get { return organicMatter; }
@@ -155,9 +156,14 @@ namespace IrrigationAdvisor.Models.Agriculture
             get { return bulkDensitySoil; }
             set { bulkDensitySoil = value; }
         }
+        
         #endregion
 
         #region Construction
+        
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
         public Horizon()
         {
             this.IdHorizon = 0;
@@ -172,12 +178,27 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.NitrogenAnalysis = 0;
             this.BulkDensitySoil = 0;
         }
-        public Horizon(int pId, String pName, int pOrder, String pHorizonLayer,
+
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pIdHorizon"></param>
+        /// <param name="pName"></param>
+        /// <param name="pOrder"></param>
+        /// <param name="pHorizonLayer"></param>
+        /// <param name="pHorizonLayerDepth"></param>
+        /// <param name="pSand"></param>
+        /// <param name="pLimo"></param>
+        /// <param name="pClay"></param>
+        /// <param name="pOrganicMatter"></param>
+        /// <param name="pNitrogenAnalysis"></param>
+        /// <param name="pBulkDensitySoil"></param>
+        public Horizon(long pIdHorizon, String pName, int pOrder, String pHorizonLayer,
             double pHorizonLayerDepth, double pSand, double pLimo,
             double pClay, double pOrganicMatter, double pNitrogenAnalysis,
              double pBulkDensitySoil)
         {
-            this.IdHorizon = pId;
+            this.IdHorizon = pIdHorizon;
             this.Name = pName;
             this.Order = pOrder;
             this.HorizonLayer = pHorizonLayer;
@@ -195,7 +216,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region Private Helpers
 
         /// <summary>
-        /// 
+        /// TODO explain method
         /// </summary>
         /// <returns></returns>
         private bool isHorizonA()
@@ -210,7 +231,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
         
         /// <summary>
-        /// 
+        /// TODO explain method
         /// </summary>
         /// <returns></returns>
         private double getFieldCapacityHorizonA()
@@ -227,7 +248,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// 
+        /// TODO explain method
         /// </summary>
         /// <returns></returns>
         private double getPermanentWiltingPointHorizonA()
@@ -245,7 +266,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// 
+        /// TODO explain method
         /// </summary>
         /// <returns></returns>
         private double getFieldCapacityHorizonB()
@@ -262,7 +283,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// 
+        /// TODO explain method
         /// </summary>
         /// <returns></returns>
         private double getPermanentWiltingPointHorizonB()
@@ -276,10 +297,16 @@ namespace IrrigationAdvisor.Models.Agriculture
             }
             return lReturn;
         }
+        
         #endregion
 
         #region Public Methods
-        public double  getFieldCapacity()
+        
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <returns></returns>
+        public double  GetFieldCapacity()
         {
             double lReturn = 0;
             if (isHorizonA())
@@ -295,10 +322,10 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// 
+        /// TODO explain method
         /// </summary>
         /// <returns></returns>
-        public double getPermanentWiltingPoint() 
+        public double GetPermanentWiltingPoint() 
         {
             double lReturn = 0;
             if (isHorizonA())
@@ -314,16 +341,16 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// 
+        /// TODO explain method
         /// </summary>
         /// <returns></returns>
-        public double getAvailableWaterCapacity() 
+        public double GetAvailableWaterCapacity() 
         {
             double lFieldCapacity;
             double lPermanentWiltingPoint;
             double lAvailableWaterCapacity;
-            lFieldCapacity = this.getFieldCapacity();
-            lPermanentWiltingPoint = this.getPermanentWiltingPoint();
+            lFieldCapacity = this.GetFieldCapacity();
+            lPermanentWiltingPoint = this.GetPermanentWiltingPoint();
             lAvailableWaterCapacity = lFieldCapacity - lPermanentWiltingPoint;
             
             return lAvailableWaterCapacity;
@@ -332,6 +359,12 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Soil equals by Name, Limo, Clay, Sand and OrganicMatter
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             if (obj == null || obj.GetType() != this.GetType())
@@ -351,14 +384,18 @@ namespace IrrigationAdvisor.Models.Agriculture
             return this.Name.GetHashCode();
         }
 
+        /// <summary>
+        /// To String: Name, Sand, Limo, Clay, Organic Matter and Bulk Density
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string lReturn = this.Name + "\t\t";
             lReturn += "Sand: "+this.Sand + "\t";
             lReturn += "Limo: "+ this.Limo + "\t";
             lReturn += "Clay: "+ this.Clay + "\t";
-            lReturn += "Org.Mat.: "+ this.OrganicMatter + "\t\t";
-            lReturn += "BulkDen: "+ this.BulkDensitySoil + "\t";
+            lReturn += "Organic Matter: "+ this.OrganicMatter + "\t\t";
+            lReturn += "BulkDensity: "+ this.BulkDensitySoil + "\t";
 
             return lReturn;
 

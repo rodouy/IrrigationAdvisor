@@ -88,7 +88,6 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
         #endregion
-
         
         #region Private Helpers
         #endregion
@@ -776,7 +775,6 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
         #endregion
-
 
     }
 }

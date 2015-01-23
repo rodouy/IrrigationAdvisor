@@ -21,51 +21,51 @@ namespace IrrigationAdvisor.Tests.Models.Agriculture
             lSoil.HorizonList.Add(lHorizonA);
             lSoil.HorizonList.Add(lHorizonAB);
             lSoil.HorizonList.Add(lHorizonB);
-            lHorizonA.getPermanentWiltingPoint();
-            lHorizonAB.getAvailableWaterCapacity();
-            lHorizonB.getFieldCapacity();
+            lHorizonA.GetPermanentWiltingPoint();
+            lHorizonAB.GetAvailableWaterCapacity();
+            lHorizonB.GetFieldCapacity();
             
             TextFileLogger lTextFileLogger = new TextFileLogger();
             String lFile = "SoilTest";
             String lMethod = "soilTestSantaLucia";
             String lMessage = lSoil.ToString();
 
-            double cc1 = lSoil.getFieldCapacity(5);
-            double cc2 = lSoil.getFieldCapacity(20);
-            double cc3 = lSoil.getFieldCapacity(45);
-            double cc4 = lSoil.getFieldCapacity(57);
-            double cc5 = lSoil.getFieldCapacity(65);
+            double cc1 = lSoil.GetFieldCapacity(5);
+            double cc2 = lSoil.GetFieldCapacity(20);
+            double cc3 = lSoil.GetFieldCapacity(45);
+            double cc4 = lSoil.GetFieldCapacity(57);
+            double cc5 = lSoil.GetFieldCapacity(65);
 
-            double pmp1 = lSoil.getPermanentWiltingPoint(5);
-            double pmp2 = lSoil.getPermanentWiltingPoint(35);
-            double pmp3 = lSoil.getPermanentWiltingPoint(45);
-            double pmp4 = lSoil.getPermanentWiltingPoint(57);
-            double pmp5 = lSoil.getPermanentWiltingPoint(65);
+            double pmp1 = lSoil.GetPermanentWiltingPoint(5);
+            double pmp2 = lSoil.GetPermanentWiltingPoint(35);
+            double pmp3 = lSoil.GetPermanentWiltingPoint(45);
+            double pmp4 = lSoil.GetPermanentWiltingPoint(57);
+            double pmp5 = lSoil.GetPermanentWiltingPoint(65);
 
-            double ad1 = lSoil.getAvailableWaterCapacity(5);
-            double ad2 = lSoil.getAvailableWaterCapacity(20);
-            double ad3 = lSoil.getAvailableWaterCapacity(45);
-            double ad4 = lSoil.getAvailableWaterCapacity(57);
-            double ad5 = lSoil.getAvailableWaterCapacity(65);
+            double ad1 = lSoil.GetAvailableWaterCapacity(5);
+            double ad2 = lSoil.GetAvailableWaterCapacity(20);
+            double ad3 = lSoil.GetAvailableWaterCapacity(45);
+            double ad4 = lSoil.GetAvailableWaterCapacity(57);
+            double ad5 = lSoil.GetAvailableWaterCapacity(65);
 
 
 
             
             lMessage += Environment.NewLine + Environment.NewLine + "Capacidad Campo (%peso)" + Environment.NewLine;
-            lMessage += "CC Horizon A \t" + lHorizonA.getFieldCapacity() + Environment.NewLine;
-            lMessage += "CC Horizon AB \t" + lHorizonAB.getFieldCapacity() + Environment.NewLine;
-            lMessage += "CC Horizon B \t" + lHorizonB.getFieldCapacity() + Environment.NewLine;
+            lMessage += "CC Horizon A \t" + lHorizonA.GetFieldCapacity() + Environment.NewLine;
+            lMessage += "CC Horizon AB \t" + lHorizonAB.GetFieldCapacity() + Environment.NewLine;
+            lMessage += "CC Horizon B \t" + lHorizonB.GetFieldCapacity() + Environment.NewLine;
 
             lMessage += Environment.NewLine + Environment.NewLine + "Punto Marchitacion Permanente (%peso)" + Environment.NewLine;
-            lMessage += "PMP Horizon A \t" + lHorizonA.getPermanentWiltingPoint() + Environment.NewLine;
-            lMessage += "PMP Horizon AB \t" + lHorizonAB.getPermanentWiltingPoint() + Environment.NewLine;
-            lMessage += "PMP Horizon B \t" + lHorizonB.getPermanentWiltingPoint() + Environment.NewLine;
+            lMessage += "PMP Horizon A \t" + lHorizonA.GetPermanentWiltingPoint() + Environment.NewLine;
+            lMessage += "PMP Horizon AB \t" + lHorizonAB.GetPermanentWiltingPoint() + Environment.NewLine;
+            lMessage += "PMP Horizon B \t" + lHorizonB.GetPermanentWiltingPoint() + Environment.NewLine;
 
 
             lMessage += Environment.NewLine + Environment.NewLine + "Agua Disponible (%vol)" + Environment.NewLine;
-            lMessage += "AD Horizon A \t" + lHorizonA.getAvailableWaterCapacity() + Environment.NewLine;
-            lMessage += "AD Horizon AB \t" + lHorizonAB.getAvailableWaterCapacity() + Environment.NewLine;
-            lMessage += "AD Horizon B \t" + lHorizonB.getAvailableWaterCapacity() + Environment.NewLine;
+            lMessage += "AD Horizon A \t" + lHorizonA.GetAvailableWaterCapacity() + Environment.NewLine;
+            lMessage += "AD Horizon AB \t" + lHorizonAB.GetAvailableWaterCapacity() + Environment.NewLine;
+            lMessage += "AD Horizon B \t" + lHorizonB.GetAvailableWaterCapacity() + Environment.NewLine;
 
 
             lMessage += Environment.NewLine + Environment.NewLine + "Capacidad de campo s/rootDepth" + Environment.NewLine;
@@ -89,16 +89,16 @@ namespace IrrigationAdvisor.Tests.Models.Agriculture
             String lTime = System.DateTime.Now.ToString();
             lTextFileLogger.WriteLogFile(lFile, lMethod, lMessage, lTime);
 
-            Assert.AreEqual(lHorizonA.getAvailableWaterCapacity(), 21.809856000000011);
-            Assert.AreEqual(lHorizonAB.getAvailableWaterCapacity(), 17.270500000000009);
+            Assert.AreEqual(lHorizonA.GetAvailableWaterCapacity(), 21.809856000000011);
+            Assert.AreEqual(lHorizonAB.GetAvailableWaterCapacity(), 17.270500000000009);
 
-            Assert.AreEqual(lHorizonB.getFieldCapacity(), 13.315680000000002);
-            Assert.AreEqual(lHorizonB.getPermanentWiltingPoint(), 13.315680000000002);
-            Assert.AreEqual(lHorizonB.getAvailableWaterCapacity(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB.GetFieldCapacity(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB.GetPermanentWiltingPoint(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB.GetAvailableWaterCapacity(), 13.315680000000002);
 
-            Assert.AreEqual(lHorizonB1.getFieldCapacity(), 13.315680000000002);
-            Assert.AreEqual(lHorizonB1.getPermanentWiltingPoint(), 13.315680000000002);
-            Assert.AreEqual(lHorizonB1.getAvailableWaterCapacity(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB1.GetFieldCapacity(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB1.GetPermanentWiltingPoint(), 13.315680000000002);
+            Assert.AreEqual(lHorizonB1.GetAvailableWaterCapacity(), 13.315680000000002);
 
             Assert.AreEqual(ad2, 40.861557400000017);
             Assert.AreEqual(ad4, 96.887308400000052);
@@ -123,17 +123,17 @@ namespace IrrigationAdvisor.Tests.Models.Agriculture
             Soil lSoil = new Soil();
             lSoil.HorizonList.Add(lHorizon);
 
-            double pmp = lSoil.getPermanentWiltingPoint(5);
-            double cc = lSoil.getFieldCapacity(5);
-            double ad = lSoil.getAvailableWaterCapacity(5);
+            double pmp = lSoil.GetPermanentWiltingPoint(5);
+            double cc = lSoil.GetFieldCapacity(5);
+            double ad = lSoil.GetAvailableWaterCapacity(5);
 
-            //double pmp10 = testSoil.getPermanentWiltingPoint(10);
-            double cc10 = lSoil.getFieldCapacity(10);
-            //double ad10 = testSoil.getAvailableWaterCapacity(10);
+            //double pmp10 = testSoil.GetPermanentWiltingPoint(10);
+            double cc10 = lSoil.GetFieldCapacity(10);
+            //double ad10 = testSoil.GetAvailableWaterCapacity(10);
 
-            double pmp0 = lSoil.getPermanentWiltingPoint(0);
-            double cc0 = lSoil.getFieldCapacity(0);
-            double ad0 = lSoil.getAvailableWaterCapacity(0);
+            double pmp0 = lSoil.GetPermanentWiltingPoint(0);
+            double cc0 = lSoil.GetFieldCapacity(0);
+            double ad0 = lSoil.GetAvailableWaterCapacity(0);
             
             //RootDeepth between the border (0) and the HorizonDepth
             Assert.AreEqual(pmp, 16.002069999999989);
