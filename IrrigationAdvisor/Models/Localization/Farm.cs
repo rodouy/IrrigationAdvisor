@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using IrrigationAdvisor.Models.Utilities;
+
 namespace IrrigationAdvisor.Models.Localization
 {
     /// <summary>
@@ -137,6 +139,9 @@ namespace IrrigationAdvisor.Models.Localization
 
         #region Construction
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         public Farm()
         {
             this.IdFarm = 0;
@@ -152,7 +157,21 @@ namespace IrrigationAdvisor.Models.Localization
             this.IrrigationUnitList = new List<IrrigationUnit>();
         }
 
-        public Farm(int pIdFarm, String pName, String pAddress,
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdFarm"></param>
+        /// <param name="pName"></param>
+        /// <param name="pAddress"></param>
+        /// <param name="pPhone"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pHas"></param>
+        /// <param name="pSoilList"></param>
+        /// <param name="pBombList"></param>
+        /// <param name="pWeatherStation"></param>
+        /// <param name="pUser"></param>
+        /// <param name="pIrrigationUnitList"></param>
+        public Farm(long pIdFarm, String pName, String pAddress,
                     String pPhone, Location pLocation, int pHas,
                     List<Soil> pSoilList, List<Bomb> pBombList,
                     WeatherStation pWeatherStation, User pUser,
@@ -177,22 +196,24 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Public Methods
+        
+        #region Bomb
 
         /// <summary>
         /// Return if a Bomb exists in Farm Bomb List
         /// </summary>
         /// <param name="pBomb"></param>
         /// <returns></returns>
-        public bool ExistBomb(Bomb pBomb)
+        public Bomb ExistBomb(Bomb pBomb)
         {
-            bool lReturn = false;
+            Bomb lReturn = null;
             if (pBomb != null)
             {
                 foreach (Bomb item in this.BombList)
                 {
                     if (item.Equals(pBomb))
                     {
-                        lReturn = true;
+                        lReturn = item;
                         break;
                     }
                 }
@@ -204,20 +225,186 @@ namespace IrrigationAdvisor.Models.Localization
         /// Add a Bomb to Farm Bomb List
         /// </summary>
         /// <param name="pBomb"></param>
-        public void AddBomb(Bomb pBomb)
+        public Bomb AddBomb(Bomb pBomb)
         {
-            if(pBomb != null && !this.ExistBomb(pBomb))
+            Bomb lRetrurn = null;
+            if(ExistBomb(pBomb) == null)
             {
-                this.BombList.Add(pBomb);
+                BombList.Add(pBomb);
+                lRetrurn = pBomb;
             }
+            return lRetrurn;
         }
+
+        #endregion
+
+        #region Soil
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSoil"></param>
+        /// <returns></returns>
+        public Soil ExistSoil(Soil pSoil)
+        {
+            Soil lReturn = null;
+            foreach (Soil item in this.SoilList)
+            {
+                if(item.Equals(pSoil))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDescription"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pTestDate"></param>
+        /// <param name="pDepthLimit"></param>
+        /// <returns></returns>
+        public Soil AddSoil(String pName, String pDescription, Location pLocation, 
+                            DateTime pTestDate, double pDepthLimit)
+        {
+            Soil lReturn = null;
+            long lIdSoil = this.SoilList.Count();
+            Soil lSoil = new Soil(lIdSoil, pName, pDescription, pLocation, pTestDate, pDepthLimit);
+            if(ExistSoil(lSoil) == null)
+            {
+                this.SoilList.Add(lSoil);
+                lReturn = lSoil;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDescription"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pTestDate"></param>
+        /// <param name="pDepthLimit"></param>
+        /// <returns></returns>
+        public Soil UpdateSoil(String pName, String pDescription, Location pLocation,
+                            DateTime pTestDate, double pDepthLimit)
+        {
+            Soil lReturn = null;
+            Soil lSoil = new Soil(0, pName, pDescription, pLocation, pTestDate, pDepthLimit);
+            lReturn = ExistSoil(lSoil);
+            if(lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.Description = pDescription;
+                lReturn.Location = pLocation;
+                lReturn.TestDate = pTestDate;
+                lReturn.DepthLimit = pDepthLimit;
+            }
+            return lReturn;
+        }
+
+        #endregion
+
+        #region IrrigationUnit
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIrrigationUnit"></param>
+        /// <returns></returns>
+        public IrrigationUnit ExistIrrigationUnit(IrrigationUnit pIrrigationUnit)
+        {
+            IrrigationUnit lReturn = null;
+            foreach (IrrigationUnit item in this.IrrigationUnitList)
+            {
+                if(item.Equals(pIrrigationUnit))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pIrrigationType"></param>
+        /// <param name="pIrrigationEfficiency"></param>
+        /// <param name="pIrrigationList"></param>
+        /// <param name="pSurface"></param>
+        /// <param name="pCropList"></param>
+        /// <param name="pBomb"></param>
+        /// <param name="pLocation"></param>
+        /// <returns></returns>
+        public IrrigationUnit AddIrrigationUnit(String pName, String pIrrigationType, 
+                                    double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList, 
+                                    double pSurface, List<Crop> pCropList, Bomb pBomb, Location pLocation)
+        {
+            IrrigationUnit lReturn = null;
+            long lIdIrrigationUnit = this.IrrigationUnitList.Count();
+            IrrigationUnit lIrrigationUnit = new IrrigationUnit(lIdIrrigationUnit,
+                                            pName, pIrrigationType, pIrrigationEfficiency,
+                                            pIrrigationList, pSurface, pCropList,
+                                            pBomb, pLocation);
+            if(ExistIrrigationUnit(lIrrigationUnit) == null)
+            {
+                this.IrrigationUnitList.Add(lIrrigationUnit);
+                lReturn = lIrrigationUnit;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pIrrigationType"></param>
+        /// <param name="pIrrigationEfficiency"></param>
+        /// <param name="pIrrigationList"></param>
+        /// <param name="pSurface"></param>
+        /// <param name="pCropList"></param>
+        /// <param name="pBomb"></param>
+        /// <param name="pLocation"></param>
+        /// <returns></returns>
+        public IrrigationUnit UpdateIrrigationUnit(String pName, String pIrrigationType,
+                                    double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList,
+                                    double pSurface, List<Crop> pCropList, Bomb pBomb, Location pLocation)
+        {
+            IrrigationUnit lReturn = null;
+            IrrigationUnit lIrrigationUnit = new IrrigationUnit(0,
+                                            pName, pIrrigationType, pIrrigationEfficiency,
+                                            pIrrigationList, pSurface, pCropList,
+                                            pBomb, pLocation);
+            lReturn = ExistIrrigationUnit(lIrrigationUnit);
+            if (lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.IrrigationType = pIrrigationType;
+                lReturn.IrrigationEfficiency = pIrrigationEfficiency;
+                lReturn.IrrigationList = pIrrigationList;
+                lReturn.Surface = pSurface;
+                lReturn.CropList = pCropList;
+                lReturn.Bomb = pBomb;
+                lReturn.Location = pLocation;
+            }
+            return lReturn;
+        }
+
+        #endregion
 
         #endregion
 
         #region Overrides
 
         /// <summary>
-        /// Overrides equals
+        /// Overrides equals, Name, Location And User
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -227,14 +414,17 @@ namespace IrrigationAdvisor.Models.Localization
             {
                 return false;
             }
-            Farm lPosition = obj as Farm;
-            return this.Name.Equals(lPosition.Name);
+            Farm lFarm = obj as Farm;
+            return this.Name.Equals(lFarm.Name) 
+                && this.Location.Equals(lFarm.Location)
+                && this.User.Equals(lFarm.User);
         }
 
         public override int GetHashCode()
         {
             return this.Name.GetHashCode();
         }
+        
         #endregion
 
     }

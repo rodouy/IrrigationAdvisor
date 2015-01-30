@@ -19,8 +19,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
     {
         #region Fields Santa Lucia Test
         private Position testPosition;
+        private City testCapital;
         private Country testCountry;
         private Region testRegion;
+        private City testCity;
         private Location testLocation;
         private Specie testSpecieSoja;
         private Specie testSpecieMaiz;
@@ -87,15 +89,20 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             testWeatherDataStartDate = new DateTime(2014, 10, 18);
 
-            testPosition = new Position(0,0);
+            //1. Create position
+            testPosition = new Position(-34, -55);
+            //2. Create Region
+            testRegion = testIrrigationSystem.AddRegion("Templada", testPosition, null, null);
+            //3. Create City (Capital)
+            testCapital = testIrrigationSystem.AddCity("Montevideo", testPosition);
+            //4. Create Country
+            testCountry = testIrrigationSystem.AddCountry("Uruguay", testCapital, null, null);
+            //5. Create City
+            testCity = testIrrigationSystem.AddCity("Santa Lucia", testPosition);
+            //6. Create Location
+            testLocation = createLocation(testPosition, testCountry, testRegion, testCity);
 
-
-            testRegion = new Region("Templada", testPosition);
-            testCountry = new Country();
-            testCountry.Name = "Uruguay";
-            testLocation = createLocation(new Position(34, 55), testCountry, testRegion, new City("Santa Lucia", testPosition));
-
-
+            //7. Create Begin Dates for each Pivot
             testDateBeginCrop_Pivot2 = new DateTime(2014, 10, 21);
             testDateBeginCrop_Pivot3_4 = new DateTime(2014, 11, 14);
             testDateBeginCrop_Pivot5 = new DateTime(2014, 10, 18);
@@ -625,7 +632,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             return lIrrigationUnit;
         }
 
-        private Crop createCrop(int pId, String pName, Specie pSpecie, Location lLocation, CropCoefficient lCropCoefficient, 
+        private Crop createCrop(long pIdCrop, String pName, Specie pSpecie, Location lLocation, CropCoefficient lCropCoefficient, 
                                     Double cropDensity, PhenologicalStage lPhenologicalState, DateTime lSowingDate, 
                                     DateTime dateTime, Soil lSoil, Double lSojaMaxEvaporTransptoIrrigate)
         {
@@ -633,7 +640,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             Crop lCrop;
  
             lPhenologicalStageList = testIrrigationSystem.getPhenologicalStage(testRegion, pSpecie, this.testIrrigationSystem.PhenologicalStageList);
-            lCrop = new Crop(pId, pName, pSpecie, cropDensity, lSojaMaxEvaporTransptoIrrigate);
+            lCrop = new Crop(pIdCrop, pName, pSpecie, lPhenologicalStageList, cropDensity, 
+                            lSojaMaxEvaporTransptoIrrigate);
             return lCrop;           
         }
 

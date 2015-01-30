@@ -23,7 +23,7 @@ namespace IrrigationAdvisor.Models.Localization
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - idCity int
+    ///     - idCity long
     ///     - name String
     ///     - position Position
     ///     City
@@ -48,7 +48,7 @@ namespace IrrigationAdvisor.Models.Localization
         ///     - position: the position of the city
         ///     
         /// </summary>
-        private int idCity;
+        private long idCity;
         private String name;
         private Position position;
 
@@ -58,7 +58,7 @@ namespace IrrigationAdvisor.Models.Localization
         #region Properties
 
 
-        public int IdCity
+        public long IdCity
         {
             get { return idCity; }
             set { idCity = value; }
@@ -80,21 +80,32 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Construction
+
         /// <summary>
-        /// 
+        /// TODO add description
         /// </summary>
         /// <param name="name">Name of the region</param>
         /// <param name="location">Location of the region</param>
         public City()
         {
+            this.IdCity = 0;
             this.Name = "";
             this.Position = new Position ();
         }
-        public City(String pName, Position pPosition)
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdCity"></param>
+        /// <param name="pName"></param>
+        /// <param name="pPosition"></param>
+        public City(long pIdCity, String pName, Position pPosition)
         {
+            this.IdCity = pIdCity;
             this.Name = pName;
             this.Position = pPosition;
         }
+
         #endregion
 
         #region Private Helpers

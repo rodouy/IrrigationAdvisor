@@ -24,7 +24,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - idStage int
+    ///     - idStage long
     ///     - name String           PK
     ///     - definition String
     /// 
@@ -41,11 +41,12 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region Fields
         /// <summary>
         /// The fields are:
+        ///     - idStage: identifier of state
         ///     - name: the name of the stage
         ///     - description
         ///     
         /// </summary>
-        private int idStage;
+        private long idStage;
         private string name;
         private string description;
 
@@ -59,24 +60,28 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - Name: the name of the instance
         /// </summary>
 
-        public int IdStage
+        public long IdStage
         {
             get { return idStage; }
             set { idStage = value; }
         }
+
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
+
         public string Description
         {
             get { return description; }
             set { description = value; }
         }
+        
         #endregion
 
         #region Construction
+
         /// <summary>
         /// Constructor of ClassTemplate
         /// </summary>
@@ -92,9 +97,9 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// Constructor of ClassTemplate with parameters
         /// </summary>
         /// <param name="pNewName"></param>
-        public Stage(int pId, String pName, String pDescription)
+        public Stage(long pIdStage, String pName, String pDescription)
         {
-            this.IdStage = pId;
+            this.IdStage = pIdStage;
             this.Name = pName;
             this.Description = pDescription;
         }
@@ -130,5 +135,6 @@ namespace IrrigationAdvisor.Models.Agriculture
             return this.Name.GetHashCode();
         }
         #endregion
+
     }
 }

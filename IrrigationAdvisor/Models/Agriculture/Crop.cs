@@ -116,11 +116,22 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.MaxEvapotranspirationToIrrigate = 0;
         }
 
-        public Crop(int pId, String pName, Specie pSpecie, 
+        public Crop(long pIdCrop, String pName, Specie pSpecie, 
+                    double pMaxEvapotranspirationToIrrigate)
+        {
+            this.IdCrop = pIdCrop;
+            this.Name = pName;
+            this.Specie = pSpecie;
+            this.PhenologicalStageList=new List<PhenologicalStage>();
+            this.Density = 0;
+            this.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
+        }
+
+        public Crop(long pIdCrop, String pName, Specie pSpecie, 
             List<PhenologicalStage> pPhenologicalStageList,
             double pDensity, double pMaxEvapotranspirationToIrrigate)
         {
-            this.IdCrop = pId;
+            this.IdCrop = pIdCrop;
             this.Name = pName;
             this.Specie = pSpecie;
             this.PhenologicalStageList = pPhenologicalStageList;

@@ -282,6 +282,11 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Horizon
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pHorizon"></param>
+        /// <returns></returns>
         public Horizon ExistHorizon(Horizon pHorizon)
         {
             Horizon lReturn = null;
@@ -296,6 +301,20 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lReturn;
         }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pOrder"></param>
+        /// <param name="pHorizonLayer"></param>
+        /// <param name="pHorizonLayerDepth"></param>
+        /// <param name="pSand"></param>
+        /// <param name="pLimo"></param>
+        /// <param name="pClay"></param>
+        /// <param name="pOrganicMatter"></param>
+        /// <param name="pNitrogenAnalysis"></param>
+        /// <param name="pBulkDensitySoil"></param>
+        /// <returns></returns>
         public Horizon AddHorizon(String pName, int pOrder,
                         String pHorizonLayer, double pHorizonLayerDepth, double pSand,
                         double pLimo, double pClay, double pOrganicMatter, 
@@ -314,6 +333,20 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lReturn;
         }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pOrder"></param>
+        /// <param name="pHorizonLayer"></param>
+        /// <param name="pHorizonLayerDepth"></param>
+        /// <param name="pSand"></param>
+        /// <param name="pLimo"></param>
+        /// <param name="pClay"></param>
+        /// <param name="pOrganicMatter"></param>
+        /// <param name="pNitrogenAnalysis"></param>
+        /// <param name="pBulkDensitySoil"></param>
+        /// <returns></returns>
         public Horizon UpdateHorizon(String pName, int pOrder,
                         String pHorizonLayer, double pHorizonLayerDepth, double pSand,
                         double pLimo, double pClay, double pOrganicMatter,

@@ -40,22 +40,25 @@ namespace IrrigationAdvisor.Models.Irrigation
         #endregion
 
         #region Fields
-        private int id;
+
+        private long idIrrigationUnit;
         private String name;
         private String irrigationType;
         private double irrigationEfficiency;
-        private List<Pair<DateTime, double>> irrigations;
+        private List<Pair<DateTime, double>> irrigationList;
         private double surface;
-        private List<Crop> irrigationCrops;
+        private List<Crop> cropList;
         private Bomb bomb;
         private Location location;
+
         #endregion
 
         #region Properties
-        public int Id
+
+        public long IdIrrigationUnit
         {
-            get { return id; }
-            set { id = value; }
+            get { return idIrrigationUnit; }
+            set { idIrrigationUnit = value; }
         }
 
         public String Name
@@ -76,10 +79,10 @@ namespace IrrigationAdvisor.Models.Irrigation
             set { irrigationEfficiency = value; }
         }
         
-        public List<Pair<DateTime, double>> Irrigations
+        public List<Pair<DateTime, double>> IrrigationList
         {
-            get { return irrigations; }
-            set { irrigations = value; }
+            get { return irrigationList; }
+            set { irrigationList = value; }
         }
         
         public double Surface
@@ -88,10 +91,10 @@ namespace IrrigationAdvisor.Models.Irrigation
             set { surface = value; }
         }
         
-        public List<Crop> IrrigationCrops
+        public List<Crop> CropList
         {
-            get { return irrigationCrops; }
-            set { irrigationCrops = value; }
+            get { return cropList; }
+            set { cropList = value; }
         }
         
         public Bomb Bomb
@@ -105,50 +108,75 @@ namespace IrrigationAdvisor.Models.Irrigation
             get { return location; }
             set { location = value; }
         }
+
         #endregion
 
         #region Construction
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         public IrrigationUnit()
         {
-            this.Id = 0;
+            this.IdIrrigationUnit = 0;
             this.Name = "noname";
             this.IrrigationType = "";
             this.IrrigationEfficiency = 0;
-            this.Irrigations = new List<Pair<DateTime, double>>();
+            this.IrrigationList = new List<Pair<DateTime, double>>();
             this.Surface = 0;
-            this.IrrigationCrops = new List<Crop>();
+            this.CropList = new List<Crop>();
             this.Bomb = new Bomb();
             this.Location = new Location();
         }
-        public IrrigationUnit(int pId, String pName, String pIrrigationType,
-            double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigations,
-            double pSurface, List<Crop> pIrrigationCrops, Bomb pBomb, Location pLocation)
+        
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdCrop"></param>
+        /// <param name="pName"></param>
+        /// <param name="pIrrigationType"></param>
+        /// <param name="pIrrigationEfficiency"></param>
+        /// <param name="pIrrigationList"></param>
+        /// <param name="pSurface"></param>
+        /// <param name="pCropList"></param>
+        /// <param name="pBomb"></param>
+        /// <param name="pLocation"></param>
+        public IrrigationUnit(long pIdIrrigationUnit, String pName, String pIrrigationType,
+            double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList,
+            double pSurface, List<Crop> pCropList, Bomb pBomb, Location pLocation)
         {
-            this.Id = pId;
+            this.IdIrrigationUnit = pIdIrrigationUnit;
             this.Name = pName;
             this.IrrigationType = pIrrigationType;
             this.IrrigationEfficiency = pIrrigationEfficiency;
-            this.Irrigations = pIrrigations;
+            this.IrrigationList = pIrrigationList;
             this.Surface = pSurface;
-            this.IrrigationCrops = pIrrigationCrops;
+            this.CropList = pCropList;
             this.Bomb = pBomb;
             this.Location = pLocation;
         }
+
         #endregion
 
         #region Private Helpers
         #endregion
 
         #region Public Methods
-        public bool addIrrigation(DateTime pDateTime, double pValue)
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pDateTime"></param>
+        /// <param name="pValue"></param>
+        /// <returns></returns>
+        public bool AddIrrigation(DateTime pDateTime, double pValue)
         {
             bool lReturn = true;
             try
             {
                 Pair<DateTime,double> lPair = new Pair<DateTime,double>(pDateTime,pValue);
-                this.Irrigations.Add(lPair);
-                //return this.Irrigations.Contains(lPair);
+                this.IrrigationList.Add(lPair);
+                //return this.IrrigationList.Contains(lPair);
             }
             catch(Exception e)
             {
@@ -158,13 +186,19 @@ namespace IrrigationAdvisor.Models.Irrigation
             return lReturn;
 
         }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pCrop"></param>
+        /// <returns></returns>
         public bool  addCrop(Crop pCrop)
         {
             bool lReturn = true;
             try
             {
-                this.IrrigationCrops.Add(pCrop);
-                //return this.IrrigationCrops.Contains(pCrop);
+                this.CropList.Add(pCrop);
+                //return this.CropList.Contains(pCrop);
             }
             catch(Exception e)
             {
@@ -173,15 +207,17 @@ namespace IrrigationAdvisor.Models.Irrigation
             }
             return lReturn;
         }
+
         public double getTotalIrrigation() 
         {
             double lReturn = 0;
-            foreach(Pair<DateTime,double> lIrrigation in Irrigations)
+            foreach(Pair<DateTime,double> lIrrigation in IrrigationList)
             {
                 lReturn += lIrrigation.Second;
             }
             return lReturn;
         }
+        
         #endregion
 
     }

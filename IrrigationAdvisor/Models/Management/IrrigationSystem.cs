@@ -693,6 +693,11 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Soil
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSoil"></param>
+        /// <returns></returns>
         public Soil ExistSoil(Soil pSoil)
         {
             Soil lReturn = null;
@@ -707,11 +712,56 @@ namespace IrrigationAdvisor.Models.Management
             return lReturn;
         }
 
-        public Soil AddSoil()
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDescription"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pTestDate"></param>
+        /// <param name="pDepthLimit"></param>
+        /// <returns></returns>
+        public Soil AddSoil(String pName, String pDescription,
+                        Location pLocation, DateTime pTestDate,
+                        double pDepthLimit)
         {
             Soil lReturn = null;
-            Soil lSoil = new Soil(pIdSoil, pName, pDescription,
-                pLocation, pTestDate, pDepthLimit )
+            int lIdSoil = this.SoilList.Count();
+            Soil lSoil = new Soil(lIdSoil, pName, pDescription,
+                                pLocation, pTestDate, pDepthLimit);
+            if(ExistSoil(lSoil) == null)
+            {
+                this.SoilList.Add(lSoil);
+                lReturn = lSoil;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDescription"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pTestDate"></param>
+        /// <param name="pDepthLimit"></param>
+        /// <returns></returns>
+        public Soil UpdateSoil(String pName, String pDescription,
+                        Location pLocation, DateTime pTestDate,
+                        double pDepthLimit)
+        {
+            Soil lReturn = null;
+            Soil lSoil = new Soil(0, pName, pDescription,
+                                pLocation, pTestDate, pDepthLimit);
+            lReturn = ExistSoil(lSoil);
+            if(lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.Description = pDescription;
+                lReturn.Location = pLocation;
+                lReturn.TestDate = pTestDate;
+                lReturn.DepthLimit = pDepthLimit;
+            }
             return lReturn;
         }
 
@@ -719,6 +769,11 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Specie
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
         public Specie ExistSpecie(Specie pSpecie)
         {
             Specie lReturn = null;
@@ -733,22 +788,117 @@ namespace IrrigationAdvisor.Models.Management
             return lReturn;
         }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pBaseTemperature"></param>
+        /// <param name="pCropCoefficient"></param>
+        /// <param name="pPhenologicalStageList"></param>
+        /// <returns></returns>
+        public Specie AddSpecie(String pName, double pBaseTemperature,
+                        CropCoefficient pCropCoefficient, 
+                        List<PhenologicalStage> pPhenologicalStageList)
+        {
+            Specie lReturn = null;
+            int lIdSpecie = this.SpecieList.Count();
+            Specie lSpecie = new Specie(lIdSpecie, pName, pBaseTemperature, pCropCoefficient, 
+                                    pPhenologicalStageList);
+            if(ExistSpecie(lSpecie) == null)
+            {
+                this.SpecieList.Add(lSpecie);
+                lReturn = lSpecie;
+            }
+            return lReturn;
+        }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pBaseTemperature"></param>
+        /// <param name="pCropCoefficient"></param>
+        /// <param name="pPhenologicalStageList"></param>
+        /// <returns></returns>
+        public Specie UpdateSpecie(String pName, double pBaseTemperature,
+                        CropCoefficient pCropCoefficient,
+                        List<PhenologicalStage> pPhenologicalStageList)
+        {
+            Specie lReturn = null;
+            Specie lSpecie = new Specie(0, pName, pBaseTemperature, pCropCoefficient,
+                                    pPhenologicalStageList);
+            lReturn = ExistSpecie(lSpecie);
+            if (lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.BaseTemperature = pBaseTemperature;
+                lReturn.CropCoefficient = pCropCoefficient;
+                lReturn.PhenologicalStageList = pPhenologicalStageList;
+            }
+            return lReturn;
+        }
 
         #endregion
 
         #region Stage
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pStage"></param>
+        /// <returns></returns>
         public Stage ExistStage(Stage pStage)
         {
             Stage lReturn = null;
-            foreach (Stage item in StageList)
+            if (pStage != null)
             {
-                if(item.Equals(pStage))
+                foreach (Stage item in StageList)
                 {
-                    lReturn = item;
-                    break;
+                    if (item.Equals(pStage))
+                    {
+                        lReturn = item;
+                        break;
+                    }
                 }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDescription"></param>
+        /// <returns></returns>
+        public Stage AddStage(String pName, String pDescription)
+        {
+            Stage lReturn = null;
+            long lIdStage = this.StageList.Count();
+            Stage lStage = new Stage(lIdStage, pName, pDescription);
+            if(ExistStage(lStage) == null)
+            {
+                this.StageList.Add(lStage);
+                lReturn = lStage;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// 
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDescription"></param>
+        /// <returns></returns>
+        public Stage UpdateStage(String pName, String pDescription)
+        {
+            Stage lReturn = null;
+            Stage lStage = new Stage(0, pName, pDescription);
+            lReturn = ExistStage(lStage);
+            if(lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.Description = pDescription;
             }
             return lReturn;
         }
@@ -762,16 +912,16 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pPhenologicalStage"></param>
         /// <returns></returns>
-        public bool ExistPhenologicalStage(PhenologicalStage pPhenologicalStage)
+        public PhenologicalStage ExistPhenologicalStage(PhenologicalStage pPhenologicalStage)
         {
-            bool lReturn = false;
+            PhenologicalStage lReturn = null;
             if(pPhenologicalStage != null)
             {
                 foreach (PhenologicalStage item in this.PhenologicalStageList)
                 {
                     if(item.Equals(pPhenologicalStage))
                     {
-                        lReturn = true;
+                        lReturn = item;
                         break;
                     }
                 }
@@ -780,7 +930,7 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// Create a Phenological Stage
+        /// Add a Phenological Stage if not exists, else return null
         /// </summary>
         /// <param name="pIdSoil"></param>
         /// <param name="pSpecie"></param>
@@ -789,17 +939,48 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pMaxDegree"></param>
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
-        public PhenologicalStage CreatePhenologicalStage(int pId, Specie pSpecie, 
-                                        Stage pStage, double pMinDegree, double pMaxDegree, 
-                                        double pRootDepth)
+        public PhenologicalStage AddPhenologicalStage(Specie pSpecie, Stage pStage, 
+                                        double pMinDegree, double pMaxDegree, double pRootDepth)
         {
-            PhenologicalStage lPhenologicalStage;
-
-            lPhenologicalStage = new PhenologicalStage(pId, pSpecie, pStage, 
-                                        pMinDegree, pMaxDegree, pRootDepth);
-            return lPhenologicalStage;
+            PhenologicalStage lReturn = null;
+            long lIdPhenologicalStage = this.PhenologicalStageList.Count();
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIdPhenologicalStage, 
+                                                    pSpecie, pStage, pMinDegree, pMaxDegree, pRootDepth);
+            if(ExistPhenologicalStage(lPhenologicalStage) == null)
+            {
+                this.PhenologicalStageList.Add(lPhenologicalStage);
+                lReturn = lPhenologicalStage;
+            }
+            return lReturn;
         }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <param name="pMinDegree"></param>
+        /// <param name="pMaxDegree"></param>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
+        public PhenologicalStage UpdatePhenologicalStage(Specie pSpecie, Stage pStage, 
+                                        double pMinDegree, double pMaxDegree, 
+                                        double pRootDepth)
+        {
+            PhenologicalStage lReturn = null;
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(0, pSpecie, pStage, 
+                                                        pMinDegree, pMaxDegree, pRootDepth);
+            lReturn = ExistPhenologicalStage(lPhenologicalStage);
+            if(lReturn != null)
+            {
+                lReturn.Specie = pSpecie;
+                lReturn.Stage = pStage;
+                lReturn.MinDegree = pMinDegree;
+                lReturn.MaxDegree = pMaxDegree;
+                lReturn.RootDepth = pRootDepth;
+            }
+            return lReturn;
+        }
 
         /// <summary>
         /// TODO description adjustmentPhenology
@@ -830,6 +1011,13 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Irrigation
+
+        #region Bomb
+        #endregion
+
+        #region IrrigationUnit
+        #endregion
+
         #endregion
 
         #region Language
@@ -842,12 +1030,12 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// If Region Exists in List return the Region, else null
         /// </summary>
-        /// <param name="pRegion"></param>
+        /// <param name="pRegionList"></param>
         /// <returns></returns>
         public Region ExistRegion(Region pRegion)
         {
             Region lReturn = null;
-            foreach (Region item in RegionList)
+            foreach (Region item in this.RegionList)
             {
                 if(item.Equals(pRegion))
                 {
@@ -868,13 +1056,22 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pSpecieList"></param>
         /// <returns></returns>
         public Region AddRegion(String pName, Position pPosition,
-            List<EffectiveRain> pEffectiveRainList, 
-            List<Specie> pSpecieList)
+            List<EffectiveRain> pEffectiveRainList, List<Specie> pSpecieList)
         {
             Region lReturn = null;
             int lIDRegion = this.RegionList.Count();
-            Region lRegion = new Region(lIDRegion, pName,
-                pPosition, pEffectiveRainList, pSpecieList);
+            Region lRegion = null;
+            
+            if(pEffectiveRainList == null || pSpecieList == null)
+            {
+                lRegion = new Region(lIDRegion, pName, pPosition);
+            }
+            else
+            {
+                lRegion = new Region(lIDRegion, pName, pPosition,
+                         pEffectiveRainList, pSpecieList);
+            }
+
             if(ExistRegion(lRegion) == null)
             {
                 this.RegionList.Add(lRegion);
@@ -905,6 +1102,240 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.Position = pPosition;
                 lReturn.EffectiveRainList = pEffectiveRainList;
                 lReturn.SpecieList = pSpecieList;
+            }
+            return lReturn;
+        }
+
+        #endregion
+
+        #region Country
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pCountry"></param>
+        /// <returns></returns>
+        public Country ExistCountry(Country pCountry)
+        {
+            Country lReturn = null;
+            foreach (Country item in this.CountryList)
+            {
+                if(item.Equals(pCountry))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pCapital"></param>
+        /// <param name="pCityList"></param>
+        /// <param name="pRegionList"></param>
+        /// <returns></returns>
+        public Country AddCountry(String pName, City pCapital, List<City> pCityList, 
+                                List<Region> pRegionList)
+        {
+            Country lReturn = null;
+            long lIdCountry = this.CountryList.Count();
+            Country lCountry = null;
+
+            if (pCityList == null || pRegionList == null)
+            {
+                lCountry = new Country(lIdCountry, pName, pCapital);
+            }
+            else
+            {
+                lCountry = new Country(lIdCountry, pName, pCapital, pCityList, pRegionList);
+            }
+            if(ExistCountry(lCountry) == null)
+            {
+                this.CountryList.Add(lCountry);
+                lReturn = lCountry;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pCapital"></param>
+        /// <param name="pCityList"></param>
+        /// <param name="pRegionList"></param>
+        /// <returns></returns>
+        public Country UpdateCountry(String pName, City pCapital, List<City> pCityList,
+                                List<Region> pRegionList)
+        {
+            Country lReturn = null;
+            Country lCountry = new Country(0, pName, pCapital, pCityList, pRegionList);
+            lReturn = ExistCountry(lCountry);
+            if(lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.Capital = pCapital;
+                lReturn.CityList = pCityList;
+                lReturn.RegionList = pRegionList;
+            }
+            return lReturn;
+        }
+
+        #endregion
+
+        #region City
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pCity"></param>
+        /// <returns></returns>
+        public City ExistCity (City pCity)
+        {
+            City lReturn = null;
+            foreach (City item in this.CityList)
+            {
+                if(item.Equals(pCity))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pPosition"></param>
+        /// <returns></returns>
+        public City AddCity(String pName, Position pPosition)
+        {
+            City lReturn = null;
+            long lIdCity = this.CityList.Count();
+            City lCity = new City(lIdCity, pName, pPosition);
+            if (ExistCity(lCity) == null)
+            {
+                this.CityList.Add(lCity);
+                lReturn = lCity;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pPosition"></param>
+        /// <returns></returns>
+        public City UpdateCity(String pName, Position pPosition)
+        {
+            City lReturn = null;
+            City lCity = new City(0, pName, pPosition);
+            lReturn = ExistCity(lCity);
+            if(lReturn != null)
+            {
+                lReturn.Name= pName;
+                lReturn.Position = pPosition;
+            }
+            return lReturn;
+        }
+
+        #endregion
+
+        #region Farm
+
+        /// <summary>
+        /// TODO Add despription
+        /// </summary>
+        /// <param name="pFarm"></param>
+        /// <returns></returns>
+        public Farm ExistFarm(Farm pFarm)
+        {
+            Farm lReturn = null;
+            foreach (Farm item in this.FarmList)
+            {
+                if(item.Equals(pFarm))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pAddress"></param>
+        /// <param name="pPhone"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pHas"></param>
+        /// <param name="pSoilList"></param>
+        /// <param name="pBombList"></param>
+        /// <param name="pWeatherStation"></param>
+        /// <param name="pUser"></param>
+        /// <param name="pIrrigationUnitList"></param>
+        /// <returns></returns>
+        public Farm AddFarm(String pName, String pAddress, String pPhone, 
+                        Location pLocation, int pHas, List<Soil> pSoilList,
+                        List<Bomb> pBombList, WeatherStation pWeatherStation,
+                        User pUser, List<IrrigationUnit> pIrrigationUnitList)
+        {
+            Farm lReturn = null;
+            long lIdFarm = this.FarmList.Count();
+            Farm lFarm = new Farm(lIdFarm, pName, pAddress, pPhone,
+                            pLocation, pHas, pSoilList, pBombList,
+                            pWeatherStation, pUser, pIrrigationUnitList);
+            if(ExistFarm(lFarm) == null)
+            {
+                this.FarmList.Add(lFarm);
+                lReturn = lFarm;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pAddress"></param>
+        /// <param name="pPhone"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pHas"></param>
+        /// <param name="pSoilList"></param>
+        /// <param name="pBombList"></param>
+        /// <param name="pWeatherStation"></param>
+        /// <param name="pUser"></param>
+        /// <param name="pIrrigationUnitList"></param>
+        /// <returns></returns>
+        public Farm UpdateFarm(String pName, String pAddress, String pPhone,
+                        Location pLocation, int pHas, List<Soil> pSoilList,
+                        List<Bomb> pBombList, WeatherStation pWeatherStation,
+                        User pUser, List<IrrigationUnit> pIrrigationUnitList)
+        {
+            Farm lReturn = null;
+            Farm lFarm = new Farm(0, pName, pAddress, pPhone,
+                            pLocation, pHas, pSoilList, pBombList,
+                            pWeatherStation, pUser, pIrrigationUnitList);
+            lReturn = ExistFarm(lFarm);
+            if(lReturn != null)
+            {
+                lReturn.Name= pName;
+                lReturn.Address = pAddress;
+                lReturn.Phone = pPhone;
+                lReturn.Location = pLocation;
+                lReturn.Has = pHas;
+                lReturn.SoilList = pSoilList;
+                lReturn.BombList = pBombList;
+                lReturn.WeatherStation = pWeatherStation;
+                lReturn.User = pUser;
+                lReturn.IrrigationUnitList = pIrrigationUnitList;
             }
             return lReturn;
         }
@@ -1057,16 +1488,16 @@ namespace IrrigationAdvisor.Models.Management
         ///// Return the Phenological Stage for a Specie in a Region given the rootDepth
         ///// </summary>
         ///// <param name="pDegree"></param>
-        ///// <param name="pRegion"></param>
+        ///// <param name="pRegionList"></param>
         ///// <param name="pSpecie"></param>
         ///// <returns></returns>
-        //public PhenologicalStage getPhenologicalStage(double pDegree, Region pRegion, Specie pSpecie)
+        //public PhenologicalStage getPhenologicalStage(double pDegree, Region pRegionList, Specie pSpecie)
         //{
         //    PhenologicalStage lReturn = null;
         //    List<PhenologicalStage> lPhenologicalStageListByRegion = null;
         //    foreach (Pair<Region , List<PhenologicalStage >> lPair in this.PhenologicalStageList)
         //    {
-        //        if (lPair != null && lPair.First.Equals(pRegion))
+        //        if (lPair != null && lPair.First.Equals(pRegionList))
         //        {
         //            lPhenologicalStageListByRegion = lPair.Second;
         //        }
@@ -1088,7 +1519,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// Return the List of PhenologicalStageList for a Specie in a Region
         /// </summary>
-        /// <param name="pRegion"></param>
+        /// <param name="pRegionList"></param>
         /// <param name="pSpecie"></param>
         /// <returns></returns>
         public List<PhenologicalStage> getPhenologicalStage(Region pRegion, Specie pSpecie,

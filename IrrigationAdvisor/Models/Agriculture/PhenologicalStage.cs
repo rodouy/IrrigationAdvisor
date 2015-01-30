@@ -42,6 +42,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// </summary>
     public class PhenologicalStage
     {
+
         #region Consts
         #endregion
 
