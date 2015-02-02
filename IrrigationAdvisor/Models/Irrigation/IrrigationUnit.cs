@@ -171,12 +171,12 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// <returns></returns>
         public bool AddIrrigation(DateTime pDateTime, double pValue)
         {
-            bool lReturn = true;
+            bool lReturn = false;
             try
             {
-                Pair<DateTime,double> lPair = new Pair<DateTime,double>(pDateTime,pValue);
+                Pair<DateTime,double> lPair = new Pair<DateTime,double>(pDateTime, pValue);
                 this.IrrigationList.Add(lPair);
-                //return this.IrrigationList.Contains(lPair);
+                lReturn = true;
             }
             catch(Exception e)
             {
@@ -184,7 +184,30 @@ namespace IrrigationAdvisor.Models.Irrigation
                 Console.WriteLine("Error in IrrigationUnit.addIrrigation " + e.Message);
             }
             return lReturn;
+        }
 
+        #region Crop
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pCrop"></param>
+        /// <returns></returns>
+        public Crop ExistCrop(Crop pCrop)
+        {
+            Crop lReturn = null;
+            if(pCrop != null)
+            {
+                foreach (Crop item in this.CropList)
+                {
+                    if(item.Equals(pCrop))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
         }
 
         /// <summary>
@@ -192,23 +215,31 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// </summary>
         /// <param name="pCrop"></param>
         /// <returns></returns>
-        public bool  addCrop(Crop pCrop)
+        public Crop AddCrop(Crop pCrop)
         {
-            bool lReturn = true;
+            Crop lReturn = null;
             try
-            {
-                this.CropList.Add(pCrop);
-                //return this.CropList.Contains(pCrop);
+            {   
+                if (ExistCrop(pCrop) == null)
+                {
+                    this.CropList.Add(pCrop);
+                    lReturn = pCrop;
+                }
             }
             catch(Exception e)
             {
-                lReturn=false;
                 Console.WriteLine("Error in IrrigationUnit.addCrop " + e.Message);
             }
             return lReturn;
         }
 
-        public double getTotalIrrigation() 
+        #endregion
+
+        /// <summary>
+        /// Get Total Irrigation in List
+        /// </summary>
+        /// <returns></returns>
+        public double GetTotalIrrigation() 
         {
             double lReturn = 0;
             foreach(Pair<DateTime,double> lIrrigation in IrrigationList)
@@ -218,6 +249,33 @@ namespace IrrigationAdvisor.Models.Irrigation
             return lReturn;
         }
         
+        #endregion
+
+        #region Overrides
+        // Different region for each class override
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            IrrigationUnit lIrrigationUnit = obj as IrrigationUnit;
+            return this.Name.Equals(lIrrigationUnit.Name)
+                && this.Location.Equals(lIrrigationUnit.Location)
+                && this.IrrigationType.Equals(lIrrigationUnit.IrrigationType);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
+
         #endregion
 
     }

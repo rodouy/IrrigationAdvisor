@@ -171,22 +171,19 @@ namespace IrrigationAdvisor.Models.Localization
             }
             return lReturn;
         }
-
+        
         /// <summary>
         /// TODO add description
         /// </summary>
-        /// <param name="pName"></param>
-        /// <param name="pPosition"></param>
+        /// <param name="pCity"></param>
         /// <returns></returns>
-        public City AddCity(String pName, Position pPosition)
+        public City AddCity(City pCity)
         {
             City lReturn = null;
-            long lIdCity = this.CityList.Count();
-            City lCity = new City(lIdCity, pName, pPosition);
-            if(ExistCity(lCity) == null)
+            if (ExistCity(pCity) == null)
             {
-                this.CityList.Add(lCity);
-                lReturn = lCity;
+                this.CityList.Add(pCity);
+                lReturn = pCity;
             }
             return lReturn;
         }
@@ -241,17 +238,13 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pEffectiveRainList"></param>
         /// <param name="pSpecieList"></param>
         /// <returns></returns>
-        public Region AddRegion(String pName, Position pPosition,
-                        List<EffectiveRain> pEffectiveRainList, List<Specie> pSpecieList)
+        public Region AddRegion(Region pRegion)
         {
             Region lReturn = null;
-            int lIDRegion = this.RegionList.Count();
-            Region lRegion = new Region(lIDRegion, pName, pPosition,
-                                  pEffectiveRainList, pSpecieList);
-            if (ExistRegion(lRegion) == null)
+            if (ExistRegion(pRegion) == null)
             {
-                this.RegionList.Add(lRegion);
-                lReturn = lRegion;
+                this.RegionList.Add(pRegion);
+                lReturn = pRegion;
             }
             return lReturn;
         }

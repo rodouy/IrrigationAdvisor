@@ -30,7 +30,8 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// Fields of Class:
     ///     - idCrop long
     ///     - name String              
-    ///     - specie Specie                                 - PK
+    ///     - specie Specie 
+    ///     - region Region
     ///     - phenologicalStageList List<PhenologicalStage>
     ///     - 
     ///     - density double
@@ -40,8 +41,8 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// Methods:
     ///     - Crop()      -- constructor
     ///     - Crop(name, Specie, density, maxEvapotranspirationToIrrigate)  -- consturctor with parameters
-    ///     - getRegion(): Region
-    ///     - getBaseTemperature(): Double
+    ///     - GetRegion(): Region
+    ///     - GetBaseTemperature(): Double
     ///     
     /// 
     /// </summary>
@@ -55,6 +56,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         private long idCrop;
         private String name;
         private Specie specie;
+        private Region region;
         private List<PhenologicalStage> phenologicalStageList;
 
         private double density;
@@ -69,6 +71,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             get { return idCrop; }
             set { idCrop = value; }
         }
+
         public String Name
         {
             get { return name; }
@@ -79,6 +82,12 @@ namespace IrrigationAdvisor.Models.Agriculture
         {
             get { return specie; }
             set { specie = value; }
+        }
+
+        public Region Region
+        {
+            get { return region; }
+            set { region = value; }
         }
 
         public List<PhenologicalStage> PhenologicalStageList
@@ -99,10 +108,11 @@ namespace IrrigationAdvisor.Models.Agriculture
             set { maxEvapotranspirationToIrrigate = value; }
         }
 
-               
+ 
         #endregion
 
         #region Construction
+
         /// <summary>
         /// Constructor of Crop
         /// </summary>
@@ -111,29 +121,50 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.idCrop = 0;
             this.Name = "noName";
             this.Specie = new Specie();
+            this.Region = new Region();
             this.PhenologicalStageList = new List<PhenologicalStage>();
             this.Density = 0;
             this.MaxEvapotranspirationToIrrigate = 0;
         }
 
-        public Crop(long pIdCrop, String pName, Specie pSpecie, 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdCrop"></param>
+        /// <param name="pName"></param>
+        /// <param name="pSpecie"></param>
+        /// <param name="pRegion"></param>
+        /// <param name="pMaxEvapotranspirationToIrrigate"></param>
+        public Crop(long pIdCrop, String pName, Specie pSpecie, Region pRegion,
                     double pMaxEvapotranspirationToIrrigate)
         {
             this.IdCrop = pIdCrop;
             this.Name = pName;
             this.Specie = pSpecie;
+            this.Region = pRegion;
             this.PhenologicalStageList=new List<PhenologicalStage>();
             this.Density = 0;
             this.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
         }
 
-        public Crop(long pIdCrop, String pName, Specie pSpecie, 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdCrop"></param>
+        /// <param name="pName"></param>
+        /// <param name="pSpecie"></param>
+        /// <param name="pRegion"></param>
+        /// <param name="pPhenologicalStageList"></param>
+        /// <param name="pDensity"></param>
+        /// <param name="pMaxEvapotranspirationToIrrigate"></param>
+        public Crop(long pIdCrop, String pName, Specie pSpecie, Region pRegion,
             List<PhenologicalStage> pPhenologicalStageList,
             double pDensity, double pMaxEvapotranspirationToIrrigate)
         {
             this.IdCrop = pIdCrop;
             this.Name = pName;
             this.Specie = pSpecie;
+            this.Region = pRegion;
             this.PhenologicalStageList = pPhenologicalStageList;
             this.Density = pDensity;
             this.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
@@ -159,20 +190,20 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// Return if the Phenological Stage exists in the list
+        /// Return the Phenological Stage if exists in the list
         /// </summary>
         /// <param name="pPhenologicalStage"></param>
         /// <returns></returns>
-        public bool ExistPhenologicalStage(PhenologicalStage pPhenologicalStage)
+        public PhenologicalStage ExistPhenologicalStage(PhenologicalStage pPhenologicalStage)
         {
-            bool lReturn = false;
+            PhenologicalStage lReturn = null;
             if (pPhenologicalStage != null)
             {
                 foreach (PhenologicalStage item in this.PhenologicalStageList)
                 {
                     if (item.Equals(pPhenologicalStage))
                     {
-                        lReturn = true;
+                        lReturn = item;
                         break;
                     }
                 }

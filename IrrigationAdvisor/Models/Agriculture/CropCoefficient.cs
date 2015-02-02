@@ -52,6 +52,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     
     public class CropCoefficient
     {
+
         #region Consts
         private String dayColumnName = "DayAfterSowing";
         private String kCColumnName = "KC";
@@ -92,6 +93,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Properties
+
         public bool UsingTable
         {
             get { return usingTable; }
@@ -170,7 +172,6 @@ namespace IrrigationAdvisor.Models.Agriculture
             set { dataSetOfKC = value; }
         }
         
-
         #endregion
 
         #region Construction
@@ -211,6 +212,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.makeListOfKC();
 
         }
+
         /// <summary>
         /// Constructor of ClassTemplate with all parameters
         /// </summary>
@@ -238,6 +240,10 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         private void makeListOfKC()
         {
             DataColumn column;
@@ -275,6 +281,15 @@ namespace IrrigationAdvisor.Models.Agriculture
 
 
         }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIntialKC"></param>
+        /// <param name="pEndKC"></param>
+        /// <param name="pDays"></param>
+        /// <param name="pTotalDays"></param>
+        /// <returns></returns>
         private double getKCBetweenPoints(double pIntialKC,double pEndKC, int pDays, int pTotalDays) 
         {
             double lReturn = 0;
@@ -282,6 +297,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             lReturn = pIntialKC + (lValueRange / pTotalDays * pDays);
             return Math.Round(lReturn,2);
         }
+        
         /// <summary>
         /// Returns the KC using a List with a value for each Day After Sowing
         /// </summary>
@@ -350,6 +366,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Add a value to the list of KC
         /// </summary>
@@ -366,11 +383,11 @@ namespace IrrigationAdvisor.Models.Agriculture
                 row[dayColumnName] = pDayAfterSowing;
                 row[kCColumnName] = pKC;
                 this.listOfKC.Rows.Add(row);
+                lReturn = true;
             }
             catch(Exception e)
             {
                 Console.WriteLine("Exception in CropCoefficient.addDayToList" + e.Message);
-                lReturn = false;
             }
             return lReturn;
         }
@@ -392,11 +409,37 @@ namespace IrrigationAdvisor.Models.Agriculture
                 lReturn = this.getKCFromList(pDays);
             }
             return lReturn;
-
         }
+
         #endregion
 
         #region Overrides
+        // Different region for each class override
+
+        /// <summary>
+        /// Overrides equals
+        /// name, region, specie
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            bool lReturn = false;
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            CropCoefficient lCropCoefficient = obj as CropCoefficient;
+            lReturn = this.Region.Equals(lCropCoefficient.Region)
+                    && this.Specie.Equals(lCropCoefficient.Specie);
+            return lReturn;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Region.GetHashCode();
+        }
+        
         #endregion
 
     }

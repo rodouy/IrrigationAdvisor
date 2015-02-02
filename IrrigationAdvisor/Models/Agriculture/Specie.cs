@@ -40,10 +40,10 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// 
     /// Methods: 
     ///     - Specie()      -- constructor
-    ///     - Specie(idSpecie, name, region, baseTemperature)  -- consturctor with parameters
-    ///     - Specie(idSpecie, name, region, baseTemperature, cropCoefficient, phenologicalStageList)  -- consturctor with parameters
+    ///     - Specie(idSpecie, name, baseTemperature)  -- consturctor with parameters
+    ///     - Specie(idSpecie, name, baseTemperature, cropCoefficient, phenologicalStageList)  -- consturctor with parameters
     ///     - (double): double
-    ///     - (): Region
+    ///     - 
     /// 
     /// </summary>
     public class Specie
@@ -106,6 +106,9 @@ namespace IrrigationAdvisor.Models.Agriculture
        
         #region Construction
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         public Specie() 
         {
             this.idSpecie = 0;
@@ -115,6 +118,12 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.PhenologicalStageList = new List<PhenologicalStage>();
         }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdSpecie"></param>
+        /// <param name="pName"></param>
+        /// <param name="pBaseTemperature"></param>
         public Specie(long pIdSpecie, String pName,  
             double pBaseTemperature)
         {
@@ -125,6 +134,14 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.PhenologicalStageList = new List<PhenologicalStage>();
         }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdSpecie"></param>
+        /// <param name="pName"></param>
+        /// <param name="pBaseTemperature"></param>
+        /// <param name="pCropCoefficient"></param>
+        /// <param name="pPhenologicalStageList"></param>
         public Specie(long pIdSpecie, String pName,
             double pBaseTemperature, CropCoefficient pCropCoefficient,
             List<PhenologicalStage> pPhenologicalStageList)
@@ -188,7 +205,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         /// <summary>
         /// Overrides equals:
-        /// name, region
+        /// name
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -208,6 +225,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         {
             return this.Name.GetHashCode();
         }
+
         #endregion
     
     }

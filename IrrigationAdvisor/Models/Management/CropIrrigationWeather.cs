@@ -8,6 +8,7 @@ using IrrigationAdvisor.Models.Data;
 using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Water;
 using IrrigationAdvisor.Models.Weather;
+using IrrigationAdvisor.Models.Irrigation;
 
 
 namespace IrrigationAdvisor.Models.Management
@@ -54,11 +55,11 @@ namespace IrrigationAdvisor.Models.Management
     ///     - CropIrrigationWeather()      -- constructor
     ///     - CropIrrigationWeather(irrigationUnit, crop, mainWeatherStation, alternativeWeatherStation,
     ///     )  -- consturctor with parameters
-    ///     - getRegion(): Region
-    ///     - getDaysAfterSowing(): int
-    ///     - getBaseTemperature(): double
-    ///     - getMaxEvapotranspirationToIrrigate(): double
-    ///     - getRootDepth(): double
+    ///     - GetRegion(): Region
+    ///     - GetDaysAfterSowing(): int
+    ///     - GetBaseTemperature(): double
+    ///     - GetMaxEvapotranspirationToIrrigate(): double
+    ///     - GetRootDepth(): double
     ///     - getSoilPermanentWiltingPoint(): double
     ///     - getSoilAvailableWaterCapacity(): double
     ///     - getSoilFieldCapacity(): double
@@ -80,7 +81,8 @@ namespace IrrigationAdvisor.Models.Management
         ///     - alternativeWeatherStation: WeatherStation
         /// </summary>
 
-        private Irrigation.IrrigationUnit irrigationUnit;
+        private long idCropIrrigationWeather;
+        private IrrigationUnit irrigationUnit;
         private Crop crop;
         private WeatherStation mainWeatherStation;
         private WeatherStation alternativeWeatherStation;
@@ -96,7 +98,13 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Properties
 
-        public Irrigation.IrrigationUnit IrrigationUnit
+        public long IdCropIrrigationWeater
+        {
+            get { return idCropIrrigationWeather; }
+            set { idCropIrrigationWeather = value; }
+        }
+
+        public IrrigationUnit IrrigationUnit
         {
             get { return irrigationUnit; }
             set { irrigationUnit = value; }
@@ -166,14 +174,18 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Construction
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         public CropIrrigationWeather() 
         {
+            this.IdCropIrrigationWeater = 0;
             this.IrrigationUnit = new Irrigation.IrrigationUnit();
             this.Crop = new Crop();
             this.MainWeatherStation = new WeatherStation();
             this.AlternativeWeatherStation = new WeatherStation();
             this.PredeterminatedIrrigationQuantity = 20;
-            //this.cropIrrigationWeatherRecord = new cropIrrigationWeatherRecord();//La agrega sistema
+            //TODO erase this.cropIrrigationWeatherRecord = new cropIrrigationWeatherRecord();//La agrega sistema
             this.PhenologicalStage = new PhenologicalStage();
             this.Location = new Location();
             this.SowingDate = new DateTime();
@@ -181,11 +193,24 @@ namespace IrrigationAdvisor.Models.Management
             this.Soil = new Soil();
         }
 
-        public CropIrrigationWeather(Irrigation.IrrigationUnit pIrrigationUnit,
-            Crop pCrop, WeatherStation pMainWeatherStation,
-            WeatherStation pAlternativeWeatherStation,
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdCropIrrigationWeather"></param>
+        /// <param name="pIrrigationUnit"></param>
+        /// <param name="pCrop"></param>
+        /// <param name="pMainWeatherStation"></param>
+        /// <param name="pAlternativeWeatherStation"></param>
+        /// <param name="pPredeterminatedIrrigationQuantity"></param>
+        /// <param name="pPhenologicalStage"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pSowingDate"></param>
+        /// <param name="pHarvestDate"></param>
+        /// <param name="pSoil"></param>
+        public CropIrrigationWeather(long pIdCropIrrigationWeather, IrrigationUnit pIrrigationUnit,
+            Crop pCrop, WeatherStation pMainWeatherStation, WeatherStation pAlternativeWeatherStation,
             double pPredeterminatedIrrigationQuantity, 
-            //cropIrrigationWeatherRecord pCropIrrigationWeatherRecordList,
+            //TODO erase cropIrrigationWeatherRecord pCropIrrigationWeatherRecordList,
             PhenologicalStage pPhenologicalStage, Location pLocation,
             DateTime pSowingDate, DateTime pHarvestDate, Soil pSoil)
         {
@@ -194,7 +219,7 @@ namespace IrrigationAdvisor.Models.Management
             this.MainWeatherStation = pMainWeatherStation;
             this.AlternativeWeatherStation = pAlternativeWeatherStation;
             this.PredeterminatedIrrigationQuantity = pPredeterminatedIrrigationQuantity;
-            //this.cropIrrigationWeatherRecord = pCropIrrigationWeatherRecordList; //La agrega sistema
+            //TODO erase this.cropIrrigationWeatherRecord = pCropIrrigationWeatherRecordList; //La agrega sistema
             this.PhenologicalStage = pPhenologicalStage;
             this.Location = pLocation;
             this.SowingDate = pSowingDate;
@@ -221,7 +246,7 @@ namespace IrrigationAdvisor.Models.Management
             double lPercentageOfAvailableWater;
 
             lOldPhenStage = this.PhenologicalStage;
-            lOldRootDepth = this.getPhenologicalStageRootDepth(this.PhenologicalStage);
+            lOldRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
 
             //get the modified degrees days
             lModifiedGrowingDegreeDays = this.cropIrrigationWeatherRecord.ModifiedGrowingDegreeDays;
@@ -230,7 +255,7 @@ namespace IrrigationAdvisor.Models.Management
 
             //Update Phenological Stage depending on the ModifiedGrowingDegreeDays
             this.UpdatePhenologicalStage(lModifiedGrowingDegreeDays);
-            lNewRootDepth = this.getPhenologicalStageRootDepth(this.PhenologicalStage);
+            lNewRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
             lNewPhenStage = this.PhenologicalStage;
 
             //Si aumenta la profundidad de raiz agrego al balance hidrico el agua de la nueva 
@@ -239,7 +264,7 @@ namespace IrrigationAdvisor.Models.Management
             {
                 //TODO get field capacity by horizon of soil (parameters: horizon depth, root depth difference)
                 lRootDepthDifference = lNewRootDepth - lOldRootDepth;
-                this.cropIrrigationWeatherRecord.HydricBalance += this.getFieldCapacity(lRootDepthDifference);
+                this.cropIrrigationWeatherRecord.HydricBalance += this.GetFieldCapacity(lRootDepthDifference);
             }
 
             //Si disminuye la profundidad de raiz agrego al balance hidrico el agua de la nueva 
@@ -489,7 +514,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Get Region from Crop
         /// </summary>
         /// <returns></returns>
-        public Region getRegion() 
+        public Region GetRegion() 
         {
             Region lRegion;
             lRegion = this.IrrigationUnit.Location.Region;
@@ -500,7 +525,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Get Days After Sowing DateTime
         /// </summary>
         /// <returns></returns>
-        public int getDaysAfterSowing()
+        public int GetDaysAfterSowing()
         {
             int lDaysAfterSowing;
             DateTime lSowingDate;
@@ -513,7 +538,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Get Base Temperature from Crop
         /// </summary>
         /// <returns></returns>
-        public double getBaseTemperature() 
+        public double GetBaseTemperature() 
         {
             double lReturn;
             lReturn = this.Crop.getBaseTemperature();
@@ -524,7 +549,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Get Max Evapotranspiration to Irrigate from Crop
         /// </summary>
         /// <returns></returns>
-        public double getMaxEvapotranspirationToIrrigate()
+        public double GetMaxEvapotranspirationToIrrigate()
         {
             double lReturn;
             lReturn = this.Crop.MaxEvapotranspirationToIrrigate;
@@ -535,7 +560,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Get Root Depth from Crop Phenological Stage
         /// </summary>
         /// <returns></returns>
-        public double getPhenologicalStageRootDepth(PhenologicalStage pPhenologicalStage)
+        public double GetPhenologicalStageRootDepth(PhenologicalStage pPhenologicalStage)
         {
             double lRootDepth;
             lRootDepth = pPhenologicalStage.RootDepth;
@@ -551,7 +576,7 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
-        public double getFieldCapacity(double pRootDepth)
+        public double GetFieldCapacity(double pRootDepth)
         {
             double lReturn;
             lReturn = this.Soil.GetFieldCapacity(pRootDepth);
@@ -570,7 +595,7 @@ namespace IrrigationAdvisor.Models.Management
             double lRootDepth;
             double lSoilPermanentWiltingPoint;
 
-            lRootDepth = this.getPhenologicalStageRootDepth(this.PhenologicalStage);
+            lRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
             lSoilPermanentWiltingPoint = this.Soil.GetPermanentWiltingPoint(lRootDepth);
             return lSoilPermanentWiltingPoint;
         }
@@ -585,7 +610,7 @@ namespace IrrigationAdvisor.Models.Management
             double lRootDepth;
             double lSoilAvailableWaterCapacity;
 
-            lRootDepth = this.getPhenologicalStageRootDepth(this.PhenologicalStage);
+            lRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
             lSoilAvailableWaterCapacity = this.Soil.GetAvailableWaterCapacity(lRootDepth);
             return lSoilAvailableWaterCapacity;
         }
@@ -598,7 +623,7 @@ namespace IrrigationAdvisor.Models.Management
         public double getSoilFieldCapacity()
         {
             double lReturn;
-            double lRootDepth = this.getPhenologicalStageRootDepth(this.PhenologicalStage);
+            double lRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
             lReturn = this.Soil.GetFieldCapacity(lRootDepth);
             return lReturn;
         }
@@ -635,7 +660,7 @@ namespace IrrigationAdvisor.Models.Management
             double lReturn = 0;
             double lFieldCapacity = 0;
             
-            lFieldCapacity = this.getFieldCapacity(InitialTables.INITIAL_ROOT_DEPTH);
+            lFieldCapacity = this.GetFieldCapacity(InitialTables.INITIAL_ROOT_DEPTH);
             lReturn = lFieldCapacity;
             return lReturn;
         }
@@ -699,7 +724,7 @@ namespace IrrigationAdvisor.Models.Management
 
                 lAverageTemp = pWeatherData.getAverageTemperature();
                 lEvapotranspiration = pWeatherData.getEvapotranspiration();
-                lBaseTemperature = this.getBaseTemperature();
+                lBaseTemperature = this.GetBaseTemperature();
                 //Growing Degree is average temperature menous Base Temperature
                 lGrowingDegree = lAverageTemp - lBaseTemperature;
                 lGrowingDegreeAcumulated = this.cropIrrigationWeatherRecord.GrowingDegreeDays + lGrowingDegree;

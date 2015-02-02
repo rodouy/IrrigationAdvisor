@@ -48,12 +48,12 @@ namespace IrrigationAdvisor.Models.Management
     /// Methods:
     ///     - IrrigationRecords()      -- constructor
     ///     - IrrigationRecords(name)  -- consturctor with parameters
-    ///     - getPhenologicalStage(DayGrades: double): Stage
+    ///     - GetPhenologicalStage(DayGrades: double): Stage
     ///     - setGrowingDegreeDays(): bool
     ///     - setPhenologicalState(Stage): bool
     ///     - setNewPhenologicalStage(Stage): GrowingDegreeDays: double
-    ///     - getRootDepth(Specie, Stage): double
-    ///     - getPhenologicalStage(GrowingDegreeDays: double): Stage
+    ///     - GetRootDepth(Specie, Stage): double
+    ///     - GetPhenologicalStage(GrowingDegreeDays: double): Stage
     ///     - getAvailableWater(RootDepth:double, FieldCapacity:double, PermanentWiltingPoint:double): double
     ///     - getHydricBalance(): double
     ///     - getSoilHydricVolume(): double
@@ -447,7 +447,7 @@ namespace IrrigationAdvisor.Models.Management
 
 
         /// <summary>
-        /// 
+        /// TODO add description
         /// </summary>
         /// <returns></returns>
         public string printState()
@@ -484,7 +484,7 @@ namespace IrrigationAdvisor.Models.Management
                 " \t " + effRain.Substring(0, 7) +
                 " \t " + totRain.Substring(0, 7) +
                 " \t " + this.LastWaterInputDate.ToShortDateString() +
-                " \t\t " + this.getRootDepth() +
+                " \t\t " + this.GetRootDepth() +
                 " \tf " + this.CropIrrigationWeather.PhenologicalStage.Stage.Name +
                 " \t " + totIrr.Substring(0, 7) +
                 " \t " + totExtraIrr.Substring(0, 7) +
@@ -507,7 +507,7 @@ namespace IrrigationAdvisor.Models.Management
             lMessage.Add(effRain.Substring(0, 7));
             lMessage.Add(totRain.Substring(0, 7));
             lMessage.Add(this.lastWaterInputDate.ToShortDateString());
-            lMessage.Add(this.getRootDepth().ToString());
+            lMessage.Add(this.GetRootDepth().ToString());
             lMessage.Add(this.CropIrrigationWeather.PhenologicalStage.Stage.Name);
             lMessage.Add(totIrr.Substring(0, 7));
             lMessage.Add(totExtraIrr.Substring(0, 7));
@@ -518,15 +518,14 @@ namespace IrrigationAdvisor.Models.Management
         }
 
 
-
         #endregion
 
         #region Public Methods
-        //     - getPhenologicalStage(DayGrades: double): Stage
+        //     - GetPhenologicalStage(DayGrades: double): Stage
         //     - setGrowingDegreeDays(): bool
         //     - setPhenologicalState(Stage): bool
         //     - setNewPhenologicalStage(Stage): GrowingDegreeDays: double
-        //     - getPhenologicalStage(GrowingDegreeDays: double): Stage
+        //     - GetPhenologicalStage(GrowingDegreeDays: double): Stage
         //     - getAvailableWater(RootDepth:double, FieldCapacity:double, PermanentWiltingPoint:double): double
         //     - getHydricBalance(): double
         //     - getSoilHydricVolume(): double
@@ -538,10 +537,10 @@ namespace IrrigationAdvisor.Models.Management
         /// Get Root Depth from Crop Phenological Stage
         /// </summary>
         /// <returns></returns>
-        public double getRootDepth()
+        public double GetRootDepth()
         {
             double lRootDepth;
-            lRootDepth = this.CropIrrigationWeather.getPhenologicalStageRootDepth(this.CropIrrigationWeather.PhenologicalStage);
+            lRootDepth = this.CropIrrigationWeather.GetPhenologicalStageRootDepth(this.CropIrrigationWeather.PhenologicalStage);
             return lRootDepth;
         }
 
@@ -572,7 +571,7 @@ namespace IrrigationAdvisor.Models.Management
 
         //        lAverageTemp = pWeatherData.getAverageTemperature();
         //        lEvapotranspiration = pWeatherData.getEvapotranspiration();
-        //        lBaseTemperature = this.CropIrrigationWeather.Crop.getBaseTemperature();
+        //        lBaseTemperature = this.CropIrrigationWeather.Crop.GetBaseTemperature();
         //        //Growing Degree is average temperature menous Base Temperature
         //        lGrowingDegree = lAverageTemp - lBaseTemperature;
         //        lGrowingDegreeAcumulated = this.GrowingDegreeDays + lGrowingDegree;

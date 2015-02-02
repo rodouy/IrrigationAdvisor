@@ -42,9 +42,9 @@ namespace IrrigationAdvisor.Models.Management
     /// Methods:
     ///     - DailyRecord()      -- constructor
     ///     - DailyRecord(name)  -- consturctor with parameters
-    ///     - getDaysAfterSowing(): int
-    ///     - getRegion(): Region
-    ///     - getBaseTemperature(): double
+    ///     - GetDaysAfterSowing(): int
+    ///     - GetRegion(): Region
+    ///     - GetBaseTemperature(): double
     ///     - getDailyAverageTemperature(): double
     ///     - getEvapotranspiration(): double
     ///     - getCropCoefficient(): double
@@ -183,7 +183,7 @@ namespace IrrigationAdvisor.Models.Management
         #region Public Methods
 
         //TODO DailyRecord - public methods
-        ///     - getBaseTemperature(): double
+        ///     - GetBaseTemperature(): double
         ///     - getDailyAverageTemperature(): double
         ///     - getEvapotranspiration(): double
         ///     - getCropCoefficient(): double

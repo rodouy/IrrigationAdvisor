@@ -23,7 +23,7 @@ namespace IrrigationAdvisor.Models.Weather
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - id int
+    ///     - long int
     ///     - name String
     ///     - model String
     ///     - dateOfInstallation Date
@@ -48,7 +48,7 @@ namespace IrrigationAdvisor.Models.Weather
         #region Fields
         /// <summary>
         ///  Fields of Class:
-        ///     - id int
+        ///     - idWeatherStation long
         ///     - name String
         ///     - model String
         ///     - dateOfInstallation Date
@@ -58,7 +58,7 @@ namespace IrrigationAdvisor.Models.Weather
         ///     - location Location
         ///     - giveET bool
         /// </summary>
-        private int id;
+        private long idWeatherStation;
         private String name;
         private String model;
         private DateTime dateOfInstallation;
@@ -73,7 +73,7 @@ namespace IrrigationAdvisor.Models.Weather
         #region Properties
         /// <summary>
         /// Properties of Class:
-        ///     - id int
+        ///     - idWeatherStation long
         ///     - name String
         ///     - model String
         ///     - dateOfInstallation Date
@@ -83,10 +83,12 @@ namespace IrrigationAdvisor.Models.Weather
         ///     - location Location
         ///     - giveET bool
         /// </summary>
-        public int Id
+         
+
+        public long IdWeatherStation
         {
-            get { return id; }
-            set { id = value; }
+            get { return idWeatherStation; }
+            set { idWeatherStation = value; }
         }
 
         public String Name
@@ -143,12 +145,13 @@ namespace IrrigationAdvisor.Models.Weather
         #endregion
 
         #region Construction
+
         /// <summary>
         /// Constructors of WeatherStation
         /// </summary>
         public WeatherStation()
         {
-            this.Id = 0;
+            this.IdWeatherStation = 0;
             this.Name = "";
             this.Model = "";
             this.DateOfInstallation = DateTime.Now;
@@ -159,14 +162,26 @@ namespace IrrigationAdvisor.Models.Weather
             this.GiveET = false;
         }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIdWeatherStation"></param>
+        /// <param name="pName"></param>
+        /// <param name="pModel"></param>
+        /// <param name="pDateOfInstallation"></param>
+        /// <param name="pDateOfService"></param>
+        /// <param name="pUpdateTime"></param>
+        /// <param name="pWirelessTransmission"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pGiveET"></param>
         public WeatherStation(
-            int pId, String pName, String pModel,
+            long pIdWeatherStation, String pName, String pModel,
             DateTime pDateOfInstallation, DateTime pDateOfService,
             DateTime pUpdateTime, int pWirelessTransmission,
             Location pLocation, bool pGiveET
             )
         {
-            this.Id = pId;
+            this.IdWeatherStation = pIdWeatherStation;
             this.Name = pName;
             this.Model = pModel;
             this.DateOfInstallation = pDateOfInstallation;
@@ -177,7 +192,6 @@ namespace IrrigationAdvisor.Models.Weather
             this.GiveET = pGiveET;
         }
 
-
         #endregion
 
         #region Private Helpers
@@ -187,6 +201,32 @@ namespace IrrigationAdvisor.Models.Weather
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Overrides equals:
+        /// name, Location, Model
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            bool lReturn = false;
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return lReturn;
+            }
+            WeatherStation lWeatherStation = obj as WeatherStation;
+            lReturn = this.Name.Equals(lWeatherStation.Name)
+                    && this.Location.Equals(lWeatherStation.Location)
+                    && this.Model.Equals(lWeatherStation.Model);
+            return lReturn;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
+
         #endregion
 
     }
