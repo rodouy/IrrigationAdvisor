@@ -458,6 +458,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot2, new DateTime(2014, 12, 27), 4.5);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot2, new DateTime(2014, 12, 31), 3.5);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot2, new DateTime(2015, 01, 06), 15);
+            testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot2, new DateTime(2015, 01, 13), 42);
+            testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot2, new DateTime(2015, 01, 19), 10);//(a confirmar)
+
 
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot3_4, new DateTime(2014, 11, 22), 27);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot3_4, new DateTime(2014, 11, 30), 130);
@@ -467,7 +470,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot3_4, new DateTime(2014, 12, 27), 4.5);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot3_4, new DateTime(2014, 12, 31), 3.5);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot3_4, new DateTime(2015, 01, 06), 15);
-            
+            testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot3_4, new DateTime(2015, 01, 13), 42);
+            testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot3_4, new DateTime(2015, 01, 19), 10);//(a confirmar)
+
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot5, new DateTime(2014, 10, 29), 66);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot5, new DateTime(2014, 10, 31), 2.5);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot5, new DateTime(2014, 11, 1), 2.5);
@@ -481,6 +486,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot5, new DateTime(2014, 12, 27), 4.5);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot5, new DateTime(2014, 12, 31), 3.5);
             testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot5, new DateTime(2015, 01, 06), 15);
+            testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot5, new DateTime(2015, 01, 13), 42);
+            testIrrigationSystem.addRainDataToList(testCropIrrigWeatherPivot5, new DateTime(2015, 01, 19), 10);//(a confirmar)
 
             //TODO: 2 Layout Rain Weather Data
             
