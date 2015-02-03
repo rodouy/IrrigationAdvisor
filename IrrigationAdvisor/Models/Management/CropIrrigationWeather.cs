@@ -333,6 +333,7 @@ namespace IrrigationAdvisor.Models.Management
             {
                 lRealRain = pDailyRec.Rain.getTotalInput();
                 //Calculate Rain Effective Value
+                //TODO correction on Effective Rain, take care about HydricBalance if it is at 100%
                 lEffectiveRain = this.cropIrrigationWeatherRecord.getEffectiveRainValue(pDailyRec.Rain);
                 this.cropIrrigationWeatherRecord.TotalEffectiveRain += lEffectiveRain;
                 this.cropIrrigationWeatherRecord.TotalRealRain += lRealRain;
@@ -666,7 +667,7 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// 
+        /// TODO Add Description
         /// </summary>
         /// <param name="lModifiedGrowingDegreeDays"></param>
         /// <returns></returns>
@@ -680,13 +681,13 @@ namespace IrrigationAdvisor.Models.Management
             lPhenologicalStageList = this.Crop.Specie.PhenologicalStageList;
             lPhenologicalTableOrderByMinDegree = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
 
-            foreach (PhenologicalStage lPhenStage in lPhenologicalTableOrderByMinDegree)
+            foreach (PhenologicalStage lPhenologicalStage in lPhenologicalTableOrderByMinDegree)
             {
-                if (lPhenStage != null && lPhenStage.Specie.Equals(this.Crop.Specie) && lPhenStage.MinDegree <= lModifiedGrowingDegreeDays
-                    && lPhenStage.MaxDegree >= lModifiedGrowingDegreeDays)
+                if (lPhenologicalStage != null && lPhenologicalStage.Specie.Equals(this.Crop.Specie) && lPhenologicalStage.MinDegree <= lModifiedGrowingDegreeDays
+                    && lPhenologicalStage.MaxDegree >= lModifiedGrowingDegreeDays)
                 {
-                    this.PhenologicalStage = lPhenStage;
-                    lNewPhenStage = lPhenStage;
+                    this.PhenologicalStage = lPhenologicalStage;
+                    lNewPhenStage = lPhenologicalStage;
                     return lNewPhenStage;
                 }
             }
@@ -696,7 +697,6 @@ namespace IrrigationAdvisor.Models.Management
 
         /// <summary>
         /// TODO explain addDailyRecord
-        /// 
         /// </summary>
         /// <param name="pWeatherData"></param>
         /// <param name="pMainWeatherData"></param>
@@ -734,7 +734,7 @@ namespace IrrigationAdvisor.Models.Management
 
                 if (lDays == 0)
                 {
-                    Utils.getDaysDifference(this.SowingDate, pWeatherData.Date);
+                    lDays = Utils.getDaysDifference(this.SowingDate, pWeatherData.Date);
                 }
 
                 lKC_CropCoefficient = this.Crop.Specie.CropCoefficient.getKC(lDays);

@@ -672,6 +672,7 @@ namespace IrrigationAdvisor.Models.Data
 
         #region PhenologicalStage
 
+
         /// <summary>
         /// TODO Explain CreatePhenologicalStageList
         /// </summary>
@@ -744,23 +745,17 @@ namespace IrrigationAdvisor.Models.Data
         /// <param name="pSpecieSoja"></param>
         /// <returns></returns>
         public static List<PhenologicalStage> CreatePhenologicalStageListForMaiz
-                        (IrrigationSystem pIrrigationSystem, Crop pCrop_Maiz, Specie pSpecieMaiz)                        
+                        (IrrigationSystem pIrrigationSystem, Specie pSpecieMaiz)                        
         {
             List<PhenologicalStage> lReturn = null;
-            Crop lCrop = null;
             List<PhenologicalStage> lPhenolStageList;
             double lMinDegree, lMaxDegree, lRootDepth;
             Stage lStage = null;
 
             try
-            {
-                lCrop = pIrrigationSystem.ExistCrop(pCrop_Maiz);
-                lPhenolStageList = pCrop_Maiz.PhenologicalStageList;
-                if (lPhenolStageList == null)
-                {
-                    lPhenolStageList = new List<PhenologicalStage>();
-                }
-
+            {                
+                lPhenolStageList = new List<PhenologicalStage>();
+                
                 lStage = new Stage(1, "Maiz v0", "Siembra"); lMinDegree = 0; lMaxDegree = 59; lRootDepth = 7;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieMaiz, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
@@ -895,23 +890,17 @@ namespace IrrigationAdvisor.Models.Data
         /// <param name="pSpecieSoja"></param>
         /// <returns></returns>
         public static List<PhenologicalStage> CreatePhenologicalStageListForSoja
-                        (IrrigationSystem pIrrigationSystem, Crop pCrop_Soja, Specie pSpecieSoja)
+                        (IrrigationSystem pIrrigationSystem, Specie pSpecieSoja)
         {
             List<PhenologicalStage> lReturn = null;
-            Crop lCrop = null;
             List<PhenologicalStage> lPhenolStageList;
             double lMinDegree, lMaxDegree, lRootDepth;
             Stage lStage = null;
 
             try
             {
-                lCrop = pIrrigationSystem.ExistCrop(pCrop_Soja);
-                lPhenolStageList = pCrop_Soja.PhenologicalStageList;
-                if (lPhenolStageList == null)
-                {
-                    lPhenolStageList = new List<PhenologicalStage>();
-                }
-
+                lPhenolStageList = new List<PhenologicalStage>();
+                
                 lStage = new Stage(1, "Soja v0", "Siembra"); lMinDegree = 0; lMaxDegree = 114; lRootDepth = 7;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System

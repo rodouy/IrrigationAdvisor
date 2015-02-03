@@ -189,6 +189,8 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lBaseTemperature;
         }
 
+        #region PhenologicalStage
+
         /// <summary>
         /// Return the Phenological Stage if exists in the list
         /// </summary>
@@ -211,7 +213,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lReturn;
         }
 
-
+        #endregion
 
         #endregion
 

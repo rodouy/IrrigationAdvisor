@@ -507,6 +507,7 @@ namespace IrrigationAdvisor.Models.Management
             Water.WaterInput lReturn = null;
             IEnumerable<Water.WaterInput> lIrrigationListOrderByDescendingByDate;
             lIrrigationListOrderByDescendingByDate = this.irrigationList.OrderByDescending(lWaterInput => lWaterInput.Date);
+            //TODO change to contains for date 
             foreach (Water.WaterInput lWaterInput in lIrrigationListOrderByDescendingByDate)
                 if (Utilities.Utils.isTheSameDay(lWaterInput.Date, pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
@@ -996,7 +997,8 @@ namespace IrrigationAdvisor.Models.Management
             long lIdPhenologicalStage = this.PhenologicalStageList.Count();
             PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIdPhenologicalStage, 
                                                     pSpecie, pStage, pMinDegree, pMaxDegree, pRootDepth);
-            if(ExistPhenologicalStage(lPhenologicalStage) == null)
+            lReturn = ExistPhenologicalStage(lPhenologicalStage);
+            if (lReturn == null)
             {
                 this.PhenologicalStageList.Add(lPhenologicalStage);
                 lReturn = lPhenologicalStage;
@@ -1706,7 +1708,9 @@ namespace IrrigationAdvisor.Models.Management
                                                     pMainWeatherStation, pAlternativeWeatherStation,
                                                     pPredeterminatedIrrigationQuantity, pPhenologicalStage,
                                                     pLocation, pSowingDate, pHarvestDate, pSoil);
-            if(ExistCropIrrigationWeather(lCropIrrigationWeather) == null)
+
+            lReturn = ExistCropIrrigationWeather(lCropIrrigationWeather);
+            if(lReturn == null)
             {
                 this.CropIrrigationWeatherList.Add(lCropIrrigationWeather);
                 lReturn = lCropIrrigationWeather;
@@ -1775,10 +1779,13 @@ namespace IrrigationAdvisor.Models.Management
 
                 //Create the cropIrrigationWeatherRecord for the CropIrrigationWeather
                 lCropIrrigationWeatherRecord = new CropIrrigationWeatherRecord();
+
                 //Get Effective Rain List from Region
                 lEffectiveRain = this.GetEffectiveRainList(pCropIrrigationWeather.IrrigationUnit.Location.Region);
+
                 lCropIrrigationWeatherRecord.EffectiveRain = lEffectiveRain;
                 lCropIrrigationWeatherRecord.CropIrrigationWeather = pCropIrrigationWeather;
+
                 //Get Initial Hidric Balance
                 bhi = pCropIrrigationWeather.getInitialHidricBalance();
                 lCropIrrigationWeatherRecord.HydricBalance = bhi;
@@ -1921,11 +1928,11 @@ namespace IrrigationAdvisor.Models.Management
         //    }
 
         //    IEnumerable<PhenologicalStage> query = lPhenologicalStageListByRegion.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
-        //    foreach(PhenologicalStage lPhenStage in query)
+        //    foreach(PhenologicalStage lPhenologicalStage in query)
         //    {
-        //        if (lPhenStage != null && lPhenStage.Specie.Equals(pSpecie) && lPhenStage.MinDegree <= pDegree && lPhenStage.MaxDegree >= pDegree)
+        //        if (lPhenologicalStage != null && lPhenologicalStage.Specie.Equals(pSpecie) && lPhenologicalStage.MinDegree <= pDegree && lPhenologicalStage.MaxDegree >= pDegree)
         //        {
-        //            lReturn = lPhenStage;
+        //            lReturn = lPhenologicalStage;
         //        }
         //    }
         //    return lReturn;
