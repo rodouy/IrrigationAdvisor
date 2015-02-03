@@ -816,7 +816,7 @@ namespace IrrigationAdvisor.Models.Data
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
                 
-                lStage = new Stage(1, "Maiz v11", "11 nudo"); lMinDegree = lMaxDegree + 1; lMaxDegree = 689; lRootDepth = 37;
+                lStage = new Stage(1, "Maiz v11", "11 nudo"); lMinDegree = lMaxDegree + 1; lMaxDegree = 689; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieMaiz, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
@@ -966,42 +966,42 @@ namespace IrrigationAdvisor.Models.Data
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
 
-                lStage = new Stage(1, "Soja R1", "Inicio Floracion"); lMinDegree = lMaxDegree + 1; lMaxDegree = 843; lRootDepth = 45;
+                lStage = new Stage(1, "Soja R1", "Inicio Floracion"); lMinDegree = lMaxDegree + 1; lMaxDegree = 843; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
 
-                lStage = new Stage(1, "Soja R2", "Floracion Completa"); lMinDegree = lMaxDegree + 1; lMaxDegree = 911; lRootDepth = 45;
+                lStage = new Stage(1, "Soja R2", "Floracion Completa"); lMinDegree = lMaxDegree + 1; lMaxDegree = 911; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
 
-                lStage = new Stage(1, "Soja R3", "Inicio Vainas"); lMinDegree = lMaxDegree + 1; lMaxDegree = 979; lRootDepth = 45;
+                lStage = new Stage(1, "Soja R3", "Inicio Vainas"); lMinDegree = lMaxDegree + 1; lMaxDegree = 979; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
 
-                lStage = new Stage(1, "Soja R4", "Vainas Completas"); lMinDegree = lMaxDegree + 1; lMaxDegree = 1098; lRootDepth = 45;
+                lStage = new Stage(1, "Soja R4", "Vainas Completas"); lMinDegree = lMaxDegree + 1; lMaxDegree = 1098; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
 
-                lStage = new Stage(1, "Soja R5", "Formacion de semillas"); lMinDegree = lMaxDegree + 1; lMaxDegree = 1217; lRootDepth = 45;
+                lStage = new Stage(1, "Soja R5", "Formacion de semillas"); lMinDegree = lMaxDegree + 1; lMaxDegree = 1217; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
 
-                lStage = new Stage(1, "Soja R6", "Semillas Completas"); lMinDegree = lMaxDegree + 1; lMaxDegree = 1608; lRootDepth = 45;
+                lStage = new Stage(1, "Soja R6", "Semillas Completas"); lMinDegree = lMaxDegree + 1; lMaxDegree = 1608; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
 
-                lStage = new Stage(1, "Soja R7", "Inicio Maduracion"); lMinDegree = lMaxDegree + 1; lMaxDegree = 1999; lRootDepth = 45;
+                lStage = new Stage(1, "Soja R7", "Inicio Maduracion"); lMinDegree = lMaxDegree + 1; lMaxDegree = 1999; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);
 
-                lStage = new Stage(1, "Soja R8", "Maduracion Completa"); lMinDegree = lMaxDegree + 1; lMaxDegree = 4000; lRootDepth = 45;
+                lStage = new Stage(1, "Soja R8", "Maduracion Completa"); lMinDegree = lMaxDegree + 1; lMaxDegree = 4000; lRootDepth = 40;
                 lPhenolStageList.Add(pIrrigationSystem.AddPhenologicalStage(pSpecieSoja, lStage, lMinDegree, lMaxDegree, lRootDepth));
                 //Add Stage to System
                 pIrrigationSystem.AddStage(lStage.Name, lStage.Description);

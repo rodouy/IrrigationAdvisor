@@ -483,6 +483,7 @@ namespace IrrigationAdvisor.Models.Management
                 if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
                     pCropIrrigationWeather.addDailyRecord(lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);
+                    break;
                 }
             }
 

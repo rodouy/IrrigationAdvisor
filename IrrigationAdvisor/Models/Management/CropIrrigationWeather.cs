@@ -474,38 +474,7 @@ namespace IrrigationAdvisor.Models.Management
 
         }
 
-        /// <summary>
-        /// Add a Daily Record 
-        /// </summary>
-        /// <param name="pDailyRecord"></param>
-        /// <returns></returns>
-        private bool addDailyRecord(DailyRecord pDailyRecord)
-        {
-            bool lReturn = true;
-            int lDays = 0;
-            try
-            {
-                lDays = Utilities.Utils.getDaysDifference(this.SowingDate, pDailyRecord.DateHour);
-                //If it's the initial registry set the initial Hidric Balance
-                if (lDays == 0)
-                {
-                    this.cropIrrigationWeatherRecord.HydricBalance = this.getInitialHidricBalance();
-                    this.cropIrrigationWeatherRecord.DayAfterSowing = new Pair<int, DateTime>(-1, this.SowingDate);
-                }
-                // this way part form the last state (day before)
-                reviewSummaryData(pDailyRecord);
-
-                this.cropIrrigationWeatherRecord.DailyRecords.Add(pDailyRecord);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception in IrrigationSystem.addCropIrrigWeatherToList " + e.Message);
-                //TODO manage and log the exception
-                throw e;
-            }
-            return lReturn;
-        }
-
+  
         
         #endregion
 
@@ -770,13 +739,27 @@ namespace IrrigationAdvisor.Models.Management
                     this.cropIrrigationWeatherRecord.DailyRecords.RemoveAt(indexToRemove);
                 }
 
-                this.addDailyRecord(lNewDailyRecord);
+                
+                //If it's the initial registry set the initial Hidric Balance
+                if (lDays == 0)
+                {
+                    this.cropIrrigationWeatherRecord.HydricBalance = this.getInitialHidricBalance();
+                    this.cropIrrigationWeatherRecord.DayAfterSowing = new Pair<int, DateTime>(-1, this.SowingDate);
+                }
+                reviewSummaryData(lNewDailyRecord);
+              
+
+                this.cropIrrigationWeatherRecord.DailyRecords.Add(lNewDailyRecord);
+                
                 this.cropIrrigationWeatherRecord.OutPut += this.cropIrrigationWeatherRecord.printState();
             }
             catch (Exception ex)
             {
 
                 throw ex;
+                Console.WriteLine("Exception in IrrigationSystem.addCropIrrigWeatherToList " + e.Message);
+                //TODO manage and log the exception
+                
             }
         }
 

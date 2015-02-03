@@ -205,6 +205,7 @@ namespace IrrigationAdvisor.Models.Agriculture
                 //If the root is bigger than all the horizonList i have defined
                 if (lRootDepthSum < pRootDepth)
                 {
+                    lRemainRoot = pRootDepth - lRootDepthSum;
                     lReturnLayerWaterSum += lLastHorizonLayerCapacity * lRemainRoot / lFieldCapacityDepthCM;
                 }
             }

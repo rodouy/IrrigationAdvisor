@@ -503,6 +503,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 23), 10, true);
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 26), 10, true);
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 30), 10, true);
+            testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2015, 01, 22), 10, true);
+            testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2015, 01, 25), 20, true);
 
             //PIVOT 3_4
             //Riego inicial
@@ -511,6 +513,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 16), 10, true);
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 28), 10, true);
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 02), 10, true);
+            testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 24), 10, true);
             
             //dias 14, 18 y 22 de diciembre, todos de 5 mm
             //PIVOT 5
@@ -522,6 +525,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 23), 5, true);
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 29), 10, true);
             testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 31), 10, true);
+            testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2015, 01, 21), 10, true);
+            testIrrigationSystem.addOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2015, 01, 25), 20, true);
 
 
             //TODO: 3 Layout Irrigation Weather Data
@@ -597,8 +602,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lObservation = "Dia " + (i + 1);
                 lDateOfRecord = lFromDate.AddDays(i);
 
-                //if (lDateOfRecord.Date.Equals(new DateTime(2015, 1, 13)))
-                //   System.Diagnostics.Debugger.Break();
+                if (lDateOfRecord.Date.Equals(new DateTime(2015, 1, 22)))
+                   System.Diagnostics.Debugger.Break();
 
                 testIrrigationSystem.addDailyRecordToList(lCropIrrigationWeather, lDateOfRecord, lObservation);
 
