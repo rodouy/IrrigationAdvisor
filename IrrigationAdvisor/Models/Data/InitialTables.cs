@@ -630,7 +630,7 @@ namespace IrrigationAdvisor.Models.Data
             lEffectiveRainList.Add(new EffectiveRain(1, 11, 20, 80));
             lEffectiveRainList.Add(new EffectiveRain(1, 21, 30, 85));
             lEffectiveRainList.Add(new EffectiveRain(1, 31, 40, 80));
-            lEffectiveRainList.Add(new EffectiveRain(1, 41, 40, 75));
+            lEffectiveRainList.Add(new EffectiveRain(1, 41, 50, 75));
             lEffectiveRainList.Add(new EffectiveRain(1, 51, 60, 75));
             lEffectiveRainList.Add(new EffectiveRain(1, 61, 70, 70));
             lEffectiveRainList.Add(new EffectiveRain(1, 71, 80, 70));
