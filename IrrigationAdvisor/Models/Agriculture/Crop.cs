@@ -192,6 +192,29 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region PhenologicalStage
 
         /// <summary>
+        /// Find A Phenological Stage by Specie and Stage
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <returns></returns>
+        public PhenologicalStage FindPhenologicalStage(Specie pSpecie, Stage pStage)
+        {
+            PhenologicalStage lReturn = null;
+            if(pSpecie != null && pStage != null)
+            {
+                foreach (PhenologicalStage item in this.PhenologicalStageList)
+                {
+                    if (item.Specie.Equals(pSpecie) && item.Stage.Equals(pStage))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
         /// Return the Phenological Stage if exists in the list
         /// </summary>
         /// <param name="pPhenologicalStage"></param>
@@ -213,6 +236,59 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lReturn;
         }
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <param name="pMinDegree"></param>
+        /// <param name="pMaxDegree"></param>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
+        public PhenologicalStage AddPhenologicalStage(Specie pSpecie, Stage pStage,
+                                        double pMinDegree, double pMaxDegree, double pRootDepth)
+        {
+            PhenologicalStage lReturn = null;
+            long lIdPhenologicalStage = this.PhenologicalStageList.Count();
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIdPhenologicalStage,
+                                                    pSpecie, pStage, pMinDegree, pMaxDegree, pRootDepth);
+            lReturn = ExistPhenologicalStage(lPhenologicalStage);
+            if (lReturn == null)
+            {
+                this.PhenologicalStageList.Add(lPhenologicalStage);
+                lReturn = lPhenologicalStage;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <param name="pMinDegree"></param>
+        /// <param name="pMaxDegree"></param>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
+        public PhenologicalStage UpdatePhenologicalStage(Specie pSpecie, Stage pStage,
+                                        double pMinDegree, double pMaxDegree,
+                                        double pRootDepth)
+        {
+            PhenologicalStage lReturn = null;
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(0, pSpecie, pStage,
+                                                        pMinDegree, pMaxDegree, pRootDepth);
+            lReturn = ExistPhenologicalStage(lPhenologicalStage);
+            if (lReturn != null)
+            {
+                lReturn.Specie = pSpecie;
+                lReturn.Stage = pStage;
+                lReturn.MinDegree = pMinDegree;
+                lReturn.MaxDegree = pMaxDegree;
+                lReturn.RootDepth = pRootDepth;
+            }
+            return lReturn;
+        }
+
         #endregion
 
         #endregion
@@ -222,7 +298,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         /// <summary>
         /// Overrides equals
-        /// name, region, specie
+        /// name, specie
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>

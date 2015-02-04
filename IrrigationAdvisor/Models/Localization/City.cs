@@ -37,6 +37,7 @@ namespace IrrigationAdvisor.Models.Localization
     //[Serializable()]
     public class City
     {
+
         #region Consts
         #endregion
 
@@ -125,7 +126,8 @@ namespace IrrigationAdvisor.Models.Localization
                 return false;
             }
             City lCity = obj as City;
-            return (this.Name.Equals(lCity.Name) && this .Position.Equals(lCity.Position));
+            return (this.Name.Equals(lCity.Name) 
+                && this .Position.Equals(lCity.Position));
         }
 
         public override int GetHashCode()
@@ -133,5 +135,6 @@ namespace IrrigationAdvisor.Models.Localization
             return this.Name.GetHashCode();
         }
         #endregion
+
     }
 }

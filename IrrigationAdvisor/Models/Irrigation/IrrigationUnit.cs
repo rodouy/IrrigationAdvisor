@@ -191,6 +191,29 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// <summary>
         /// TODO add description
         /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        public Crop FindCrop(String pName, Specie pSpecie)
+        {
+            Crop lReturn = null;
+            if (!String.IsNullOrEmpty(pName) && pSpecie != null)
+            {
+                foreach (Crop item in this.CropList)
+                {
+                    if (item.Name.Equals(pName) && item.Specie.Equals(pSpecie))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         /// <param name="pCrop"></param>
         /// <returns></returns>
         public Crop ExistCrop(Crop pCrop)
@@ -219,8 +242,9 @@ namespace IrrigationAdvisor.Models.Irrigation
         {
             Crop lReturn = null;
             try
-            {   
-                if (ExistCrop(pCrop) == null)
+            {
+                lReturn = ExistCrop(pCrop);
+                if (lReturn == null)
                 {
                     this.CropList.Add(pCrop);
                     lReturn = pCrop;
@@ -232,6 +256,37 @@ namespace IrrigationAdvisor.Models.Irrigation
             }
             return lReturn;
         }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pSpecie"></param>
+        /// <param name="pRegion"></param>
+        /// <param name="pPhenologicalStageList"></param>
+        /// <param name="pDensity"></param>
+        /// <param name="pMaxEvapotranspirationToIrrigate"></param>
+        /// <returns></returns>
+        public Crop UpdateCrop(String pName, Specie pSpecie, Region pRegion,
+                        List<PhenologicalStage> pPhenologicalStageList,
+                        Double pDensity, Double pMaxEvapotranspirationToIrrigate)
+        {
+            Crop lReturn = null;
+            Crop lCrop = new Crop(0, pName, pSpecie, pRegion, pPhenologicalStageList,
+                            pDensity, pMaxEvapotranspirationToIrrigate);
+            lReturn = this.ExistCrop(lCrop);
+            if (lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.Specie = pSpecie;
+                lReturn.Region = pRegion;
+                lReturn.PhenologicalStageList = pPhenologicalStageList;
+                lReturn.Density = pDensity;
+                lReturn.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
+            }
+            return lReturn;
+        }
+
 
         #endregion
 

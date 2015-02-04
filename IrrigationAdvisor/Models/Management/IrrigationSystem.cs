@@ -627,6 +627,30 @@ namespace IrrigationAdvisor.Models.Management
         #region Crop
 
         /// <summary>
+        /// Find Crop by Name and Specie
+        /// Name and Specie are the argument for Crop Equals
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        public Crop FindCrop(String pName, Specie pSpecie)
+        {
+            Crop lReturn = null;
+            if(!String.IsNullOrEmpty(pName) && pSpecie != null)
+            {
+                foreach (Crop item in this.CropList)
+                {
+                    if (item.Name.Equals(pName) && item.Specie.Equals(pSpecie))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
         /// IF Crop Exists in CropList return the Crop, else null
         /// </summary>
         /// <param name="pCrop"></param>
@@ -649,7 +673,7 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// Return the Crop if added, if it is in the list, return null
+        /// Return the Crop if added or if exist
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pSpecie"></param>
@@ -665,7 +689,8 @@ namespace IrrigationAdvisor.Models.Management
             int lIDCrop = this.CropList.Count();
             Crop lCrop = new Crop(lIDCrop, pName, pSpecie, pRegion, pPhenologicalStageList, 
                                 pDensity, pMaxEvapotranspirationToIrrigate);
-            if (ExistCrop(lCrop) == null)
+            lReturn = ExistCrop(lCrop);
+            if (lReturn == null)
             {
                 this.CropList.Add(lCrop);
                 lReturn = lCrop;
@@ -703,7 +728,7 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO Add description
+        /// Add Phenological Stage to Crop, if exist it return it.
         /// </summary>
         /// <param name="pCrop"></param>
         /// <param name="pPhenologicalStage"></param>
@@ -713,7 +738,8 @@ namespace IrrigationAdvisor.Models.Management
             PhenologicalStage lReturn = null;
             if(pPhenologicalStage != null && pCrop != null)
             {
-                if (pCrop.ExistPhenologicalStage(pPhenologicalStage) == null)
+                lReturn = pCrop.ExistPhenologicalStage(pPhenologicalStage);
+                if (lReturn == null)
                 {
                     pCrop.PhenologicalStageList.Add(pPhenologicalStage);
                     lReturn = pPhenologicalStage;
@@ -725,6 +751,29 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Soil
+
+        /// <summary>
+        /// Find a Soil by Name and Location, equals properties
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pLocation"></param>
+        /// <returns></returns>
+        public Soil FindSoil(String pName, Location pLocation)
+        {
+            Soil lReturn = null;
+            if(!String.IsNullOrEmpty(pName) && pLocation != null)
+            {
+                foreach (Soil item in this.SoilList)
+                {
+                    if(item.Name.Equals(pName) && item.Location.Equals(pLocation))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
 
         /// <summary>
         /// TODO add description
@@ -805,6 +854,28 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// TODO add description
         /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public Specie FindSpecie(String pName)
+        {
+            Specie lReturn = null;
+            if(!String.IsNullOrEmpty(pName))
+            {
+                foreach (Specie item in this.SpecieList)
+                {
+                    if(item.Name.Equals(pName))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         /// <param name="pSpecie"></param>
         /// <returns></returns>
         public Specie ExistSpecie(Specie pSpecie)
@@ -832,7 +903,8 @@ namespace IrrigationAdvisor.Models.Management
             Specie lReturn = null;
             int lIdSpecie = this.SpecieList.Count();
             Specie lSpecie = new Specie(lIdSpecie, pName, pBaseTemperature, null, null);
-            if (ExistSpecie(lSpecie) == null)
+            lReturn = ExistSpecie(lSpecie);
+            if (lReturn == null)
             {
                 this.SpecieList.Add(lSpecie);
                 lReturn = lSpecie;
@@ -856,7 +928,8 @@ namespace IrrigationAdvisor.Models.Management
             int lIdSpecie = this.SpecieList.Count();
             Specie lSpecie = new Specie(lIdSpecie, pName, pBaseTemperature, pCropCoefficient, 
                                     pPhenologicalStageList);
-            if(ExistSpecie(lSpecie) == null)
+            lReturn = ExistSpecie(lSpecie);
+            if(lReturn == null)
             {
                 this.SpecieList.Add(lSpecie);
                 lReturn = lSpecie;
@@ -893,6 +966,28 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Stage
+
+        /// <summary>
+        /// Find Stage by Name (Equals compare Property)
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public Stage FindStage(String pName)
+        {
+            Stage lReturn = null;
+            if(!String.IsNullOrEmpty(pName))
+            {
+                foreach (Stage item in this.StageList)
+                {
+                    if (item.Name.Equals(pName))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
 
         /// <summary>
         /// TODO add description
@@ -958,6 +1053,29 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Phenological Stage
+
+        /// <summary>
+        /// Find A Phenological Stage by Specie and Stage
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <returns></returns>
+        public PhenologicalStage FindPhenologicalStage(Specie pSpecie, Stage pStage)
+        {
+            PhenologicalStage lReturn = null;
+            if (pSpecie != null && pStage != null)
+            {
+                foreach (PhenologicalStage item in this.PhenologicalStageList)
+                {
+                    if (item.Specie.Equals(pSpecie) && item.Stage.Equals(pStage))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
 
         /// <summary>
         /// Return if the Phenological Stage exists in the list
@@ -1070,6 +1188,27 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// TODO add description
         /// </summary>
+        /// <returns></returns>
+        public Bomb FindBomb(String pName, int pSerialNumber)
+        {
+            Bomb lReturn = null;
+            if(!String.IsNullOrEmpty(pName) && pSerialNumber != 0)
+            {
+                foreach (Bomb item in this.BombList)
+                {
+                    if(item.Name.Equals(pName) && item.SerialNumber.Equals(pSerialNumber))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         /// <param name="pBomb"></param>
         /// <returns></returns>
         public Bomb ExistBomb(Bomb pBomb)
@@ -1105,7 +1244,8 @@ namespace IrrigationAdvisor.Models.Management
             long lIdBomb = this.BombList.Count();
             Bomb lBomb = new Bomb(lIdBomb, pName, pSerialNumber, pServiceDate,
                             pPurchaseDate, pLocation);
-            if(ExistBomb(lBomb) == null)
+            lReturn = ExistBomb(lBomb);
+            if(lReturn == null)
             {
                 this.BombList.Add(lBomb);
                 lReturn = lBomb;
@@ -1143,6 +1283,33 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region IrrigationUnit
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pLocation"></param>
+        /// <param name="pIrrigationType"></param>
+        /// <returns></returns>
+        public IrrigationUnit FindIrrigationUnit(String pName, Location pLocation,
+                                                String pIrrigationType)
+        {
+            IrrigationUnit lReturn = null;
+            if(!String.IsNullOrEmpty(pName) && pLocation != null 
+                                    && !String.IsNullOrEmpty(pIrrigationType))
+            {
+                foreach (IrrigationUnit  item in this.IrrigationUnitList)
+                {
+                    if(item.Name.Equals(pName) && item.Location.Equals(pLocation)
+                        && item.IrrigationType.Equals(pIrrigationType))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
 
         /// <summary>
         /// TODO add description
@@ -1189,7 +1356,8 @@ namespace IrrigationAdvisor.Models.Management
             IrrigationUnit lIrrigationUnit = new IrrigationUnit(lIdIrrigationUnit, pName, pIrrigationType,
                                                 pIrrigationEfficiency, pIrrigationList, pSurface,
                                                 pCropList, pBomb, pLocation);
-            if(ExistIrrigationUnit(lIrrigationUnit) == null)
+            lReturn = ExistIrrigationUnit(lIrrigationUnit);
+            if(lReturn == null)
             {
                 this.IrrigationUnitList.Add(lIrrigationUnit);
                 lReturn = lIrrigationUnit;
@@ -1248,6 +1416,29 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// TODO add description
         /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pPosition"></param>
+        /// <returns></returns>
+        public City FindCity(String pName, Position pPosition)
+        {
+            City lReturn = null;
+            if(!String.IsNullOrEmpty(pName) && pPosition != null)
+            {
+                foreach (City item in this.CityList)
+                {
+                    if(item.Name.Equals(pName) && item.Position.Equals(pPosition))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
         /// <param name="pCity"></param>
         /// <returns></returns>
         public City ExistCity (City pCity)
@@ -1275,7 +1466,8 @@ namespace IrrigationAdvisor.Models.Management
             City lReturn = null;
             long lIdCity = this.CityList.Count();
             City lCity = new City(lIdCity, pName, pPosition);
-            if (ExistCity(lCity) == null)
+            lReturn = ExistCity(lCity);
+            if (lReturn == null)
             {
                 this.CityList.Add(lCity);
                 lReturn = lCity;

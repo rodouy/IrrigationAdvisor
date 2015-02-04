@@ -142,6 +142,7 @@ namespace IrrigationAdvisor.Templates
         {
             return this.Name.GetHashCode();
         }
+
         #endregion
 
     }

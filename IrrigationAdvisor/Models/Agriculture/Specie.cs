@@ -161,7 +161,30 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Public Methods
-        
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <returns></returns>
+        public PhenologicalStage FindPhenologicalStage(Specie pSpecie, Stage pStage)
+        {
+            PhenologicalStage lReturn = null;
+            if (pSpecie != null && pStage != null)
+            {
+                foreach (PhenologicalStage item in this.PhenologicalStageList)
+                {
+                    if (item.Specie.Equals(pSpecie) && item.Stage.Equals(pStage))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
         /// <summary>
         /// If PhenologicalStage exist in List return the PhenologicalStage, else null
         /// </summary>
@@ -182,7 +205,15 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lReturn;
         }
 
-
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <param name="pMinDegree"></param>
+        /// <param name="pMaxDegree"></param>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
         public PhenologicalStage AddPhenologicalStage(Specie pSpecie, Stage pStage, 
                                 Double pMinDegree, Double pMaxDegree, Double pRootDepth)
         {
@@ -190,10 +221,39 @@ namespace IrrigationAdvisor.Models.Agriculture
             long lIDPhenologicalStage = this.PhenologicalStageList.Count();
             PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIDPhenologicalStage,
                     pSpecie, pStage, pMinDegree, pMaxDegree, pRootDepth);
-            if(ExistPhenologicalStage(lPhenologicalStage) == null)
+            lReturn = ExistPhenologicalStage(lPhenologicalStage);
+            if(lReturn == null)
             {
                 this.PhenologicalStageList.Add(lPhenologicalStage);
                 lReturn = lPhenologicalStage;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <param name="pMinDegree"></param>
+        /// <param name="pMaxDegree"></param>
+        /// <param name="pRootDepth"></param>
+        /// <returns></returns>
+        public PhenologicalStage UpdatePhenologicalStage(Specie pSpecie, Stage pStage,
+                                        double pMinDegree, double pMaxDegree,
+                                        double pRootDepth)
+        {
+            PhenologicalStage lReturn = null;
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(0, pSpecie, pStage,
+                                                        pMinDegree, pMaxDegree, pRootDepth);
+            lReturn = ExistPhenologicalStage(lPhenologicalStage);
+            if (lReturn != null)
+            {
+                lReturn.Specie = pSpecie;
+                lReturn.Stage = pStage;
+                lReturn.MinDegree = pMinDegree;
+                lReturn.MaxDegree = pMaxDegree;
+                lReturn.RootDepth = pRootDepth;
             }
             return lReturn;
         }

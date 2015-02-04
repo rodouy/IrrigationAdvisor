@@ -137,6 +137,29 @@ namespace IrrigationAdvisor.Models.Irrigation
         #endregion
 
         #region Overrides
+        // Different region for each class override
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            Bomb lBomb = obj as Bomb;
+            return this.Name.Equals(lBomb.Name)
+                && this.SerialNumber.Equals(lBomb.SerialNumber);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
+
         #endregion
 
     }
