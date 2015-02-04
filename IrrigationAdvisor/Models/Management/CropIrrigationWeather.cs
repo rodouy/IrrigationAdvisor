@@ -756,8 +756,8 @@ namespace IrrigationAdvisor.Models.Management
             catch (Exception ex)
             {
 
+                Console.WriteLine("Exception in IrrigationSystem.addCropIrrigWeatherToList " + ex.Message);
                 throw ex;
-                Console.WriteLine("Exception in IrrigationSystem.addCropIrrigWeatherToList " + e.Message);
                 //TODO manage and log the exception
                 
             }
