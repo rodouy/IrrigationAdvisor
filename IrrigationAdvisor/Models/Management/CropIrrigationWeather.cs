@@ -303,19 +303,24 @@ namespace IrrigationAdvisor.Models.Management
             double lEffectiveIrrigation;
             double lIrrigationEfficiency;
             double lDaysAfterBigInputWater;
+            double lAmountOfIrrigationNotUsed;
+            double lAmountOfRainNotUsed;
 
             lDayAfterSowing = this.cropIrrigationWeatherRecord.DayAfterSowing.First + 1;
             this.cropIrrigationWeatherRecord.DayAfterSowing = new Pair<int, DateTime>(lDayAfterSowing, pDailyRec.DateHour);
             this.cropIrrigationWeatherRecord.GrowingDegreeDays += pDailyRec.GrowingDegree;
             this.cropIrrigationWeatherRecord.ModifiedGrowingDegreeDays += pDailyRec.ModifiedGrowingDegree;
 
+            //Update the Phenological Stage depending in Growing Degree
+            reviewPhenologicalStage();
+
 
             lFieldCapacity = this.getSoilFieldCapacity();
 
             //To debug
-            //if (pDailyRec.DateHour.Equals(new DateTime(2014, 12, 02)))
-            //    return;
-
+            if (pDailyRec.DateHour.Equals(new DateTime(2014, 10, 29)))
+            { }
+              
 
 
             // Evapotraspiration adjustment
@@ -327,6 +332,53 @@ namespace IrrigationAdvisor.Models.Management
 
             //Will show if there is Water Input (Rain or Irrigation)
             lThereIsWaterInput = false;
+
+            
+
+            // Irrigation adjustment
+            if (pDailyRec.Irrigation != null)
+            {
+                // Calculate de effective irrigation depending on the irrigatioin efficiency of the Pivot
+                lIrrigationEfficiency = this.IrrigationUnit.IrrigationEfficiency;
+                this.cropIrrigationWeatherRecord.TotalIrrigation += pDailyRec.Irrigation.Input * lIrrigationEfficiency;
+                this.cropIrrigationWeatherRecord.TotalExtraIrrigation += pDailyRec.Irrigation.ExtraInput * lIrrigationEfficiency;
+                lEffectiveIrrigation = pDailyRec.Irrigation.getTotalInput() * lIrrigationEfficiency;
+                this.cropIrrigationWeatherRecord.HydricBalance += lEffectiveIrrigation;
+
+                // If the irrigation is bigger than 10 mm set the last water input
+                if (lEffectiveIrrigation > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                {
+                    this.cropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
+                    this.cropIrrigationWeatherRecord.LastWaterInputDate = pDailyRec.DateHour;
+                    lThereIsWaterInput = true;
+                }
+
+                // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity  
+                // And take off the irrigation not used from ->  TotalIrrigation /  TotalExtraIrrigation
+                if (this.cropIrrigationWeatherRecord.HydricBalance > lFieldCapacity)
+                {
+                    lAmountOfIrrigationNotUsed = this.cropIrrigationWeatherRecord.HydricBalance - lFieldCapacity;
+                    this.cropIrrigationWeatherRecord.HydricBalance = lFieldCapacity;
+
+                    if (pDailyRec.Irrigation.Input * lIrrigationEfficiency >= lAmountOfIrrigationNotUsed)
+                    {
+                        this.cropIrrigationWeatherRecord.TotalIrrigation -= lAmountOfIrrigationNotUsed;
+                    }
+                    else if (pDailyRec.Irrigation.ExtraInput * lIrrigationEfficiency >= lAmountOfIrrigationNotUsed)
+                    {
+                        this.cropIrrigationWeatherRecord.TotalExtraIrrigation -= lAmountOfIrrigationNotUsed;
+                    }
+                    else
+                    {
+                        this.cropIrrigationWeatherRecord.TotalIrrigation -= pDailyRec.Irrigation.Input * lIrrigationEfficiency;
+                        lAmountOfIrrigationNotUsed -= pDailyRec.Irrigation.Input * lIrrigationEfficiency;
+                        this.cropIrrigationWeatherRecord.TotalExtraIrrigation -= lAmountOfIrrigationNotUsed;
+ 
+                    }
+                    
+                }
+
+            }
 
             // Rain adjustment
             if (pDailyRec.Rain != null)
@@ -352,42 +404,24 @@ namespace IrrigationAdvisor.Models.Management
                     //We have to save the date to keep the hidric balance unchangable
                     this.cropIrrigationWeatherRecord.LastBigWaterInputDate = pDailyRec.DateHour;
                 }
-            }
 
-            // Irrigation adjustment
-            if (pDailyRec.Irrigation != null)
-            {
-                // Calculate de effective irrigation depending on the irrigatioin efficiency of the Pivot
-                lIrrigationEfficiency = this.IrrigationUnit.IrrigationEfficiency;
-                this.cropIrrigationWeatherRecord.TotalIrrigation += pDailyRec.Irrigation.Input * lIrrigationEfficiency;
-                this.cropIrrigationWeatherRecord.TotalExtraIrrigation += pDailyRec.Irrigation.ExtraInput * lIrrigationEfficiency;
-                lEffectiveIrrigation = pDailyRec.Irrigation.getTotalInput() * lIrrigationEfficiency;
-                this.cropIrrigationWeatherRecord.HydricBalance += lEffectiveIrrigation;
-
-                // If the irrigation is bigger than 10 mm set the last water input
-                if (lEffectiveIrrigation > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity and take off the rain not used -> total rain
+                if (this.cropIrrigationWeatherRecord.HydricBalance >= lFieldCapacity)
                 {
-                    this.cropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
-                    this.cropIrrigationWeatherRecord.LastWaterInputDate = pDailyRec.DateHour;
-                    lThereIsWaterInput = true;
+                    lAmountOfRainNotUsed = this.cropIrrigationWeatherRecord.HydricBalance - lFieldCapacity;
+                    this.cropIrrigationWeatherRecord.HydricBalance = lFieldCapacity;
+                    this.cropIrrigationWeatherRecord.TotalEffectiveRain -= lAmountOfRainNotUsed;
+
                 }
-
             }
 
-            // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity
-            if (this.cropIrrigationWeatherRecord.HydricBalance >= lFieldCapacity)
-            {
-                this.cropIrrigationWeatherRecord.HydricBalance = lFieldCapacity;
-            }
+            
 
             //TotalEvapotranspirationCropFromLastWaterInput adjustment
             if (!lThereIsWaterInput)
             {
                 this.cropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput += pDailyRec.EvapotranspirationCrop.getTotalInput();
             }
-
-            //Update the Phenological Stage depending in Growing Degree
-            reviewPhenologicalStage();
 
             lFieldCapacity = this.getSoilFieldCapacity();
 
