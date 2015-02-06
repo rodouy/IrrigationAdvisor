@@ -84,7 +84,9 @@ namespace IrrigationAdvisor.Models.Management
         private double totalEffectiveRain;
         private double totalRealRain;
         private double totalIrrigation;
+        private double totalIrrigationInHidricBalance;
         private double totalExtraIrrigation;
+        private double totalExtraIrrigationInHidricBalance;
         private double hydricBalance;
         private double soilHydricVolume;
         private DateTime lastWaterInputDate;
@@ -169,11 +171,23 @@ namespace IrrigationAdvisor.Models.Management
             set { totalIrrigation = value; }
         }
 
+        public double TotalIrrigationInHidricBalance
+        {
+            get { return totalIrrigationInHidricBalance; }
+            set { totalIrrigationInHidricBalance = value; }
+        }
+
         public double TotalExtraIrrigation
         {
             get { return totalExtraIrrigation; }
             set { totalExtraIrrigation = value; }
         }
+        public double TotalExtraIrrigationInHidricBalance
+        {
+            get { return totalExtraIrrigationInHidricBalance; }
+            set { totalExtraIrrigationInHidricBalance = value; }
+        }
+
 
         public double HydricBalance
         {
@@ -253,7 +267,9 @@ namespace IrrigationAdvisor.Models.Management
             this.TotalEffectiveRain = 0;
             this.TotalRealRain = 0;
             this.TotalIrrigation = 0;
+            this.totalIrrigationInHidricBalance = 0;
             this.TotalExtraIrrigation = 0;
+            this.TotalExtraIrrigationInHidricBalance = 0;
             this.HydricBalance = this.CropIrrigationWeather.getInitialHidricBalance();
             this.SoilHydricVolume = 0;
             this.LastWaterInputDate = DateTime.Now;
@@ -285,7 +301,9 @@ namespace IrrigationAdvisor.Models.Management
             this.TotalEffectiveRain = pTotalEffectiveRain;
             this.TotalRealRain = pTotalRealRain;
             this.TotalIrrigation = pTotalIrrigation;
+            this.TotalIrrigationInHidricBalance = 0;
             this.TotalExtraIrrigation = pTotalExtraIrrigation;
+            this.TotalExtraIrrigationInHidricBalance = 0;
             this.HydricBalance = pHidricBalance;
             this.SoilHydricVolume = pSoilHidricVolume;
             this.LastWaterInputDate = pLastWaterInput;
