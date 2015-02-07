@@ -152,9 +152,9 @@ namespace IrrigationAdvisor.Models.Management
             this.GrowingDegreeAcumulated = 0;
             this.ModifiedGrowingDegree = 0;
             this.Kc = 0;
-            this.EvapotranspirationCrop = new Water.WaterOutput();
-            this.Rain = new Water.WaterInput();
-            this.Irrigation = new Water.WaterInput();
+            this.EvapotranspirationCrop = new WaterOutput();
+            this.Rain = new WaterInput();
+            this.Irrigation = new WaterInput();
             this.Observations= "";
 
         }

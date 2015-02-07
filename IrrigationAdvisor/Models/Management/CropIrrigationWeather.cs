@@ -134,7 +134,7 @@ namespace IrrigationAdvisor.Models.Management
             set { predeterminatedIrrigationQuantity = value; }
         }
 
-        public CropIrrigationWeatherRecord aCropIrrigationWeatherRecord
+        public CropIrrigationWeatherRecord CropIrrigationWeatherRecord
         {
             get { return cropIrrigationWeatherRecord; }
             set { cropIrrigationWeatherRecord = value; }
@@ -276,10 +276,18 @@ namespace IrrigationAdvisor.Models.Management
             }
         }
 
-
+        /// <summary>
+        /// Make the irrigation adjustment
+        /// </summary>
+        /// <param name="pDailyRec"></param>
+        /// <param name="pFieldCapacity"></param>
+        /// <param name="pThereIsWaterInput"></param>
+        /// <returns></returns>
         private bool irrigationAdjustment(DailyRecord pDailyRec, double pFieldCapacity, bool  pThereIsWaterInput)
         {
             double lEffectiveIrrigation;
+            double lEffectiveIrrigationExtra;
+            double lEffectiveIrrigationTotal;
             double lIrrigationEfficiency;
             double lAmountOfIrrigationNotUsed;
             
@@ -287,13 +295,23 @@ namespace IrrigationAdvisor.Models.Management
             {
                 // Calculate de effective irrigation depending on the irrigatioin efficiency of the Pivot
                 lIrrigationEfficiency = this.IrrigationUnit.IrrigationEfficiency;
-                this.cropIrrigationWeatherRecord.TotalIrrigation += pDailyRec.Irrigation.Input * lIrrigationEfficiency;
-                this.cropIrrigationWeatherRecord.TotalExtraIrrigation += pDailyRec.Irrigation.ExtraInput * lIrrigationEfficiency;
-                lEffectiveIrrigation = pDailyRec.Irrigation.getTotalInput() * lIrrigationEfficiency;
-                this.cropIrrigationWeatherRecord.HydricBalance += lEffectiveIrrigation;
+
+                //Effective Irrigation
+                lEffectiveIrrigation = pDailyRec.Irrigation.Input * lIrrigationEfficiency;
+                lEffectiveIrrigationExtra = pDailyRec.Irrigation.ExtraInput * lIrrigationEfficiency;
+                lEffectiveIrrigationTotal = lEffectiveIrrigation + lEffectiveIrrigationExtra;
+
+                this.CropIrrigationWeatherRecord.TotalIrrigation += lEffectiveIrrigation;
+                this.CropIrrigationWeatherRecord.TotalIrrigationInHidricBalance += lEffectiveIrrigation;
+
+                this.CropIrrigationWeatherRecord.TotalExtraIrrigation += lEffectiveIrrigationExtra;
+                this.CropIrrigationWeatherRecord.TotalExtraIrrigationInHidricBalance += lEffectiveIrrigationExtra;
+
+                //Add to Hidric Balance the irrigation calculated (Input) and the extra irrigation (ExtraInput) 
+                this.CropIrrigationWeatherRecord.HydricBalance += lEffectiveIrrigationTotal;
 
                 // If the irrigation is bigger than 10 mm set the last water input
-                if (lEffectiveIrrigation > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                if (lEffectiveIrrigationTotal > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
                 {
                     this.cropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
                     this.cropIrrigationWeatherRecord.LastWaterInputDate = pDailyRec.DateHour;
@@ -307,29 +325,32 @@ namespace IrrigationAdvisor.Models.Management
                     lAmountOfIrrigationNotUsed = this.cropIrrigationWeatherRecord.HydricBalance - pFieldCapacity;
                     this.cropIrrigationWeatherRecord.HydricBalance = pFieldCapacity;
 
-                    if (pDailyRec.Irrigation.Input * lIrrigationEfficiency >= lAmountOfIrrigationNotUsed)
+                    if (lEffectiveIrrigation >= lAmountOfIrrigationNotUsed)
                     {
-                        this.cropIrrigationWeatherRecord.TotalIrrigation -= lAmountOfIrrigationNotUsed;
+                        this.cropIrrigationWeatherRecord.TotalIrrigationInHidricBalance -= lAmountOfIrrigationNotUsed;
                     }
-                    else if (pDailyRec.Irrigation.ExtraInput * lIrrigationEfficiency >= lAmountOfIrrigationNotUsed)
+                    else if (lEffectiveIrrigationExtra >= lAmountOfIrrigationNotUsed)
                     {
-                        this.cropIrrigationWeatherRecord.TotalExtraIrrigation -= lAmountOfIrrigationNotUsed;
+                        this.cropIrrigationWeatherRecord.TotalExtraIrrigationInHidricBalance -= lAmountOfIrrigationNotUsed;
                     }
                     else
                     {
-                        this.cropIrrigationWeatherRecord.TotalIrrigation -= pDailyRec.Irrigation.Input * lIrrigationEfficiency;
-                        lAmountOfIrrigationNotUsed -= pDailyRec.Irrigation.Input * lIrrigationEfficiency;
-                        this.cropIrrigationWeatherRecord.TotalExtraIrrigation -= lAmountOfIrrigationNotUsed;
-
+                        this.cropIrrigationWeatherRecord.TotalIrrigationInHidricBalance -= lEffectiveIrrigation;
+                        lAmountOfIrrigationNotUsed -= lEffectiveIrrigation;
+                        this.cropIrrigationWeatherRecord.TotalExtraIrrigationInHidricBalance -= lAmountOfIrrigationNotUsed;
                     }
-
                 }
-
             }
             return pThereIsWaterInput;
 
         }
-
+        /// <summary>
+        /// Make the rain adjustment
+        /// </summary>
+        /// <param name="pDailyRec"></param>
+        /// <param name="pFieldCapacity"></param>
+        /// <param name="pThereIsWaterInput"></param>
+        /// <returns></returns>
         private bool rainAdjustment(DailyRecord pDailyRec, double pFieldCapacity, bool pThereIsWaterInput)
         {
             double lRealRain;
@@ -338,9 +359,9 @@ namespace IrrigationAdvisor.Models.Management
 
             if (pDailyRec.Rain != null)
             {
+
                 lRealRain = pDailyRec.Rain.getTotalInput();
                 //Calculate Rain Effective Value
-                //TODO correction on Effective Rain, take care about HydricBalance if it is at 100%
                 lEffectiveRain = this.cropIrrigationWeatherRecord.getEffectiveRainValue(pDailyRec.Rain);
                 this.cropIrrigationWeatherRecord.TotalEffectiveRain += lEffectiveRain;
                 this.cropIrrigationWeatherRecord.TotalRealRain += lRealRain;
@@ -354,15 +375,14 @@ namespace IrrigationAdvisor.Models.Management
                     pThereIsWaterInput = true;
                 }
 
+                
+                // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity and take off the rain not used -> total rain
                 if (this.cropIrrigationWeatherRecord.HydricBalance >= pFieldCapacity)
                 {
                     //We have to save the date to keep the hidric balance unchangable
                     this.cropIrrigationWeatherRecord.LastBigWaterInputDate = pDailyRec.DateHour;
-                }
 
-                // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity and take off the rain not used -> total rain
-                if (this.cropIrrigationWeatherRecord.HydricBalance >= pFieldCapacity)
-                {
+                    //Take off the rain because (HydricBalanc + rain) is bigger than FieldCapacity
                     lAmountOfRainNotUsed = this.cropIrrigationWeatherRecord.HydricBalance - pFieldCapacity;
                     this.cropIrrigationWeatherRecord.HydricBalance = pFieldCapacity;
                     this.cropIrrigationWeatherRecord.TotalEffectiveRain -= lAmountOfRainNotUsed;
@@ -377,6 +397,8 @@ namespace IrrigationAdvisor.Models.Management
 
 
         /// <summary>
+        /// Set the new values (after to add a new dailyRecord) for the variables used to resume the state of the crop.
+        /// Use the last state (day before) to calculate the new state
         /// Review the dailyRecords to set the data for: 
         /// - GrowingDegreeDays
         /// - ModifiedGrowingDegreeDays
@@ -385,11 +407,6 @@ namespace IrrigationAdvisor.Models.Management
         /// - TotalIrrigation
         /// - TotalEvapotranspirationCropFromLastWaterInput
         /// - LastWaterInput
-        /// </summary>
-
-        /// <summary>
-        /// Set the new values (after to add a new dailyRecord) for the variables used to resume the state of the crop.
-        /// Use the last state (day before) to calculate the new state
         /// </summary>
         private void reviewSummaryData(DailyRecord pDailyRec)
         {
@@ -408,14 +425,11 @@ namespace IrrigationAdvisor.Models.Management
             //Update the Phenological Stage depending in Growing Degree
             reviewPhenologicalStage();
 
-
             lFieldCapacity = this.getSoilFieldCapacity();
 
             //To debug
-            if (pDailyRec.DateHour.Equals(new DateTime(2014, 10, 29)))
-            { }
-              
-
+            if (pDailyRec.DateHour.Equals(new DateTime(2014, 10, 22)))
+                System.Diagnostics.Debugger.Break();
 
             // Evapotraspiration adjustment
             if (pDailyRec.EvapotranspirationCrop != null)
@@ -776,7 +790,7 @@ namespace IrrigationAdvisor.Models.Management
                 int indexToRemove = -1;
                 DailyRecord lRecordToDelete = null;
                 int i = 0;
-                foreach (DailyRecord lDailyRecord in this.cropIrrigationWeatherRecord.DailyRecords)
+                foreach (DailyRecord lDailyRecord in this.cropIrrigationWeatherRecord.DailyRecordList)
                 {
                     if (Utils.isTheSameDay(lDailyRecord.DateHour.Date, pWeatherData.Date))
                     {
@@ -789,7 +803,7 @@ namespace IrrigationAdvisor.Models.Management
                 if (indexToRemove != -1)
                 {
                     takeOffDailyRecord(lRecordToDelete);
-                    this.cropIrrigationWeatherRecord.DailyRecords.RemoveAt(indexToRemove);
+                    this.cropIrrigationWeatherRecord.DailyRecordList.RemoveAt(indexToRemove);
                 }
 
                 
@@ -802,7 +816,7 @@ namespace IrrigationAdvisor.Models.Management
                 reviewSummaryData(lNewDailyRecord);
               
 
-                this.cropIrrigationWeatherRecord.DailyRecords.Add(lNewDailyRecord);
+                this.cropIrrigationWeatherRecord.DailyRecordList.Add(lNewDailyRecord);
                 
                 this.cropIrrigationWeatherRecord.OutPut += this.cropIrrigationWeatherRecord.printState();
             }
@@ -824,7 +838,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="lModification"></param>
         public void adjustmentPhenology(Stage pStage, DateTime pDateTime, double lModification)
         {
-            foreach (DailyRecord lDailyRec in this.cropIrrigationWeatherRecord.DailyRecords)
+            foreach (DailyRecord lDailyRec in this.cropIrrigationWeatherRecord.DailyRecordList)
             {
                 if (Utils.isTheSameDay(pDateTime, lDailyRec.DateHour))
                 {
@@ -846,7 +860,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             double lRetrun = 0;
 
-            foreach (DailyRecord lDailyRec in this.cropIrrigationWeatherRecord.DailyRecords)
+            foreach (DailyRecord lDailyRec in this.cropIrrigationWeatherRecord.DailyRecordList)
             {
                 if (lDailyRec.DateHour.Date.Equals(pDate.Date))
                 {

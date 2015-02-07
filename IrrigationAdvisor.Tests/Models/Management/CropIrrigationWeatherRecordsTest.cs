@@ -52,13 +52,13 @@ namespace IrrigationAdvisor.Tests.Models.Management
             //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord04);
             //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord05);
 
-            Assert.AreEqual(lCropIrrigationWeatherRecords.getEffectiveRain(new DateTime(2014, 11, 1)), 1.1);
-            Assert.AreEqual(lCropIrrigationWeatherRecords.getEffectiveRain(new DateTime(2014, 11, 5)), 11);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.GetEffectiveRainByDate(new DateTime(2014, 11, 1)), 1.1);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.GetEffectiveRainByDate(new DateTime(2014, 11, 5)), 11);
             
             Assert.AreEqual(lCropIrrigationWeatherRecords.getGrowingDegree(new DateTime(2014, 11, 1)), 3);
             Assert.AreEqual(lCropIrrigationWeatherRecords.getEvapotranspirationCrop(new DateTime(2014, 11, 3)), 6);
             Assert.AreEqual(lCropIrrigationWeatherRecords.getObservations(new DateTime(2014, 11, 4)), "prueba obs");
-            Assert.AreEqual(lCropIrrigationWeatherRecords.getLastThreeDaysOfEvapotranspirationCrop(new DateTime(2014, 11, 3)), 11);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.GetLastThreeDaysOfEvapotranspirationCrop(new DateTime(2014, 11, 3)), 11);
 
 
             Assert.AreEqual(lCropIrrigationWeatherRecords.GrowingDegreeDays, 17);

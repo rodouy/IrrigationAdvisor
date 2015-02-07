@@ -1983,7 +1983,7 @@ namespace IrrigationAdvisor.Models.Management
                 bhi = pCropIrrigationWeather.getInitialHidricBalance();
                 lCropIrrigationWeatherRecord.HydricBalance = bhi;
 
-                pCropIrrigationWeather.aCropIrrigationWeatherRecord = lCropIrrigationWeatherRecord;
+                pCropIrrigationWeather.CropIrrigationWeatherRecord = lCropIrrigationWeatherRecord;
                 
                 //Add to the system list 
                 this.CropIrrigationWeatherList.Add(pCropIrrigationWeather);
@@ -2150,12 +2150,12 @@ namespace IrrigationAdvisor.Models.Management
             String lReturn = Environment.NewLine + "DAILY RECORDS" + Environment.NewLine ;
             lReturn += Environment.NewLine +Environment.NewLine;
 
-            foreach (DailyRecord lDailyrecord in pCropIrrigationWeatherRecord.DailyRecords)
+            foreach (DailyRecord lDailyrecord in pCropIrrigationWeatherRecord.DailyRecordList)
             {
                 lReturn += lDailyrecord.ToString() + Environment.NewLine;
             }
             //Add all the messages and titles to print the daily records
-            pCropIrrigationWeatherRecord.addToPrintDailyRecords();
+            pCropIrrigationWeatherRecord.AddToPrintDailyRecords();
             return lReturn;
         }
 
