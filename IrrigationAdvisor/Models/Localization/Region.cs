@@ -53,7 +53,7 @@ namespace IrrigationAdvisor.Models.Localization
         /// The fields are:
         ///     - idRegion: identifier
         ///     - name: the name of the region
-        ///     - position: the position of the region
+        ///     - location: the location of the region
         ///     - specieList: list of the species of the region
         ///     - effectiveRainList: effective rain (by month) for the region
         ///     

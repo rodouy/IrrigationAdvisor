@@ -196,7 +196,7 @@ namespace IrrigationAdvisor.Models.Data
 
             for (int i = 0; i < InitialTables.DAYS_FOR_PREDICTION; i++)
             {
-                lWeatherData = pIrrigationSystem.GetWeatherDataFromList(lWeatherStation, lLastDay);
+                lWeatherData = pIrrigationSystem.GetWeatherDataByWeatherStationAndDate(lWeatherStation, lLastDay);
                 lNextDay = lLastDay.AddDays(1);
                 lTemperature = lWeatherData.Temperature;
                 lSolarRadiation = lWeatherData.SolarRadiation;
@@ -204,9 +204,9 @@ namespace IrrigationAdvisor.Models.Data
                 lTemperatureMin = lWeatherData.TemperatureMin;
 
                 lEvapotranspirationLast1 = lWeatherData.Evapotranspiration;
-                lWeatherData = pIrrigationSystem.GetWeatherDataFromList(lWeatherStation, lLastDay.AddDays(-1));
+                lWeatherData = pIrrigationSystem.GetWeatherDataByWeatherStationAndDate(lWeatherStation, lLastDay.AddDays(-1));
                 lEvapotranspirationLast2 = lWeatherData.Evapotranspiration;
-                lWeatherData = pIrrigationSystem.GetWeatherDataFromList(lWeatherStation, lLastDay.AddDays(-2));
+                lWeatherData = pIrrigationSystem.GetWeatherDataByWeatherStationAndDate(lWeatherStation, lLastDay.AddDays(-2));
                 lEvapotranspirationLast3 = lWeatherData.Evapotranspiration;
 
                 lEvapotranspiration = Math.Round(

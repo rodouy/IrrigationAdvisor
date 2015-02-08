@@ -38,6 +38,7 @@ namespace IrrigationAdvisor.Models.Management
     /// </summary>
     public class IrrigationSystem
     {
+
         #region Index
 
         #region Agriculture
@@ -460,34 +461,34 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Management
-        #endregion
-
 
         /// <summary>
         /// Search the cropIrrigationWeatherRecord of the CropIrrigationWeather and delegate the creation of the daily record
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
-        /// <param name="lWeatherData"></param>
-        /// <param name="lMainWeatherData"></param>
-        /// <param name="lAlternativeWeatherData"></param>
-        /// <param name="lRain"></param>
-        /// <param name="lIrrigation"></param>
+        /// <param name="pWeatherData"></param>
+        /// <param name="pMainWeatherData"></param>
+        /// <param name="pAlternativeWeatherData"></param>
+        /// <param name="pRain"></param>
+        /// <param name="plIrrigation"></param>
         /// <param name="pObservations"></param>
-        private void addDailyRecordToCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather, 
-            WeatherData lWeatherData, WeatherData lMainWeatherData, 
-            WeatherData lAlternativeWeatherData, Water.WaterInput lRain, 
-            Water.WaterInput lIrrigation, string pObservations)
+        private void addDailyRecordToCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather,
+                                                    WeatherData pWeatherData, WeatherData pMainWeatherData,
+                                                    WeatherData pAlternativeWeatherData, WaterInput pRain,
+                                                    WaterInput plIrrigation, string pObservations)
         {
             foreach (CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
             {
                 if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    pCropIrrigationWeather.addDailyRecord(lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);
+                    pCropIrrigationWeather.addDailyRecord(pWeatherData, pMainWeatherData, pAlternativeWeatherData, pRain, plIrrigation, pObservations);
                     break;
                 }
             }
 
         }
+
+        #endregion
 
         #region Security
         #endregion
@@ -498,18 +499,18 @@ namespace IrrigationAdvisor.Models.Management
         #region Water
         
         /// <summary>
-        /// 
+        /// TODO add description
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pDateTime"></param>
         /// <returns></returns>
-        private Water.WaterInput getIrrigationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        private WaterInput getIrrigationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
             Water.WaterInput lReturn = null;
-            IEnumerable<Water.WaterInput> lIrrigationListOrderByDescendingByDate;
+            IEnumerable<WaterInput> lIrrigationListOrderByDescendingByDate;
             lIrrigationListOrderByDescendingByDate = this.irrigationList.OrderByDescending(lWaterInput => lWaterInput.Date);
             //TODO change to contains for date 
-            foreach (Water.WaterInput lWaterInput in lIrrigationListOrderByDescendingByDate)
+            foreach (WaterInput lWaterInput in lIrrigationListOrderByDescendingByDate)
                 if (Utilities.Utils.isTheSameDay(lWaterInput.Date, pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
                     lReturn = lWaterInput;
@@ -518,7 +519,13 @@ namespace IrrigationAdvisor.Models.Management
             return lReturn;
         }
 
-        private Water.WaterInput getRainFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        /// <summary>
+        /// Add description
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
+        private WaterInput getRainFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
             Water.WaterInput lReturn = null;
             foreach(Water.WaterInput lWaterInput in this.rainList)
@@ -547,14 +554,14 @@ namespace IrrigationAdvisor.Models.Management
         private WeatherData getAvailableWeatherStationData(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
             WeatherData lReturn = null;
-            WeatherData lWeatherData = GetWeatherDataFromList(pCropIrrigationWeather.MainWeatherStation, pDateTime);
+            WeatherData lWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.MainWeatherStation, pDateTime);
             if (lWeatherData != null)
             {
                 lReturn = lWeatherData;
             }
             else
             {
-                lWeatherData = GetWeatherDataFromList(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime);
+                lWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime);
                 if (lWeatherData != null)
                 {
                     lReturn = lWeatherData;
@@ -673,7 +680,8 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// Return the Crop if added or if exist
+        /// Return the Crop if added because do not exist, 
+        ///     if exist in the list, return the crop from the list.
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pSpecie"></param>
@@ -698,7 +706,7 @@ namespace IrrigationAdvisor.Models.Management
             return lReturn;
         }
 
-        /// <summary>
+       /// <summary>
         /// Update the crop if exists in CropList, else return null
         /// </summary>
         /// <param name="pName"></param>
@@ -753,7 +761,8 @@ namespace IrrigationAdvisor.Models.Management
         #region Soil
 
         /// <summary>
-        /// Find a Soil by Name and Location, equals properties
+        /// Find a Soil by Name and Location
+        /// Name and Location are the argument for Soil Equals
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pLocation"></param>
@@ -776,26 +785,30 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// If Soil Exist in SoilList return the Soil, else null
         /// </summary>
         /// <param name="pSoil"></param>
         /// <returns></returns>
         public Soil ExistSoil(Soil pSoil)
         {
             Soil lReturn = null;
-            foreach (Soil item in this.SoilList)
+            if (pSoil != null)
             {
-                if(item.Equals(pSoil))
+                foreach (Soil item in this.SoilList)
                 {
-                    lReturn = item;
-                    break;
-                }
+                    if (item.Equals(pSoil))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                } 
             }
             return lReturn;
         }
 
         /// <summary>
-        /// TODO add description
+        /// Return the Soil if added because do not exist,
+        ///     if exist in the list, return the soil from the list.
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pDescription"></param>
@@ -820,7 +833,8 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// If the Soil exist in the list Update all the data of the Soil, 
+        ///     if do not exist return null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pDescription"></param>
@@ -2035,9 +2049,9 @@ namespace IrrigationAdvisor.Models.Management
                         lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
                         lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
                         //Get Data Weather form Main Weather Station
-                        lMainWeatherData = GetWeatherDataFromList(pCropIrrigationWeather.MainWeatherStation, pDateTime);
+                        lMainWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.MainWeatherStation, pDateTime);
                         //Get Data Weather form Alternative Weather Station
-                        lAlternativeWeatherData = GetWeatherDataFromList(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime); 
+                        lAlternativeWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime); 
 
                         this.addDailyRecordToCropIrrigationWeather(pCropIrrigationWeather, lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);///Si ya existe registro para ese dia se sobre-escribe
                         
@@ -2068,7 +2082,7 @@ namespace IrrigationAdvisor.Models.Management
             lQuantityOfWaterToIrrigate = this.howMuchToIrrigate(pCropIrrigationWeather);
             if (lQuantityOfWaterToIrrigate > 0)
             {
-                this.addOrUpdateIrrigationDataToList(pCropIrrigationWeather, pDateTime, lQuantityOfWaterToIrrigate, false);
+                this.AddOrUpdateIrrigationDataToList(pCropIrrigationWeather, pDateTime, lQuantityOfWaterToIrrigate, false);
                 this.addDailyRecordToList(pCropIrrigationWeather, pDateTime, pDateTime.ToShortDateString());
             }
         }
@@ -2198,6 +2212,63 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Weather
 
+        #region WeatherData
+
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pWeatherStation"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
+        public WeatherData GetWeatherDataByWeatherStationAndDate(WeatherStation pWeatherStation, DateTime pDateTime)
+        {
+            WeatherData lReturn = null;
+            IEnumerable<WeatherData> lWeatherDataListOrderByDescendingDate;
+            lWeatherDataListOrderByDescendingDate = this.WeatherDataList.OrderByDescending(lWeatherData => lWeatherData.Date);
+            foreach (WeatherData lWeatherData in lWeatherDataListOrderByDescendingDate)
+            {
+                if (lWeatherData.WeatherStation.Equals(pWeatherStation) && lWeatherData.Date.Equals(pDateTime.Date))
+                {
+                    lReturn = lWeatherData;
+                    return lReturn;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pWeatherStation"></param>
+        /// <param name="pDateTime"></param>
+        /// <param name="pTemperature"></param>
+        /// <param name="pSolarRadiation"></param>
+        /// <param name="pTemMax"></param>
+        /// <param name="pTemMin"></param>
+        /// <param name="pEvapotranspiration"></param>
+        /// <returns></returns>
+        public void AddWeatherDataToList(WeatherStation pWeatherStation, DateTime pDateTime,
+            double pTemperature, double pSolarRadiation, double pTemMax,
+            double pTemMin, double pEvapotranspiration)
+        {
+            
+            try
+            {
+                WeatherData lData = new WeatherData(pWeatherStation, pDateTime,
+                    pTemperature, pTemMax, pTemMin, pSolarRadiation, pEvapotranspiration);
+                this.WeatherDataList.Add(lData);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in IrrigationSystem.addWeatherData " + e.Message);
+                //TODO manage and log the exception
+                throw e;
+            }
+            
+        }
+
+        #endregion
+
         #region WeatherStation
 
         /// <summary>
@@ -2291,71 +2362,15 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// TODO explain method
         /// </summary>
-        /// <param name="pWeatherStation"></param>
-        /// <param name="pDateTime"></param>
-        /// <returns></returns>
-        public WeatherData GetWeatherDataFromList(WeatherStation pWeatherStation, DateTime pDateTime)
-        {
-            WeatherData lReturn = null;
-            IEnumerable<WeatherData> lWeatherDataListOrderByDescendingDate;
-            lWeatherDataListOrderByDescendingDate = this.WeatherDataList.OrderByDescending(lWeatherData => lWeatherData.Date);
-            foreach (WeatherData lWeatherData in lWeatherDataListOrderByDescendingDate)
-            {
-                if (lWeatherData.WeatherStation.Equals(pWeatherStation) && lWeatherData.Date.Equals(pDateTime.Date))
-                {
-                    lReturn = lWeatherData;
-                    return lReturn;
-                }
-            }
-            return lReturn;
-        }
-
-        /// <summary>
-        /// TODO explain method
-        /// </summary>
-        /// <param name="pWeatherStation"></param>
-        /// <param name="pDateTime"></param>
-        /// <param name="pTemperature"></param>
-        /// <param name="pSolarRadiation"></param>
-        /// <param name="pTemMax"></param>
-        /// <param name="pTemMin"></param>
-        /// <param name="pEvapotranspiration"></param>
-        /// <returns></returns>
-        public bool AddWeatherDataToList(WeatherStation pWeatherStation, DateTime pDateTime,
-            double pTemperature, double pSolarRadiation, double pTemMax,
-            double pTemMin, double pEvapotranspiration)
-        {
-            bool lReturn = false;
-            try
-            {
-                WeatherData lData = new WeatherData(pWeatherStation, pDateTime,
-                    pTemperature, pTemMax, pTemMin, pSolarRadiation, pEvapotranspiration);
-                this.WeatherDataList.Add(lData);
-                lReturn = true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception in IrrigationSystem.addWeatherData " + e.Message);
-                //TODO manage and log the exception
-                throw e;
-            }
-            return lReturn;
- 
-        }
-
-        /// <summary>
-        /// TODO explain method
-        /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pIrrigationDate"></param>
         /// <param name="pQuantityOfWaterToIrrigate"></param>
         /// <param name="pIsExtraIrrigation"></param>
         /// <returns></returns>
-        public bool addOrUpdateIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
+        public void AddOrUpdateIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
             DateTime pIrrigationDate, double pQuantityOfWaterToIrrigate, bool pIsExtraIrrigation)
         {
-            bool lReturn = false;
-            Water.WaterInput lNewIrrigation;
+            WaterInput lNewIrrigation = null;
 
             try
             {
@@ -2397,7 +2412,7 @@ namespace IrrigationAdvisor.Models.Management
                 //TODO manage and log the exception
                 throw e;
             }
-            return lReturn;
+
         }
 
 
@@ -2408,17 +2423,16 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pDate"></param>
         /// <param name="pInput"></param>
         /// <returns></returns>
-        public bool addRainDataToList(CropIrrigationWeather pCropIrrigationWeather,
-            DateTime pDate, double pInput)
+        public void AddRainDataToList(CropIrrigationWeather pCropIrrigationWeather,
+                                        DateTime pDate, double pInput)
         {
-            bool lReturn = false;
+            WaterInput lNewIrrigation = null;
             try
             {
-                Water.WaterInput lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pDate);
+                lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pDate);
                 if (lNewIrrigation == null)
                 {
-
-                    Water.Rain lNewRain = new Water.Rain();
+                    Rain lNewRain = new Rain();
                     lNewRain.CropIrrigationWeather = pCropIrrigationWeather;
                     lNewRain.Date = pDate;
                     lNewRain.Input = pInput;
@@ -2436,7 +2450,7 @@ namespace IrrigationAdvisor.Models.Management
                 //TODO manage and log the exception
                 throw e;
             }
-            return lReturn;
+
         }
         
         #endregion
@@ -2445,9 +2459,6 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Overrides
         #endregion
-
-        
-
 
     }
 }
