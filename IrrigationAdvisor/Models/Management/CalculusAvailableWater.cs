@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IrrigationAdvisor.Models.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -78,10 +79,10 @@ namespace IrrigationAdvisor.Models.Management
             double PermanentWiltingPoint;
             double lThreshold;
 
-            lAvailableWater = pCropIrrigationWeatherRecord.CropIrrigationWeather.getSoilAvailableWaterCapacity();
+            lAvailableWater = pCropIrrigationWeatherRecord.CropIrrigationWeather.GetSoilAvailableWaterCapacity();
             lHydricBalance = pCropIrrigationWeatherRecord.HydricBalance;
             PermanentWiltingPoint = pCropIrrigationWeatherRecord.getSoilPermanentWiltingPoint();
-            lThreshold = Math.Round(lAvailableWater / 2, 2) + PermanentWiltingPoint;
+            lThreshold = Math.Round(lAvailableWater * InitialTables.PERCENTAGE_LIMIT_OF_AVAILABLE_WATER_CAPACITY, 2) + PermanentWiltingPoint;
             
             if (lHydricBalance <= lThreshold)
             {

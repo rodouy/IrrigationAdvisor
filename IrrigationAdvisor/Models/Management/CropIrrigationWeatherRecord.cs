@@ -270,7 +270,7 @@ namespace IrrigationAdvisor.Models.Management
             this.totalIrrigationInHidricBalance = 0;
             this.TotalExtraIrrigation = 0;
             this.TotalExtraIrrigationInHidricBalance = 0;
-            this.HydricBalance = this.CropIrrigationWeather.getInitialHidricBalance();
+            this.HydricBalance = this.CropIrrigationWeather.GetInitialHidricBalance();
             this.SoilHydricVolume = 0;
             this.LastWaterInputDate = DateTime.Now;
             this.TotalEvapotranspirationCropFromLastWaterInput = 0;
@@ -644,7 +644,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             double lSoilPermanentWiltingPoint;
 
-            lSoilPermanentWiltingPoint = this.CropIrrigationWeather.getSoilPermanentWiltingPoint();
+            lSoilPermanentWiltingPoint = this.CropIrrigationWeather.GetSoilPermanentWiltingPoint();
             return lSoilPermanentWiltingPoint;
         }
 
@@ -657,7 +657,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             double lSoilAvailableWaterCapacity;
 
-            lSoilAvailableWaterCapacity = this.CropIrrigationWeather.getSoilAvailableWaterCapacity();
+            lSoilAvailableWaterCapacity = this.CropIrrigationWeather.GetSoilAvailableWaterCapacity();
             return lSoilAvailableWaterCapacity;
         }
 
@@ -670,7 +670,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             double lSoilFieldCapacity;
 
-            lSoilFieldCapacity = this.CropIrrigationWeather.getSoilFieldCapacity();
+            lSoilFieldCapacity = this.CropIrrigationWeather.GetSoilFieldCapacity();
             return lSoilFieldCapacity;
         }
 

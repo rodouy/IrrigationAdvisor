@@ -306,7 +306,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             createCropIrrigationWeatherSantaLucia();
 
             //18.  Add Information of Weather
-            ExternalData.AgregarDatosDelTiempo(testIrrigationSystem, testWeatherStation, testWeatherDataStartDate);
+            ExternalData.AddWeatherData(testIrrigationSystem, testWeatherStation, testWeatherDataStartDate);
 
             //19.  Add Information of Rain
             addRainData();

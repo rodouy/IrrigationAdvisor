@@ -60,10 +60,10 @@ namespace IrrigationAdvisor.Models.Management
     ///     - GetBaseTemperature(): double
     ///     - GetMaxEvapotranspirationToIrrigate(): double
     ///     - GetRootDepth(): double
-    ///     - getSoilPermanentWiltingPoint(): double
-    ///     - getSoilAvailableWaterCapacity(): double
-    ///     - getSoilFieldCapacity(): double
-    ///     - getPercentageOfAvailableWater(): double
+    ///     - GetSoilPermanentWiltingPoint(): double
+    ///     - GetSoilAvailableWaterCapacity(): double
+    ///     - GetSoilFieldCapacity(): double
+    ///     - GetPercentageOfAvailableWater(): double
     ///     
     /// 
     /// </summary>
@@ -251,7 +251,7 @@ namespace IrrigationAdvisor.Models.Management
             //get the modified degrees days
             lModifiedGrowingDegreeDays = this.cropIrrigationWeatherRecord.ModifiedGrowingDegreeDays;
             //Get the percentage of availableWater before to actualize the phenology state 
-            lPercentageOfAvailableWater = this.getPercentageOfAvailableWater();
+            lPercentageOfAvailableWater = this.GetPercentageOfAvailableWater();
 
             //Update Phenological Stage depending on the ModifiedGrowingDegreeDays
             this.UpdatePhenologicalStage(lModifiedGrowingDegreeDays);
@@ -271,8 +271,8 @@ namespace IrrigationAdvisor.Models.Management
             //parte del suelo que se considera (a Capacidad de campo)
             if (lOldPhenStage != null && lNewPhenStage != null && lOldRootDepth > lNewRootDepth)
             {
-                this.cropIrrigationWeatherRecord.HydricBalance = (this.getSoilAvailableWaterCapacity() * lPercentageOfAvailableWater / 100)
-                                    + this.getSoilPermanentWiltingPoint();
+                this.cropIrrigationWeatherRecord.HydricBalance = (this.GetSoilAvailableWaterCapacity() * lPercentageOfAvailableWater / 100)
+                                    + this.GetSoilPermanentWiltingPoint();
             }
         }
 
@@ -425,7 +425,7 @@ namespace IrrigationAdvisor.Models.Management
             //Update the Phenological Stage depending in Growing Degree
             reviewPhenologicalStage();
 
-            lFieldCapacity = this.getSoilFieldCapacity();
+            lFieldCapacity = this.GetSoilFieldCapacity();
 
             //To debug
             if (pDailyRec.DateHour.Equals(new DateTime(2014, 10, 22)))
@@ -456,7 +456,7 @@ namespace IrrigationAdvisor.Models.Management
                 this.cropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput += pDailyRec.EvapotranspirationCrop.getTotalInput();
             }
 
-            lFieldCapacity = this.getSoilFieldCapacity();
+            lFieldCapacity = this.GetSoilFieldCapacity();
 
             //After a big rain the HidricBalance keep its value = FieldCapacity for two days
             lDaysAfterBigInputWater = Utilities.Utils.getDaysDifference(this.cropIrrigationWeatherRecord.LastBigWaterInputDate, pDailyRec.DateHour);
@@ -627,7 +627,7 @@ namespace IrrigationAdvisor.Models.Management
         /// The data is obtained from Soil depending Root Depth
         /// </summary>
         /// <returns></returns>
-        public double getSoilPermanentWiltingPoint()
+        public double GetSoilPermanentWiltingPoint()
         {
             double lRootDepth;
             double lSoilPermanentWiltingPoint;
@@ -642,7 +642,7 @@ namespace IrrigationAdvisor.Models.Management
         /// From Crop Soil by Root Depth 
         /// </summary>
         /// <returns></returns>
-        public double getSoilAvailableWaterCapacity()
+        public double GetSoilAvailableWaterCapacity()
         {
             double lRootDepth;
             double lSoilAvailableWaterCapacity;
@@ -657,7 +657,7 @@ namespace IrrigationAdvisor.Models.Management
         /// From Crop Soil by Root Depth
         /// </summary>
         /// <returns></returns>
-        public double getSoilFieldCapacity()
+        public double GetSoilFieldCapacity()
         {
             double lReturn;
             double lRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
@@ -671,7 +671,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Get Available Water from Hydric Balance vs Field Capacity
         /// </summary>
         /// <returns></returns>
-        public double getPercentageOfAvailableWater()
+        public double GetPercentageOfAvailableWater()
         {
             double lHidricBalance;
             double lFieldCapacity;
@@ -679,8 +679,8 @@ namespace IrrigationAdvisor.Models.Management
             double lPercentageOfAvailableWater;
 
             lHidricBalance = this.cropIrrigationWeatherRecord.HydricBalance;
-            lFieldCapacity = this.getSoilFieldCapacity();
-            lPermanentWiltingPoint = this.getSoilPermanentWiltingPoint();
+            lFieldCapacity = this.GetSoilFieldCapacity();
+            lPermanentWiltingPoint = this.GetSoilPermanentWiltingPoint();
 
             lPercentageOfAvailableWater = Math.Round(((lHidricBalance - lPermanentWiltingPoint) * 100)
                                         / (lFieldCapacity - lPermanentWiltingPoint), 2);
@@ -692,7 +692,7 @@ namespace IrrigationAdvisor.Models.Management
         /// (Fiel Capacity for Initial Root Depth)
         /// </summary>
         /// <returns></returns>
-        public double getInitialHidricBalance()
+        public double GetInitialHidricBalance()
         {
             double lReturn = 0;
             double lFieldCapacity = 0;
@@ -810,7 +810,7 @@ namespace IrrigationAdvisor.Models.Management
                 //If it's the initial registry set the initial Hidric Balance
                 if (lDays == 0)
                 {
-                    this.cropIrrigationWeatherRecord.HydricBalance = this.getInitialHidricBalance();
+                    this.cropIrrigationWeatherRecord.HydricBalance = this.GetInitialHidricBalance();
                     this.cropIrrigationWeatherRecord.DayAfterSowing = new Pair<int, DateTime>(-1, this.SowingDate);
                 }
                 reviewSummaryData(lNewDailyRecord);

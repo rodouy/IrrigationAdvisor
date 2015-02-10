@@ -1994,7 +1994,7 @@ namespace IrrigationAdvisor.Models.Management
                 lCropIrrigationWeatherRecord.CropIrrigationWeather = pCropIrrigationWeather;
 
                 //Get Initial Hidric Balance
-                bhi = pCropIrrigationWeather.getInitialHidricBalance();
+                bhi = pCropIrrigationWeather.GetInitialHidricBalance();
                 lCropIrrigationWeatherRecord.HydricBalance = bhi;
 
                 pCropIrrigationWeather.CropIrrigationWeatherRecord = lCropIrrigationWeatherRecord;
