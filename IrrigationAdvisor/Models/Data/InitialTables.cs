@@ -80,10 +80,16 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
         #region Weather
+
         public const double INITIAL_ROOT_DEPTH = 5;
+
         public const double CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED = 10;
-        public const double DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT = 2;
+
+        //2015-02-12 DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT Change from 2 to 4 
+        public const double DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT = 4;
+
         public const double DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_SOWING = 5;
+
         public const double PERCENTAGE_LIMIT_OF_AVAILABLE_WATER_CAPACITY = 0.10;
 
         #endregion
