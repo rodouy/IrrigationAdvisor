@@ -37,7 +37,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     - PhenologicalStage()      -- constructor
     ///     - PhenologicalStage(specie, stage, minDegree, maxDegree, rootDepth)  -- consturctor with parameters
     ///     - SetName(newName)     -- method to set the name field
-    ///     + getAverageDegree(): double
+    ///     + GetAverageDegree(): double
     /// 
     /// </summary>
     public class PhenologicalStage
@@ -62,6 +62,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         private double minDegree;
         private double maxDegree;
         private double rootDepth;
+        private double hydricBalanceDepth;
 
         #endregion
 
@@ -102,6 +103,12 @@ namespace IrrigationAdvisor.Models.Agriculture
             set { rootDepth = value; }
         }
 
+        public double HydricBalanceDepth
+        {
+            get { return hydricBalanceDepth; }
+            set { hydricBalanceDepth = value; }
+        }
+
         #endregion
 
         #region Construction
@@ -117,6 +124,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.MinDegree = 0;
             this.MaxDegree = 0;
             this.RootDepth = 0;
+            this.HydricBalanceDepth = 0;
         }
 
         /// <summary>
@@ -130,7 +138,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <param name="pMaxDegree"></param>
         /// <param name="pRootDepth"></param>
         public PhenologicalStage(long pIDPhenologicalStage, Specie pSpecie, Stage pStage, 
-                                Double pMinDegree, Double pMaxDegree, Double pRootDepth)
+                                Double pMinDegree, Double pMaxDegree, Double pRootDepth,
+                                Double pHydricBalanceDepth)
         {
             this.idPhenologicalStage = pIDPhenologicalStage;
             this.Specie = pSpecie;
@@ -138,6 +147,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.MinDegree = pMinDegree;
             this.MaxDegree = pMaxDegree;
             this.RootDepth = pRootDepth;
+            this.HydricBalanceDepth = pHydricBalanceDepth;
         }
         
         #endregion
@@ -151,7 +161,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// Return the Average Degree between MinDegree and MaxDegree
         /// </summary>
         /// <returns></returns>
-        public double getAverageDegree()
+        public double GetAverageDegree()
         {
             double lReturn;
             lReturn= (this.MinDegree + this.MaxDegree) / 2;
@@ -162,7 +172,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// Return the Root Depth
         /// </summary>
         /// <returns></returns>
-        public double getRootDepth()
+        public double GetRootDepth()
         {
             double lRootDepth;
             lRootDepth = this.rootDepth;

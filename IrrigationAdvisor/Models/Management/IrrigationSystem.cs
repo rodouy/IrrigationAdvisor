@@ -609,11 +609,11 @@ namespace IrrigationAdvisor.Models.Management
             {
                 if (lPhenologicalStage.Stage.Equals(oldStage) && lPhenologicalStage.Specie.Equals(pSpecie))
                 {
-                    oldDegree = lPhenologicalStage.getAverageDegree();
+                    oldDegree = lPhenologicalStage.GetAverageDegree();
                 }
                 if (lPhenologicalStage.Stage.Equals(newStage) && lPhenologicalStage.Specie.Equals(pSpecie))
                 {
-                    newDegree = lPhenologicalStage.getAverageDegree();
+                    newDegree = lPhenologicalStage.GetAverageDegree();
                 }
             }
             if (newDegree != 0 && oldDegree != 0)
@@ -1124,12 +1124,14 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
         public PhenologicalStage AddPhenologicalStage(Specie pSpecie, Stage pStage, 
-                                        double pMinDegree, double pMaxDegree, double pRootDepth)
+                                        double pMinDegree, double pMaxDegree, 
+                                        double pRootDepth, double pHydricBalanceDepth)
         {
             PhenologicalStage lReturn = null;
             long lIdPhenologicalStage = this.PhenologicalStageList.Count();
-            PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIdPhenologicalStage, 
-                                                    pSpecie, pStage, pMinDegree, pMaxDegree, pRootDepth);
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIdPhenologicalStage,
+                                                    pSpecie, pStage, pMinDegree, pMaxDegree, 
+                                                    pRootDepth, pHydricBalanceDepth);
             lReturn = ExistPhenologicalStage(lPhenologicalStage);
             if (lReturn == null)
             {
@@ -1149,12 +1151,13 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
         public PhenologicalStage UpdatePhenologicalStage(Specie pSpecie, Stage pStage, 
-                                        double pMinDegree, double pMaxDegree, 
-                                        double pRootDepth)
+                                        double pMinDegree, double pMaxDegree,
+                                        double pRootDepth, double pHydricBalanceDepth)
         {
             PhenologicalStage lReturn = null;
             PhenologicalStage lPhenologicalStage = new PhenologicalStage(0, pSpecie, pStage, 
-                                                        pMinDegree, pMaxDegree, pRootDepth);
+                                                        pMinDegree, pMaxDegree, pRootDepth,
+                                                        pHydricBalanceDepth);
             lReturn = ExistPhenologicalStage(lPhenologicalStage);
             if(lReturn != null)
             {
@@ -1163,6 +1166,7 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.MinDegree = pMinDegree;
                 lReturn.MaxDegree = pMaxDegree;
                 lReturn.RootDepth = pRootDepth;
+                lReturn.HydricBalanceDepth = pHydricBalanceDepth;
             }
             return lReturn;
         }

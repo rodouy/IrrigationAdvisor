@@ -215,12 +215,14 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <param name="pRootDepth"></param>
         /// <returns></returns>
         public PhenologicalStage AddPhenologicalStage(Specie pSpecie, Stage pStage, 
-                                Double pMinDegree, Double pMaxDegree, Double pRootDepth)
+                                Double pMinDegree, Double pMaxDegree, 
+                                Double pRootDepth, Double pHydricBalanceDepth)
         {
             PhenologicalStage lReturn = null;
             long lIDPhenologicalStage = this.PhenologicalStageList.Count();
             PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIDPhenologicalStage,
-                    pSpecie, pStage, pMinDegree, pMaxDegree, pRootDepth);
+                                                    pSpecie, pStage, pMinDegree, pMaxDegree, 
+                                                    pRootDepth, pHydricBalanceDepth);
             lReturn = ExistPhenologicalStage(lPhenologicalStage);
             if(lReturn == null)
             {
@@ -241,11 +243,12 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <returns></returns>
         public PhenologicalStage UpdatePhenologicalStage(Specie pSpecie, Stage pStage,
                                         double pMinDegree, double pMaxDegree,
-                                        double pRootDepth)
+                                        double pRootDepth, double pHydricBalanceDepth)
         {
             PhenologicalStage lReturn = null;
             PhenologicalStage lPhenologicalStage = new PhenologicalStage(0, pSpecie, pStage,
-                                                        pMinDegree, pMaxDegree, pRootDepth);
+                                                        pMinDegree, pMaxDegree, pRootDepth,
+                                                        pHydricBalanceDepth);
             lReturn = ExistPhenologicalStage(lPhenologicalStage);
             if (lReturn != null)
             {
@@ -254,6 +257,7 @@ namespace IrrigationAdvisor.Models.Agriculture
                 lReturn.MinDegree = pMinDegree;
                 lReturn.MaxDegree = pMaxDegree;
                 lReturn.RootDepth = pRootDepth;
+                lReturn.HydricBalanceDepth = pHydricBalanceDepth;
             }
             return lReturn;
         }
