@@ -694,53 +694,6 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         }
 
-        /// <summary>
-        /// TODO add description
-        /// </summary>
-        /// <param name="rec"></param>
-        /// <returns></returns>
-        private string printState(CropIrrigationWeatherRecord rec)
-        {
-            string ret = "";
-            string etcAc = rec.TotalEvapotranspirationCrop + "        ";
-            string etcflwi = rec.TotalEvapotranspirationCropFromLastWaterInput + "        ";
-            string growDegre = rec.GrowingDegreeDays + "        ";
-            string modGrowDegre = rec.ModifiedGrowingDegreeDays + "        ";
-            string effRain = rec.TotalEffectiveRain + "        ";
-            string totRain = rec.TotalRealRain + "        ";
-            string bHid = rec.HydricBalance.ToString() + "        ";
-            string PercentAD = rec.getPercentageOfAvailableWater() + "        ";
-            string AD = rec.getSoilAvailableWaterCapacity() + "        ";
-            string CC = rec.getSoilFieldCapacity() + "        ";
-            string PMP = rec.getSoilPermanentWiltingPoint() + "        ";
-            string totIrr = rec.TotalIrrigation.ToString();
-            string totExtraIrr = rec.TotalExtraIrrigation.ToString();
-
-            
-            ret = " \t " + etcAc.Substring(0, 7) +
-                " \t " + etcflwi.Substring(0,7) +
-                " \t " + growDegre.Substring(0, 7) +
-                " \t " + modGrowDegre.Substring(0, 7) +
-                " \t " + bHid.Substring(0, 7) +
-                " \t " + PercentAD.Substring(0, 7) +
-                " \t " + AD.Substring(0, 7) +
-                " \t " + CC.Substring(0, 7) +
-                " \t " + PMP.Substring(0, 7) +
-                " \t " + effRain.Substring(0, 7) +
-                " \t " + totRain.Substring(0, 7) +
-                " \t " + rec.TotalIrrigation +
-                " \t\t " + rec.LastWaterInputDate.ToString() +
-                " \t " + rec.GetRootDepth() +
-                " \tf " + rec.CropIrrigationWeather.PhenologicalStage.Stage.Name +
-                " \t " + totIrr.Substring(0, 7) +
-                " \t " + totExtraIrr.Substring(0, 7) +
-                Environment.NewLine;
-
-           
-
-            return ret;
-        }
-
 
         /// <summary>
         /// Layout in txt with a name to the file
