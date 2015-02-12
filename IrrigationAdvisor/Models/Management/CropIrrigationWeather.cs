@@ -238,15 +238,15 @@ namespace IrrigationAdvisor.Models.Management
         private void reviewPhenologicalStage()
         {
             PhenologicalStage lOldPhenStage = null;
-            double lOldRootDepth = 0;
+            double lOldDepth = 0;
             PhenologicalStage lNewPhenStage = null;
-            double lNewRootDepth = 0;
+            double lNewDepth = 0;
             double lModifiedGrowingDegreeDays;
-            double lRootDepthDifference;
+            double lDepthDifference;
             double lPercentageOfAvailableWater;
 
             lOldPhenStage = this.PhenologicalStage;
-            lOldRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
+            lOldDepth = this.GetPhenologicalStageDepth(this.PhenologicalStage);
 
             //get the modified degrees days
             lModifiedGrowingDegreeDays = this.cropIrrigationWeatherRecord.ModifiedGrowingDegreeDays;
@@ -255,21 +255,21 @@ namespace IrrigationAdvisor.Models.Management
 
             //Update Phenological Stage depending on the ModifiedGrowingDegreeDays
             this.UpdatePhenologicalStage(lModifiedGrowingDegreeDays);
-            lNewRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
+            lNewDepth = this.GetPhenologicalStageDepth(this.PhenologicalStage);
             lNewPhenStage = this.PhenologicalStage;
 
             //Si aumenta la profundidad de raiz agrego al balance hidrico el agua de la nueva 
             //parte del suelo que se considera (a Capacidad de campo)
-            if (lOldPhenStage != null && lNewPhenStage != null && lOldRootDepth < lNewRootDepth)
+            if (lOldPhenStage != null && lNewPhenStage != null && lOldDepth < lNewDepth)
             {
                 //TODO get field capacity by horizon of soil (parameters: horizon depth, root depth difference)
-                lRootDepthDifference = lNewRootDepth - lOldRootDepth;
-                this.cropIrrigationWeatherRecord.HydricBalance += this.GetFieldCapacity(lRootDepthDifference);
+                lDepthDifference = lNewDepth - lOldDepth;
+                this.cropIrrigationWeatherRecord.HydricBalance += this.GetFieldCapacity(lDepthDifference);
             }
 
             //Si disminuye la profundidad de raiz agrego al balance hidrico el agua de la nueva 
             //parte del suelo que se considera (a Capacidad de campo)
-            if (lOldPhenStage != null && lNewPhenStage != null && lOldRootDepth > lNewRootDepth)
+            if (lOldPhenStage != null && lNewPhenStage != null && lOldDepth > lNewDepth)
             {
                 this.cropIrrigationWeatherRecord.HydricBalance = (this.GetSoilAvailableWaterCapacity() * lPercentageOfAvailableWater / 100)
                                     + this.GetSoilPermanentWiltingPoint();
@@ -410,7 +410,6 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         private void reviewSummaryData(DailyRecord pDailyRec)
         {
-            //double lRootDepth;
             double lFieldCapacity;
             int lDayAfterSowing;
             bool lThereIsWaterInput;
@@ -594,6 +593,21 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
+        /// Get Depth from Crop Phenological Stage (Hydric Balance Depth)
+        /// </summary>
+        /// <returns></returns>
+        public double GetPhenologicalStageDepth(PhenologicalStage pPhenologicalStage)
+        {
+            double lDepth;
+            lDepth = pPhenologicalStage.HydricBalanceDepth;
+            if (lDepth > this.Soil.DepthLimit)
+            {
+                lDepth = this.Soil.DepthLimit;
+            }
+            return lDepth;
+        }
+
+        /// <summary>
         /// Get Root Depth from Crop Phenological Stage
         /// </summary>
         /// <returns></returns>
@@ -611,12 +625,12 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// Get the Field Capacity by Root Depth from this Soil
         /// </summary>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
-        public double GetFieldCapacity(double pRootDepth)
+        public double GetFieldCapacity(double pDepth)
         {
             double lReturn;
-            lReturn = this.Soil.GetFieldCapacity(pRootDepth);
+            lReturn = this.Soil.GetFieldCapacity(pDepth);
             return lReturn;
         }
 
@@ -629,11 +643,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public double GetSoilPermanentWiltingPoint()
         {
-            double lRootDepth;
+            double lDepth;
             double lSoilPermanentWiltingPoint;
 
-            lRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
-            lSoilPermanentWiltingPoint = this.Soil.GetPermanentWiltingPoint(lRootDepth);
+            lDepth = this.GetPhenologicalStageDepth(this.PhenologicalStage);
+            lSoilPermanentWiltingPoint = this.Soil.GetPermanentWiltingPoint(lDepth);
             return lSoilPermanentWiltingPoint;
         }
 
@@ -644,11 +658,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public double GetSoilAvailableWaterCapacity()
         {
-            double lRootDepth;
+            double lDepth;
             double lSoilAvailableWaterCapacity;
 
-            lRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
-            lSoilAvailableWaterCapacity = this.Soil.GetAvailableWaterCapacity(lRootDepth);
+            lDepth = this.GetPhenologicalStageDepth(this.PhenologicalStage);
+            lSoilAvailableWaterCapacity = this.Soil.GetAvailableWaterCapacity(lDepth);
             return lSoilAvailableWaterCapacity;
         }
 
@@ -660,8 +674,8 @@ namespace IrrigationAdvisor.Models.Management
         public double GetSoilFieldCapacity()
         {
             double lReturn;
-            double lRootDepth = this.GetPhenologicalStageRootDepth(this.PhenologicalStage);
-            lReturn = this.Soil.GetFieldCapacity(lRootDepth);
+            double lDepth = this.GetPhenologicalStageDepth(this.PhenologicalStage);
+            lReturn = this.Soil.GetFieldCapacity(lDepth);
             return lReturn;
         }
 

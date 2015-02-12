@@ -596,6 +596,17 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
+        /// Get Depth from Crop Phenological Stage
+        /// </summary>
+        /// <returns></returns>
+        public double GetDepth()
+        {
+            double lDepth;
+            lDepth = this.CropIrrigationWeather.GetPhenologicalStageDepth(this.CropIrrigationWeather.PhenologicalStage);
+            return lDepth;
+        }
+
+        /// <summary>
         /// Search the DailyRecord for the date passed by parameter.
         /// If find one change the ModifiedGrowingDegree for this DailyRecord and change the ModifiedGrowingDegreeDays field 
         /// adding the value passed by parameter as lModification

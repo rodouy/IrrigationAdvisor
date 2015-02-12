@@ -1121,7 +1121,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pStage"></param>
         /// <param name="pMinDegree"></param>
         /// <param name="pMaxDegree"></param>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
         public PhenologicalStage AddPhenologicalStage(Specie pSpecie, Stage pStage, 
                                         double pMinDegree, double pMaxDegree, 
@@ -1148,7 +1148,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pStage"></param>
         /// <param name="pMinDegree"></param>
         /// <param name="pMaxDegree"></param>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
         public PhenologicalStage UpdatePhenologicalStage(Specie pSpecie, Stage pStage, 
                                         double pMinDegree, double pMaxDegree,

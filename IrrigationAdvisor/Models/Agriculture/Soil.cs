@@ -153,11 +153,11 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///  Take an average: for example if the A horizon is 10 cm and horizon B is 20 cm long:
         ///  if the root is 15 cm long the results is 2/3 of horizon A (initial 10 cm) and 1/3 of horixon B (the rest of the root)
         /// </summary>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
-        private double getLayerCapacityByProrationOfHorizon(double pRootDepth, SoilLayer pSoilLayer)
+        private double getLayerCapacityByProrationOfHorizon(double pDepth, SoilLayer pSoilLayer)
         {
-            double lRootDepthSum = 0;
+            double lDepthSum = 0;
             double lReturnLayerWaterSum = 0;
             IEnumerable<Horizon> query;
             double lRemainRoot = 0;
@@ -171,8 +171,8 @@ namespace IrrigationAdvisor.Models.Agriculture
                 foreach (Horizon lHorizon in query)
                 {
                     //To the root substract the passed horizon depth
-                    lRemainRoot = pRootDepth - lRootDepthSum;
-                    lRootDepthSum += lHorizon.HorizonLayerDepth;
+                    lRemainRoot = pDepth - lDepthSum;
+                    lDepthSum += lHorizon.HorizonLayerDepth;
                     switch (pSoilLayer)
                     {
                         case SoilLayer.AvailableWater:
@@ -191,7 +191,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
                     lLastHorizonLayerDepth = lHorizon.HorizonLayerDepth;
                     // La raiz es mas grande que hasta este horizonte, calculo y sigo
-                    if (lRootDepthSum <= pRootDepth)
+                    if (lDepthSum <= pDepth)
                     {
                         lReturnLayerWaterSum += lLastHorizonLayerCapacity * lLastHorizonLayerDepth / lFieldCapacityDepthCM;
                     }
@@ -203,9 +203,9 @@ namespace IrrigationAdvisor.Models.Agriculture
                     }
                 }
                 //If the root is bigger than all the horizonList i have defined
-                if (lRootDepthSum < pRootDepth)
+                if (lDepthSum < pDepth)
                 {
-                    lRemainRoot = pRootDepth - lRootDepthSum;
+                    lRemainRoot = pDepth - lDepthSum;
                     lReturnLayerWaterSum += lLastHorizonLayerCapacity * lRemainRoot / lFieldCapacityDepthCM;
                 }
             }
@@ -239,7 +239,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <summary>
         /// TODO Explain getHorizonWhereFinishRootDepth
         /// </summary>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
         private Horizon getHorizonWhereFinishRootDepth(double pRootDepth)
         {
@@ -263,17 +263,17 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <summary>
         /// Return the Available Water of the soil calculating the Available water of each Horizon
         /// </summary>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
-        private double getAvailableWaterCapacityByProration(double pRootDepth)
+        private double getAvailableWaterCapacityByProration(double pDepth)
         {
             double lReturnAvalilableWaterCapSum = 0;
-            double lRootDepth = pRootDepth;
-            if (pRootDepth > this.DepthLimit)
+            double lDepth = pDepth;
+            if (pDepth > this.DepthLimit)
             {
-                lRootDepth = this.DepthLimit;
+                lDepth = this.DepthLimit;
             }
-            lReturnAvalilableWaterCapSum = this.getLayerCapacityByProrationOfHorizon(lRootDepth, SoilLayer.AvailableWater);
+            lReturnAvalilableWaterCapSum = this.getLayerCapacityByProrationOfHorizon(lDepth, SoilLayer.AvailableWater);
             return lReturnAvalilableWaterCapSum;
         }
 
@@ -378,36 +378,36 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         /// <summary>
-        /// Return the Field Capacity, depends on RootDepth
+        /// Return the Field Capacity, depends on Depth
         /// </summary>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
-        public double  GetFieldCapacity(double pRootDepth)
+        public double  GetFieldCapacity(double pDepth)
         {
             double lReturnFieldCapacity = 0;
-            double lRootDepth = pRootDepth;
-            if (pRootDepth > this.DepthLimit)
+            double lDepth = pDepth;
+            if (pDepth > this.DepthLimit)
             {
-                lRootDepth = this.DepthLimit;
+                lDepth = this.DepthLimit;
             }
-            lReturnFieldCapacity = this.getLayerCapacityByProrationOfHorizon(lRootDepth, SoilLayer.FieldCapacity);
+            lReturnFieldCapacity = this.getLayerCapacityByProrationOfHorizon(lDepth, SoilLayer.FieldCapacity);
             return lReturnFieldCapacity;
         }
 
         /// <summary>
         /// Return the Permanent Wilting Point, depends on Root Depth
         /// </summary>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
-        public double GetPermanentWiltingPoint(double pRootDepth)
+        public double GetPermanentWiltingPoint(double pDepth)
         {
             double lReturnPermanentWiltingPoingSum = 0;
-            double lRootDepth = pRootDepth;
-            if (pRootDepth > this.DepthLimit)
+            double lDepth = pDepth;
+            if (pDepth > this.DepthLimit)
             {
-                lRootDepth = this.DepthLimit;
+                lDepth = this.DepthLimit;
             }
-            lReturnPermanentWiltingPoingSum = this.getLayerCapacityByProrationOfHorizon(lRootDepth, SoilLayer.PermanentWiltingPoint);
+            lReturnPermanentWiltingPoingSum = this.getLayerCapacityByProrationOfHorizon(lDepth, SoilLayer.PermanentWiltingPoint);
             return lReturnPermanentWiltingPoingSum;
         }
 
@@ -415,17 +415,17 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// Return the Available Water of the soil as 
         ///     the difference between the Field Capacity and the Permanent WiltingPoint
         /// </summary>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         /// <returns></returns>
-         public double GetAvailableWaterCapacity(double pRootDepth)
+         public double GetAvailableWaterCapacity(double pDepth)
          {
             double lAvailableWaterCapacity;
-            double lRootDepth = pRootDepth;
-            if (pRootDepth > this.DepthLimit)
+            double lDepth = pDepth;
+            if (pDepth > this.DepthLimit)
             {
-                lRootDepth = this.DepthLimit;
+                lDepth = this.DepthLimit;
             }
-            lAvailableWaterCapacity = this.GetFieldCapacity(lRootDepth) - this.GetPermanentWiltingPoint(lRootDepth);
+            lAvailableWaterCapacity = this.GetFieldCapacity(lDepth) - this.GetPermanentWiltingPoint(lDepth);
             return lAvailableWaterCapacity;
         }
 

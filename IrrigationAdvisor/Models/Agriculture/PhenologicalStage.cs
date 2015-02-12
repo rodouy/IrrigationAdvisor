@@ -136,7 +136,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <param name="pStage"></param>
         /// <param name="pMinDegree"></param>
         /// <param name="pMaxDegree"></param>
-        /// <param name="pRootDepth"></param>
+        /// <param name="pDepth"></param>
         public PhenologicalStage(long pIDPhenologicalStage, Specie pSpecie, Stage pStage, 
                                 Double pMinDegree, Double pMaxDegree, Double pRootDepth,
                                 Double pHydricBalanceDepth)
