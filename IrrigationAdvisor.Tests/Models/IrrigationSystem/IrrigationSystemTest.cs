@@ -110,9 +110,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private double testCropMinDegree_Maiz;
         private double testCropMaxDegree_Maiz;
         private double testCropRootDepth_Maiz;
+        private double testCropHydricBalanceDepth_Maiz;
         private double testCropMinDegree_Soja;
         private double testCropMaxDegree_Soja;
         private double testCropRootDepth_Soja;
+        private double testCropHydricBalanceDepth_Soja;
+        
 
         private List<EffectiveRain> testEffectiveRainsList;
         //private List<PhenologicalStage> testPhenologicalStageList;
@@ -211,9 +214,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testCropMinDegree_Maiz = 0;
             testCropMaxDegree_Maiz = 60;
             testCropRootDepth_Maiz = 5;
+            testCropHydricBalanceDepth_Maiz = 15;
             testCropMinDegree_Soja = 0;
             testCropMaxDegree_Soja = 60;
             testCropRootDepth_Soja = 5;
+            testCropHydricBalanceDepth_Soja = 15;
 
             testSpecieSoja = testIrrigationSystem.AddSpecie("Soja", testSojaBaseTemp);
             testSpecieMaiz = testIrrigationSystem.AddSpecie("Maiz", testMaizBaseTemp);
@@ -223,10 +228,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             testInitialPhenologicalState_Maiz = testIrrigationSystem.AddPhenologicalStage(testSpecieMaiz, 
                                                 testInitialStage_Maiz, testCropMinDegree_Maiz, 
-                                                testCropMaxDegree_Maiz, testCropRootDepth_Maiz);
+                                                testCropMaxDegree_Maiz, testCropRootDepth_Maiz, 
+                                                testCropHydricBalanceDepth_Maiz);
             testInitialPhenologicalState_Soja = testIrrigationSystem.AddPhenologicalStage(testSpecieSoja, 
                                                 testInitialStage_Soja, testCropMinDegree_Soja, 
-                                                testCropMaxDegree_Soja, testCropRootDepth_Soja);
+                                                testCropMaxDegree_Soja, testCropRootDepth_Soja,
+                                                testCropHydricBalanceDepth_Soja);
 
             #endregion
 
