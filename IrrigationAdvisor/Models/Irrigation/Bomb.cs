@@ -18,8 +18,6 @@ namespace IrrigationAdvisor.Models.Irrigation
     /// Dependencies:
     ///     Bomb
     /// 
-    /// TODO:
-    ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
@@ -109,7 +107,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         }
 
         /// <summary>
-        /// TODO add description
+        /// Constructor with all parameters.
         /// </summary>
         /// <param name="pIdBomb"></param>
         /// <param name="pName"></param>

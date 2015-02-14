@@ -18,8 +18,6 @@ namespace IrrigationAdvisor.Models.Localization
     ///     Country
     ///     Position
     /// 
-    /// TODO: 
-    ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
@@ -83,7 +81,7 @@ namespace IrrigationAdvisor.Models.Localization
         #region Construction
 
         /// <summary>
-        /// TODO add description
+        /// Constructor by default.
         /// </summary>
         /// <param name="name">Name of the region</param>
         /// <param name="location">Location of the region</param>
@@ -95,7 +93,7 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
-        /// TODO add description
+        /// Constructor with all Parameters
         /// </summary>
         /// <param name="pIdCity"></param>
         /// <param name="pName"></param>
@@ -114,7 +112,7 @@ namespace IrrigationAdvisor.Models.Localization
 
         #region Overrides
         // Different region for each class override
-                /// <summary>
+        /// <summary>
         /// Overrides equals
         /// </summary>
         /// <param name="obj"></param>

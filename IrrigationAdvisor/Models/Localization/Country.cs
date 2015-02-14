@@ -20,8 +20,6 @@ namespace IrrigationAdvisor.Models.Localization
     /// Dependencies:
     ///     list of classes is referenced by this class
     /// 
-    /// TODO: 
-    ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:

@@ -866,7 +866,7 @@ namespace IrrigationAdvisor.Models.Management
         #region Specie
 
         /// <summary>
-        /// TODO add description
+        /// Return the Specie that has the same parameters, else return null.
         /// </summary>
         /// <param name="pName"></param>
         /// <returns></returns>
@@ -888,7 +888,7 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Return the Specie instance of the list equals the parameter
         /// </summary>
         /// <param name="pSpecie"></param>
         /// <returns></returns>
@@ -907,7 +907,8 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Return the Specie added to the list.
+        /// If already exists, it return the one of the list.
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pBaseTemperature"></param>
@@ -927,7 +928,8 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Return the Specie added to the list.
+        /// If allready exists, it return the one of the list.
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pBaseTemperature"></param>
@@ -952,7 +954,8 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Return the Specie updated in the list.
+        /// If not exists, it return null.
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pBaseTemperature"></param>
@@ -2117,38 +2120,6 @@ namespace IrrigationAdvisor.Models.Management
             }
             return lReturn;
         }
-
-
-        ///// <summary>
-        ///// Return the Phenological Stage for a Specie in a Region given the rootDepth
-        ///// </summary>
-        ///// <param name="pDegree"></param>
-        ///// <param name="pRegionList"></param>
-        ///// <param name="pSpecie"></param>
-        ///// <returns></returns>
-        //public PhenologicalStage GetPhenologicalStage(double pDegree, Region pRegionList, Specie pSpecie)
-        //{
-        //    PhenologicalStage lReturn = null;
-        //    List<PhenologicalStage> lPhenologicalStageListByRegion = null;
-        //    foreach (Pair<Region , List<PhenologicalStage >> lPair in this.PhenologicalStageList)
-        //    {
-        //        if (lPair != null && lPair.First.Equals(pRegionList))
-        //        {
-        //            lPhenologicalStageListByRegion = lPair.Second;
-        //        }
-        //    }
-
-        //    IEnumerable<PhenologicalStage> query = lPhenologicalStageListByRegion.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
-        //    foreach(PhenologicalStage lPhenologicalStage in query)
-        //    {
-        //        if (lPhenologicalStage != null && lPhenologicalStage.Specie.Equals(pSpecie) && lPhenologicalStage.MinDegree <= pDegree && lPhenologicalStage.MaxDegree >= pDegree)
-        //        {
-        //            lReturn = lPhenologicalStage;
-        //        }
-        //    }
-        //    return lReturn;
-
-        //}
 
 
         #endregion

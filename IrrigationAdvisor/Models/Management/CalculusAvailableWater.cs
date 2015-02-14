@@ -19,8 +19,6 @@ namespace IrrigationAdvisor.Models.Management
     /// Dependencies:
     ///     IrrigationSystem
     /// 
-    /// TODO: 
-    ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:

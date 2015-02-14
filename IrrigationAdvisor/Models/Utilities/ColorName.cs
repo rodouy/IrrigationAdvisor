@@ -19,8 +19,6 @@ namespace IrrigationAdvisor.Models.Utilities
     /// Dependencies:
     ///     list of classes is referenced by this class
     /// 
-    /// TODO: OK
-    ///     UnitTest
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
