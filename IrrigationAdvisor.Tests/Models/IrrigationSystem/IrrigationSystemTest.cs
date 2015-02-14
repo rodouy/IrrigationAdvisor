@@ -610,8 +610,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lDateOfRecord = lFromDate.AddDays(i);
 
                 if (lDateOfRecord.Date.Equals(new DateTime(2015, 1, 22)))
-                   System.Diagnostics.Debugger.Break();
-
+                {
+                    //System.Diagnostics.Debugger.Break();
+                }
+                
                 testIrrigationSystem.addDailyRecordToList(lCropIrrigationWeather, lDateOfRecord, lObservation);
 
                 if (pPivot.Equals(SantaLuciaPivotList.Pivot2))

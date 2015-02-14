@@ -428,8 +428,10 @@ namespace IrrigationAdvisor.Models.Management
 
             //To debug
             if (pDailyRec.DateHour.Equals(new DateTime(2014, 10, 22)))
-                System.Diagnostics.Debugger.Break();
-
+            {
+                //System.Diagnostics.Debugger.Break();
+            }
+                
             // Evapotraspiration adjustment
             if (pDailyRec.EvapotranspirationCrop != null)
             {
