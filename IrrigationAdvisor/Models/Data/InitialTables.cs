@@ -92,6 +92,8 @@ namespace IrrigationAdvisor.Models.Data
 
         public const double PERCENTAGE_LIMIT_OF_AVAILABLE_WATER_CAPACITY = 0.10;
 
+        public const double DAYS_BETWEEN_TWO_PARTIAL_BIG_WATER_INPUT = 3;
+
         #endregion
 
         #endregion

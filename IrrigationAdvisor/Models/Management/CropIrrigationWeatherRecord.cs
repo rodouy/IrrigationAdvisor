@@ -91,6 +91,8 @@ namespace IrrigationAdvisor.Models.Management
         private double soilHydricVolume;
         private DateTime lastWaterInputDate;
         private DateTime lastBigWaterInputDate;
+        private DateTime lastPartialWaterInputDate;
+        private double lastPartialWaterInput;
         private double totalEvapotranspirationCropFromLastWaterInput;
 
         private String outPut;
@@ -99,6 +101,7 @@ namespace IrrigationAdvisor.Models.Management
         private List<List<String>> messages;
         private List<String> titlesDaily;
         private List<List<String>> messagesDaily;
+
 
 
         #endregion
@@ -212,6 +215,19 @@ namespace IrrigationAdvisor.Models.Management
             get { return lastBigWaterInputDate; }
             set { lastBigWaterInputDate = value; }
         }
+
+        public double LastPartialWaterInput
+        {
+            get { return lastPartialWaterInput; }
+            set { lastPartialWaterInput = value; }
+        }
+
+        public DateTime LastPartialWaterInputDate
+        {
+            get { return lastPartialWaterInputDate; }
+            set { lastPartialWaterInputDate = value; }
+        }
+
 
         public double TotalEvapotranspirationCropFromLastWaterInput
         {

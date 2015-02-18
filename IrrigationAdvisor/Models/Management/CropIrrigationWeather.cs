@@ -290,9 +290,13 @@ namespace IrrigationAdvisor.Models.Management
             double lEffectiveIrrigationTotal;
             double lIrrigationEfficiency;
             double lAmountOfIrrigationNotUsed;
+            int lDaysBetweenIrrigations;
+            
             
             if (pDailyRec.Irrigation != null)
             {
+                lDaysBetweenIrrigations = Utilities.Utils.getDaysDifference(this.CropIrrigationWeatherRecord.LastPartialWaterInputDate, pDailyRec.DateHour);
+
                 // Calculate de effective irrigation depending on the irrigatioin efficiency of the Pivot
                 lIrrigationEfficiency = this.IrrigationUnit.IrrigationEfficiency;
 
@@ -316,6 +320,21 @@ namespace IrrigationAdvisor.Models.Management
                     this.cropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
                     this.cropIrrigationWeatherRecord.LastWaterInputDate = pDailyRec.DateHour;
                     pThereIsWaterInput = true;
+                }
+                // If two "partial" water inputs, between 3 days, are bigger than 10 mm then set the last water input
+                else if (lDaysBetweenIrrigations <= InitialTables.DAYS_BETWEEN_TWO_PARTIAL_BIG_WATER_INPUT)
+                {
+                    if (lEffectiveIrrigationTotal + this.CropIrrigationWeatherRecord.LastPartialWaterInput > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                    {
+                        this.CropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
+                        this.CropIrrigationWeatherRecord.LastWaterInputDate = pDailyRec.DateHour;
+                        pThereIsWaterInput = true;
+                    }
+                }
+                else //Registry the effective irrigation and its date as a PartialWaterInput
+                {
+                    this.CropIrrigationWeatherRecord.LastPartialWaterInput = lEffectiveIrrigationTotal;
+                    this.CropIrrigationWeatherRecord.LastPartialWaterInputDate = pDailyRec.DateHour;
                 }
 
                 // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity  
@@ -356,9 +375,11 @@ namespace IrrigationAdvisor.Models.Management
             double lRealRain;
             double lEffectiveRain;
             double lAmountOfRainNotUsed;
+            int lDaysBetweenRains;
 
             if (pDailyRec.Rain != null)
             {
+                lDaysBetweenRains = Utilities.Utils.getDaysDifference(this.CropIrrigationWeatherRecord.LastPartialWaterInputDate, pDailyRec.DateHour);
 
                 lRealRain = pDailyRec.Rain.getTotalInput();
                 //Calculate Rain Effective Value
@@ -367,14 +388,28 @@ namespace IrrigationAdvisor.Models.Management
                 this.cropIrrigationWeatherRecord.TotalRealRain += lRealRain;
                 this.cropIrrigationWeatherRecord.HydricBalance += lEffectiveRain;
 
-                // If the effective rain is bigger than 10 mm set the last water input
+                // If the effective rain is bigger than 10 mm then set the last water input
                 if (lEffectiveRain > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
                 {
-                    this.cropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
-                    this.cropIrrigationWeatherRecord.LastWaterInputDate = pDailyRec.DateHour;
+                    this.CropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
+                    this.CropIrrigationWeatherRecord.LastWaterInputDate = pDailyRec.DateHour;
                     pThereIsWaterInput = true;
                 }
-
+                // If two "partial" water inputs, between 3 days, are bigger than 10 mm then set the last water input
+                else if (lDaysBetweenRains <= InitialTables.DAYS_BETWEEN_TWO_PARTIAL_BIG_WATER_INPUT)
+                {
+                    if (lEffectiveRain + this.CropIrrigationWeatherRecord.LastPartialWaterInput > InitialTables.CONSIDER_WATER_TO_INITIALIZE_ETC_ACUMULATED)
+                    {
+                        this.CropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput = pDailyRec.EvapotranspirationCrop.getTotalInput();
+                        this.CropIrrigationWeatherRecord.LastWaterInputDate = pDailyRec.DateHour;
+                        pThereIsWaterInput = true;
+                    }
+                }
+                else //Registry the effective rain and its date as a PartialWaterInput
+                {
+                    this.CropIrrigationWeatherRecord.LastPartialWaterInput = lEffectiveRain;
+                    this.CropIrrigationWeatherRecord.LastPartialWaterInputDate = pDailyRec.DateHour;
+                }
                 
                 // If the HidricBalance is bigger than the FieldCapacity set the HidricBalance as de FieldCapacity and take off the rain not used -> total rain
                 if (this.cropIrrigationWeatherRecord.HydricBalance >= pFieldCapacity)
@@ -388,6 +423,7 @@ namespace IrrigationAdvisor.Models.Management
                     this.cropIrrigationWeatherRecord.TotalEffectiveRain -= lAmountOfRainNotUsed;
 
                 }
+                
             }
 
             return pThereIsWaterInput;
@@ -427,9 +463,9 @@ namespace IrrigationAdvisor.Models.Management
             lFieldCapacity = this.GetSoilFieldCapacity();
 
             //To debug
-            if (pDailyRec.DateHour.Equals(new DateTime(2014, 10, 22)))
+            if (pDailyRec.DateHour.Equals(new DateTime(2015, 02, 03)))
             {
-                //System.Diagnostics.Debugger.Break();
+                System.Diagnostics.Debugger.Break();
             }
                 
             // Evapotraspiration adjustment
