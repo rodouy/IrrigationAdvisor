@@ -795,7 +795,7 @@ namespace IrrigationAdvisor.Models.Management
         public void addDailyRecord(WeatherData pWeatherData, 
             WeatherData pMainWeatherData, 
             WeatherData pAlternativeWeatherData, 
-            Water.WaterInput pRain, Water.WaterInput pIrrigation, string pObservations)
+            Water.Rain pRain, Water.Irrigation pIrrigation, string pObservations)
         {
             try
             {

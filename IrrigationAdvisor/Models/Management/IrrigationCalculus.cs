@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 
 using IrrigationAdvisor.Models.Data;
+using IrrigationAdvisor.Models.Utilities;
 
 namespace IrrigationAdvisor.Models.Management
 {
@@ -98,14 +99,14 @@ namespace IrrigationAdvisor.Models.Management
         /// Use both ways to calculate: by available water and by acumulated evapotranspirationCrop
         /// </summary>
         /// <param name="pNewName">new name</param>
-        public double howMuchToIrrigate(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
+        public Pair <double,Utils.WaterInputType> howMuchToIrrigate(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
         {
-            double lReturn;
+            Pair<double, Utils.WaterInputType> lReturn; 
             bool lIrrigationByEvapotranspiration;
             bool lIrrigationByHydricBalance;
             double lPercentageAvailableWater;
 
-            lReturn = 0;
+            lReturn = new Pair<double,Utils.WaterInputType>();
             lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeatherRecord);
             lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeatherRecord);
             lPercentageAvailableWater = pCropIrrigationWeatherRecord.getPercentageOfAvailableWater();
@@ -113,11 +114,13 @@ namespace IrrigationAdvisor.Models.Management
             //If we need to irrigate by Evapotranspiraton, then Available water has to be lower than 60% 
             if (lIrrigationByEvapotranspiration && lPercentageAvailableWater < InitialTables.PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
             {
-                lReturn = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn.First = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn.Second = Utils.WaterInputType.IrrigationByETCAcumulated;
             }
             else if (lIrrigationByHydricBalance)
             {
-                lReturn = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn.First = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn.Second = Utils.WaterInputType.IrrigationByHydricBalance;
             }
 
             return lReturn;

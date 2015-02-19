@@ -71,6 +71,14 @@ namespace IrrigationAdvisor.Models.Utilities
             /// 
             /// </summary>
             Irrigation,
+            /// <summary>
+            /// 
+            /// </summary>
+            IrrigationByETCAcumulated,
+            /// <summary>
+            /// 
+            /// </summary>
+            IrrigationByHydricBalance,
         }
 
         public enum WaterOutputType

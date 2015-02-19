@@ -155,8 +155,8 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Water
 
-        private List<WaterInput> rainList;
-        private List<WaterInput> irrigationList;
+        private List<Rain> rainList;
+        private List<Water.Irrigation> irrigationList;
         private List<WaterInput> waterInputList;
         private List<WaterOutput> waterOutputList;
 
@@ -303,13 +303,13 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Water
-        public List<WaterInput> RainList
+        public List<Rain > RainList
         {
             get { return rainList; }
             set { rainList = value; }
         }
 
-        public List<WaterInput> IrrigationList
+        public List<Water.Irrigation> IrrigationList
         {
             get { return irrigationList; }
             set { irrigationList = value; }
@@ -413,8 +413,8 @@ namespace IrrigationAdvisor.Models.Management
 
             #region Water
 
-            this.RainList = new List<Water.WaterInput>();
-            this.IrrigationList = new List<Water.WaterInput>();
+            this.RainList = new List<Rain>();
+            this.IrrigationList = new List<Water.Irrigation>();
             this.waterInputList = new List<WaterInput>();
             this.waterOutputList = new List<WaterOutput>();
 
@@ -474,8 +474,8 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pObservations"></param>
         private void addDailyRecordToCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather,
                                                     WeatherData pWeatherData, WeatherData pMainWeatherData,
-                                                    WeatherData pAlternativeWeatherData, WaterInput pRain,
-                                                    WaterInput plIrrigation, string pObservations)
+                                                    WeatherData pAlternativeWeatherData, Water.Rain pRain,
+                                                    Water.Irrigation plIrrigation, string pObservations)
         {
             foreach (CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
             {
@@ -504,13 +504,13 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pDateTime"></param>
         /// <returns></returns>
-        private WaterInput getIrrigationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        private Water.Irrigation getIrrigationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
-            Water.WaterInput lReturn = null;
-            IEnumerable<WaterInput> lIrrigationListOrderByDescendingByDate;
+            Water.Irrigation lReturn = null;
+            IEnumerable<Water.Irrigation> lIrrigationListOrderByDescendingByDate;
             lIrrigationListOrderByDescendingByDate = this.irrigationList.OrderByDescending(lWaterInput => lWaterInput.Date);
             //TODO change to contains for date 
-            foreach (WaterInput lWaterInput in lIrrigationListOrderByDescendingByDate)
+            foreach (Water.Irrigation lWaterInput in lIrrigationListOrderByDescendingByDate)
                 if (Utilities.Utils.isTheSameDay(lWaterInput.Date, pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
                     lReturn = lWaterInput;
@@ -525,13 +525,13 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pDateTime"></param>
         /// <returns></returns>
-        private WaterInput getRainFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        private Rain  getRainFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
-            Water.WaterInput lReturn = null;
-            foreach(Water.WaterInput lWaterInput in this.rainList)
-                if(Utilities.Utils.isTheSameDay(lWaterInput.Date,pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+            Rain  lReturn = null;
+            foreach(Rain  lRain in this.rainList)
+                if(Utilities.Utils.isTheSameDay(lRain.Date,pDateTime) && lRain.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    lReturn = lWaterInput;
+                    lReturn = lRain;
                     return lReturn;
                 }
             return lReturn;
@@ -2040,8 +2040,8 @@ namespace IrrigationAdvisor.Models.Management
             WeatherData lWeatherData = null;
             WeatherData lMainWeatherData = null;
             WeatherData lAlternativeWeatherData = null;
-            Water.WaterInput lRain = null;
-            Water.WaterInput lIrrigation = null;
+            Water.Rain lRain = null;
+            Water.Irrigation lIrrigation = null;
 
             try
             {
@@ -2085,11 +2085,17 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pDateTime"></param>
         public void verifyNeedForIrrigation(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
         {
+            Pair<double, Utils.WaterInputType> lNeedForIrrigationPair;
             double lQuantityOfWaterToIrrigate;
-            lQuantityOfWaterToIrrigate = this.howMuchToIrrigate(pCropIrrigationWeather);
+            Utils.WaterInputType lTypeOfIrrigation;
+
+            lNeedForIrrigationPair = this.howMuchToIrrigate(pCropIrrigationWeather);
+            lQuantityOfWaterToIrrigate = lNeedForIrrigationPair.First;
+            lTypeOfIrrigation = lNeedForIrrigationPair.Second;
+
             if (lQuantityOfWaterToIrrigate > 0)
             {
-                this.AddOrUpdateIrrigationDataToList(pCropIrrigationWeather, pDateTime, lQuantityOfWaterToIrrigate, false);
+                this.AddOrUpdateIrrigationDataToList(pCropIrrigationWeather, pDateTime, lNeedForIrrigationPair, false);
                 this.addDailyRecordToList(pCropIrrigationWeather, pDateTime, pDateTime.ToShortDateString());
             }
         }
@@ -2099,9 +2105,9 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <returns></returns>
-        public double howMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
+        public Pair<double, Utils.WaterInputType> howMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
         {
-            double lReturn = 0;
+            Pair<double, Utils.WaterInputType> lReturn = null;
             CropIrrigationWeatherRecord lCropIrrigationWeatherRecord = null;
             //Find the Crop Irrigation Weather Records
             foreach (CropIrrigationWeatherRecord oneCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
@@ -2339,14 +2345,15 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pIrrigationDate"></param>
-        /// <param name="pQuantityOfWaterToIrrigate"></param>
+        /// <param name="pQuantityOfWaterToIrrigateAndTypeOfIrrigation"></param>
         /// <param name="pIsExtraIrrigation"></param>
         /// <returns></returns>
         public void AddOrUpdateIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
-            DateTime pIrrigationDate, double pQuantityOfWaterToIrrigate, bool pIsExtraIrrigation)
+            DateTime pIrrigationDate, Pair<double, Utils.WaterInputType> pQuantityOfWaterToIrrigateAndTypeOfIrrigation, bool pIsExtraIrrigation)
         {
-            WaterInput lNewIrrigation = null;
+            Water.Irrigation lNewIrrigation = null;
 
+            
             try
             {
                 lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pIrrigationDate);
@@ -2359,26 +2366,32 @@ namespace IrrigationAdvisor.Models.Management
                     lNewIrrigation.Date = pIrrigationDate;
                     if (pIsExtraIrrigation)
                     {
-                        lNewIrrigation.ExtraInput = pQuantityOfWaterToIrrigate;
+                        lNewIrrigation.ExtraInput = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                         lNewIrrigation.ExtraDate = pIrrigationDate;
                     }
                     else
                     {
-                        lNewIrrigation.Input = pQuantityOfWaterToIrrigate;
+                        lNewIrrigation.Input = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
+                        
                     }
+                    // Set the type of irrigation. 
+                    lNewIrrigation.Type = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.Second;
                     this.IrrigationList.Add(lNewIrrigation);
                 }
                 else
                 {
                     if (pIsExtraIrrigation)
                     {
-                        lNewIrrigation.ExtraInput += pQuantityOfWaterToIrrigate;
+                        lNewIrrigation.ExtraInput += pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                         lNewIrrigation.ExtraDate = pIrrigationDate;
                     }
                     else
                     {
-                        lNewIrrigation.Input += pQuantityOfWaterToIrrigate;
+                        lNewIrrigation.Input += pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                     }
+                    // Override the type of irrigation. 
+                    lNewIrrigation.Type = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.Second;
+                    
                 }
             }
             catch (Exception e)
@@ -2398,16 +2411,16 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pDate"></param>
         /// <param name="pInput"></param>
         /// <returns></returns>
-        public void AddRainDataToList(CropIrrigationWeather pCropIrrigationWeather,
+        public Rain  AddRainDataToList(CropIrrigationWeather pCropIrrigationWeather,
                                         DateTime pDate, double pInput)
         {
-            WaterInput lNewIrrigation = null;
+            Rain lNewRain = null;
             try
             {
-                lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pDate);
-                if (lNewIrrigation == null)
+                lNewRain = getRainFromList(pCropIrrigationWeather, pDate);
+                if (lNewRain == null)
                 {
-                    Rain lNewRain = new Rain();
+                    lNewRain = new Rain();
                     lNewRain.CropIrrigationWeather = pCropIrrigationWeather;
                     lNewRain.Date = pDate;
                     lNewRain.Input = pInput;
@@ -2415,8 +2428,8 @@ namespace IrrigationAdvisor.Models.Management
                 }
                 else // If there is a Raub actualize the registry
                 {
-                    lNewIrrigation.ExtraInput += pInput;
-                    lNewIrrigation.ExtraDate = pDate;
+                    lNewRain.ExtraInput += pInput;
+                    lNewRain.ExtraDate = pDate;
                 }
             }
             catch (Exception e)
@@ -2425,6 +2438,8 @@ namespace IrrigationAdvisor.Models.Management
                 //TODO manage and log the exception
                 throw e;
             }
+
+            return lNewRain;
 
         }
         

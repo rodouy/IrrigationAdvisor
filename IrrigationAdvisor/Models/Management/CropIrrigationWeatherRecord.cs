@@ -472,6 +472,7 @@ namespace IrrigationAdvisor.Models.Management
             this.Titles.Add("Raiz");
             this.Titles.Add("Fenol");
             this.Titles.Add("RiegoCalc");
+            this.Titles.Add("TipoRiego");
             this.Titles.Add("TotRiegoCalcInBI");
             this.Titles.Add("RiegoExtra");
             this.Titles.Add("TotRiegoExtraInBI");
@@ -501,8 +502,9 @@ namespace IrrigationAdvisor.Models.Management
             string lAvailableWater;
             string lFieldCapacity;
             string lPermanentWilingPoint ;
-            string lIrrigation ;
-            string lTotIrrInHB ;
+            string lIrrigation;
+            string lTypeOfIrrigation;
+            string lTotIrrInHB;
             string lExtraIrrigation ;
             string lTotExtraIrrInHB;
 
@@ -520,16 +522,18 @@ namespace IrrigationAdvisor.Models.Management
             lFieldCapacity = this.getSoilFieldCapacity() + "        ";
             lPermanentWilingPoint = this.getSoilPermanentWiltingPoint() + "        ";
 
-            WaterInput lWaterInput = this.GetDailyRecordByDate(this.DayAfterSowing.Second).Irrigation;
+            Water.Irrigation lWaterInput = this.GetDailyRecordByDate(this.DayAfterSowing.Second).Irrigation;
             if (lWaterInput == null)
             {
                 lIrrigation = 0 + "        ";
                 lExtraIrrigation = 0 + "        ";
+                lTypeOfIrrigation = "                                 ";
             }
             else
             { 
                 lIrrigation = lWaterInput.Input.ToString() + "        ";
                 lExtraIrrigation = lWaterInput.ExtraInput.ToString() + "        ";
+                lTypeOfIrrigation = lWaterInput.Type.ToString() + "                                 ";
             }
             lTotIrrInHB = this.TotalIrrigationInHidricBalance.ToString() + "        ";
             lTotExtraIrrInHB = this.TotalExtraIrrigationInHidricBalance.ToString() + "        ";
@@ -552,6 +556,7 @@ namespace IrrigationAdvisor.Models.Management
                 " \t\t " + this.GetRootDepth() +
                 " \tf " + this.CropIrrigationWeather.PhenologicalStage.Stage.Name +
                 " \t " + lIrrigation.Substring(0, 7) +
+                " \t " + lTypeOfIrrigation.Substring(0, 30) +
                 " \t " + lTotIrrInHB.Substring(0, 7) +
                 " \t " + lExtraIrrigation.Substring(0, 7) +
                 " \t " + lTotExtraIrrInHB.Substring(0, 7) +
@@ -577,10 +582,11 @@ namespace IrrigationAdvisor.Models.Management
             lMessage.Add(this.GetRootDepth().ToString());
             lMessage.Add(this.CropIrrigationWeather.PhenologicalStage.Stage.Name);
             lMessage.Add(lIrrigation.Substring(0, 7));
+            lMessage.Add(lTypeOfIrrigation.Substring(0, 30));
             lMessage.Add(lTotIrrInHB.Substring(0, 7));
             lMessage.Add(lExtraIrrigation.Substring(0, 7));
             lMessage.Add(lTotExtraIrrInHB.Substring(0, 7));
-
+            
             this.Messages.Add(lMessage);
 
             return lReturn;

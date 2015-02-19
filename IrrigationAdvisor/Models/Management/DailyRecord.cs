@@ -67,8 +67,8 @@ namespace IrrigationAdvisor.Models.Management
         private double modifiedGrowingDegree;
         private double kc;
         private WaterOutput evapotranspirationCrop;
-        private WaterInput rain;
-        private WaterInput irrigation;
+        private Water.Rain rain;
+        private Water.Irrigation irrigation;
         private String observations;
 
         
@@ -122,13 +122,13 @@ namespace IrrigationAdvisor.Models.Management
             set { evapotranspirationCrop = value; }
         }
 
-        public Water.WaterInput Rain
+        public Water.Rain Rain
         {
             get { return rain; }
             set { rain = value; }
         }
 
-        public Water.WaterInput Irrigation
+        public Water.Irrigation Irrigation
         {
             get { return irrigation; }
             set { irrigation = value; }
@@ -153,15 +153,15 @@ namespace IrrigationAdvisor.Models.Management
             this.ModifiedGrowingDegree = 0;
             this.Kc = 0;
             this.EvapotranspirationCrop = new WaterOutput();
-            this.Rain = new WaterInput();
-            this.Irrigation = new WaterInput();
+            this.Rain = new Water.Rain();
+            this.Irrigation = new Water.Irrigation();
             this.Observations= "";
 
         }
 
         public DailyRecord(WeatherData pMainWeatherData, WeatherData pAlternativeWeatherData,
             DateTime pDateHour, double pGrowingDegree, double pGrowingDegreeAcumulated, double pModifiedGrowingDegree, double pKc, Water.WaterOutput pEvapotranspirationCrop,
-            Water.WaterInput pRain, Water.WaterInput pIrrigation, String pObservations) 
+            Water.Rain pRain, Water.Irrigation pIrrigation, String pObservations) 
         {
             this.MainWeatherData = pMainWeatherData;
             this.AlternativeWeatherData = pAlternativeWeatherData;
