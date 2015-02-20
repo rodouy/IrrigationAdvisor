@@ -465,7 +465,7 @@ namespace IrrigationAdvisor.Models.Management
             //To debug
             if (pDailyRec.DateHour.Equals(new DateTime(2015, 02, 03)))
             {
-                System.Diagnostics.Debugger.Break();
+                //System.Diagnostics.Debugger.Break();
             }
                 
             // Evapotraspiration adjustment
