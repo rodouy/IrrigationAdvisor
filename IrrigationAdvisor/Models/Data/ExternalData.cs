@@ -188,7 +188,6 @@ namespace IrrigationAdvisor.Models.Data
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(114), 24.2, 0, 24.2, 24.2, 5.4);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(115), 26.2, 0, 26.2, 26.2, 5.7);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(116), 22.3, 0, 22.3, 22.3, 4.0);//DateTime(2015, 02, 10)
-
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(117), 22.1, 0, 22.1, 22.1, 5.9);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(118), 24.5, 0, 24.5, 24.5, 6.1);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(119), 18.9, 0, 18.9, 18.9, 5.6);
@@ -196,6 +195,20 @@ namespace IrrigationAdvisor.Models.Data
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(121), 21.7, 0, 21.7, 21.7, 6.0);//DateTime(2015, 02, 15)
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(122), 23.2, 0, 23.2, 23.2, 6.0);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(123), 24.0, 0, 24.0, 24.0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(124), 24.2, 0, 24.2, 24.2, 5.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(125), 18.6, 0, 18.6, 18.6, 2.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(126), 19.7, 0, 19.7, 19.7, 4.2);//DateTime(2015, 02, 20)
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(122), 22.7, 0, 22.7, 22.7, 4.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(127), 23.8, 0, 23.8, 23.8, 5.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(128), 25.0, 0, 25.0, 25.0, 5.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(129), 27.2, 0, 27.2, 27.2, 5.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(130), 23.5, 0, 23.5, 23.5, 3.5);//DateTime(2015, 02, 25)
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(122), 24.3, 0, 24.3, 24.3, 4.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(131), 19.5, 0, 19.5, 19.5, 4.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(132), 18.5, 0, 18.5, 18.5, 4.7);//DateTime(2015, 02, 28)
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(122), 23.2, 0, 23.2, 23.2, 4.5);//DateTime(2015, 01, 01)
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(122), 24.4, 0, 24.4, 24.4, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(133), 23.9, 0, 23.9, 23.9, 2.4);
 
             //TODO: Step 1 Layout WeatherStation Weather Data
 

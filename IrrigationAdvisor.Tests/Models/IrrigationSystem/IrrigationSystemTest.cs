@@ -206,7 +206,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 Baja: por el momento nada
              */
             
-            testMaxEvapotranspirationToIrrigate_Maiz = 35;
+            testMaxEvapotranspirationToIrrigate_Maiz = 30;
             testMaxEvapotranspirationToIrrigate_Soja = 35;
             testCropDensityMaiz = 80000;
             testCropDensitySoja = 350000;
@@ -472,6 +472,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 13), 42);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 19), 10);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 28), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 02, 23), 36);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 03, 03), 38);
 
 
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 10, 29), 66);
