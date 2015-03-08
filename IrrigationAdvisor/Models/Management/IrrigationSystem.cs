@@ -691,12 +691,12 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public Crop AddCrop(String pName, Specie pSpecie, Region pRegion,
                         List<PhenologicalStage> pPhenologicalStageList, 
-                        Double pDensity, Double pMaxEvapotranspirationToIrrigate)
+                        Double pDensity, Double pMaxEvapotranspirationToIrrigate, Double pMinEvapotranspirationToIrrigate)
         {
             Crop lReturn = null;
             int lIDCrop = this.CropList.Count();
-            Crop lCrop = new Crop(lIDCrop, pName, pSpecie, pRegion, pPhenologicalStageList, 
-                                pDensity, pMaxEvapotranspirationToIrrigate);
+            Crop lCrop = new Crop(lIDCrop, pName, pSpecie, pRegion, pPhenologicalStageList,
+                                pDensity, pMaxEvapotranspirationToIrrigate, pMinEvapotranspirationToIrrigate);
             lReturn = ExistCrop(lCrop);
             if (lReturn == null)
             {
@@ -717,11 +717,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public Crop UpdateCrop(String pName, Specie pSpecie, Region pRegion,
                         List<PhenologicalStage> pPhenologicalStageList, 
-                        Double pDensity, Double pMaxEvapotranspirationToIrrigate)
+                        Double pDensity, Double pMaxEvapotranspirationToIrrigate, Double pMinEvapotranspirationToIrrigate)
         {
             Crop lReturn = null;
             Crop lCrop = new Crop(0, pName, pSpecie, pRegion, pPhenologicalStageList, 
-                            pDensity, pMaxEvapotranspirationToIrrigate);
+                            pDensity, pMaxEvapotranspirationToIrrigate, pMinEvapotranspirationToIrrigate);
             lReturn = ExistCrop(lCrop);
             if (lReturn != null)
             {
@@ -731,6 +731,7 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.PhenologicalStageList = pPhenologicalStageList;
                 lReturn.Density = pDensity;
                 lReturn.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
+                lReturn.MinEvapotranspirationToIrrigate = pMinEvapotranspirationToIrrigate;
             }
             return lReturn;
         }

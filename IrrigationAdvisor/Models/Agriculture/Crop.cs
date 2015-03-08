@@ -61,6 +61,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         private double density;
         private double maxEvapotranspirationToIrrigate;
+        private double minEvapotranspirationToIrrigate;
         
         #endregion
 
@@ -108,7 +109,12 @@ namespace IrrigationAdvisor.Models.Agriculture
             set { maxEvapotranspirationToIrrigate = value; }
         }
 
- 
+        public double MinEvapotranspirationToIrrigate
+        {
+            get { return minEvapotranspirationToIrrigate; }
+            set { minEvapotranspirationToIrrigate = value; }
+        }
+
         #endregion
 
         #region Construction
@@ -125,6 +131,8 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.PhenologicalStageList = new List<PhenologicalStage>();
             this.Density = 0;
             this.MaxEvapotranspirationToIrrigate = 0;
+            this.MinEvapotranspirationToIrrigate = 0;
+
         }
 
         /// <summary>
@@ -136,7 +144,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <param name="pRegion"></param>
         /// <param name="pMaxEvapotranspirationToIrrigate"></param>
         public Crop(long pIdCrop, String pName, Specie pSpecie, Region pRegion,
-                    double pMaxEvapotranspirationToIrrigate)
+                    double pMaxEvapotranspirationToIrrigate, double pMinEvapotranspirationToIrrigate)
         {
             this.IdCrop = pIdCrop;
             this.Name = pName;
@@ -145,6 +153,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.PhenologicalStageList=new List<PhenologicalStage>();
             this.Density = 0;
             this.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
+            this.MinEvapotranspirationToIrrigate = pMinEvapotranspirationToIrrigate;
         }
 
         /// <summary>
@@ -159,7 +168,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <param name="pMaxEvapotranspirationToIrrigate"></param>
         public Crop(long pIdCrop, String pName, Specie pSpecie, Region pRegion,
             List<PhenologicalStage> pPhenologicalStageList,
-            double pDensity, double pMaxEvapotranspirationToIrrigate)
+            double pDensity, double pMaxEvapotranspirationToIrrigate, double pMinEvapotranspirationToIrrigate)
         {
             this.IdCrop = pIdCrop;
             this.Name = pName;
@@ -168,6 +177,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.PhenologicalStageList = pPhenologicalStageList;
             this.Density = pDensity;
             this.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
+            this.MinEvapotranspirationToIrrigate = pMinEvapotranspirationToIrrigate;
         }
 
         #endregion

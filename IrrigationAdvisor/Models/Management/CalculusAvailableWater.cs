@@ -76,13 +76,18 @@ namespace IrrigationAdvisor.Models.Management
             double lHydricBalance;
             double PermanentWiltingPoint;
             double lThreshold;
+            double lMinEvapotrasnpirationToIrrigate;
+            double lEvapotrAcum;
 
             lAvailableWater = pCropIrrigationWeatherRecord.CropIrrigationWeather.GetSoilAvailableWaterCapacity();
             lHydricBalance = pCropIrrigationWeatherRecord.HydricBalance;
             PermanentWiltingPoint = pCropIrrigationWeatherRecord.getSoilPermanentWiltingPoint();
             lThreshold = Math.Round(lAvailableWater * InitialTables.PERCENTAGE_LIMIT_OF_AVAILABLE_WATER_CAPACITY, 2) + PermanentWiltingPoint;
+            lMinEvapotrasnpirationToIrrigate = pCropIrrigationWeatherRecord.CropIrrigationWeather.Crop.MinEvapotranspirationToIrrigate;
+            lEvapotrAcum = pCropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput;
             
-            if (lHydricBalance <= lThreshold)
+            
+            if (lHydricBalance <= lThreshold && lEvapotrAcum >= lMinEvapotrasnpirationToIrrigate)
             {
                 lReturn = true;
             }

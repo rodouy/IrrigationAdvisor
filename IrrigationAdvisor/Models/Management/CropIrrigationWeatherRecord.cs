@@ -462,7 +462,7 @@ namespace IrrigationAdvisor.Models.Management
             this.Titles.Add("GDia");
             this.Titles.Add("GDia-Mod");
             this.Titles.Add("B-Hid");
-            this.Titles.Add("% AD");
+            this.Titles.Add("% Water");
             this.Titles.Add("Ag-Disp");
             this.Titles.Add("CC");
             this.Titles.Add("PMP");
@@ -517,7 +517,7 @@ namespace IrrigationAdvisor.Models.Management
             lEffectiveRain = this.TotalEffectiveRain + "        ";
             lTotalRain = this.TotalRealRain + "        ";
             lHydricBalance = this.HydricBalance.ToString() + "        ";
-            lPercentageOfAvailableWater = this.getPercentageOfAvailableWater() + "        ";
+            lPercentageOfAvailableWater = this.getPercentageOfWaterInCrop() + "        ";
             lAvailableWater = this.getSoilAvailableWaterCapacity() + "        ";
             lFieldCapacity = this.getSoilFieldCapacity() + "        ";
             lPermanentWilingPoint = this.getSoilPermanentWiltingPoint() + "        ";
@@ -668,6 +668,21 @@ namespace IrrigationAdvisor.Models.Management
             return lPercentageOfAvailableWater;
         }
 
+        public double getPercentageOfWaterInCrop()
+        {
+            double lHidricBalance;
+            double lFieldCapacity;
+            double lPermanentWiltingPoint;
+            double lPercentageOfWater;
+
+            lHidricBalance = this.HydricBalance;
+            lFieldCapacity = this.getSoilFieldCapacity();
+            lPermanentWiltingPoint = this.getSoilPermanentWiltingPoint();
+
+            lPercentageOfWater = Math.Round(((lHidricBalance) * 100)
+                                        / (lFieldCapacity), 2);
+            return lPercentageOfWater;
+        }
         /// <summary>
         /// Get Soil Permanent Wilting Poing
         /// The data is obtained from Crop Soil depending Root Depth

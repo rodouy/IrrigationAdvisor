@@ -105,6 +105,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private double testMaxEvapotranspirationToIrrigate_Maiz;
         private double testMaxEvapotranspirationToIrrigate_Soja;
+        private double testMinEvapotranspirationToIrrigate_Maiz;
+        private double testMinEvapotranspirationToIrrigate_Soja;
         private double testCropDensityMaiz;
         private double testCropDensitySoja;
         private double testCropMinDegree_Maiz;
@@ -206,8 +208,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 Baja: por el momento nada
              */
             
-            testMaxEvapotranspirationToIrrigate_Maiz = 30;
-            testMaxEvapotranspirationToIrrigate_Soja = 35;
+            testMaxEvapotranspirationToIrrigate_Maiz = 35;
+            testMaxEvapotranspirationToIrrigate_Soja = 30;
+            testMinEvapotranspirationToIrrigate_Maiz = 30;
+            testMinEvapotranspirationToIrrigate_Soja = 25;
             testCropDensityMaiz = 80000;
             testCropDensitySoja = 350000;
 
@@ -381,15 +385,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             testCrop_Maiz_Pivot_2 = testIrrigationSystem.AddCrop("Maiz SantaLucia Pivot 2", testSpecieMaiz, testRegion,
                                                                 testPhenologicalStageList_Maiz,
-                                                                testCropDensityMaiz, testMaxEvapotranspirationToIrrigate_Maiz);
+                                                                testCropDensityMaiz, testMaxEvapotranspirationToIrrigate_Maiz, testMinEvapotranspirationToIrrigate_Maiz);
 
             testCrop_Soja_Pivot_3_4 = testIrrigationSystem.AddCrop("Soja SantaLucia Pivot 3 4", testSpecieSoja, testRegion,
                                                                 testPhenologicalStageList_Soja,
-                                                                testCropDensitySoja, testMaxEvapotranspirationToIrrigate_Soja);
+                                                                testCropDensitySoja, testMaxEvapotranspirationToIrrigate_Soja, testMinEvapotranspirationToIrrigate_Soja);
 
             testCrop_Maiz_Pivot_5 = testIrrigationSystem.AddCrop("Maiz SantaLucia Pivot 5", testSpecieMaiz, testRegion,
                                                                 testPhenologicalStageList_Maiz,
-                                                                testCropDensityMaiz, testMaxEvapotranspirationToIrrigate_Maiz);
+                                                                testCropDensityMaiz, testMaxEvapotranspirationToIrrigate_Maiz, testMinEvapotranspirationToIrrigate_Maiz);
 
         }
 
