@@ -45,9 +45,9 @@ namespace IrrigationAdvisor.Tests.Models.Agriculture
             int lLateSeasonDays = 25;
             double lLateSeasonKC = 10;
 
-            CropCoefficient lCropCoefficient = new CropCoefficient(lUsingTable,new Specie(), null, 
+            CropCoefficient lCropCoefficient = new CropCoefficient(0, lUsingTable, 
                 lInitialDays, lInitialKC, lDevelopmentDays, lDevelopmentKC, 
-                lMidSeasonDays, lMidSeasonKC, lLateSeasonDays,lLateSeasonKC);
+                lMidSeasonDays, lMidSeasonKC, lLateSeasonDays, lLateSeasonKC);
 
             Assert.IsTrue(lCropCoefficient.getKC(1) == lInitialKC);
             Assert.IsTrue(lCropCoefficient.getKC(2) == lInitialKC);

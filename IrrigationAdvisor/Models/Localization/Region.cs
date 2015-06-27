@@ -30,7 +30,7 @@ namespace IrrigationAdvisor.Models.Localization
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - idRegion int
+    ///     - regionId int
     ///     - name String
     ///     - location Location
     ///     - specieList: List<Specie>
@@ -49,16 +49,17 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Fields
+
         /// <summary>
         /// The fields are:
-        ///     - idRegion: identifier
+        ///     - regionId: identifier
         ///     - name: the name of the region
         ///     - location: the location of the region
         ///     - specieList: list of the species of the region
         ///     - effectiveRainList: effective rain (by month) for the region
         ///     
         /// </summary>
-        private long idRegion;
+        private long regionId;
         private String name;
         private Position position;
         private List<Specie> specieList;
@@ -68,9 +69,9 @@ namespace IrrigationAdvisor.Models.Localization
 
         #region Properties
 
-        public long IdRegion
+        public long RegionId
         {
-            get { return idRegion; }
+            get { return regionId; }
         }
         
         public string Name
@@ -106,7 +107,7 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
         public Region()
         {
-            this.idRegion = 0;
+            this.regionId = 0;
             this.Name = "";
             this.Position = new Position();
             this.EffectiveRainList = new List<EffectiveRain>();
@@ -116,12 +117,12 @@ namespace IrrigationAdvisor.Models.Localization
         /// <summary>
         /// Constructor with parameters
         /// </summary>
-        /// <param name="pIDRegion"></param>
+        /// <param name="pRegionId"></param>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
-        public Region(long pIDRegion, String pName, Position pPosition)
+        public Region(long pRegionId, String pName, Position pPosition)
         {
-            this.idRegion = pIDRegion;
+            this.regionId = pRegionId;
             this.Name = pName;
             this.Position = pPosition;
             this.EffectiveRainList = new List<EffectiveRain>();
@@ -131,16 +132,16 @@ namespace IrrigationAdvisor.Models.Localization
         /// <summary>
         /// Constructor with all parameters
         /// </summary>
-        /// <param name="pIDRegion"></param>
+        /// <param name="pRegionId"></param>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
         /// <param name="pEffectiveRainList"></param>
         /// <param name="pSpecieList"></param>
-        public Region(long pIDRegion, String pName, Position pPosition, 
+        public Region(long pRegionId, String pName, Position pPosition, 
                     List<EffectiveRain> pEffectiveRainList,
                     List<Specie> pSpecieList)
         {
-            this.idRegion = pIDRegion;
+            this.regionId = pRegionId;
             this.Name = pName;
             this.Position = pPosition;
             this.EffectiveRainList = pEffectiveRainList;
@@ -153,6 +154,8 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Public Methods
+
+        #region EffectiveRain
 
         /// <summary>
         /// If EffectiveRain exists in List, return the Effective Rain, else null
@@ -220,6 +223,84 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
 
+        #endregion
+
+        #region Specie
+
+        /// <summary>
+        /// Return list of Species that contains the parameter in his name, else return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public List<Specie> ContainInSpecie(String pName)
+        {
+            List<Specie> lReturn = null;
+            if (!String.IsNullOrEmpty(pName))
+            {
+                lReturn = new List<Specie>();
+                foreach (Specie item in this.SpecieList)
+                {
+                    if (item.Name.Contains(pName))
+                    {
+                        lReturn.Add(item);                        
+                    }
+                }
+                if(lReturn.Count == 0)
+                {
+                    lReturn = null;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return list of Species with same Specie Cycle, else return null.
+        /// </summary>
+        /// <param name="pSpecieCycle"></param>
+        /// <returns></returns>
+        public List<Specie> FindSpecieList(SpecieCycle pSpecieCycle)
+        {
+            List<Specie> lReturn = null;
+            if (pSpecieCycle != null)
+            {
+                lReturn = new List<Specie>();
+                foreach (Specie item in this.SpecieList)
+                {
+                    if (item.SpecieCycle.Equals(pSpecieCycle))
+                    {
+                        lReturn.Add(item);
+                    }
+                }
+                if (lReturn.Count == 0)
+                {
+                    lReturn = null;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return the Specie that has the same parameters, else return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public Specie FindSpecie(String pName)
+        {
+            Specie lReturn = null;
+            if (!String.IsNullOrEmpty(pName))
+            {
+                foreach (Specie item in this.SpecieList)
+                {
+                    if (item.Name.Equals(pName))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
         /// <summary>
         /// If Specie exists in List return the Specie, else null
         /// </summary>
@@ -228,35 +309,72 @@ namespace IrrigationAdvisor.Models.Localization
         public Specie ExistSpecie(Specie pSpecie)
         {
             Specie lReturn = null;
-            foreach (Specie item in SpecieList)
+            if(pSpecie!= null)
             {
-                if(item.Equals(pSpecie))
+                foreach (Specie item in this.SpecieList)
                 {
-                    lReturn = item;
-                    break;
+                    if(item.Equals(pSpecie))
+                    {
+                        lReturn = item;
+                        break;
+                    }
                 }
+            }            
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return the Specie added to the list.
+        /// If already exists, it return the one of the list.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pSpecieCycle"></param>
+        /// <param name="pBaseTemperature"></param>
+        /// <returns></returns>
+        public Specie AddSpecie(String pName, String pSpecieCycleName, 
+                                Double pBaseTemperature)
+        {
+            Specie lReturn = null;
+            long lSpecieId = this.SpecieList.Count();
+            SpecieCycle lSpecieCycle = new SpecieCycle(pSpecieCycleName);
+            Specie lSpecie = new Specie(lSpecieId, pName, lSpecieCycle, 
+                                        pBaseTemperature);
+            lReturn = this.ExistSpecie(lSpecie);
+            if(lReturn == null)
+            {
+                this.SpecieList.Add(lSpecie);
+                lReturn = lSpecie;
             }
             return lReturn;
         }
 
-
-        public Specie AddSpecie(String pName, Double pBaseTemperature,
-                            CropCoefficient pCropCoefficient, 
-                            List<PhenologicalStage> pPhenologicalStageList)
+        /// <summary>
+        /// Return the Specie updated in the list.
+        /// If not exists, it return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pSpecieCycleName"></param>
+        /// <param name="pBaseTemperature"></param>
+        /// <returns></returns>
+        public Specie UpdateSpecie(String pName, String pSpecieCycleName,
+                                    Double pBaseTemperature)
         {
             Specie lReturn = null;
-            long lIDSpecie = this.SpecieList.Count();
-            Specie lSpecie = new Specie(lIDSpecie, pName, pBaseTemperature,
-                pCropCoefficient, pPhenologicalStageList);
-
+            SpecieCycle lSpecieCycle = new SpecieCycle(pSpecieCycleName);
+            Specie lSpecie = new Specie(0, pName, lSpecieCycle,
+                                        pBaseTemperature);
+            lReturn = ExistSpecie(lSpecie);
+            if (lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.SpecieCycle = lSpecieCycle;
+                lReturn.BaseTemperature = pBaseTemperature;
+            }
             return lReturn;
         }
 
-        public Specie UpdateSpecie()
-        {
-            Specie lReturn = null;
-            return lReturn;
-        }
+        #endregion
+
         #endregion
 
         #region Overrides
@@ -275,13 +393,13 @@ namespace IrrigationAdvisor.Models.Localization
             }
             Region lRegion = obj as Region;
             return this.Name.Equals(lRegion.Name);
-                //&& this .Position.Equals(pRegionList.Position);
         }
 
         public override int GetHashCode()
         {
             return this.Name.GetHashCode();
         }
+
         #endregion
     }
 }
