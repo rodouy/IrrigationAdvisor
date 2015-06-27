@@ -81,7 +81,7 @@ namespace IrrigationAdvisor.Models.Management
         ///     - alternativeWeatherStation: WeatherStation
         /// </summary>
 
-        private long idCropIrrigationWeather;
+        private long cropIrrigationWeatherId;
         private IrrigationUnit irrigationUnit;
         private Crop crop;
         private WeatherStation mainWeatherStation;
@@ -98,10 +98,10 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Properties
 
-        public long IdCropIrrigationWeater
+        public long CropIrrigationWeaterId
         {
-            get { return idCropIrrigationWeather; }
-            set { idCropIrrigationWeather = value; }
+            get { return cropIrrigationWeatherId; }
+            set { cropIrrigationWeatherId = value; }
         }
 
         public IrrigationUnit IrrigationUnit
@@ -175,17 +175,17 @@ namespace IrrigationAdvisor.Models.Management
         #region Construction
 
         /// <summary>
-        /// TODO add description
+        /// Constructor without parameters
+        /// PredeterminatedIrrigationQuantity = 20
         /// </summary>
         public CropIrrigationWeather() 
         {
-            this.IdCropIrrigationWeater = 0;
+            this.CropIrrigationWeaterId = 0;
             this.IrrigationUnit = new Irrigation.IrrigationUnit();
             this.Crop = new Crop();
             this.MainWeatherStation = new WeatherStation();
             this.AlternativeWeatherStation = new WeatherStation();
             this.PredeterminatedIrrigationQuantity = 20;
-            //TODO erase this.cropIrrigationWeatherRecord = new cropIrrigationWeatherRecord();//La agrega sistema
             this.PhenologicalStage = new PhenologicalStage();
             this.Location = new Location();
             this.SowingDate = new DateTime();
@@ -194,23 +194,22 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Constructor with all parameters
         /// </summary>
-        /// <param name="pIdCropIrrigationWeather"></param>
+        /// <param name="pCropIrrigationWeatherId"></param>
         /// <param name="pIrrigationUnit"></param>
         /// <param name="pCrop"></param>
         /// <param name="pMainWeatherStation"></param>
         /// <param name="pAlternativeWeatherStation"></param>
         /// <param name="pPredeterminatedIrrigationQuantity"></param>
-        /// <param name="pPhenologicalStage"></param>
+        /// <param name="pInitialPhenologicalStage"></param>
         /// <param name="pLocation"></param>
         /// <param name="pSowingDate"></param>
         /// <param name="pHarvestDate"></param>
         /// <param name="pSoil"></param>
-        public CropIrrigationWeather(long pIdCropIrrigationWeather, IrrigationUnit pIrrigationUnit,
+        public CropIrrigationWeather(long pCropIrrigationWeatherId, IrrigationUnit pIrrigationUnit,
             Crop pCrop, WeatherStation pMainWeatherStation, WeatherStation pAlternativeWeatherStation,
             double pPredeterminatedIrrigationQuantity, 
-            //TODO erase cropIrrigationWeatherRecord pCropIrrigationWeatherRecordList,
             PhenologicalStage pPhenologicalStage, Location pLocation,
             DateTime pSowingDate, DateTime pHarvestDate, Soil pSoil)
         {
@@ -219,7 +218,6 @@ namespace IrrigationAdvisor.Models.Management
             this.MainWeatherStation = pMainWeatherStation;
             this.AlternativeWeatherStation = pAlternativeWeatherStation;
             this.PredeterminatedIrrigationQuantity = pPredeterminatedIrrigationQuantity;
-            //TODO erase this.cropIrrigationWeatherRecord = pCropIrrigationWeatherRecordList; //La agrega sistema
             this.PhenologicalStage = pPhenologicalStage;
             this.Location = pLocation;
             this.SowingDate = pSowingDate;
@@ -363,6 +361,7 @@ namespace IrrigationAdvisor.Models.Management
             return pThereIsWaterInput;
 
         }
+        
         /// <summary>
         /// Make the rain adjustment
         /// </summary>
@@ -431,7 +430,6 @@ namespace IrrigationAdvisor.Models.Management
 
         }
 
-
         /// <summary>
         /// Set the new values (after to add a new dailyRecord) for the variables used to resume the state of the crop.
         /// Use the last state (day before) to calculate the new state
@@ -444,6 +442,7 @@ namespace IrrigationAdvisor.Models.Management
         /// - TotalEvapotranspirationCropFromLastWaterInput
         /// - LastWaterInput
         /// </summary>
+        /// <param name="pDailyRec"></param>
         private void reviewSummaryData(DailyRecord pDailyRec)
         {
             double lFieldCapacity;
@@ -509,7 +508,10 @@ namespace IrrigationAdvisor.Models.Management
             }
         }
 
-
+        /// <summary>
+        /// TODO add description void takeOffDailyRecord(DailyRecord lRecordToDelete)
+        /// </summary>
+        /// <param name="lRecordToDelete"></param>
         private void takeOffDailyRecord(DailyRecord lRecordToDelete)
         {
             ///TODO Ajustar los datos de resumen: agregar etc y sacar rain y riego a los totales (proceso inverso a agregar uno)
@@ -578,8 +580,7 @@ namespace IrrigationAdvisor.Models.Management
 
         }
 
-  
-        
+
         #endregion
 
         #region Public Methods
@@ -615,7 +616,7 @@ namespace IrrigationAdvisor.Models.Management
         public double GetBaseTemperature() 
         {
             double lReturn;
-            lReturn = this.Crop.getBaseTemperature();
+            lReturn = this.Crop.GetBaseTemperature();
             return lReturn;
         }
 
@@ -766,12 +767,12 @@ namespace IrrigationAdvisor.Models.Management
             PhenologicalStage lNewPhenStage = null;
 
             //Order the phenological table
-            lPhenologicalStageList = this.Crop.Specie.PhenologicalStageList;
+            lPhenologicalStageList = this.Crop.PhenologicalStageList;
             lPhenologicalTableOrderByMinDegree = lPhenologicalStageList.OrderBy(lPhenologicalStage => lPhenologicalStage.MinDegree);
 
             foreach (PhenologicalStage lPhenologicalStage in lPhenologicalTableOrderByMinDegree)
             {
-                if (lPhenologicalStage != null && lPhenologicalStage.Specie.Equals(this.Crop.Specie) && lPhenologicalStage.MinDegree <= lModifiedGrowingDegreeDays
+                if (lPhenologicalStage != null && lPhenologicalStage.MinDegree <= lModifiedGrowingDegreeDays
                     && lPhenologicalStage.MaxDegree >= lModifiedGrowingDegreeDays)
                 {
                     this.PhenologicalStage = lPhenologicalStage;
@@ -825,7 +826,7 @@ namespace IrrigationAdvisor.Models.Management
                     lDays = Utils.getDaysDifference(this.SowingDate, pWeatherData.Date);
                 }
 
-                lKC_CropCoefficient = this.Crop.Specie.CropCoefficient.getKC(lDays);
+                lKC_CropCoefficient = this.Crop.CropCoefficient.getKC(lDays);
                 lRealEvapotraspiration = lEvapotranspiration * lKC_CropCoefficient;
                 lEvapotranspirationCrop = new EvapotranspirationCrop(
                     this, pWeatherData.Date, lRealEvapotraspiration);

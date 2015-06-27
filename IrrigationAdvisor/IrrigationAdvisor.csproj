@@ -173,6 +173,7 @@
     <Compile Include="Models\Agriculture\PhenologicalStage.cs" />
     <Compile Include="Models\Agriculture\Soil.cs" />
     <Compile Include="Models\Agriculture\Specie.cs" />
+    <Compile Include="Models\Agriculture\SpecieCycle.cs" />
     <Compile Include="Models\Agriculture\Stage.cs" />
     <Compile Include="Models\Data\ExternalData.cs" />
     <Compile Include="Models\Data\InitialTables.cs" />

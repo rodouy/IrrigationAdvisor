@@ -17,8 +17,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     It depends on the days after sowing
     ///     
     /// References:
-    ///     Region
-    ///     Specie
+    ///     
     ///     
     /// Dependencies:
     ///     Specie
@@ -27,9 +26,8 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
+    ///     - cropCoefficientId long
     ///     - usingTable boolean
-    ///     - specie Specie
-    ///     - region region
     ///     - initialDays int
     ///     - initialKC double
     ///     - developmentDays int
@@ -43,7 +41,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// 
     /// Methods:
     ///     - CropCoefficient()      -- constructor
-    ///     - CropCoefficient(specie, region, initialDays, initialKC
+    ///     - CropCoefficient(cropCoefficientId, initialDays, initialKC
     ///         developmentDays, developmentKC, midSeasonDays
     ///         midSeasonKC, lateSeasonDays, lateSeasonKC)  -- consturctor with parameters
     ///     - getKC(days)     -- method to get the name KC
@@ -61,9 +59,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region Fields
         /// <summary>
         /// The fields are:
+        ///     - cropCoefficientId long
         ///     - usingTable boolean
-        ///     - specie Specie
-        ///     - region region
         ///     - initialDays int
         ///     - initialKC double
         ///     - developmentDays int
@@ -75,9 +72,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - dataSetOfKC
         ///     
         /// </summary>
+        private long cropCoefficientId;
         private bool usingTable;
-        private Specie specie;
-        private Region region;
         private int initialDays;
         private double initialKC;
         private int developmentDays;
@@ -89,27 +85,20 @@ namespace IrrigationAdvisor.Models.Agriculture
         private DataTable listOfKC;
         private DataSet dataSetOfKC;
 
-
         #endregion
 
         #region Properties
+
+        public long CropCoefficientId
+        {
+            get { return cropCoefficientId; }
+            set { cropCoefficientId = value; }
+        }
 
         public bool UsingTable
         {
             get { return usingTable; }
             set { usingTable = value; }
-        }
-        
-        public Specie Specie
-        {
-            get { return specie; }
-            set { specie = value; }
-        }
-        
-        public Region Region
-        {
-            get { return region; }
-            set { region = value; }
         }
         
         public int InitialDays
@@ -175,6 +164,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Construction
+
         /// <summary>
         /// Constructor of ClassTemplate
         /// UsingTable: field used to return the cropCroefficient. 
@@ -183,9 +173,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         public CropCoefficient()
         {
+            this.CropCoefficientId = 0;
             this.UsingTable = false;
-            this.Specie = null;
-            this.Region = null;
             this.InitialDays = 0;
             this.InitialKC = 0;
             this.DevelopmentDays = 0;
@@ -200,30 +189,18 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// Constructor of ClassTemplate with parameters for a list mode
-        /// </summary>
-        /// <param name="pNewName"></param>
-        public CropCoefficient(Specie pSpecie, Region pRegion)
-        {
-            this.UsingTable = false ;
-            this.Specie = pSpecie;
-            this.Region = pRegion;
-            this.listOfKC = new DataTable("KC_" + this.Specie.Name);
-            this.makeListOfKC();
-
-        }
-
-        /// <summary>
         /// Constructor of ClassTemplate with all parameters
         /// </summary>
-        /// <param name="pNewName"></param>
-        public CropCoefficient(bool pUsingTable, Specie pSpecie, Region pRegion, int pInitialDays,
-            double pInitialDaysKC,int pDevelopmentDays , double pDevelopmentKC,
-               int pMidSeasonDays, double pMidSeasonKC, int pLateSeasonDays, double pLateSeasonKC )
+        /// <param name="pName"></param>
+        public CropCoefficient(long pCropCoefficientId, bool pUsingTable, 
+                                int pInitialDays, double pInitialDaysKC, 
+                                int pDevelopmentDays , double pDevelopmentKC, 
+                                int pMidSeasonDays, double pMidSeasonKC, 
+                                int pLateSeasonDays, double pLateSeasonKC)
+                                
         {
+            this.CropCoefficientId = pCropCoefficientId;
             this.UsingTable = pUsingTable;
-            this.Specie = pSpecie;
-            this.Region = pRegion;
             this.InitialDays = pInitialDays;
             this.InitialKC = pInitialDaysKC;
             this.DevelopmentDays = pDevelopmentDays;
@@ -232,7 +209,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.MidSeasonKC = pMidSeasonKC;
             this.LateSeasonDays = pLateSeasonDays;
             this.LateSeasonKC = pLateSeasonKC;
-            this.listOfKC = new DataTable("KC_" + this.Specie.Name);
+            this.listOfKC = new DataTable("KC_" + pCropCoefficientId);
             this.makeListOfKC();
             
         }
@@ -331,7 +308,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         /// <param name="pDays"></param>
         /// <returns></returns>
-        private double getCKFromTable(int pDays)
+        private double getKCFromTable(int pDays)
         {
             double pReturn = 0;
             int lDays = 0;
@@ -378,11 +355,11 @@ namespace IrrigationAdvisor.Models.Agriculture
             bool lReturn = false;
             try
             {
-                DataRow row;
-                row = this.ListOfKC.NewRow();
-                row[dayColumnName] = pDayAfterSowing;
-                row[kCColumnName] = pKC;
-                this.listOfKC.Rows.Add(row);
+                DataRow lRow;
+                lRow = this.ListOfKC.NewRow();
+                lRow[dayColumnName] = pDayAfterSowing;
+                lRow[kCColumnName] = pKC;
+                this.ListOfKC.Rows.Add(lRow);
                 lReturn = true;
             }
             catch(Exception e)
@@ -402,7 +379,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             double lReturn = 0;
             if (UsingTable)
             {
-                lReturn = this.getCKFromTable(pDays);
+                lReturn = this.getKCFromTable(pDays);
             }
             else 
             {
@@ -430,14 +407,13 @@ namespace IrrigationAdvisor.Models.Agriculture
                 return false;
             }
             CropCoefficient lCropCoefficient = obj as CropCoefficient;
-            lReturn = this.Region.Equals(lCropCoefficient.Region)
-                    && this.Specie.Equals(lCropCoefficient.Specie);
+            lReturn = this.CropCoefficientId.Equals(lCropCoefficient.CropCoefficientId);
             return lReturn;
         }
 
         public override int GetHashCode()
         {
-            return this.Region.GetHashCode();
+            return this.CropCoefficientId.GetHashCode();
         }
         
         #endregion
