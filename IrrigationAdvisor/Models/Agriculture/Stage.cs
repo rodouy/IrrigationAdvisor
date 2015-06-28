@@ -9,6 +9,8 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// <summary>
     /// Create: 2014-10-14
     /// Author: monicarle
+    /// Modified: 2015-06-14
+    /// Author: rodouy
     /// Description: 
     ///     Is like the label of a Phenological Stage
     ///     
@@ -24,7 +26,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - idStage long
+    ///     - stageId long
     ///     - name String           PK
     ///     - definition String
     /// 
@@ -41,12 +43,12 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region Fields
         /// <summary>
         /// The fields are:
-        ///     - idStage: identifier of state
+        ///     - stageId: identifier of state
         ///     - name: the name of the stage
         ///     - description
         ///     
         /// </summary>
-        private long idStage;
+        private long stageId;
         private string name;
         private string description;
 
@@ -60,10 +62,10 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - Name: the name of the instance
         /// </summary>
 
-        public long IdStage
+        public long StageId
         {
-            get { return idStage; }
-            set { idStage = value; }
+            get { return stageId; }
+            set { stageId = value; }
         }
 
         public string Name
@@ -87,7 +89,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         public Stage()
         {
-            this.idStage = 0;
+            this.StageId = 0;
             this.Name = "noname";
             this.Description = "";
 
@@ -96,10 +98,10 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <summary>
         /// Constructor of ClassTemplate with parameters
         /// </summary>
-        /// <param name="pNewName"></param>
-        public Stage(long pIdStage, String pName, String pDescription)
+        /// <param name="pName"></param>
+        public Stage(long pStageId, String pName, String pDescription)
         {
-            this.IdStage = pIdStage;
+            this.StageId = pStageId;
             this.Name = pName;
             this.Description = pDescription;
         }

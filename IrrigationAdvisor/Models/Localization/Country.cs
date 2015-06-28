@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using IrrigationAdvisor.Models.Language;
 
 namespace IrrigationAdvisor.Models.Localization
 {
@@ -11,7 +12,8 @@ namespace IrrigationAdvisor.Models.Localization
     /// Create: 2014-10-24
     /// Author: monicarle
     /// Description: 
-    ///     Describes a country
+    ///     Describes a country.
+    ///     The capital city gives the country position.
     ///     
     /// References:
     ///     City
@@ -25,7 +27,7 @@ namespace IrrigationAdvisor.Models.Localization
     /// Fields of Class:
     ///     - name String
     ///     - cityList List <Location>
-    ///     - cityList List <Region>
+    ///     - regionList List <Region>
     ///     - capital City
     ///     
     /// Methods:
@@ -44,15 +46,17 @@ namespace IrrigationAdvisor.Models.Localization
         #region Fields
         /// <summary>
         /// The fields are:
-        ///     - idCountry long
+        ///     - countryId long
         ///     - name: the name of the country
-        ///     - cityList List <Location>
-        ///     - cityList List <Region>
+        ///     - language: Language.Language
         ///     - capital City
+        ///     - cityList: List<City>
+        ///     - regionList: List<Region>
         ///     
         /// </summary>
-        private long idCountry;
+        private long countryId;
         private String name;
+        private Language.Language language;
         private City capital;
         private List<City> cityList;
         private List<Region> regionList;
@@ -61,16 +65,22 @@ namespace IrrigationAdvisor.Models.Localization
 
         #region Properties
 
-        public long IdCountry
+        public long CountryId
         {
-            get { return idCountry; }
-            set { idCountry = value; }
+            get { return countryId; }
+            set { countryId = value; }
         }
         
         public string Name
         {
             get { return name; }
             set { name = value; }
+        }
+
+        public Language.Language Language
+        {
+            get { return language; }
+            set { language = value; }
         }
 
         public City Capital
@@ -102,7 +112,7 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="location">Location of the country</param>
         public Country()
         {
-            this.IdCountry = 0;
+            this.CountryId = 0;
             this.Name = "";
             this.Capital = new City();
             this.CityList = new List<City>();
@@ -112,13 +122,15 @@ namespace IrrigationAdvisor.Models.Localization
         /// <summary>
         /// TODO add description
         /// </summary>
-        /// <param name="pIdCountry"></param>
+        /// <param name="pCountryId"></param>
         /// <param name="pName"></param>
+        /// <param name="pLanguage"></param>
         /// <param name="pCapital"></param>
-        public Country(long pIdCountry, String pName, City pCapital)
+        public Country(long pCountryId, String pName, Language.Language pLanguage, City pCapital)
         {
-            this.IdCountry = pIdCountry;
+            this.CountryId = pCountryId;
             this.Name = pName;
+            this.Language = pLanguage;
             this.Capital = pCapital;
             this.CityList = new List<City>();
             this.RegionList = new List<Region>();
@@ -127,16 +139,18 @@ namespace IrrigationAdvisor.Models.Localization
         /// <summary>
         /// TODO add description
         /// </summary>
-        /// <param name="pIdCountry"></param>
+        /// <param name="pCountryId"></param>
         /// <param name="pName"></param>
+        /// <param name="pLanguage"></param>
         /// <param name="pCapital"></param>
         /// <param name="pCityList"></param>
         /// <param name="pRegionList"></param>
-        public Country(long pIdCountry, String pName, City pCapital, List<City> pCityList, 
+        public Country(long pCountryId, String pName, Language.Language pLanguage, City pCapital, List<City> pCityList, 
                             List<Region> pRegionList)
         {
-            this.IdCountry = pIdCountry;
+            this.CountryId = pCountryId;
             this.Name = pName;
+            this.Language = pLanguage;
             this.Capital = pCapital;
             this.CityList = pCityList;
             this.RegionList = pRegionList;
@@ -148,6 +162,26 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Public Methods
+
+        #region Language
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pLanguage"></param>
+        /// <returns></returns>
+        public bool ChangeLanguage(Language.Language pLanguage)
+        {
+            bool lResult = false;
+            if (pLanguage != null)
+            {
+                this.Language = pLanguage;
+                lResult = true;
+            }
+            return lResult;
+        }
+
+        #endregion
 
         #region City
 
@@ -187,7 +221,7 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
-        /// TODO add description
+        /// Update City Name and Position, if not exist in list, return null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>

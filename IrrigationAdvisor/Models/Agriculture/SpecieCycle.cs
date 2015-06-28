@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace IrrigationAdvisor.Templates
+namespace IrrigationAdvisor.Models.Agriculture
 {
-    /// <summary>
-    /// Create: 2014-10-14
+     /// <summary>
+    /// Create: 2015-06-14
     /// Author: rodouy - monicarle
     /// Description: 
-    ///     Template of a new class summary
+    ///     A cycle of a Specie
     ///     
     /// References:
     ///     list of classes this class use
     ///     
     /// Dependencies:
     ///     list of classes is referenced by this class
+    ///     Specie
     /// 
     /// TODO: OK
     ///     UnitTest
@@ -25,12 +26,12 @@ namespace IrrigationAdvisor.Templates
     ///     - name String - PK (Primary Key)
     /// 
     /// Methods:
-    ///     - ClassTemplate()      -- constructor
-    ///     - ClassTemplate(name)  -- consturctor with parameters
+    ///     - SpecieCycle()        -- constructor
+    ///     - SpecieCycle(name)    -- consturctor with parameters
     ///     - SetName(newName)     -- method to set the name field
     /// 
     /// </summary>
-    public class ClassTemplate
+    public class SpecieCycle
     {
 
         #region Consts
@@ -40,9 +41,12 @@ namespace IrrigationAdvisor.Templates
         /// <summary>
         /// The fields are:
         ///     - name: the name of the instance
+        ///     - duration: the duration of the cycle
         ///     
         /// </summary>
         private string name;
+        private double duration;
+
         
         #endregion
 
@@ -57,24 +61,43 @@ namespace IrrigationAdvisor.Templates
             set { name = value; }
         }
 
+        
+        public double Duration
+        {
+          get { return duration; }
+          set { duration = value; }
+        }
         #endregion
 
         #region Construction
+
         /// <summary>
-        /// Constructor of ClassTemplate
+        /// Constructor of SpecieCycle
         /// </summary>
-        public ClassTemplate()
+        public SpecieCycle()
         {
             this.Name = "noname";
+            this.Duration = 0;
         }
 
         /// <summary>
-        /// Constructor of ClassTemplate with parameters
+        /// Constructor of SpecieCycle with Name parameter
         /// </summary>
         /// <param name="pName"></param>
-        public ClassTemplate(String pNewName)
+        public SpecieCycle(String pName)
         {
-            this.Name = pNewName;
+            this.Name = pName;
+        }
+
+        /// <summary>
+        /// Constructor of SpecieCycle with parameters
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDuration"></param>
+        public SpecieCycle(String pName, Double pDuration)
+        {
+            this.Name = pName;
+            this.Duration = pDuration;
         }
 
         #endregion
@@ -109,6 +132,7 @@ namespace IrrigationAdvisor.Templates
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Method to set the name field
         /// </summary>
@@ -116,6 +140,15 @@ namespace IrrigationAdvisor.Templates
         public void SetName(string pNewName)
         {
             this.Name = this.setUpper(pNewName);
+        }
+
+        /// <summary>
+        /// Method to set the duration of a cycle
+        /// </summary>
+        /// <param name="pNewDuration"></param>
+        public void SetDuration(double pNewDuration)
+        {
+            this.Duration = pNewDuration;
         }
 
         #endregion
@@ -134,8 +167,8 @@ namespace IrrigationAdvisor.Templates
             {
                 return false;
             }
-            ClassTemplate lPosition = obj as ClassTemplate;
-            return this.Name.Equals(lPosition.Name);
+            SpecieCycle lSpecieCycle = obj as SpecieCycle;
+            return this.Name.Equals(lSpecieCycle.Name);
         }
 
         public override int GetHashCode()
@@ -147,35 +180,6 @@ namespace IrrigationAdvisor.Templates
 
     }
 }
-
-
-/*
- *
- * 
-
-        #region Consts
-        #endregion 
-
-        #region Fields
-        #endregion 
-        
-        #region Properties
-        #endregion 
-                
-        #region Construction
-        #endregion 
- 
-        #region Private Helpers
-        #endregion
-
-        #region Public Methods
-        #endregion
-
-        #region Overrides
-        #endregion
-
- * 
- */
 
 
 

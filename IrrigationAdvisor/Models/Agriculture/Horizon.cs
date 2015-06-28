@@ -54,6 +54,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Fields
+
         /// <summary>
         /// The fields are:
         ///     - idHorizon int

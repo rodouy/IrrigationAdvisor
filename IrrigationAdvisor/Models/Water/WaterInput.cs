@@ -120,6 +120,7 @@ namespace IrrigationAdvisor.Models.Water
         {
             return this.Input + this.ExtraInput;
         }
+        
         #endregion
 
         #region Overrides

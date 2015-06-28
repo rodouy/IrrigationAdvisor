@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace IrrigationAdvisor.Models.Localization
 {
     /// <summary>
@@ -64,7 +67,13 @@ namespace IrrigationAdvisor.Models.Localization
         ///     - Longitude double read only
         /// 
         /// </summary>
-        public double Latitude
+
+
+        [Key]
+        public virtual long id { get; set; }
+
+
+        public virtual double Latitude
         {
             get { return latitude; }
             set 
@@ -74,7 +83,8 @@ namespace IrrigationAdvisor.Models.Localization
             }
         }
 
-        public double Longitude
+
+        public virtual double Longitude
         {
             get { return longitude; }
             set 
@@ -84,6 +94,7 @@ namespace IrrigationAdvisor.Models.Localization
             }
         }
 
+        
         public Pair<double, double> ThePosition
         {
             get { return thePosition; }

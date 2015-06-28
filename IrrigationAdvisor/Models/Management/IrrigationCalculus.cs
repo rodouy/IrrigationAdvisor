@@ -98,7 +98,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Calculate how much to irrigate in a Date.
         /// Use both ways to calculate: by available water and by acumulated evapotranspirationCrop
         /// </summary>
-        /// <param name="pNewName">new name</param>
+        /// <param name="pName">new name</param>
         public Pair <double,Utils.WaterInputType> howMuchToIrrigate(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
         {
             Pair<double, Utils.WaterInputType> lReturn; 
