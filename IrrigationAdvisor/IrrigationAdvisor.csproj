@@ -169,6 +169,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agriculture\Crop.cs" />
     <Compile Include="Models\Agriculture\CropCoefficient.cs" />
+    <Compile Include="Models\Agriculture\CropInformatioByDate.cs" />
     <Compile Include="Models\Agriculture\Horizon.cs" />
     <Compile Include="Models\Agriculture\PhenologicalStage.cs" />
     <Compile Include="Models\Agriculture\Soil.cs" />
@@ -243,7 +244,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
