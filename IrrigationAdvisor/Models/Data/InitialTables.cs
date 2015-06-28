@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using IrrigationAdvisor.Models.Utilities;
 
 
 
@@ -99,6 +101,101 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
         
         #region Private Helpers
+
+        private static DataTable CreateTableForSojaInformation(String pTableName)
+        {
+            DataTable lSoja_Phenology;
+            DataSet dataSetOfSoja_Phenology;
+
+            lSoja_Phenology = new DataTable(pTableName);//"Soja_Phenology_Information");
+            DataColumn column;
+
+            // Create new DataColumn, set DataType,  
+            // ColumnName and add to DataTable.    
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.DateTime");
+            column.ColumnName = "SowingDate";
+            column.ReadOnly = true;
+            column.Unique = true;
+            // Add the Column to the DataColumnCollection.
+            lSoja_Phenology.Columns.Add(column);
+
+            // Make the "SowingDate" column the primary key column.
+            DataColumn[] PrimaryKeyColumns = new DataColumn[1];
+            PrimaryKeyColumns[0] = lSoja_Phenology.Columns["SowingDate"];
+            lSoja_Phenology.PrimaryKey = PrimaryKeyColumns;
+
+            // Create second column.
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Vo";
+            column.AutoIncrement = false;
+            column.Caption = "Vo";
+            column.ReadOnly = false;
+            column.Unique = false;
+            // Add the column to the table.
+            lSoja_Phenology.Columns.Add(column);
+
+            // Create second column.
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Ve";
+            column.AutoIncrement = false;
+            column.Caption = "Ve";
+            column.ReadOnly = false;
+            column.Unique = false;
+            // Add the column to the table.
+            lSoja_Phenology.Columns.Add(column);
+
+            // Instantiate the DataSet variable.
+            dataSetOfSoja_Phenology = new DataSet();
+            // Add the new DataTable to the DataSet.
+            dataSetOfSoja_Phenology.Tables.Add(lSoja_Phenology);
+
+            return lSoja_Phenology;
+
+        }
+
+        private static DataTable AddSojaInformation(DataTable pSoja_Phenology_Information, String[] pColumnNames)
+        {
+            pSoja_Phenology_Information = AddSojaRow(pColumnNames, pSoja_Phenology_Information, new DateTime(2014, 9, 24), 10, 6, 5, 4, 5, 5, 3, 3, 2, 2, 3, 2, 7, 7, 3, 3, 7, 7, 32, 32, 20);
+            return pSoja_Phenology_Information;
+        }
+
+        private static DataTable AddSojaRow(String[] pColumnNames, DataTable pSoja_Phenology_Information, DateTime pDate,
+            int pVo, int pVe,
+            int pV1, int pV2, int pV3, int pV4, int pV5, int pV6, int pV7, int pV8, int pV9, int pV10, int pV11,
+            int pR1, int pR2, int pR3, int pR4, int pR5, int pR6, int pR7, int pR8)
+        {
+            DataRow row;
+
+            row = pSoja_Phenology_Information.NewRow();
+            row[pColumnNames[0]] = pDate;//"SowingDate"
+            row[pColumnNames[1]] = pVo;//"Vo"
+            row[pColumnNames[2]] = pVe;//"Ve"
+            row[pColumnNames[3]] = pV1;//"V1"
+            row[pColumnNames[4]] = pV2;//"V2"
+            row[pColumnNames[5]] = pV3; //"V3"
+            row[pColumnNames[6]] = pV4;//"V4"
+            row[pColumnNames[7]] = pV5;//"V5"
+            row[pColumnNames[8]] = pV6;//"V6"
+            row[pColumnNames[9]] = pV7;//"V7"
+            row[pColumnNames[10]] = pV8;//"V8"
+            row[pColumnNames[11]] = pV9;//"V9"
+            row[pColumnNames[12]] = pV10;//"V10"
+            row[pColumnNames[13]] = pV11;//"V11"
+            row[pColumnNames[14]] = pR1;//"R1"
+            row[pColumnNames[15]] = pR2;//"R2"
+            row[pColumnNames[16]] = pR3;//"R3"
+            row[pColumnNames[17]] = pR4;//"R4"
+            row[pColumnNames[18]] = pR5;//"R5"
+            row[pColumnNames[19]] = pR6;//"R6"
+            row[pColumnNames[20]] = pR7;//"R7"
+            row[pColumnNames[21]] = pR8;//"R8"
+            pSoja_Phenology_Information.Rows.Add(row);
+            return pSoja_Phenology_Information;
+        }
+
         #endregion
 
         #region Static Methods
@@ -954,6 +1051,44 @@ namespace IrrigationAdvisor.Models.Data
             return lReturn;
         }
 
+
+        #endregion
+
+        #region Crop Information By Date
+
+        public static List<Pair<String, int>> GetCropInformationByDateForSoja(DateTime pSowingate)
+        {
+            //Creo Variable local para guardar informacion a retornar
+            List<Pair<String, int>> lCropCyclesInformationList = new List<Pair<string, int>>();
+
+            //Creo la tabla para la tabla magica de soja
+            DataTable lSoja_Phenology_Information = CreateTableForSojaInformation("Soja_Phenology_Information");
+            String[] pColumnNames = new String[] { "SowingDate", "Vo","Ve","V1","V2","V3","V4","V5","V6","V7"
+                ,"V8","V9","V10","V11","R1","R2","R3","R4","R5","R6","R7","R8"};
+
+            //Agrego informacion de la tabla magica
+            lSoja_Phenology_Information = AddSojaInformation(lSoja_Phenology_Information, pColumnNames);
+
+            //Itero la tabla magica hasta encontrar la fecha de siembra
+            foreach (DataRow row in lSoja_Phenology_Information.Rows)
+            {
+                DateTime lDay = row.Field<DateTime>(0);
+                if (Utilities.Utils.isTheSameDay(lDay, pSowingate))
+                {
+                    //Si encuentro la fecha de siembra itero la fila para guardar informacion de la duracion de cada stage
+                    object[] lDataRow = row.ItemArray;
+                    for (int i = 1; i < pColumnNames.Length; i++)// Arranco en 1 porque en 0 esta la fecha, en los demas campos esta la duracion de cada stage
+                    {
+                        Pair<String, int> lNewStage = new Pair<string, int>(pColumnNames[i], row.Field<int>(i));
+                        lCropCyclesInformationList.Add(lNewStage);
+                    }
+                    lCropCyclesInformationList = new List<Pair<String, int>>();
+                    return lCropCyclesInformationList;
+
+                }
+            }
+            return lCropCyclesInformationList;
+        }
 
         #endregion
 
