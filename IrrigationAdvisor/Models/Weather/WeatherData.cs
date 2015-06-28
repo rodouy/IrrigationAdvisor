@@ -110,6 +110,7 @@ namespace IrrigationAdvisor.Models.Weather
         #endregion
 
         #region Properties
+
         public WeatherStation WeatherStation
         {
             get { return weatherStation; }
@@ -120,6 +121,7 @@ namespace IrrigationAdvisor.Models.Weather
                 //    new System.ComponentModel.PropertyChangedEventArgs("WeatherStation"));
             }
         }
+
         public DateTime Date
         {
             get { return date; }
@@ -130,6 +132,7 @@ namespace IrrigationAdvisor.Models.Weather
                 //    new System.ComponentModel.PropertyChangedEventArgs("Date"));
             }
         }
+
         public double Temperature
         {
             get { return temperature; }
@@ -140,6 +143,7 @@ namespace IrrigationAdvisor.Models.Weather
                 //    new System.ComponentModel.PropertyChangedEventArgs("Temperature"));
             }
         }
+
         public double TemperatureMax
         {
             get { return temperatureMax; }
@@ -150,6 +154,7 @@ namespace IrrigationAdvisor.Models.Weather
                 //    new System.ComponentModel.PropertyChangedEventArgs("TemperatureMax"));
             }
         }
+
         public double TemperatureMin
         {
             get { return temperatureMin; }
@@ -160,6 +165,7 @@ namespace IrrigationAdvisor.Models.Weather
                 //    new System.ComponentModel.PropertyChangedEventArgs("TemperatureMin"));
             }
         }
+
         public double TemperatureDewPoint
         {
             get { return temperatureDewPoint; }
