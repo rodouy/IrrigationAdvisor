@@ -139,6 +139,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// 
         /// </summary>
         /// <returns></returns>
+        /// 
+        /*
         public Stage getStageByDateForSoja(CropIrrigationWeather pCropIrrigationWeather, DateTime pCurrentDate)
         {
             Stage lStage = null;
@@ -161,7 +163,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             }
             return lStage;
         }
-
+        */
         public double  getAccumulatedGrowingDegreeDays(Crop pCrop)
         {
 
