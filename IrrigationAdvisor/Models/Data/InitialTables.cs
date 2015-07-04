@@ -102,98 +102,877 @@ namespace IrrigationAdvisor.Models.Data
         
         #region Private Helpers
 
-        private static DataTable CreateTableForSojaInformation(String pTableName)
+        private static DataTable CreateTableForPhenologyInformation(String pTableName, String[] pColumnNames)
         {
-            DataTable lSoja_Phenology;
-            DataSet dataSetOfSoja_Phenology;
+            DataTable lPhenology;
+            DataSet dataSetOfPhenology;
 
-            lSoja_Phenology = new DataTable(pTableName);//"Soja_Phenology_Information");
+            lPhenology = new DataTable(pTableName);//"Soja_Phenology_Information");
             DataColumn column;
 
             // Create new DataColumn, set DataType,  
             // ColumnName and add to DataTable.    
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.DateTime");
-            column.ColumnName = "SowingDate";
+            column.ColumnName = pColumnNames[0];//"SowingDate";
             column.ReadOnly = true;
             column.Unique = true;
             // Add the Column to the DataColumnCollection.
-            lSoja_Phenology.Columns.Add(column);
+            lPhenology.Columns.Add(column);
 
             // Make the "SowingDate" column the primary key column.
             DataColumn[] PrimaryKeyColumns = new DataColumn[1];
-            PrimaryKeyColumns[0] = lSoja_Phenology.Columns["SowingDate"];
-            lSoja_Phenology.PrimaryKey = PrimaryKeyColumns;
-
-            // Create second column.
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Vo";
-            column.AutoIncrement = false;
-            column.Caption = "Vo";
-            column.ReadOnly = false;
-            column.Unique = false;
-            // Add the column to the table.
-            lSoja_Phenology.Columns.Add(column);
-
-            // Create second column.
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Ve";
-            column.AutoIncrement = false;
-            column.Caption = "Ve";
-            column.ReadOnly = false;
-            column.Unique = false;
-            // Add the column to the table.
-            lSoja_Phenology.Columns.Add(column);
-
+            PrimaryKeyColumns[0] = lPhenology.Columns[pColumnNames[0]];//"SowingDate"];
+            lPhenology.PrimaryKey = PrimaryKeyColumns;
+            for (int i = 1; i < pColumnNames.Length; i++)
+            { 
+                // Create new column.
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = pColumnNames[i];
+                column.AutoIncrement = false;
+                column.Caption = pColumnNames[i];
+                column.ReadOnly = false;
+                column.Unique = false;
+                // Add the column to the table.
+                lPhenology.Columns.Add(column);
+            }
+            
             // Instantiate the DataSet variable.
-            dataSetOfSoja_Phenology = new DataSet();
+            dataSetOfPhenology = new DataSet();
             // Add the new DataTable to the DataSet.
-            dataSetOfSoja_Phenology.Tables.Add(lSoja_Phenology);
+            dataSetOfPhenology.Tables.Add(lPhenology);
 
-            return lSoja_Phenology;
+            return lPhenology;
 
         }
 
+        private static DataTable AddMaizInformation(DataTable pMaiz_Phenology_Information, String [] pColumnNames)
+        {
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 1), pColumnNames, new int[] { 17, 6, 5, 7, 7, 6, 7, 6, 7, 5, 4, 5, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 2), pColumnNames, new int[] { 17, 6, 5, 7, 7, 6, 7, 6, 7, 5, 4, 5, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 3), pColumnNames, new int[] { 17, 6, 5, 7, 7, 6, 7, 6, 7, 5, 4, 5, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 4), pColumnNames, new int[] { 17, 6, 5, 7, 7, 6, 7, 6, 7, 5, 4, 5, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 5), pColumnNames, new int[] { 16, 6, 5, 7, 6, 6, 7, 6, 7, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 6), pColumnNames, new int[] { 16, 6, 5, 7, 6, 6, 7, 6, 7, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 7), pColumnNames, new int[] { 16, 6, 5, 7, 6, 6, 7, 6, 7, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 8), pColumnNames, new int[] { 16, 6, 5, 7, 6, 6, 7, 6, 7, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 9), pColumnNames, new int[] { 16, 6, 5, 7, 6, 6, 7, 6, 7, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 10), pColumnNames, new int[] { 15, 5, 5, 7, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 11), pColumnNames, new int[] { 15, 5, 5, 7, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 12), pColumnNames, new int[] { 15, 5, 5, 7, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 13), pColumnNames, new int[] { 15, 5, 5, 7, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 14), pColumnNames, new int[] { 15, 5, 5, 7, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 3, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 15), pColumnNames, new int[] { 13, 5, 5, 6, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 16), pColumnNames, new int[] { 13, 5, 5, 6, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 17), pColumnNames, new int[] { 13, 5, 5, 6, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 18), pColumnNames, new int[] { 13, 5, 5, 6, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 19), pColumnNames, new int[] { 13, 5, 5, 6, 6, 6, 7, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 20), pColumnNames, new int[] { 12, 5, 4, 7, 6, 5, 6, 6, 7, 4, 4, 4, 4, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 21), pColumnNames, new int[] { 12, 5, 4, 7, 6, 5, 6, 6, 7, 4, 4, 4, 4, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 22), pColumnNames, new int[] { 12, 5, 4, 7, 6, 5, 6, 6, 7, 4, 4, 4, 4, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 23), pColumnNames, new int[] { 12, 5, 4, 7, 6, 5, 6, 6, 7, 4, 4, 4, 4, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 24), pColumnNames, new int[] { 12, 5, 4, 7, 6, 5, 6, 6, 7, 4, 4, 4, 4, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 25), pColumnNames, new int[] { 11, 5, 4, 6, 6, 5, 6, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 26), pColumnNames, new int[] { 11, 5, 4, 6, 6, 5, 6, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 27), pColumnNames, new int[] { 11, 5, 4, 6, 6, 5, 6, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 28), pColumnNames, new int[] { 11, 5, 4, 6, 6, 5, 6, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 29), pColumnNames, new int[] { 11, 5, 4, 6, 6, 5, 6, 6, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 30), pColumnNames, new int[] { 10, 5, 4, 6, 5, 5, 6, 5, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 1), pColumnNames, new int[] { 10, 5, 4, 6, 5, 5, 6, 5, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 2), pColumnNames, new int[] { 10, 5, 4, 6, 5, 5, 6, 5, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 3), pColumnNames, new int[] { 10, 5, 4, 6, 5, 5, 6, 5, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 4), pColumnNames, new int[] { 10, 5, 4, 6, 5, 5, 6, 5, 6, 5, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 5), pColumnNames, new int[] { 10, 4, 4, 6, 5, 5, 6, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 6), pColumnNames, new int[] { 10, 4, 4, 6, 5, 5, 6, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 7), pColumnNames, new int[] { 10, 4, 4, 6, 5, 5, 6, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 8), pColumnNames, new int[] { 10, 4, 4, 6, 5, 5, 6, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 9), pColumnNames, new int[] { 10, 4, 4, 6, 5, 5, 6, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 10), pColumnNames, new int[] { 9, 4, 4, 6, 5, 5, 5, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 11), pColumnNames, new int[] { 9, 4, 4, 6, 5, 5, 5, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 12), pColumnNames, new int[] { 9, 4, 4, 6, 5, 5, 5, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 13), pColumnNames, new int[] { 9, 4, 4, 6, 5, 5, 5, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 14), pColumnNames, new int[] { 9, 4, 4, 6, 5, 5, 5, 5, 6, 4, 4, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 15), pColumnNames, new int[] { 9, 4, 4, 5, 5, 5, 5, 5, 6, 4, 4, 4, 3, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 16), pColumnNames, new int[] { 9, 4, 4, 5, 5, 5, 5, 5, 6, 4, 4, 4, 3, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 17), pColumnNames, new int[] { 9, 4, 4, 5, 5, 5, 5, 5, 6, 4, 4, 4, 3, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 18), pColumnNames, new int[] { 9, 4, 4, 5, 5, 5, 5, 5, 6, 4, 4, 4, 3, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 19), pColumnNames, new int[] { 9, 4, 4, 5, 5, 5, 5, 5, 6, 4, 4, 4, 3, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 20), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 5, 5, 6, 4, 3, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 21), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 5, 5, 6, 4, 3, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 22), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 5, 5, 6, 4, 3, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 23), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 5, 5, 6, 4, 3, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 24), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 5, 5, 6, 4, 3, 4, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 25), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 4, 5, 6, 4, 3, 4, 4, 2, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 26), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 4, 5, 6, 4, 3, 4, 4, 2, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 27), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 4, 5, 6, 4, 3, 4, 4, 2, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 28), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 4, 5, 6, 4, 3, 4, 4, 2, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 29), pColumnNames, new int[] { 8, 4, 3, 5, 5, 5, 4, 5, 6, 4, 3, 4, 4, 2, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 30), pColumnNames, new int[] { 8, 4, 3, 5, 4, 5, 4, 5, 6, 4, 3, 4, 3, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 10, 31), pColumnNames, new int[] { 8, 4, 3, 5, 4, 5, 4, 5, 6, 4, 3, 4, 3, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 1), pColumnNames, new int[] { 7, 4, 3, 5, 4, 5, 4, 5, 5, 4, 4, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 2), pColumnNames, new int[] { 7, 4, 3, 5, 4, 5, 4, 5, 5, 4, 4, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 3), pColumnNames, new int[] { 7, 4, 3, 5, 4, 5, 4, 5, 5, 4, 4, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 4), pColumnNames, new int[] { 7, 4, 3, 5, 4, 5, 4, 5, 5, 4, 4, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 5), pColumnNames, new int[] { 7, 4, 3, 4, 4, 5, 5, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 6), pColumnNames, new int[] { 7, 4, 3, 4, 4, 5, 5, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 7), pColumnNames, new int[] { 7, 4, 3, 4, 4, 5, 5, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 8), pColumnNames, new int[] { 7, 4, 3, 4, 4, 5, 5, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 9), pColumnNames, new int[] { 7, 4, 3, 4, 4, 5, 5, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 10), pColumnNames, new int[] { 7, 3, 3, 5, 4, 5, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 11), pColumnNames, new int[] { 7, 3, 3, 5, 4, 5, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 12), pColumnNames, new int[] { 7, 3, 3, 5, 4, 5, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 13), pColumnNames, new int[] { 7, 3, 3, 5, 4, 5, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 14), pColumnNames, new int[] { 7, 3, 3, 5, 4, 5, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 15), pColumnNames, new int[] { 7, 3, 3, 5, 4, 4, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 16), pColumnNames, new int[] { 7, 3, 3, 5, 4, 4, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 17), pColumnNames, new int[] { 7, 3, 3, 5, 4, 4, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 18), pColumnNames, new int[] { 7, 3, 3, 5, 4, 4, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 19), pColumnNames, new int[] { 7, 3, 3, 5, 4, 4, 4, 5, 5, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 20), pColumnNames, new int[] { 6, 3, 3, 4, 4, 5, 4, 5, 4, 4, 4, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 21), pColumnNames, new int[] { 6, 3, 3, 4, 4, 5, 4, 5, 4, 4, 4, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 22), pColumnNames, new int[] { 6, 3, 3, 4, 4, 5, 4, 5, 4, 4, 4, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 23), pColumnNames, new int[] { 6, 3, 3, 4, 4, 5, 4, 5, 4, 4, 4, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 24), pColumnNames, new int[] { 6, 3, 3, 4, 4, 5, 4, 5, 4, 4, 4, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 25), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 5, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 26), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 5, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 27), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 5, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 28), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 5, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 29), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 5, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 11, 30), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 1), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 2), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 3), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 4), pColumnNames, new int[] { 6, 3, 3, 4, 4, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 5), pColumnNames, new int[] { 6, 3, 3, 4, 3, 5, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 6), pColumnNames, new int[] { 6, 3, 3, 4, 3, 5, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 7), pColumnNames, new int[] { 6, 3, 3, 4, 3, 5, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 8), pColumnNames, new int[] { 6, 3, 3, 4, 3, 5, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 9), pColumnNames, new int[] { 6, 3, 3, 4, 3, 5, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 10), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 11), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 12), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 13), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 14), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 2, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 15), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 16), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 17), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 18), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 19), pColumnNames, new int[] { 6, 3, 3, 4, 3, 4, 4, 5, 4, 4, 3, 3, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 20), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 4, 4, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 21), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 4, 4, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 22), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 4, 4, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 23), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 4, 4, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 24), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 4, 4, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 25), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 26), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 27), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 28), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 29), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 30), pColumnNames, new int[] { 6, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 12, 31), pColumnNames, new int[] { 6, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 1), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 2), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 3), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 4), pColumnNames, new int[] { 6, 3, 2, 4, 4, 4, 3, 5, 4, 4, 3, 4, 3, 3, 2, 4, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 5), pColumnNames, new int[] { 6, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 6), pColumnNames, new int[] { 6, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 7), pColumnNames, new int[] { 6, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 8), pColumnNames, new int[] { 6, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 9), pColumnNames, new int[] { 6, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 3, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 10), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 4, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 11), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 4, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 12), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 4, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 13), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 4, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 14), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 3, 4, 4, 3, 2, 5, 4, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 15), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 4, 4, 3, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 16), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 4, 4, 3, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 17), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 4, 4, 3, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 18), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 4, 4, 3, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 19), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 4, 4, 4, 4, 3, 3, 2, 5, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 20), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 5, 4, 3, 4, 4, 3, 2, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 21), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 5, 4, 3, 4, 4, 3, 2, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 22), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 5, 4, 3, 4, 4, 3, 2, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 23), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 5, 4, 3, 4, 4, 3, 2, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 24), pColumnNames, new int[] { 5, 3, 2, 4, 3, 4, 4, 5, 5, 4, 3, 4, 4, 3, 2, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 25), pColumnNames, new int[] { 5, 3, 2, 4, 3, 5, 4, 5, 4, 4, 4, 4, 4, 3, 3, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 26), pColumnNames, new int[] { 5, 3, 2, 4, 3, 5, 4, 5, 4, 4, 4, 4, 4, 3, 3, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 27), pColumnNames, new int[] { 5, 3, 2, 4, 3, 5, 4, 5, 4, 4, 4, 4, 4, 3, 3, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 28), pColumnNames, new int[] { 5, 3, 2, 4, 3, 5, 4, 5, 4, 4, 4, 4, 4, 3, 3, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 29), pColumnNames, new int[] { 5, 3, 2, 4, 3, 5, 4, 5, 4, 4, 4, 4, 4, 3, 3, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 30), pColumnNames, new int[] { 5, 3, 2, 4, 3, 5, 4, 5, 4, 4, 4, 4, 4, 3, 3, 6, 5, 12, 8, 6, 12, 22, 22 });
+            pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 1, 31), pColumnNames, new int[] { 5, 3, 2, 4, 3, 5, 4, 5, 4, 4, 4, 4, 4, 3, 3, 6, 5, 12, 8, 6, 12, 22, 22 });
+
+            return pMaiz_Phenology_Information;
+        }
+
+        
         private static DataTable AddSojaInformation(DataTable pSoja_Phenology_Information, String[] pColumnNames)
         {
-            pSoja_Phenology_Information = AddSojaRow(pColumnNames, pSoja_Phenology_Information, new DateTime(2014, 9, 24), 10, 6, 5, 4, 5, 5, 3, 3, 2, 2, 3, 2, 7, 7, 3, 3, 7, 7, 32, 32, 20);
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 9, 24), pColumnNames, new int[] { 16, 5, 4, 5, 5, 3, 3, 2, 2, 3, 2, 7, 7, 3, 3, 7, 7, 32, 32, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 9, 25), pColumnNames, new int[] { 16, 5, 4, 5, 5, 3, 3, 2, 2, 3, 2, 7, 7, 3, 3, 7, 7, 32, 32, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 9, 26), pColumnNames, new int[] { 16, 5, 4, 5, 5, 3, 3, 2, 2, 3, 2, 7, 7, 3, 3, 7, 7, 32, 32, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 9, 27), pColumnNames, new int[] { 16, 5, 4, 5, 5, 3, 3, 2, 2, 3, 2, 7, 7, 3, 3, 7, 7, 32, 32, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 9, 28), pColumnNames, new int[] { 16, 5, 4, 5, 5, 3, 3, 2, 2, 3, 2, 7, 7, 3, 3, 7, 7, 32, 32, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 9, 29), pColumnNames, new int[] { 15, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 6, 4, 3, 7, 7, 31, 31, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 9, 30), pColumnNames, new int[] { 15, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 6, 4, 3, 7, 7, 31, 31, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 1), pColumnNames, new int[] { 15, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 6, 4, 3, 7, 7, 31, 31, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 2), pColumnNames, new int[] { 15, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 6, 4, 3, 7, 7, 31, 31, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 3), pColumnNames, new int[] { 15, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 6, 4, 3, 7, 7, 31, 31, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 4), pColumnNames, new int[] { 15, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 6, 4, 3, 7, 7, 31, 31, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 5), pColumnNames, new int[] { 14, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 7, 4, 3, 7, 8, 29, 29, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 6), pColumnNames, new int[] { 14, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 7, 4, 3, 7, 8, 29, 29, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 7), pColumnNames, new int[] { 14, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 7, 4, 3, 7, 8, 29, 29, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 8), pColumnNames, new int[] { 14, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 7, 4, 3, 7, 8, 29, 29, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 9), pColumnNames, new int[] { 14, 5, 4, 5, 4, 4, 3, 3, 2, 2, 3, 7, 7, 4, 3, 7, 8, 29, 29, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 10), pColumnNames, new int[] { 14, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 6, 4, 4, 7, 8, 28, 28, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 11), pColumnNames, new int[] { 14, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 6, 4, 4, 7, 8, 28, 28, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 12), pColumnNames, new int[] { 14, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 6, 4, 4, 7, 8, 28, 28, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 13), pColumnNames, new int[] { 14, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 6, 4, 4, 7, 8, 28, 28, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 14), pColumnNames, new int[] { 14, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 6, 4, 4, 7, 8, 28, 28, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 15), pColumnNames, new int[] { 13, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 7, 4, 3, 8, 8, 27, 27, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 16), pColumnNames, new int[] { 13, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 7, 4, 3, 8, 8, 27, 27, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 17), pColumnNames, new int[] { 13, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 7, 4, 3, 8, 8, 27, 27, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 18), pColumnNames, new int[] { 13, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 7, 4, 3, 8, 8, 27, 27, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 19), pColumnNames, new int[] { 13, 4, 4, 5, 4, 4, 3, 3, 3, 2, 3, 7, 7, 4, 3, 8, 8, 27, 27, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 20), pColumnNames, new int[] { 13, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 7, 6, 4, 4, 8, 8, 25, 26, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 21), pColumnNames, new int[] { 13, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 7, 6, 4, 4, 8, 8, 25, 26, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 22), pColumnNames, new int[] { 13, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 7, 6, 4, 4, 8, 8, 25, 26, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 23), pColumnNames, new int[] { 13, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 7, 6, 4, 4, 8, 8, 25, 26, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 24), pColumnNames, new int[] { 13, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 7, 6, 4, 4, 8, 8, 25, 26, 21, 42 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 25), pColumnNames, new int[] { 12, 4, 3, 5, 4, 4, 4, 3, 3, 2, 3, 7, 6, 4, 4, 8, 8, 25, 25, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 26), pColumnNames, new int[] { 12, 4, 3, 5, 4, 4, 4, 3, 3, 2, 3, 7, 6, 4, 4, 8, 8, 25, 25, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 27), pColumnNames, new int[] { 12, 4, 3, 5, 4, 4, 4, 3, 3, 2, 3, 7, 6, 4, 4, 8, 8, 25, 25, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 28), pColumnNames, new int[] { 12, 4, 3, 5, 4, 4, 4, 3, 3, 2, 3, 7, 6, 4, 4, 8, 8, 25, 25, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 29), pColumnNames, new int[] { 12, 4, 3, 5, 4, 4, 4, 3, 3, 2, 3, 7, 6, 4, 4, 8, 8, 25, 25, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 30), pColumnNames, new int[] { 12, 3, 3, 5, 5, 4, 3, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 25, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 10, 31), pColumnNames, new int[] { 12, 3, 3, 5, 5, 4, 3, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 25, 20, 40 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 1), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 4, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 24, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 2), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 4, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 24, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 3), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 4, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 24, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 4), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 4, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 24, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 5), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 23, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 6), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 23, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 7), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 23, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 8), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 23, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 9), pColumnNames, new int[] { 11, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 4, 8, 8, 24, 23, 19, 38 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 10), pColumnNames, new int[] { 11, 3, 3, 5, 4, 4, 3, 4, 3, 2, 3, 7, 6, 4, 3, 8, 8, 23, 23, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 11), pColumnNames, new int[] { 11, 3, 3, 5, 4, 4, 3, 4, 3, 2, 3, 7, 6, 4, 3, 8, 8, 23, 23, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 12), pColumnNames, new int[] { 11, 3, 3, 5, 4, 4, 3, 4, 3, 2, 3, 7, 6, 4, 3, 8, 8, 23, 23, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 13), pColumnNames, new int[] { 11, 3, 3, 5, 4, 4, 3, 4, 3, 2, 3, 7, 6, 4, 3, 8, 8, 23, 23, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 14), pColumnNames, new int[] { 11, 3, 3, 5, 4, 4, 3, 4, 3, 2, 3, 7, 6, 4, 3, 8, 8, 23, 23, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 15), pColumnNames, new int[] { 10, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 23, 22, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 16), pColumnNames, new int[] { 10, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 23, 22, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 17), pColumnNames, new int[] { 10, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 23, 22, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 18), pColumnNames, new int[] { 10, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 23, 22, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 19), pColumnNames, new int[] { 10, 4, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 23, 22, 18, 36 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 20), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 22, 22, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 21), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 22, 22, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 22), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 22, 22, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 23), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 22, 22, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 24), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 3, 3, 6, 6, 4, 3, 8, 7, 22, 22, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 25), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 2, 3, 6, 6, 4, 3, 7, 7, 22, 21, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 26), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 2, 3, 6, 6, 4, 3, 7, 7, 22, 21, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 27), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 2, 3, 6, 6, 4, 3, 7, 7, 22, 21, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 28), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 2, 3, 6, 6, 4, 3, 7, 7, 22, 21, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 29), pColumnNames, new int[] { 10, 3, 3, 5, 4, 4, 3, 3, 3, 2, 3, 6, 6, 4, 3, 7, 7, 22, 21, 17, 34 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 11, 30), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 3, 3, 3, 5, 5, 4, 4, 7, 6, 22, 21, 14, 28 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 1), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 3, 3, 3, 5, 5, 4, 4, 7, 6, 22, 21, 14, 28 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 2), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 3, 3, 3, 5, 5, 4, 4, 7, 6, 22, 21, 14, 28 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 3), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 3, 3, 3, 5, 5, 4, 4, 7, 6, 22, 21, 14, 28 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 4), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 3, 3, 3, 5, 5, 4, 4, 7, 6, 22, 21, 14, 28 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 5), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 2, 3, 3, 6, 5, 4, 3, 6, 6, 21, 21, 15, 30 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 6), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 2, 3, 3, 6, 5, 4, 3, 6, 6, 21, 21, 15, 30 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 7), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 2, 3, 3, 6, 5, 4, 3, 6, 6, 21, 21, 15, 30 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 8), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 2, 3, 3, 6, 5, 4, 3, 6, 6, 21, 21, 15, 30 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 9), pColumnNames, new int[] { 9, 4, 3, 4, 4, 4, 3, 3, 2, 3, 3, 6, 5, 4, 3, 6, 6, 21, 21, 15, 30 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 10), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 3, 3, 2, 5, 5, 4, 3, 6, 6, 21, 21, 12, 24 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 11), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 3, 3, 2, 5, 5, 4, 3, 6, 6, 21, 21, 12, 24 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 12), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 3, 3, 2, 5, 5, 4, 3, 6, 6, 21, 21, 12, 24 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 13), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 3, 3, 2, 5, 5, 4, 3, 6, 6, 21, 21, 12, 24 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 14), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 3, 3, 2, 5, 5, 4, 3, 6, 6, 21, 21, 12, 24 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 15), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 3, 5, 4, 4, 3, 5, 5, 21, 21, 11, 22 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 16), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 3, 5, 4, 4, 3, 5, 5, 21, 21, 11, 22 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 17), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 3, 5, 4, 4, 3, 5, 5, 21, 21, 11, 22 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 18), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 3, 5, 4, 4, 3, 5, 5, 21, 21, 11, 22 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 19), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 3, 5, 4, 4, 3, 5, 5, 21, 21, 11, 22 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 20), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 2, 5, 4, 3, 3, 5, 5, 21, 20, 9, 18 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 21), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 2, 5, 4, 3, 3, 5, 5, 21, 20, 9, 18 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 22), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 2, 5, 4, 3, 3, 5, 5, 21, 20, 9, 18 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 23), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 2, 5, 4, 3, 3, 5, 5, 21, 20, 9, 18 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 24), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 3, 3, 2, 3, 2, 5, 4, 3, 3, 5, 5, 21, 20, 9, 18 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 25), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 3, 2, 3, 2, 5, 4, 3, 3, 4, 4, 21, 20, 8, 16 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 26), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 3, 2, 3, 2, 5, 4, 3, 3, 4, 4, 21, 20, 8, 16 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 27), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 3, 2, 3, 2, 5, 4, 3, 3, 4, 4, 21, 20, 8, 16 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 28), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 3, 2, 3, 2, 5, 4, 3, 3, 4, 4, 21, 20, 8, 16 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 29), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 3, 2, 3, 2, 5, 4, 3, 3, 4, 4, 21, 20, 8, 16 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 30), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 2, 2, 3, 2, 5, 4, 3, 2, 4, 3, 21, 20, 5, 10 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 12, 31), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 2, 2, 3, 2, 5, 4, 3, 2, 4, 3, 21, 20, 5, 10 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 1), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 2, 2, 3, 2, 4, 4, 3, 2, 3, 3, 21, 21, 4, 8 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 2), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 2, 2, 3, 2, 4, 4, 3, 2, 3, 3, 21, 21, 4, 8 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 3), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 2, 2, 3, 2, 4, 4, 3, 2, 3, 3, 21, 21, 4, 8 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 4), pColumnNames, new int[] { 9, 3, 3, 5, 4, 3, 2, 2, 2, 3, 2, 4, 4, 3, 2, 3, 3, 21, 21, 4, 8 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 5), pColumnNames, new int[] { 8, 4, 3, 5, 4, 3, 2, 2, 1, 3, 2, 4, 4, 3, 2, 2, 2, 21, 21, 3, 6 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 6), pColumnNames, new int[] { 8, 4, 3, 5, 4, 3, 2, 2, 1, 3, 2, 4, 4, 3, 2, 2, 2, 21, 21, 3, 6 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 7), pColumnNames, new int[] { 8, 4, 3, 5, 4, 2, 2, 2, 2, 3, 2, 4, 4, 2, 2, 2, 2, 21, 21, 1, 2 });
+            pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 8), pColumnNames, new int[] { 8, 4, 3, 5, 4, 2, 2, 2, 2, 3, 2, 4, 4, 2, 2, 2, 2, 21, 21, 1, 2 });
             return pSoja_Phenology_Information;
         }
-
-        private static DataTable AddSojaRow(String[] pColumnNames, DataTable pSoja_Phenology_Information, DateTime pDate,
-            int pVo, int pVe,
-            int pV1, int pV2, int pV3, int pV4, int pV5, int pV6, int pV7, int pV8, int pV9, int pV10, int pV11,
-            int pR1, int pR2, int pR3, int pR4, int pR5, int pR6, int pR7, int pR8)
+        /// <summary>
+        /// Add a row to the PhenologicalInformationTable
+        /// Requirements: pColumnNames.Length = pDurations.Length -1
+        /// </summary>
+        /// <param name="pPhenologicInformation"></param>
+        /// <param name="pSowingDate"></param>
+        /// <param name="pColumnNames"></param>
+        /// <param name="pDurations"></param>
+        /// <returns></returns>
+        private static DataTable AddRowForPhenologicInformation(DataTable pPhenologicInformation, DateTime pSowingDate, String[] pColumnNames,  int[] pDurations)
         {
             DataRow row;
+            row = pPhenologicInformation.NewRow();
+            row[pColumnNames[0]] = pSowingDate;
+            for (int i = 0; i < pDurations.Length; i++)
+            {
+                row[pColumnNames[i+1]] = pDurations[i];
+            }
+            pPhenologicInformation.Rows.Add(row);
+            return pPhenologicInformation;
+        }
+        
+        private static DataTable AddTemperatureInformation()
+        {
+            DataTable lTemperatureData;
+            DataSet dataSetOfTemperatureData;
 
-            row = pSoja_Phenology_Information.NewRow();
-            row[pColumnNames[0]] = pDate;//"SowingDate"
-            row[pColumnNames[1]] = pVo;//"Vo"
-            row[pColumnNames[2]] = pVe;//"Ve"
-            row[pColumnNames[3]] = pV1;//"V1"
-            row[pColumnNames[4]] = pV2;//"V2"
-            row[pColumnNames[5]] = pV3; //"V3"
-            row[pColumnNames[6]] = pV4;//"V4"
-            row[pColumnNames[7]] = pV5;//"V5"
-            row[pColumnNames[8]] = pV6;//"V6"
-            row[pColumnNames[9]] = pV7;//"V7"
-            row[pColumnNames[10]] = pV8;//"V8"
-            row[pColumnNames[11]] = pV9;//"V9"
-            row[pColumnNames[12]] = pV10;//"V10"
-            row[pColumnNames[13]] = pV11;//"V11"
-            row[pColumnNames[14]] = pR1;//"R1"
-            row[pColumnNames[15]] = pR2;//"R2"
-            row[pColumnNames[16]] = pR3;//"R3"
-            row[pColumnNames[17]] = pR4;//"R4"
-            row[pColumnNames[18]] = pR5;//"R5"
-            row[pColumnNames[19]] = pR6;//"R6"
-            row[pColumnNames[20]] = pR7;//"R7"
-            row[pColumnNames[21]] = pR8;//"R8"
-            pSoja_Phenology_Information.Rows.Add(row);
-            return pSoja_Phenology_Information;
+            lTemperatureData = new DataTable("TemperatureData");//"Soja_Phenology_Information");
+            DataColumn column;
+
+            // Create new DataColumn, set DataType,  
+            // ColumnName and add to DataTable.    
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.DateTime");
+            column.ColumnName = "Date";//"SowingDate";
+            column.ReadOnly = true;
+            column.Unique = true;
+            // Add the Column to the DataColumnCollection.
+            lTemperatureData.Columns.Add(column);
+
+            // Make the "SowingDate" column the primary key column.
+            DataColumn[] PrimaryKeyColumns = new DataColumn[1];
+            PrimaryKeyColumns[0] = lTemperatureData.Columns["Date"];//"SowingDate"];
+            lTemperatureData.PrimaryKey = PrimaryKeyColumns;
+            
+            // Create new column.
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Double");
+            column.ColumnName = "Average";
+            column.AutoIncrement = false;
+            column.Caption = "Average";
+            column.ReadOnly = false;
+            column.Unique = false;
+            // Add the column to the table.
+            lTemperatureData.Columns.Add(column);
+            
+
+            // Instantiate the DataSet variable.
+            dataSetOfTemperatureData = new DataSet();
+            // Add the new DataTable to the DataSet.
+            dataSetOfTemperatureData.Tables.Add(lTemperatureData);
+
+
+            //ADD Temperature Information
+            DataRow row;
+
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 1); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 2); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 3); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 4); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 5); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 6); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 7); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 8); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 9); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 10); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 11); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 12); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 13); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 14); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 15); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 16); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 17); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 18); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 19); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 20); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 21); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 22); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 23); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 24); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 25); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 26); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 27); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 28); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 29); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 9, 30); row["Average"] = 17.9f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 1); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 2); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 3); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 4); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 5); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 6); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 7); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 8); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 9); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 10); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 11); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 12); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 13); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 14); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 15); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 16); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 17); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 18); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 19); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 20); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 21); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 22); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 23); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 24); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 25); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 26); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 27); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 28); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 29); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 30); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 10, 31); row["Average"] = 19.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 1); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 2); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 3); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 4); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 5); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 6); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 7); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 8); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 9); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 10); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 11); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 12); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 13); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 14); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 15); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 16); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 17); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 18); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 19); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 20); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 21); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 22); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 23); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 24); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 25); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 26); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 27); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 28); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 29); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 11, 30); row["Average"] = 21.55f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 1); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 2); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 3); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 4); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 5); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 6); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 7); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 8); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 9); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 10); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 11); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 12); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 13); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 14); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 15); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 16); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 17); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 18); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 19); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 20); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 21); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 22); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 23); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 24); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 25); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 26); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 27); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 28); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 29); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 30); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 12, 31); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 1); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 2); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 3); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 4); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 5); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 6); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 7); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 8); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 9); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 10); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 11); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 12); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 13); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 14); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 15); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 16); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 17); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 18); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 19); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 20); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 21); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 22); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 23); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 24); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 25); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 26); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 27); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 28); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 29); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 30); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 1, 31); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 1); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 2); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 3); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 4); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 5); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 6); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 7); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 8); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 9); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 10); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 11); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 12); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 13); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 14); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 15); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 16); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 17); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 18); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 19); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 20); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 21); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 22); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 23); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 24); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 25); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 26); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 27); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 2, 28); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 1); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 2); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 3); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 4); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 5); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 6); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 7); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 8); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 9); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 10); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 11); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 12); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 13); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 14); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 15); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 16); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 17); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 18); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 19); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 20); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 21); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 22); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 23); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 24); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 25); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 26); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 27); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 28); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 29); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 30); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 3, 31); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 1); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 2); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 3); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 4); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 5); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 6); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 7); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 8); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 9); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 10); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 11); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 12); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 13); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 14); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 15); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 16); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 17); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 18); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 19); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 20); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 21); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 22); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 23); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 24); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 25); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 26); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 27); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 28); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 29); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row = lTemperatureData.NewRow();
+            row["Date"] = new DateTime(2014, 4, 30); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            
+
+            
+            return lTemperatureData;
+
         }
 
         #endregion
@@ -1055,34 +1834,42 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
         #region Crop Information By Date
-
-        public static List<Pair<String, int>> GetCropInformationByDateForSoja(DateTime pSowingate)
+        /// <summary>
+        /// Given a Date for the SowingDate return the duration for each phenological stage.
+        /// Information obtained from INIA.
+        /// </summary>
+        /// <param name="pSowingDate"></param>
+        /// <returns></returns>
+        public static List<Pair<String, int>> GetCropInformationByDateForSoja(DateTime pSowingDate)
         {
             //Creo Variable local para guardar informacion a retornar
             List<Pair<String, int>> lCropCyclesInformationList = new List<Pair<string, int>>();
 
             //Creo la tabla para la tabla magica de soja
-            DataTable lSoja_Phenology_Information = CreateTableForSojaInformation("Soja_Phenology_Information");
-            String[] pColumnNames = new String[] { "SowingDate", "Vo","Ve","V1","V2","V3","V4","V5","V6","V7"
+            String[] lColumnNames = new String[] { "SowingDate", "Vo","Ve","V1","V2","V3","V4","V5","V6","V7"
                 ,"V8","V9","V10","V11","R1","R2","R3","R4","R5","R6","R7","R8"};
+            DataTable lSoja_Phenology_Information = CreateTableForPhenologyInformation("Soja_Phenology_Information", lColumnNames);
+            
 
             //Agrego informacion de la tabla magica
-            lSoja_Phenology_Information = AddSojaInformation(lSoja_Phenology_Information, pColumnNames);
+            lSoja_Phenology_Information = AddSojaInformation(lSoja_Phenology_Information, lColumnNames);
 
             //Itero la tabla magica hasta encontrar la fecha de siembra
             foreach (DataRow row in lSoja_Phenology_Information.Rows)
             {
                 DateTime lDay = row.Field<DateTime>(0);
-                if (Utilities.Utils.isTheSameDay(lDay, pSowingate))
+                if (Utilities.Utils.isTheSameDay(lDay, pSowingDate))
                 {
                     //Si encuentro la fecha de siembra itero la fila para guardar informacion de la duracion de cada stage
-                    object[] lDataRow = row.ItemArray;
-                    for (int i = 1; i < pColumnNames.Length; i++)// Arranco en 1 porque en 0 esta la fecha, en los demas campos esta la duracion de cada stage
+                    //object[] lDataRow = row.ItemArray;
+                    for (int i = 1; i < lColumnNames.Length; i++)// Arranco en 1 porque en 0 esta la fecha, en los demas campos esta la duracion de cada stage
                     {
-                        Pair<String, int> lNewStage = new Pair<string, int>(pColumnNames[i], row.Field<int>(i));
+                        string lName = lColumnNames[i];
+                        string lDurationstring = row.Field<string>(i);
+                        int lDuration = Convert.ToInt32(lDurationstring);
+                        Pair<String, int> lNewStage = new Pair<string, int>(lName, lDuration);
                         lCropCyclesInformationList.Add(lNewStage);
                     }
-                    lCropCyclesInformationList = new List<Pair<String, int>>();
                     return lCropCyclesInformationList;
 
                 }
@@ -1090,9 +1877,67 @@ namespace IrrigationAdvisor.Models.Data
             return lCropCyclesInformationList;
         }
 
+        public static List<Pair<String, int>> GetCropInformationByDateForMaiz(DateTime pSowingDate)
+        {
+            //Creo Variable local para guardar informacion a retornar
+            List<Pair<String, int>> lCropCyclesInformationList = new List<Pair<string, int>>();
+
+            //Creo la tabla para la tabla magica de soja
+            String[] lColumnNames = new String[] { "SowingDate", "Vo","Ve","V1","V2","V3","V4","V5","V6","V7"
+                ,"V8","V9","V10","V11","V12","V13","V14","Vt","R1","R2","R3","R4","R5","R6"};
+
+            DataTable lMaiz_Phenology_Information = CreateTableForPhenologyInformation("Maiz_Phenology_Information", lColumnNames);
+
+
+            //Agrego informacion de la tabla magica
+            lMaiz_Phenology_Information = AddMaizInformation(lMaiz_Phenology_Information, lColumnNames);
+
+            //Itero la tabla magica hasta encontrar la fecha de siembra
+            foreach (DataRow row in lMaiz_Phenology_Information.Rows)
+            {
+                DateTime lDay = row.Field<DateTime>(0);
+                if (Utilities.Utils.isTheSameDay(lDay, pSowingDate))
+                {
+                    //Si encuentro la fecha de siembra itero la fila para guardar informacion de la duracion de cada stage
+                    //object[] lDataRow = row.ItemArray;
+                    for (int i = 1; i < lColumnNames.Length; i++)// Arranco en 1 porque en 0 esta la fecha, en los demas campos esta la duracion de cada stage
+                    {
+                        string lName = lColumnNames[i];
+                        string lDurationstring = row.Field<string>(i);
+                        int lDuration = Convert.ToInt32(lDurationstring);
+                        Pair<String, int> lNewStage = new Pair<string, int>(lName, lDuration);
+                        lCropCyclesInformationList.Add(lNewStage);
+                    }
+                    return lCropCyclesInformationList;
+
+                }
+            }
+            return lCropCyclesInformationList;
+        }
+
+
+
         #endregion
 
         #endregion
+
+
+        public static double  GetAccumulatedGrowingDegreeDays(DateTime pSowingDate, DateTime pCurrentDate)
+        {
+            DataTable lSoja_Phenology_Information = AddTemperatureInformation();
+            double lReturn = 0;
+
+            foreach (DataRow row in lSoja_Phenology_Information.Rows)
+            {
+                DateTime lDay = row.Field<DateTime>(0);
+                if (Utilities.Utils.isTheSameDay(lDay, pSowingDate) || Utilities.Utils.isTheSameDay(lDay, pCurrentDate) || (lDay > pSowingDate && lDay < pCurrentDate))
+                {
+                    lReturn += row.Field<double>(1);
+                }
+            }
+            return lReturn;
+        }
+
 
     }
 }
