@@ -64,6 +64,9 @@ namespace IrrigationAdvisor.Models.Agriculture
         private DateTime sowingDate;
         private DateTime currentDate;
         private int daysAfterSowing;
+        private Specie specie;
+        private CropCoefficient cropCoefficient;
+
         private double accumulatedGrowingDegreeDays;
         private Stage stage;
         private double cropCoefficientValue;
@@ -89,6 +92,17 @@ namespace IrrigationAdvisor.Models.Agriculture
         {
             get { return daysAfterSowing; }
             set { daysAfterSowing = value; }
+        }
+        public Specie Specie
+        {
+            get { return specie; }
+            set { specie = value; }
+        }
+
+        public CropCoefficient CropCoefficient
+        {
+            get { return cropCoefficient; }
+            set { cropCoefficient = value; }
         }
 
         public double AccumulatedGrowingDegreeDays
@@ -121,17 +135,79 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Construction
         /// <summary>
-        /// Constructor of ClassTemplate
+        /// Constructor of CropInformatioByDate
         /// </summary>
-        public CropInformatioByDate()
-        {
         
+
+        public CropInformatioByDate(CropIrrigationWeather pCropIrrigationWeather)
+        {
+            this.SowingDate = pCropIrrigationWeather.SowingDate;
+            this.Specie = pCropIrrigationWeather.Crop.Specie;
         }
 
         
         #endregion
 
         #region Private Helpers
+        /// <summary>
+        /// Given a Current Date set:
+        /// - DaysAfterSowing
+        /// - AccumulatedGrowingDegreeDays
+        /// - Stage
+        /// - CropCoefficient
+        /// - RootDepth
+        /// </summary>
+        /// <param name="pCurrentDate"></param>
+        private void setFieldsAccordingCurrentDate(DateTime pCurrentDate)
+        {
+            List<Pair<String, int>> lStageDurationInformation;
+            int lDaysAfterSowing = 0;
+
+            //Set DaysAfterSowing
+            this.CurrentDate = pCurrentDate;
+            this.DaysAfterSowing = Utils.getDaysDifference(this.SowingDate, this.CurrentDate);
+
+            //Set accumulatedGrowingDegreeDays
+            InitialTables.GetAccumulatedGrowingDegreeDays(this.SowingDate,this.CurrentDate);
+
+            //Set Stage
+            lStageDurationInformation = getStageDurationInformation();
+            foreach (Pair<String, int> lPairStage in lStageDurationInformation)
+            {
+                lDaysAfterSowing += lPairStage.Second;
+                if (lDaysAfterSowing >= this.DaysAfterSowing)
+                {
+                    this.Stage = new Stage(1, lPairStage.First, "");
+                }
+            }
+
+            //Set cropCoefficientValue
+            this.CropCoefficientValue = this.CropCoefficient.getKC(this.DaysAfterSowing);
+
+            //Set rootDepth
+            
+        }
+
+        private List<Pair<string, int>> getStageDurationInformation()
+        {
+            //TODO Sacar hardcodeo de nombre de especies 
+            List<Pair<string, int>> lReturn = null;
+            if (this.Specie.Name.ToUpper().Equals("SOJA"))
+            {
+                lReturn = InitialTables.GetCropInformationByDateForSoja(this.SowingDate);
+            }
+            else if (this.Specie.Name.ToUpper().Equals("MAIZ"))
+            {
+
+            }
+            else if (this.Specie.Name.ToUpper().Equals("SORGO"))
+            {
+
+            }
+            return lReturn;
+
+        }
+
         #endregion
 
         #region Public Methods
@@ -140,30 +216,13 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         /// <returns></returns>
         /// 
-        /*
-        public Stage getStageByDateForSoja(CropIrrigationWeather pCropIrrigationWeather, DateTime pCurrentDate)
+        
+        public Stage getStageByDateForSoja(DateTime pCurrentDate)
         {
-            Stage lStage = null;
-            List<Pair<String, int>> lStageDurationInformation;
-            int lDaysAfterSowing = 0;
-
-            
-            this.SowingDate = pCropIrrigationWeather.SowingDate;
-            this.CurrentDate = pCurrentDate;
-            this.DaysAfterSowing = Utils.getDaysDifference(this.SowingDate,this.CurrentDate);
-
-            lStageDurationInformation = InitialTables.GetCropInformationByDateForSoja(pCurrentDate);
-            foreach(Pair<String, int> lPairStage in lStageDurationInformation)
-            {
-                lDaysAfterSowing += lPairStage.Second;
-                if (lDaysAfterSowing >= this.DaysAfterSowing )
-                {
-                    lStage = new Stage(1, lPairStage.First, "");
-                }
-            }
-            return lStage;
+            this.setFieldsAccordingCurrentDate(pCurrentDate);
+            return this.Stage;
         }
-        */
+        
         public double  getAccumulatedGrowingDegreeDays(Crop pCrop)
         {
 

@@ -86,6 +86,7 @@
     <Compile Include="Models\Crop\CropCoefficientTest.cs" />
     <Compile Include="Models\Crop\HorizonTest.cs" />
     <Compile Include="Models\Crop\SoilTest.cs" />
+    <Compile Include="Models\Data\InitialTablesTest.cs" />
     <Compile Include="Models\IrrigationSystem\IrrigationSystemTest.cs" />
     <Compile Include="Models\Management\CropIrrigationWeatherRecordsTest.cs" />
     <Compile Include="Models\Utilities\PairTest.cs" />
