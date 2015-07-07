@@ -134,14 +134,13 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Construction
+
         /// <summary>
         /// Constructor of CropInformatioByDate
         /// </summary>
-        
-
         public CropInformatioByDate(CropIrrigationWeather pCropIrrigationWeather)
         {
-            this.SowingDate = pCropIrrigationWeather.SowingDate;
+            this.SowingDate = pCropIrrigationWeather.CropIrrigationWeatherRecord.SowingDate;
             this.Specie = pCropIrrigationWeather.Crop.Specie;
         }
 

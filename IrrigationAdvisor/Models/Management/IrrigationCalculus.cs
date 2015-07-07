@@ -32,7 +32,7 @@ namespace IrrigationAdvisor.Models.Management
     /// Methods:
     ///     - IrrigationCalculus()      -- constructor
     ///     - IrrigationCalculus(name)  -- consturctor with parameters
-    ///     - howMuchToIrrigate(dateTime, cropIrrigationWater)
+    ///     - HowMuchToIrrigate(dateTime, cropIrrigationWater)
     /// </summary>
     public class IrrigationCalculus
     {
@@ -99,7 +99,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Use both ways to calculate: by available water and by acumulated evapotranspirationCrop
         /// </summary>
         /// <param name="pName">new name</param>
-        public Pair <double,Utils.WaterInputType> howMuchToIrrigate(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
+        public Pair <double,Utils.WaterInputType> HowMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
         {
             Pair<double, Utils.WaterInputType> lReturn; 
             bool lIrrigationByEvapotranspiration;
@@ -107,19 +107,19 @@ namespace IrrigationAdvisor.Models.Management
             double lPercentageAvailableWater;
 
             lReturn = new Pair<double,Utils.WaterInputType>();
-            lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeatherRecord);
-            lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeatherRecord);
-            lPercentageAvailableWater = pCropIrrigationWeatherRecord.getPercentageOfAvailableWater();
+            lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeather);
+            lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeather);
+            lPercentageAvailableWater = pCropIrrigationWeather.GetPercentageOfAvailableWater();
 
             //If we need to irrigate by Evapotranspiraton, then Available water has to be lower than 60% 
             if (lIrrigationByEvapotranspiration && lPercentageAvailableWater < InitialTables.PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
             {
-                lReturn.First = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn.First = pCropIrrigationWeather.PredeterminatedIrrigationQuantity;
                 lReturn.Second = Utils.WaterInputType.IrrigationByETCAcumulated;
             }
             else if (lIrrigationByHydricBalance)
             {
-                lReturn.First = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn.First = pCropIrrigationWeather.PredeterminatedIrrigationQuantity;
                 lReturn.Second = Utils.WaterInputType.IrrigationByHydricBalance;
             }
 

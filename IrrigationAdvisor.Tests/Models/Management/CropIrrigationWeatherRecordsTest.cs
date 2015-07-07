@@ -46,11 +46,11 @@ namespace IrrigationAdvisor.Tests.Models.Management
             lDailyRecord05.ModifiedGrowingDegree = 5;
 
             /////Se privatizo el metodo
-            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord01);
-            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord02);
-            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord03);
-            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord04);
-            //lCropIrrigationWeatherRecords.addDailyRecord(lDailyRecord05);
+            //lCropIrrigationWeatherRecords.AddDailyRecord(lDailyRecord01);
+            //lCropIrrigationWeatherRecords.AddDailyRecord(lDailyRecord02);
+            //lCropIrrigationWeatherRecords.AddDailyRecord(lDailyRecord03);
+            //lCropIrrigationWeatherRecords.AddDailyRecord(lDailyRecord04);
+            //lCropIrrigationWeatherRecords.AddDailyRecord(lDailyRecord05);
 
             Assert.AreEqual(lCropIrrigationWeatherRecords.GetEffectiveRainByDate(new DateTime(2014, 11, 1)), 1.1);
             Assert.AreEqual(lCropIrrigationWeatherRecords.GetEffectiveRainByDate(new DateTime(2014, 11, 5)), 11);
@@ -61,11 +61,11 @@ namespace IrrigationAdvisor.Tests.Models.Management
             Assert.AreEqual(lCropIrrigationWeatherRecords.GetLastThreeDaysOfEvapotranspirationCrop(new DateTime(2014, 11, 3)), 11);
 
 
-            Assert.AreEqual(lCropIrrigationWeatherRecords.GrowingDegreeDays, 17);
-            Assert.AreEqual(lCropIrrigationWeatherRecords.ModifiedGrowingDegreeDays, 3);
-            Assert.AreEqual(lCropIrrigationWeatherRecords.TotalEvapotranspirationCrop, 11);
-            Assert.AreEqual(lCropIrrigationWeatherRecords.TotalEffectiveRain, 22);
-            Assert.AreEqual(lCropIrrigationWeatherRecords.TotalIrrigation, 10);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.GrowingDegreeDaysAcumulated, 17);
+            Assert.AreEqual(lCropIrrigationWeatherRecords.GrowingDegreeDaysModified, 3);
+            Assert.AreEqual(lCropIrrigationWeather.TotalEvapotranspirationCrop, 11);
+            Assert.AreEqual(lCropIrrigationWeather.TotalEffectiveRain, 22);
+            Assert.AreEqual(lCropIrrigationWeather.TotalIrrigation, 10);
             Assert.AreEqual(lCropIrrigationWeatherRecords.LastWaterInputDate, new DateTime(2014,11,5));
             
         }
