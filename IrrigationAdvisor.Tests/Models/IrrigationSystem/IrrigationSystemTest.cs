@@ -137,7 +137,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private List<EffectiveRain> testEffectiveRainsList;
         //private List<PhenologicalStage> testPhenologicalStageList;
         //private Pair<Region, List<PhenologicalStage>> testPhenologicalStagesForRegion;
-        //private Pair<Region, List<EffectiveRain>> testEffectiveRainsForRegion;
+        //private Pair<Region, List<EffectiveRainList>> testEffectiveRainsForRegion;
         
 
         private List<Pair<DateTime, Stage>> PhenologicalStageChange_Pivot2;

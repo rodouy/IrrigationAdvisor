@@ -22,7 +22,7 @@ namespace IrrigationAdvisor.Models.Localization
     ///     Specie
     ///     CropCoefficient
     ///     Crop
-    ///     EffectiveRain
+    ///     EffectiveRainList
     ///     CropIrrigationWeather
     /// 
     /// TODO: 
@@ -34,7 +34,7 @@ namespace IrrigationAdvisor.Models.Localization
     ///     - name String
     ///     - location Location
     ///     - specieList: List<Specie>
-    ///     - effectiveRain List <EffectiveRain>
+    ///     - effectiveRainList LiEffectiveRainListRain>
     /// 
     /// Methods:
     ///     - Region()      -- constructor
@@ -155,10 +155,10 @@ namespace IrrigationAdvisor.Models.Localization
 
         #region Public Methods
 
-        #region EffectiveRain
+        #region EffectiveRainList
 
         /// <summary>
-        /// If EffectiveRain exists in List, return the Effective Rain, else null
+        /// If EffectiveRainList exists in List, return the Effective Rain, else null
         /// </summary>
         /// <param name="pEffectiveRain"></param>
         /// <returns></returns>

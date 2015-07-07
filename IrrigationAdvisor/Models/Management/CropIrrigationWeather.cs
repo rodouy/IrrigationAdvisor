@@ -427,7 +427,7 @@ namespace IrrigationAdvisor.Models.Management
 
                 lRealRain = pDailyRec.Rain.getTotalInput();
                 //Calculate Rain Effective Value
-                lEffectiveRain = this.CropIrrigationWeatherRecord.getEffectiveRainValue(pDailyRec.Rain);
+                lEffectiveRain = this.CropIrrigationWeatherRecord.GetEffectiveRainValue(pDailyRec.Rain);
                 this.TotalEffectiveRain += lEffectiveRain;
                 this.TotalRealRain += lRealRain;
                 this.CropIrrigationWeatherRecord.HydricBalance += lEffectiveRain;
