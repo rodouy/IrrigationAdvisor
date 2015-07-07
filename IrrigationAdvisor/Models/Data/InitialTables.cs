@@ -1844,7 +1844,8 @@ namespace IrrigationAdvisor.Models.Data
         {
             //Creo Variable local para guardar informacion a retornar
             List<Pair<String, int>> lCropCyclesInformationList = new List<Pair<string, int>>();
-
+            
+            //TODO Sacar hardcodeo de nombre de stages 
             //Creo la tabla para la tabla magica de soja
             String[] lColumnNames = new String[] { "SowingDate", "Vo","Ve","V1","V2","V3","V4","V5","V6","V7"
                 ,"V8","V9","V10","V11","R1","R2","R3","R4","R5","R6","R7","R8"};
@@ -1881,7 +1882,8 @@ namespace IrrigationAdvisor.Models.Data
         {
             //Creo Variable local para guardar informacion a retornar
             List<Pair<String, int>> lCropCyclesInformationList = new List<Pair<string, int>>();
-
+            
+            //TODO Sacar hardcodeo de nombre de stages 
             //Creo la tabla para la tabla magica de soja
             String[] lColumnNames = new String[] { "SowingDate", "Vo","Ve","V1","V2","V3","V4","V5","V6","V7"
                 ,"V8","V9","V10","V11","V12","V13","V14","Vt","R1","R2","R3","R4","R5","R6"};

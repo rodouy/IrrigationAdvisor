@@ -198,7 +198,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             }
             else if (this.Specie.Name.ToUpper().Equals("MAIZ"))
             {
-
+                lReturn = InitialTables.GetCropInformationByDateForMaiz(this.SowingDate);
             }
             else if (this.Specie.Name.ToUpper().Equals("SORGO"))
             {
