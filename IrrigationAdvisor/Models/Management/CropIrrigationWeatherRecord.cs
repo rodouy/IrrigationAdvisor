@@ -30,11 +30,11 @@ namespace IrrigationAdvisor.Models.Management
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - idCropIrrigationWeatherRecord: int
+    ///     - cropIrrigationWeatherRecordId: int
     ///     - cropIrrigationWeather: CropIrrigationWeather    - PK
-    ///     - dailyRecords: List<DailyRecord>
-    ///     - growingDegreeDays: double
-    ///     - modifiedGrowingDegreeDays: double
+    ///     - dailyRecordList: List<DailyRecord>
+    ///     - growingDegreeDaysAcumulated: double
+    ///     - growingDegreeDaysModified: double
     ///     - totalEvapotranspirationCrop: double
     ///     - totalEffectiveRain: double
     ///     - totalIrrigation: double
@@ -51,13 +51,13 @@ namespace IrrigationAdvisor.Models.Management
     ///     - GetPhenologicalStage(DayGrades: double): Stage
     ///     - setGrowingDegreeDays(): bool
     ///     - setPhenologicalState(Stage): bool
-    ///     - setNewPhenologicalStage(Stage): GrowingDegreeDays: double
+    ///     - setNewPhenologicalStage(Stage): GrowingDegreeDaysAcumulated: double
     ///     - GetRootDepth(Specie, Stage): double
-    ///     - GetPhenologicalStage(GrowingDegreeDays: double): Stage
-    ///     - getAvailableWater(RootDepth:double, FieldCapacity:double, PermanentWiltingPoint:double): double
-    ///     - getHydricBalance(): double
+    ///     - GetPhenologicalStage(GrowingDegreeDaysAcumulated: double): Stage
+    ///     - getAvailableWater(RootDepth:double, FieldCapacity:double, lPermanentWiltingPoint:double): double
+    ///     - GetHydricBalance(): double
     ///     - getSoilHydricVolume(): double
-    ///     - getEffectiveRain(Date): double
+    ///     - GetEffectiveRain(Date): double
     ///     - getGrowingDegree(Date): double
     ///     - getEvapotranspirationCrop(Date): double
     ///     - getObservations(Date): String
@@ -73,20 +73,12 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Fields
 
-        private int idCropIrrigationWeatherRecord;
+        private int cropIrrigationWeatherRecordId;
         private Pair<int, DateTime> dayAfterSowing;
         private List<EffectiveRain> effectiveRain;
-        private CropIrrigationWeather cropIrrigationWeather;
-        private List<DailyRecord> dailyRecords;
-        private double growingDegreeDays;
-        private double modifiedGrowingDegreeDays;
-        private double totalEvapotranspirationCrop;
-        private double totalEffectiveRain;
-        private double totalRealRain;
-        private double totalIrrigation;
-        private double totalIrrigationInHidricBalance;
-        private double totalExtraIrrigation;
-        private double totalExtraIrrigationInHidricBalance;
+        private List<DailyRecord> dailyRecordList;
+        private double growingDegreeDaysAcumulated;
+        private double growingDegreeDaysModified;
         private double hydricBalance;
         private double soilHydricVolume;
         private DateTime lastWaterInputDate;
@@ -95,6 +87,10 @@ namespace IrrigationAdvisor.Models.Management
         private double lastPartialWaterInput;
         private double totalEvapotranspirationCropFromLastWaterInput;
 
+        private PhenologicalStage phenologicalStage;
+        private DateTime sowingDate;
+        private DateTime harvestDate;
+        
         private String outPut;
 
         private List<String> titles;
@@ -108,10 +104,10 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Properties
 
-        public int IdCropIrrigationWeatherRecord
+        public int CropIrrigationWeatherRecordId
         {
-            get { return idCropIrrigationWeatherRecord; }
-            set { idCropIrrigationWeatherRecord = value; }
+            get { return cropIrrigationWeatherRecordId; }
+            set { cropIrrigationWeatherRecordId = value; }
         }
 
         public Pair<int, DateTime> DayAfterSowing
@@ -120,77 +116,29 @@ namespace IrrigationAdvisor.Models.Management
             set { dayAfterSowing = value; }
         }
 
-        public CropIrrigationWeather CropIrrigationWeather
-        {
-            get { return cropIrrigationWeather; }
-            set { cropIrrigationWeather = value; }
-        }
-
         public List<EffectiveRain> EffectiveRain
         {
             get { return effectiveRain; }
             set { effectiveRain = value; }
         }
 
-        public double TotalRealRain
-        {
-            get { return totalRealRain; }
-            set { totalRealRain = value; }
-        }
-
         public List<DailyRecord> DailyRecordList
         {
-            get { return dailyRecords; }
-            set { dailyRecords = value; }
+            get { return dailyRecordList; }
+            set { dailyRecordList = value; }
         }
 
-        public double GrowingDegreeDays
+        public double GrowingDegreeDaysAcumulated
         {
-            get { return growingDegreeDays; }
-            set { growingDegreeDays = value; }
+            get { return growingDegreeDaysAcumulated; }
+            set { growingDegreeDaysAcumulated = value; }
         }
 
-        public double ModifiedGrowingDegreeDays
+        public double GrowingDegreeDaysModified
         {
-            get { return modifiedGrowingDegreeDays; }
-            set { modifiedGrowingDegreeDays = value; }
+            get { return growingDegreeDaysModified; }
+            set { growingDegreeDaysModified = value; }
         }
-
-        public double TotalEvapotranspirationCrop
-        {
-            get { return totalEvapotranspirationCrop; }
-            set { totalEvapotranspirationCrop = value; }
-        }
-
-        public double TotalEffectiveRain
-        {
-            get { return totalEffectiveRain; }
-            set { totalEffectiveRain = value; }
-        }
-
-        public double TotalIrrigation
-        {
-            get { return totalIrrigation; }
-            set { totalIrrigation = value; }
-        }
-
-        public double TotalIrrigationInHidricBalance
-        {
-            get { return totalIrrigationInHidricBalance; }
-            set { totalIrrigationInHidricBalance = value; }
-        }
-
-        public double TotalExtraIrrigation
-        {
-            get { return totalExtraIrrigation; }
-            set { totalExtraIrrigation = value; }
-        }
-        public double TotalExtraIrrigationInHidricBalance
-        {
-            get { return totalExtraIrrigationInHidricBalance; }
-            set { totalExtraIrrigationInHidricBalance = value; }
-        }
-
 
         public double HydricBalance
         {
@@ -216,25 +164,42 @@ namespace IrrigationAdvisor.Models.Management
             set { lastBigWaterInputDate = value; }
         }
 
+        public DateTime LastPartialWaterInputDate
+        {
+            get { return lastPartialWaterInputDate; }
+            set { lastPartialWaterInputDate = value; }
+        }
+        
         public double LastPartialWaterInput
         {
             get { return lastPartialWaterInput; }
             set { lastPartialWaterInput = value; }
         }
 
-        public DateTime LastPartialWaterInputDate
-        {
-            get { return lastPartialWaterInputDate; }
-            set { lastPartialWaterInputDate = value; }
-        }
-
-
         public double TotalEvapotranspirationCropFromLastWaterInput
         {
             get { return totalEvapotranspirationCropFromLastWaterInput; }
             set { totalEvapotranspirationCropFromLastWaterInput = value; }
         }
+        
+        public PhenologicalStage PhenologicalStage
+        {
+            get { return phenologicalStage; }
+            set { phenologicalStage = value; }
+        }
+        
+        public DateTime SowingDate
+        {
+            get { return sowingDate; }
+            set { sowingDate = value; }
+        }
 
+        public DateTime HarvestDate
+        {
+            get { return harvestDate; }
+            set { harvestDate = value; }
+        }
+        
         public String OutPut
         {
             get { return outPut; }
@@ -246,6 +211,7 @@ namespace IrrigationAdvisor.Models.Management
             get { return titles; }
             set { titles = value; }
         }
+
         public List<List<String>> Messages
         {
             get { return messages; }
@@ -272,24 +238,20 @@ namespace IrrigationAdvisor.Models.Management
 
         public CropIrrigationWeatherRecord()
         {
-            this.IdCropIrrigationWeatherRecord = 0;
+            this.CropIrrigationWeatherRecordId = 0;
             this.DayAfterSowing = new Pair<int, DateTime>(1, DateTime.MinValue);
-            this.CropIrrigationWeather = new CropIrrigationWeather();
             this.EffectiveRain = new List<EffectiveRain>();
             this.DailyRecordList = new List<DailyRecord>();
-            this.GrowingDegreeDays = 0;
-            this.ModifiedGrowingDegreeDays = 0;
-            this.TotalEvapotranspirationCrop = 0;
-            this.TotalEffectiveRain = 0;
-            this.TotalRealRain = 0;
-            this.TotalIrrigation = 0;
-            this.totalIrrigationInHidricBalance = 0;
-            this.TotalExtraIrrigation = 0;
-            this.TotalExtraIrrigationInHidricBalance = 0;
-            this.HydricBalance = this.CropIrrigationWeather.GetInitialHidricBalance();
+            this.GrowingDegreeDaysAcumulated = 0;
+            this.GrowingDegreeDaysModified = 0;
+            this.HydricBalance = 0;
             this.SoilHydricVolume = 0;
             this.LastWaterInputDate = DateTime.Now;
             this.TotalEvapotranspirationCropFromLastWaterInput = 0;
+
+            this.PhenologicalStage = new PhenologicalStage();
+            this.SowingDate = new DateTime();
+            this.HarvestDate = new DateTime();
 
             this.Titles = new List<string>();
             this.Messages = new List<List<string>>();
@@ -300,31 +262,47 @@ namespace IrrigationAdvisor.Models.Management
 
         }
 
-        public CropIrrigationWeatherRecord(int pId, Pair<int, DateTime> pDayAfterSowing, CropIrrigationWeather pCropIrrigationWeather,
-            List<EffectiveRain> pEffectiveRain, List<DailyRecord> pDailyRecords, double pGrowingDegreeDays,
-            double pModifiedGrowingDegreeDays, double pTotalEvapotranspirationCrop, double pTotalEffectiveRain,
-            double pTotalRealRain, double pTotalIrrigation, double pTotalExtraIrrigation, double pHidricBalance, double pSoilHidricVolume,
-            DateTime pLastWaterInput, double pTotalEvapotranspirationCropFromLastWaterInput)
-        {
-            this.IdCropIrrigationWeatherRecord = pId;
+
+        /// <summary>
+        /// Create an instance of CropIrrigationWeatherRecord using parameters
+        /// </summary>
+        /// <param name="pCropIrrigationWeatherRecordId"></param>
+        /// <param name="pDayAfterSowing"></param>
+        /// <param name="pEffectiveRain"></param>
+        /// <param name="pDailyRecords"></param>
+        /// <param name="pGrowingDegreeDaysAcumulated"></param>
+        /// <param name="pGrowingDegreeDaysModified"></param>
+        /// <param name="pHidricBalance"></param>
+        /// <param name="pSoilHidricVolume"></param>
+        /// <param name="pLastWaterInput"></param>
+        /// <param name="pTotalEvapotranspirationCropFromLastWaterInput"></param>
+        /// <param name="pPhenologicalStage"></param>
+        /// <param name="pSowingDate"></param>
+        /// <param name="pHarvestDate"></param>
+        public CropIrrigationWeatherRecord(int pCropIrrigationWeatherRecordId, Pair<int, DateTime> pDayAfterSowing,
+                                        List<EffectiveRain> pEffectiveRain, List<DailyRecord> pDailyRecords, 
+                                        double pGrowingDegreeDaysAcumulated, double pGrowingDegreeDaysModified, 
+                                        double pHidricBalance, double pSoilHidricVolume, DateTime pLastWaterInput, 
+                                        double pTotalEvapotranspirationCropFromLastWaterInput,
+                                        PhenologicalStage pPhenologicalStage, 
+                                        DateTime pSowingDate, DateTime pHarvestDate)
+         {
+            this.CropIrrigationWeatherRecordId = pCropIrrigationWeatherRecordId;
             this.DayAfterSowing = pDayAfterSowing;
-            this.CropIrrigationWeather = pCropIrrigationWeather;
             this.EffectiveRain = pEffectiveRain;
             this.DailyRecordList = pDailyRecords;
-            this.GrowingDegreeDays = pGrowingDegreeDays;
-            this.ModifiedGrowingDegreeDays = pModifiedGrowingDegreeDays;
-            this.TotalEvapotranspirationCrop = pTotalEvapotranspirationCrop;
-            this.TotalEffectiveRain = pTotalEffectiveRain;
-            this.TotalRealRain = pTotalRealRain;
-            this.TotalIrrigation = pTotalIrrigation;
-            this.TotalIrrigationInHidricBalance = 0;
-            this.TotalExtraIrrigation = pTotalExtraIrrigation;
-            this.TotalExtraIrrigationInHidricBalance = 0;
+            this.GrowingDegreeDaysAcumulated = pGrowingDegreeDaysAcumulated;
+            this.GrowingDegreeDaysModified = pGrowingDegreeDaysModified;
+            
             this.HydricBalance = pHidricBalance;
             this.SoilHydricVolume = pSoilHidricVolume;
             this.LastWaterInputDate = pLastWaterInput;
             this.TotalEvapotranspirationCropFromLastWaterInput = pTotalEvapotranspirationCropFromLastWaterInput;
-
+            
+            this.PhenologicalStage = pPhenologicalStage;
+            this.SowingDate = pSowingDate;
+            this.HarvestDate = pHarvestDate;
+            
             this.Titles = new List<string>();
             this.Messages = new List<List<string>>();
             this.TitlesDaily = new List<string>();
@@ -336,6 +314,7 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Private Helpers
+
         /// <summary>
         /// Return the most recently date of water input 
         /// </summary>
@@ -358,23 +337,12 @@ namespace IrrigationAdvisor.Models.Management
 
         }
 
-        /// <summary>
-        /// Review the dailyRecords to set the data for: 
-        /// - GrowingDegreeDays
-        /// - ModifiedGrowingDegreeDays
-        /// - TotalEvapotranspirationCrop
-        /// - TotalEffectiveRain
-        /// - TotalIrrigation
-        /// - TotalEvapotranspirationCropFromLastWaterInput
-        /// - LastWaterInput
-        /// </summary>
-
 
         /// <summary>
         /// Get Days after Sowing for Modified Growing Degree
         /// </summary>
         /// <returns></returns>
-        public int getDaysAfterSowingForModifiedGrowingDegree()
+        public int GetDaysAfterSowingForModifiedGrowingDegree()
         {
             int lReturn = 0;
             double lastGDRegistry = 0;
@@ -383,18 +351,16 @@ namespace IrrigationAdvisor.Models.Management
 
             foreach (DailyRecord lDailyRec in lDailyRecordOrderByDate)
             {
-                if (this.ModifiedGrowingDegreeDays <= lDailyRec.GrowingDegreeAcumulated && this.ModifiedGrowingDegreeDays > lastGDRegistry)
+                if (this.GrowingDegreeDaysModified <= lDailyRec.GrowingDegreeAcumulated && this.GrowingDegreeDaysModified > lastGDRegistry)
                 {
                     lDate = lDailyRec.DateHour;
-                    lReturn = Utilities.Utils.getDaysDifference(this.CropIrrigationWeather.SowingDate, lDate);
+                    lReturn = Utilities.Utils.getDaysDifference(this.SowingDate, lDate);
                     return lReturn;
                 }
                 lastGDRegistry = lDailyRec.GrowingDegreeAcumulated;
             }
             return lReturn;
         }
-
-
 
         /// <summary>
         /// Return the effective rain for a Rain dependin on:
@@ -487,7 +453,7 @@ namespace IrrigationAdvisor.Models.Management
         /// TODO add description
         /// </summary>
         /// <returns></returns>
-        public string printState()
+        public string PrintState(CropIrrigationWeather pCropIrrigationWeather)
         {
             List<String> lMessage;
             string lReturn;
@@ -510,17 +476,17 @@ namespace IrrigationAdvisor.Models.Management
 
 
             lReturn = "";
-            lETcAcumulated = this.TotalEvapotranspirationCrop + "        ";
+            lETcAcumulated = pCropIrrigationWeather.TotalEvapotranspirationCrop + "        ";
             lETcFromLastWaterInput = this.TotalEvapotranspirationCropFromLastWaterInput + "        ";
-            lGrowDegree = this.GrowingDegreeDays + "        ";
-            lModifiedGrowingDegree = this.ModifiedGrowingDegreeDays + "        ";
-            lEffectiveRain = this.TotalEffectiveRain + "        ";
-            lTotalRain = this.TotalRealRain + "        ";
+            lGrowDegree = this.GrowingDegreeDaysAcumulated + "        ";
+            lModifiedGrowingDegree = this.GrowingDegreeDaysModified + "        ";
+            lEffectiveRain = pCropIrrigationWeather.TotalEffectiveRain + "        ";
+            lTotalRain = pCropIrrigationWeather.TotalRealRain + "        ";
             lHydricBalance = this.HydricBalance.ToString() + "        ";
-            lPercentageOfAvailableWater = this.getPercentageOfWaterInCrop() + "        ";
-            lAvailableWater = this.getSoilAvailableWaterCapacity() + "        ";
-            lFieldCapacity = this.getSoilFieldCapacity() + "        ";
-            lPermanentWilingPoint = this.getSoilPermanentWiltingPoint() + "        ";
+            lPercentageOfAvailableWater = pCropIrrigationWeather.GetPercentageOfWaterInCrop() + "        ";
+            lAvailableWater = pCropIrrigationWeather.GetSoilAvailableWaterCapacity() + "        ";
+            lFieldCapacity = pCropIrrigationWeather.GetSoilFieldCapacity() + "        ";
+            lPermanentWilingPoint = pCropIrrigationWeather.GetSoilPermanentWiltingPoint() + "        ";
 
             Water.Irrigation lWaterInput = this.GetDailyRecordByDate(this.DayAfterSowing.Second).Irrigation;
             if (lWaterInput == null)
@@ -535,8 +501,8 @@ namespace IrrigationAdvisor.Models.Management
                 lExtraIrrigation = lWaterInput.ExtraInput.ToString() + "        ";
                 lTypeOfIrrigation = lWaterInput.Type.ToString() + "                                 ";
             }
-            lTotIrrInHB = this.TotalIrrigationInHidricBalance.ToString() + "        ";
-            lTotExtraIrrInHB = this.TotalExtraIrrigationInHidricBalance.ToString() + "        ";
+            lTotIrrInHB = pCropIrrigationWeather.TotalIrrigationInHidricBalance.ToString() + "        ";
+            lTotExtraIrrInHB = pCropIrrigationWeather.TotalExtraIrrigationInHidricBalance.ToString() + "        ";
 
 
             lReturn = this.DayAfterSowing.First.ToString() +
@@ -553,8 +519,8 @@ namespace IrrigationAdvisor.Models.Management
                 " \t " + lEffectiveRain.Substring(0, 7) +
                 " \t " + lTotalRain.Substring(0, 7) +
                 " \t " + this.LastWaterInputDate.ToShortDateString() +
-                " \t\t " + this.GetRootDepth() +
-                " \tf " + this.CropIrrigationWeather.PhenologicalStage.Stage.Name +
+                " \t\t " + pCropIrrigationWeather.GetPhenologicalStageRootDepth(this.PhenologicalStage) +
+                " \tf " + this.PhenologicalStage.Stage.Name +
                 " \t " + lIrrigation.Substring(0, 7) +
                 " \t " + lTypeOfIrrigation.Substring(0, 30) +
                 " \t " + lTotIrrInHB.Substring(0, 7) +
@@ -579,8 +545,8 @@ namespace IrrigationAdvisor.Models.Management
             lMessage.Add(lEffectiveRain.Substring(0, 7));
             lMessage.Add(lTotalRain.Substring(0, 7));
             lMessage.Add(this.lastWaterInputDate.ToShortDateString());
-            lMessage.Add(this.GetRootDepth().ToString());
-            lMessage.Add(this.CropIrrigationWeather.PhenologicalStage.Stage.Name);
+            lMessage.Add(pCropIrrigationWeather.GetPhenologicalStageRootDepth(this.PhenologicalStage).ToString());
+            lMessage.Add(this.PhenologicalStage.Stage.Name);
             lMessage.Add(lIrrigation.Substring(0, 7));
             lMessage.Add(lTypeOfIrrigation.Substring(0, 30));
             lMessage.Add(lTotIrrInHB.Substring(0, 7));
@@ -599,38 +565,19 @@ namespace IrrigationAdvisor.Models.Management
         //     - GetPhenologicalStage(DayGrades: double): Stage
         //     - setGrowingDegreeDays(): bool
         //     - setPhenologicalState(Stage): bool
-        //     - setNewPhenologicalStage(Stage): GrowingDegreeDays: double
-        //     - GetPhenologicalStage(GrowingDegreeDays: double): Stage
-        //     - getAvailableWater(RootDepth:double, FieldCapacity:double, PermanentWiltingPoint:double): double
-        //     - getHydricBalance(): double
+        //     - setNewPhenologicalStage(Stage): GrowingDegreeDaysAcumulated: double
+        //     - GetPhenologicalStage(GrowingDegreeDaysAcumulated: double): Stage
+        //     - getAvailableWater(RootDepth:double, FieldCapacity:double, lPermanentWiltingPoint:double): double
+        //     - GetHydricBalance(): double
         //     - getSoilHydricVolume(): double
 
 
-        /// <summary>
-        /// Get Root Depth from Crop Phenological Stage
-        /// </summary>
-        /// <returns></returns>
-        public double GetRootDepth()
-        {
-            double lRootDepth;
-            lRootDepth = this.CropIrrigationWeather.GetPhenologicalStageRootDepth(this.CropIrrigationWeather.PhenologicalStage);
-            return lRootDepth;
-        }
-
-        /// <summary>
-        /// Get Depth from Crop Phenological Stage
-        /// </summary>
-        /// <returns></returns>
-        public double GetDepth()
-        {
-            double lDepth;
-            lDepth = this.CropIrrigationWeather.GetPhenologicalStageDepth(this.CropIrrigationWeather.PhenologicalStage);
-            return lDepth;
-        }
+        
+        
 
         /// <summary>
         /// Search the DailyRecord for the date passed by parameter.
-        /// If find one change the ModifiedGrowingDegree for this DailyRecord and change the ModifiedGrowingDegreeDays field 
+        /// If find one change the ModifiedGrowingDegree for this DailyRecord and change the GrowingDegreeDaysModified field 
         /// adding the value passed by parameter as lModification
         /// </summary>
         /// <param name="pStage"></param>
@@ -643,84 +590,13 @@ namespace IrrigationAdvisor.Models.Management
                 if (Utils.isTheSameDay(pDateTime, lDailyRec.DateHour))
                 {
                     lDailyRec.ModifiedGrowingDegree += lModification;// +lDailyRec.ModifiedGrowingDegree;
-                    this.ModifiedGrowingDegreeDays += lModification;
+                    this.GrowingDegreeDaysModified += lModification;
                 }
             }
         }
 
-        /// <summary>
-        /// Get Available Water from Hydric Balance vs Field Capacity
-        /// </summary>
-        /// <returns></returns>
-        public double getPercentageOfAvailableWater()
-        {
-            double lHidricBalance;
-            double lFieldCapacity;
-            double lPermanentWiltingPoint;
-            double lPercentageOfAvailableWater;
-
-            lHidricBalance = this.HydricBalance;
-            lFieldCapacity = this.getSoilFieldCapacity();
-            lPermanentWiltingPoint = this.getSoilPermanentWiltingPoint();
-
-            lPercentageOfAvailableWater = Math.Round(((lHidricBalance - lPermanentWiltingPoint) * 100)
-                                        / (lFieldCapacity - lPermanentWiltingPoint), 2);
-            return lPercentageOfAvailableWater;
-        }
-
-        public double getPercentageOfWaterInCrop()
-        {
-            double lHidricBalance;
-            double lFieldCapacity;
-            double lPermanentWiltingPoint;
-            double lPercentageOfWater;
-
-            lHidricBalance = this.HydricBalance;
-            lFieldCapacity = this.getSoilFieldCapacity();
-            lPermanentWiltingPoint = this.getSoilPermanentWiltingPoint();
-
-            lPercentageOfWater = Math.Round(((lHidricBalance) * 100)
-                                        / (lFieldCapacity), 2);
-            return lPercentageOfWater;
-        }
-        /// <summary>
-        /// Get Soil Permanent Wilting Poing
-        /// The data is obtained from Crop Soil depending Root Depth
-        /// </summary>
-        /// <returns></returns>
-        public double getSoilPermanentWiltingPoint()
-        {
-            double lSoilPermanentWiltingPoint;
-
-            lSoilPermanentWiltingPoint = this.CropIrrigationWeather.GetSoilPermanentWiltingPoint();
-            return lSoilPermanentWiltingPoint;
-        }
-
-        /// <summary>
-        /// Get Soil Available Water Capacity 
-        /// From Crop Soil by Root Depth 
-        /// </summary>
-        /// <returns></returns>
-        public double getSoilAvailableWaterCapacity()
-        {
-            double lSoilAvailableWaterCapacity;
-
-            lSoilAvailableWaterCapacity = this.CropIrrigationWeather.GetSoilAvailableWaterCapacity();
-            return lSoilAvailableWaterCapacity;
-        }
-
-        /// <summary>
-        /// Get Soil Field Capacity
-        /// From Crop Soil by Root Depth
-        /// </summary>
-        /// <returns></returns>
-        public double getSoilFieldCapacity()
-        {
-            double lSoilFieldCapacity;
-
-            lSoilFieldCapacity = this.CropIrrigationWeather.GetSoilFieldCapacity();
-            return lSoilFieldCapacity;
-        }
+        
+        
 
         /// <summary>
         /// Gives the effective rain registered in a specific date including the input and extraInput value.
@@ -865,7 +741,7 @@ namespace IrrigationAdvisor.Models.Management
                 lMessageDaily = new List<string>();
                 lMessageDaily.Add(lDR.DateHour.ToString());
                 lMessageDaily.Add(lDR.GrowingDegree.ToString());
-                lMessageDaily.Add(lDR.EvapotranspirationCrop.getTotalInput().ToString());
+                lMessageDaily.Add(lDR.EvapotranspirationCrop.GetTotalInput().ToString());
                 if (lDR.Rain == null)
                 {
                     lMessageDaily.Add("0");

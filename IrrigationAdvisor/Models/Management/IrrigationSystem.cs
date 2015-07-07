@@ -372,7 +372,6 @@ namespace IrrigationAdvisor.Models.Management
             #region Management
 
             this.CropIrrigationWeatherList = new List<CropIrrigationWeather>();
-            this.cropIrrigationWeatherRecordList = new List<CropIrrigationWeatherRecord>();
             this.IrrigationCalculus = new IrrigationCalculus();
             
             #endregion
@@ -438,7 +437,7 @@ namespace IrrigationAdvisor.Models.Management
         #region Management
 
         /// <summary>
-        /// Search the cropIrrigationWeatherRecord of the CropIrrigationWeather and delegate the creation of the daily record
+        /// Search the CropIrrigationWeather of the CropIrrigationWeatherList and delegate the creation of the daily record
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pWeatherData"></param>
@@ -452,11 +451,11 @@ namespace IrrigationAdvisor.Models.Management
                                                     WeatherData pAlternativeWeatherData, Water.Rain pRain,
                                                     Water.Irrigation plIrrigation, string pObservations)
         {
-            foreach (CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
+            foreach (CropIrrigationWeather lCropIrrigationWeather in this.CropIrrigationWeatherList)
             {
-                if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                if (lCropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    pCropIrrigationWeather.addDailyRecord(pWeatherData, pMainWeatherData, pAlternativeWeatherData, pRain, plIrrigation, pObservations);
+                    pCropIrrigationWeather.AddDailyRecord(pWeatherData, pMainWeatherData, pAlternativeWeatherData, pRain, plIrrigation, pObservations);
                     break;
                 }
             }
@@ -973,18 +972,18 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pNewStage"></param>
         /// <param name="pDateTime"></param>
-        public void adjustmentPhenology(CropIrrigationWeather pCropIrrigationWeather, 
+        public void AdjustmentPhenology(CropIrrigationWeather pCropIrrigationWeather, 
                                     Stage pNewStage, DateTime pDateTime)
         {
             Stage lActualStage;
             double lModification;
-            foreach (CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
+            foreach (CropIrrigationWeather lCropIrrigationWeather in this.CropIrrigationWeatherList)
             {
-                if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                if (lCropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    lActualStage = lCropIrrigationWeatherRecord.CropIrrigationWeather.PhenologicalStage.Stage;
+                    lActualStage = lCropIrrigationWeather.CropIrrigationWeatherRecord.PhenologicalStage.Stage;
                     lModification = calculateDegreeStageDifference(lActualStage, pNewStage, pCropIrrigationWeather.Crop);
-                    lCropIrrigationWeatherRecord.adjustmentPhenology(pNewStage, pDateTime, lModification);
+                    lCropIrrigationWeather.AdjustmentPhenology(pNewStage, pDateTime, lModification);
                 }
             }
         }
@@ -1764,31 +1763,32 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Add Crop Irrigation Weather to System list
         /// </summary>
         /// <param name="pIrrigationUnit"></param>
         /// <param name="pCrop"></param>
         /// <param name="pMainWeatherStation"></param>
         /// <param name="pAlternativeWeatherStation"></param>
         /// <param name="pPredeterminatedIrrigationQuantity"></param>
-        /// <param name="pInitialPhenologicalStage"></param>
         /// <param name="pLocation"></param>
-        /// <param name="pSowingDate"></param>
-        /// <param name="pHarvestDate"></param>
         /// <param name="pSoil"></param>
         /// <returns></returns>
         public CropIrrigationWeather AddCropIrrigationWeather(IrrigationUnit pIrrigationUnit, Crop pCrop,
-                                                    WeatherStation pMainWeatherStation, WeatherStation pAlternativeWeatherStation,
-                                                    double pPredeterminatedIrrigationQuantity, PhenologicalStage pInitialPhenologicalStage,
-                                                    Location pLocation, DateTime pSowingDate, DateTime pHarvestDate, Soil pSoil)
+                                                    WeatherStation pMainWeatherStation, 
+                                                    WeatherStation pAlternativeWeatherStation,
+                                                    double pPredeterminatedIrrigationQuantity, 
+                                                    Location pLocation, Soil pSoil,
+                                                    CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
         {
             CropIrrigationWeather lReturn = null;
-            long lIdCropIrrigationWeather = this.CropIrrigationWeatherList.Count();
-            CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather(lIdCropIrrigationWeather,
+            long lCropIrrigationWeatherId = this.CropIrrigationWeatherList.Count();
+            CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather(lCropIrrigationWeatherId,
                                                     pIrrigationUnit, pCrop,
                                                     pMainWeatherStation, pAlternativeWeatherStation,
-                                                    pPredeterminatedIrrigationQuantity, pInitialPhenologicalStage,
-                                                    pLocation, pSowingDate, pHarvestDate, pSoil);
+                                                    pPredeterminatedIrrigationQuantity,
+                                                    pLocation, pSoil, 0, 0, 0, 0, 0);
+
+            lCropIrrigationWeather.CropIrrigationWeatherRecord = pCropIrrigationWeatherRecord;
 
             lReturn = ExistCropIrrigationWeather(lCropIrrigationWeather);
             if(lReturn == null)
@@ -1815,15 +1815,15 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public CropIrrigationWeather UpdateCropIrrigationWeather(IrrigationUnit pIrrigationUnit, Crop pCrop,
                                                     WeatherStation pMainWeatherStation, WeatherStation pAlternativeWeatherStation,
-                                                    double pPredeterminatedIrrigationQuantity, PhenologicalStage pPhenologicalStage,
-                                                    Location pLocation, DateTime pSowingDate, DateTime pHarvestDate, Soil pSoil)
+                                                    double pPredeterminatedIrrigationQuantity, 
+                                                    Location pLocation, Soil pSoil)
         {
             CropIrrigationWeather lReturn = null;
             CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather(0,
                                                     pIrrigationUnit, pCrop,
                                                     pMainWeatherStation, pAlternativeWeatherStation,
-                                                    pPredeterminatedIrrigationQuantity, pPhenologicalStage,
-                                                    pLocation, pSowingDate, pHarvestDate, pSoil);
+                                                    pPredeterminatedIrrigationQuantity,
+                                                    pLocation, pSoil, 0,0,0,0,0);
             lReturn = ExistCropIrrigationWeather(lCropIrrigationWeather);
             if(lReturn != null)
             {
@@ -1832,11 +1832,9 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.MainWeatherStation = pMainWeatherStation;
                 lReturn.AlternativeWeatherStation = pAlternativeWeatherStation;
                 lReturn.PredeterminatedIrrigationQuantity = pPredeterminatedIrrigationQuantity;
-                lReturn.PhenologicalStage = pPhenologicalStage;
                 lReturn.Location = pLocation;
-                lReturn.SowingDate = pSowingDate;
-                lReturn.HarvestDate = pHarvestDate;
                 lReturn.Soil = pSoil;
+
             }
             return lReturn;
         }
@@ -1848,38 +1846,37 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <returns></returns>
-        public CropIrrigationWeather AddCropIrrigationWeatherRecord(CropIrrigationWeather pCropIrrigationWeather) 
+        public CropIrrigationWeather AddCropIrrigationWeatherRecord(CropIrrigationWeather pCropIrrigationWeather,
+                                                                    PhenologicalStage pInitialPhenologicalStage, 
+                                                                    DateTime pSowingDate, DateTime pHarvestDate) 
         {
             CropIrrigationWeather lReturn = null;
             CropIrrigationWeatherRecord lCropIrrigationWeatherRecord;
             List<EffectiveRain> lEffectiveRain;
-            double bhi;
-            DateTime lSowingDate;
+            double lHydricBalance;
             try
             {
 
                 //Create the cropIrrigationWeatherRecord for the CropIrrigationWeather
                 lCropIrrigationWeatherRecord = new CropIrrigationWeatherRecord();
 
+                lCropIrrigationWeatherRecord.PhenologicalStage = pInitialPhenologicalStage;
+                lCropIrrigationWeatherRecord.SowingDate = pSowingDate;
+                lCropIrrigationWeatherRecord.HarvestDate = pHarvestDate;
+
                 //Get Effective Rain List from Region
                 lEffectiveRain = this.GetEffectiveRainList(pCropIrrigationWeather.IrrigationUnit.Location.Region);
-
                 lCropIrrigationWeatherRecord.EffectiveRain = lEffectiveRain;
-                lCropIrrigationWeatherRecord.CropIrrigationWeather = pCropIrrigationWeather;
-
+                
                 //Get Initial Hidric Balance
-                bhi = pCropIrrigationWeather.GetInitialHidricBalance();
-                lCropIrrigationWeatherRecord.HydricBalance = bhi;
+                lHydricBalance = pCropIrrigationWeather.GetInitialHydricBalance();
+                lCropIrrigationWeatherRecord.HydricBalance = lHydricBalance;
 
                 pCropIrrigationWeather.CropIrrigationWeatherRecord = lCropIrrigationWeatherRecord;
                 
-                //Add to the system list 
-                this.CropIrrigationWeatherList.Add(pCropIrrigationWeather);
-                this.cropIrrigationWeatherRecordList.Add(lCropIrrigationWeatherRecord);
                 
                 //Create the initial registry
-                lSowingDate = pCropIrrigationWeather.SowingDate;
-                this.addDailyRecordToList(pCropIrrigationWeather, lSowingDate, "Initial registry");
+                this.addDailyRecordToList(pCropIrrigationWeather, pSowingDate, "Initial registry");
                 
             }
             catch (Exception e)
@@ -1956,7 +1953,7 @@ namespace IrrigationAdvisor.Models.Management
             double lQuantityOfWaterToIrrigate;
             Utils.WaterInputType lTypeOfIrrigation;
 
-            lNeedForIrrigationPair = this.howMuchToIrrigate(pCropIrrigationWeather);
+            lNeedForIrrigationPair = this.IrrigationCalculus.HowMuchToIrrigate(pCropIrrigationWeather);
             lQuantityOfWaterToIrrigate = lNeedForIrrigationPair.First;
             lTypeOfIrrigation = lNeedForIrrigationPair.Second;
 
@@ -1967,33 +1964,7 @@ namespace IrrigationAdvisor.Models.Management
             }
         }
 
-        /// <summary>
-        /// TODO explain method
-        /// </summary>
-        /// <param name="pCropIrrigationWeather"></param>
-        /// <returns></returns>
-        public Pair<double, Utils.WaterInputType> howMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
-        {
-            Pair<double, Utils.WaterInputType> lReturn = null;
-            CropIrrigationWeatherRecord lCropIrrigationWeatherRecord = null;
-            //Find the Crop Irrigation Weather Records
-            foreach (CropIrrigationWeatherRecord oneCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
-            {
-                if (oneCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
-                {
-                    lCropIrrigationWeatherRecord = oneCropIrrigationWeatherRecord;
-                    break;
-                }
-
-            }
-            //With the Crop Irrigation Weather Records Calculate how much water to irrigate
-            if (lCropIrrigationWeatherRecord != null)
-            {
-                lReturn = this.IrrigationCalculus.howMuchToIrrigate(lCropIrrigationWeatherRecord);
-            }
-            return lReturn;
-        }
-
+        
 
         #endregion
 
@@ -2005,7 +1976,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// TODO explain method
         /// </summary>
-        /// <param name="pCropIrrigationWeatherRecord"></param>
+        /// <param name="pCropIrrigationWeather"></param>
         /// <returns></returns>
         public String printDailyRecordsList(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
         {
@@ -2029,13 +2000,7 @@ namespace IrrigationAdvisor.Models.Management
         public String printDailyrecordsList(CropIrrigationWeather pCropIrrigationWeather)
         {
             String lReturn = "";
-            foreach(CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
-            {
-                if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
-                {
-                    lReturn = printDailyRecordsList(lCropIrrigationWeatherRecord);
-                }
-            }
+            lReturn = printDailyRecordsList(pCropIrrigationWeather.CropIrrigationWeatherRecord);
             return lReturn;
         }
 

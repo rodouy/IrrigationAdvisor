@@ -32,7 +32,7 @@ namespace IrrigationAdvisor.Models.Water
     /// Methods:
     ///     - WaterOutput()      -- constructor
     ///     - WaterOutput(input, date, extraInput, extraDate)  -- consturctor with parameters
-    ///     - getInputType()
+    ///     - GetInputType()
     /// 
     /// </summary>
     public class WaterOutput
@@ -112,11 +112,12 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Public Methods
 
-        public String getInputType()
+        public String GetInputType()
         {
             return this.TYPE;
         }
-        public double getTotalInput()
+
+        public double GetTotalInput()
         {
             return this.Input + this.ExtraInput;
         }

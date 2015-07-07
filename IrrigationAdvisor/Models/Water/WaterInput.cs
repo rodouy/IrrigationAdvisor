@@ -32,7 +32,7 @@ namespace IrrigationAdvisor.Models.Water
     /// Methods:
     ///     - WaterInput()      -- constructor
     ///     - WaterInput(input, date, extraInput, extraDate)  -- consturctor with parameters
-    ///     - getInputType()
+    ///     - GetInputType()
     /// 
     /// </summary>
     public class WaterInput
