@@ -67,25 +67,28 @@ namespace IrrigationAdvisor.Models.Management
         /// If the Hydric Balance is lower than the Water Threhold we need to Irrigate
         /// The water Threhold is the half of the Available Water
         /// </summary>
-        /// <param name="pCropIrrigationWeatherRecord"></param>
+        /// <param name="pCropIrrigationWeather"></param>
         /// <returns></returns>
-        public bool IrrigateByHydricBalance(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
+        public bool IrrigateByHydricBalance(CropIrrigationWeather pCropIrrigationWeather)
         {
             bool lReturn = false;
             double lAvailableWater;
             double lHydricBalance;
-            double PermanentWiltingPoint;
+            double lPermanentWiltingPoint;
             double lThreshold;
             double lMinEvapotrasnpirationToIrrigate;
             double lEvapotrAcum;
 
-            lAvailableWater = pCropIrrigationWeatherRecord.CropIrrigationWeather.GetSoilAvailableWaterCapacity();
-            lHydricBalance = pCropIrrigationWeatherRecord.HydricBalance;
-            PermanentWiltingPoint = pCropIrrigationWeatherRecord.getSoilPermanentWiltingPoint();
-            lThreshold = Math.Round(lAvailableWater * InitialTables.PERCENTAGE_LIMIT_OF_AVAILABLE_WATER_CAPACITY, 2) + PermanentWiltingPoint;
-            lMinEvapotrasnpirationToIrrigate = pCropIrrigationWeatherRecord.CropIrrigationWeather.Crop.MinEvapotranspirationToIrrigate;
-            lEvapotrAcum = pCropIrrigationWeatherRecord.TotalEvapotranspirationCropFromLastWaterInput;
+            lAvailableWater = pCropIrrigationWeather.GetSoilAvailableWaterCapacity();
+            lPermanentWiltingPoint = pCropIrrigationWeather.GetSoilPermanentWiltingPoint();
+            //This is the Threshold to determinate the need of irrigation
+            lThreshold = Math.Round(lAvailableWater * InitialTables.PERCENTAGE_LIMIT_OF_AVAILABLE_WATER_CAPACITY, 2) + lPermanentWiltingPoint;
+
+            lMinEvapotrasnpirationToIrrigate = pCropIrrigationWeather.Crop.MinEvapotranspirationToIrrigate;
+
+            lEvapotrAcum = pCropIrrigationWeather.GetTotalEvapotranspirationCropFromLastWaterInput();
             
+            lHydricBalance = pCropIrrigationWeather.GetHydricBalance();
             
             if (lHydricBalance <= lThreshold && lEvapotrAcum >= lMinEvapotrasnpirationToIrrigate)
             {

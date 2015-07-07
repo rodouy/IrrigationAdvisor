@@ -25,7 +25,7 @@ namespace IrrigationAdvisor.Models.Data
     ///     - Region
     ///     - IrrigationSystem
     ///     - CropCoefficient
-    ///     - EffectiveRain
+    ///     - EffectiveRainList
     ///     - PhenologicalStage
     ///     
     /// Dependencies:

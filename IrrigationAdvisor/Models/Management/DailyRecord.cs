@@ -48,7 +48,7 @@ namespace IrrigationAdvisor.Models.Management
     ///     - getDailyAverageTemperature(): double
     ///     - getEvapotranspiration(): double
     ///     - getCropCoefficient(): double
-    ///     - getEffectiveRain(Region, rain:double, Date): double
+    ///     - GetEffectiveRain(Region, rain:double, Date): double
     ///     - setObservations(String): bool
     ///      
     /// </summary>
@@ -187,13 +187,13 @@ namespace IrrigationAdvisor.Models.Management
         ///     - getDailyAverageTemperature(): double
         ///     - getEvapotranspiration(): double
         ///     - getCropCoefficient(): double
-        ///     - getEffectiveRain(Region, rain:double, Date): double
+        ///     - GetEffectiveRain(Region, rain:double, Date): double
         #endregion
 
         #region Overrides
         public override string ToString()
         {
-            string etc = this.EvapotranspirationCrop.getTotalInput().ToString() + "          ";
+            string etc = this.EvapotranspirationCrop.GetTotalInput().ToString() + "          ";
             string rain = "       ";
             string irrigation = "       ";
             int index = 5;

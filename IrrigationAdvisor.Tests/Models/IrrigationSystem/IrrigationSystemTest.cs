@@ -137,7 +137,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private List<EffectiveRain> testEffectiveRainsList;
         //private List<PhenologicalStage> testPhenologicalStageList;
         //private Pair<Region, List<PhenologicalStage>> testPhenologicalStagesForRegion;
-        //private Pair<Region, List<EffectiveRain>> testEffectiveRainsForRegion;
+        //private Pair<Region, List<EffectiveRainList>> testEffectiveRainsForRegion;
         
 
         private List<Pair<DateTime, Stage>> PhenologicalStageChange_Pivot2;
@@ -342,6 +342,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             //22.  Create Crop Irrigation Weather
             createCropIrrigationWeatherSantaLucia();
 
+            //Creating Crop Irrigation Weather Records
+            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_2, 
+                                                                testInitialPhenologicalStage_Maiz, 
+                                                                testDateBeginCrop_Pivot2, testDateEndCrop_Pivot2);
+            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_3_4,
+                                                                testInitialPhenologicalStage_Soja,
+                                                                testDateBeginCrop_Pivot3_4, testDateEndCrop_Pivot3_4);
+            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_5,
+                                                                testInitialPhenologicalStage_Maiz,
+                                                                testDateBeginCrop_Pivot5, testDateEndCrop_Pivot5);
+
             //23.  Add Information of Weather
             ExternalData.AddWeatherData(testIrrigationSystem, testWeatherStation, testWeatherDataStartDate);
 
@@ -351,16 +362,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             //25.  Add Information of Irrigation
             addIrrigationData();
 
-            //Adding to system the Irrigation Unit (pivots)
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_2);
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_3_4);
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_5);
-
             
             //Find the records of Crop Irrigation Unit (Pivots)
-            testCropIrrigationWeatherRecord_Pivot_2 = testIrrigationSystem.CropIrrigationWeatherRecordList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigationWeather_Pivot_2));
-            testCropIrrigationWeatherRecord_Pivot_3_4 = testIrrigationSystem.CropIrrigationWeatherRecordList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigationWeather_Pivot_3_4));
-            testCropIrrigationWeatherRecord_Pivot_5 = testIrrigationSystem.CropIrrigationWeatherRecordList.Find(x => x.CropIrrigationWeather.Equals(testCropIrrigationWeather_Pivot_5));
+            testCropIrrigationWeatherRecord_Pivot_2 = testCropIrrigationWeather_Pivot_2.CropIrrigationWeatherRecord;
+            testCropIrrigationWeatherRecord_Pivot_3_4 = testCropIrrigationWeather_Pivot_3_4.CropIrrigationWeatherRecord;
+            testCropIrrigationWeatherRecord_Pivot_5 = testCropIrrigationWeather_Pivot_5.CropIrrigationWeatherRecord;
 
             //Add Phenological Stege Ajustements
             PhenologicalStageChange_Pivot2 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot2);
@@ -447,20 +453,17 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testCropIrrigationWeather_Pivot_2 = testIrrigationSystem.AddCropIrrigationWeather
                                                     (testIU_Pivot_2, testCrop_Maiz_Sur, testWeatherStation, 
                                                     testWeatherStation, testPREDETERMINATED_IRRIGATION, 
-                                                    testInitialPhenologicalStage_Maiz, testLocationSantaLucia, 
-                                                    testDateBeginCrop_Pivot2, testDateEndCrop_Pivot2, testSoil_Pivot_2);
+                                                    testLocationSantaLucia, testSoil_Pivot_2, null);
 
             testCropIrrigationWeather_Pivot_3_4 = testIrrigationSystem.AddCropIrrigationWeather
                                                     (testIU_Pivot_3_4, testCrop_Soja_Sur,testWeatherStation,
                                                     testWeatherStation, testPREDETERMINATED_IRRIGATION, 
-                                                    testInitialPhenologicalStage_Soja, testLocationSantaLucia,
-                                                    testDateBeginCrop_Pivot3_4, testDateEndCrop_Pivot3_4, testSoil_Pivot_3_4);
+                                                    testLocationSantaLucia, testSoil_Pivot_3_4, null);
 
             testCropIrrigationWeather_Pivot_5 = testIrrigationSystem.AddCropIrrigationWeather
                                                     (testIU_Pivot_5, testCrop_Maiz_Sur, testWeatherStation, 
                                                     testWeatherStation, testPREDETERMINATED_IRRIGATION, 
-                                                    testInitialPhenologicalStage_Maiz, testLocationSantaLucia, 
-                                                    testDateBeginCrop_Pivot5, testDateEndCrop_Pivot5, testSoil_Pivot_5);
+                                                    testLocationSantaLucia, testSoil_Pivot_5, null);
 
         }
 
@@ -627,7 +630,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             String lObservation;
 
             //The start day is one day after sowing because the first day is created when the testCrop is created
-            lFromDate = pCropIrrigationWeather.SowingDate.AddDays(1);
+            lFromDate = pCropIrrigationWeather.CropIrrigationWeatherRecord.SowingDate.AddDays(1);
             lToDate = DateTime.Now.AddDays(7);
 
             lDiffDays = lToDate.Subtract(lFromDate).TotalDays;
@@ -652,7 +655,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                     {
                         if (item.First.Equals(lDateOfRecord))
                         {
-                            testIrrigationSystem.adjustmentPhenology(lCropIrrigationWeather, item.Second, lDateOfRecord);
+                            testIrrigationSystem.AdjustmentPhenology(lCropIrrigationWeather, item.Second, lDateOfRecord);
                             break;
                         }
                     }
@@ -664,7 +667,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                     {
                         if (item.First.Equals(lDateOfRecord))
                         {
-                            testIrrigationSystem.adjustmentPhenology(lCropIrrigationWeather, item.Second, lDateOfRecord);
+                            testIrrigationSystem.AdjustmentPhenology(lCropIrrigationWeather, item.Second, lDateOfRecord);
                             break;
                         }
                     }
@@ -676,7 +679,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                     {
                         if (item.First.Equals(lDateOfRecord))
                         {
-                            testIrrigationSystem.adjustmentPhenology(lCropIrrigationWeather, item.Second, lDateOfRecord);
+                            testIrrigationSystem.AdjustmentPhenology(lCropIrrigationWeather, item.Second, lDateOfRecord);
                             break;
                         }
                     }
