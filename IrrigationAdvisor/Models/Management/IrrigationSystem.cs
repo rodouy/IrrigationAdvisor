@@ -1866,7 +1866,7 @@ namespace IrrigationAdvisor.Models.Management
 
                 //Get Effective Rain List from Region
                 lEffectiveRain = this.GetEffectiveRainList(pCropIrrigationWeather.IrrigationUnit.Location.Region);
-                lCropIrrigationWeatherRecord.EffectiveRain = lEffectiveRain;
+                lCropIrrigationWeatherRecord.EffectiveRainList = lEffectiveRain;
                 
                 //Get Initial Hidric Balance
                 lHydricBalance = pCropIrrigationWeather.GetInitialHydricBalance();
