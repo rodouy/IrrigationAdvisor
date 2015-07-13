@@ -15,7 +15,7 @@ using IrrigationAdvisor.Models.Weather;
 namespace IrrigationAdvisor.Models.IrrigationSystem
 {
     [TestClass]
-    public class IrrigationSystemTest
+    public class IrrigationSystemSimulationTest
     {
         #region Fields Santa Lucia Test
         private Position testPositionUruguay;
@@ -57,7 +57,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private double testSoil_Pivot_2_DepthLimit;
 
         private Soil testSoil_Pivot_3_4;
-        private double testSoil_Pivot_3_4_DepthLimit;
+        private double testSoil_Pivot_3_DepthLimit;
 
         private Soil testSoil_Pivot_5;
         private double testSoil_Pivot_5_DepthLimit;
@@ -65,50 +65,91 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Bomb testBomb;
         private WeatherStation testWeatherStation;
         private WeatherStation testWeatherStationAlternative;
-        
-        
+
+        /*
+             *  Cultivos Maiz
+             *  
+             *  1. Pivot1 = Maíz 2007  Temporada 2007-2008 - GDAc. - ETc - Lluvia
+                2. Pivot2 = Tammi 2008 Temporada 2008-2009 - DDS - GDAc. - Fen - ETc - Lluvia
+                3. Pivot 3 = La perdiz 2010   Temporada 2010-2011 - DDS - ET0 - Lluvias
+                4. Pivot 4 = NK900 2010  Temporada 2010-2011 - DDS - ET0 - Lluvias
+                5. Pivot 5 = NK900 2012  Temporada 2012-2013 - DDS - ET0 - Lluvias
+                6. Pivot 6 = SL P2 2010   Temporada 2010-2011 - DDS - ET0 - Lluvias
+                7. Pivot 7 = SL P2 2012   Temporada 2013-2014 - DDS - ET0 - Lluvias
+                8. Pivot 8 = SL P2 2013   Temporada 2013-2014 - DDS - ET0 - Lluvias
+                9. Pivot 9 = SL P5 2013   Temporada 2013-2014 - DDS - ET0 - Lluvias
+
+                Cultivos Soja
+
+                1. Pivot 10 = SL Soja 2013   Temporada 2013-2014 - DDS - ET0 - Lluvias
+                2. Pivot 11 = LP Soja 2010   Temporada 2010-2011 - DDS - ET0 - Lluvias
+                3. Pivot 12 = LP Soja 2011   Temporada 2010-2011 - DDS - ET0 - Lluvias
+                4. Pivot 13 = LP Soja 2012   Temporada 2012-2013 - DDS - ET0 - Lluvias - CropCoefficient - ETc
+             */
         enum SantaLuciaPivotList
         {
-            Pivot2,
-            Pivot3_4,
-            Pivot5
+            Pivot1_Maiz_2007,
+            Pivot2_Tammi_2008,
+            Pivot3_LaPerdiz_2010,
+            Pivot4_NK900_2010,
+            Pivot5_NK900_2012,
+            Pivot6_SLP2_2010,
+            Pivot7_SLP2_2012,
+            Pivot8_SLP2_2013,
+            Pivot9_SLP5_2013,
+            Pivot10_SL_Soja_2013,
+            Pivot11_LP_Soja_2010,
+            Pivot12_LP_Soja_2011,
+            Pivot13_LP_Soja_2012
         };
 
+        private double testEfficiency_Pivot_1;
         private double testEfficiency_Pivot_2;
-        private double testEfficiency_Pivot_3_4;
-        private double testEfficiency_Pivot_5;
-        private int testSurface_Pivot_2;
-        private int testSurface_Pivot_3_4;
-        private int testSurface_Pivot_5;
+        private double testEfficiency_Pivot_3;
 
+        private int testSurface_Pivot_1;
+        private int testSurface_Pivot_2;
+        private int testSurface_Pivot_3;
+        
         /// <summary>
         /// Pivots to work
         /// </summary>
-        private IrrigationUnit testIU_Pivot_2;
-        private IrrigationUnit testIU_Pivot_3_4;
-        private IrrigationUnit testIU_Pivot_5;
+        private IrrigationUnit testIU_Pivot_1_Maiz_2007;
+        private IrrigationUnit testIU_Pivot_2_Tammi_2008;
+        private IrrigationUnit testIU_Pivot_3_LaPerdiz2010;
+        private IrrigationUnit testIU_Pivot_4_NK900_2010;
+        private IrrigationUnit testIU_Pivot_5_NK900_2012;
+        private IrrigationUnit testIU_Pivot_6_SLP2_2010;
+        private IrrigationUnit testIU_Pivot_7_SLP2_2012;
+        private IrrigationUnit testIU_Pivot_8_SLP2_2013;
+        private IrrigationUnit testIU_Pivot_9_SLP5_2013;
+        private IrrigationUnit testIU_Pivot_10_SL_Soja_2013;
+        private IrrigationUnit testIU_Pivot_11_LP_Soja_2010;
+        private IrrigationUnit testIU_Pivot_12_LP_Soja_2011;
+        private IrrigationUnit testIU_Pivot_13_LP_Soja_2012;
+
         
         /// <summary>
         /// Irrigations of each Irrigation Unit
         /// </summary>
-        private List<Pair<DateTime, double>> testIrrigationUnit_IrrigationList_Pivot_2;
-        private List<Pair<DateTime, double>> testIrrigationUnit_IrrigationList_Pivot_3_4;
-        private List<Pair<DateTime, double>> testIrrigationUnit_IrrigationList_Pivot_5;
+        private List<Pair<DateTime, double>> testIrrigationUnit_IrrigationList_Pivot_1_Maiz_2007;
+        private List<Pair<DateTime, double>> testIrrigationUnit_IrrigationList_Pivot_2_Tammi_2008;
+        private List<Pair<DateTime, double>> testIrrigationUnit_IrrigationList_Pivot_3_LaPerdiz_2010;
 
         /// <summary>
         /// Crops of each Irrigation Unit
         /// </summary>
-        private List<Crop> testIrrigationUnit_CropList_Pivot_2;
-        private List<Crop> testIrrigationUnit_CropList_Pivot_3_4;
-        private List<Crop> testIrrigationUnit_CropList_Pivot_5;
+        private List<Crop> testIrrigationUnit_CropList_Pivot_1_Maiz_2007;
+        private List<Crop> testIrrigationUnit_CropList_Pivot_2_Tammi_2008;
+        private List<Crop> testIrrigationUnit_CropList_Pivot_3_LaPerdiz_2010;
 
 
         private Crop testCrop_Maiz_Sur;
         private Crop testCrop_Soja_Sur;
 
-        private CropIrrigationWeather testCropIrrigationWeather_Pivot_2;
-        private CropIrrigationWeather testCropIrrigationWeather_Pivot_3_4;
-        private CropIrrigationWeather testCropIrrigationWeather_Pivot_5;
+        private CropIrrigationWeather testCropIrrigationWeather_Pivot_1_Maiz_2007;
+        private CropIrrigationWeather testCropIrrigationWeather_Pivot_2_Tammi_2008;
+        private CropIrrigationWeather testCropIrrigationWeather_Pivot_3_LaPerdiz_2010;
 
 
         private double testSojaBaseTemp;
@@ -140,23 +181,23 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         //private Pair<Region, List<EffectiveRainList>> testEffectiveRainsForRegion;
         
 
+        private List<Pair<DateTime, Stage>> PhenologicalStageChange_Pivot1;
         private List<Pair<DateTime, Stage>> PhenologicalStageChange_Pivot2;
-        private List<Pair<DateTime, Stage>> PhenologicalStageChange_Pivot3_4;
-        private List<Pair<DateTime, Stage>> PhenologicalStageChange_Pivot5;
+        private List<Pair<DateTime, Stage>> PhenologicalStageChange_Pivot3;
 
-        private DateTime testDateBeginCrop_Pivot2;
-        private DateTime testDateBeginCrop_Pivot3_4;
-        private DateTime testDateBeginCrop_Pivot5;
+        private DateTime testDateBeginCrop_Pivot_1;
+        private DateTime testDateBeginCrop_Pivot_2;
+        private DateTime testDateBeginCrop_Pivot_3;
 
+        private DateTime testDateEndCrop_Pivot1;
         private DateTime testDateEndCrop_Pivot2;
-        private DateTime testDateEndCrop_Pivot3_4;
-        private DateTime testDateEndCrop_Pivot5;
+        private DateTime testDateEndCrop_Pivot3;
 
         private DateTime testWeatherDataStartDate;
 
+        private CropIrrigationWeatherRecord testCropIrrigationWeatherRecord_Pivot_1;
         private CropIrrigationWeatherRecord testCropIrrigationWeatherRecord_Pivot_2;
-        private CropIrrigationWeatherRecord testCropIrrigationWeatherRecord_Pivot_3_4;
-        private CropIrrigationWeatherRecord testCropIrrigationWeatherRecord_Pivot_5;
+        private CropIrrigationWeatherRecord testCropIrrigationWeatherRecord_Pivot_3;
 
         //Log information
         private String textLogPivot2;
@@ -176,33 +217,34 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             #region Initial Variables
 
+            
+
             testWeatherDataStartDate = new DateTime(2014, 10, 18);
 
             //Pivot Depth Limit
             testSoil_Pivot_1_DepthLimit = 40;
             testSoil_Pivot_2_DepthLimit = 40;
-            testSoil_Pivot_3_4_DepthLimit = 40;
-            testSoil_Pivot_5_DepthLimit = 40;
-
+            testSoil_Pivot_3_DepthLimit = 40;
+            
             //Pivot Begin Dates for each Pivot
-            testDateBeginCrop_Pivot2 = new DateTime(2014, 10, 21);
-            testDateBeginCrop_Pivot3_4 = new DateTime(2014, 11, 14);
-            testDateBeginCrop_Pivot5 = new DateTime(2014, 10, 18);
+            testDateBeginCrop_Pivot_1 = new DateTime(2014, 10, 21);
+            testDateBeginCrop_Pivot_2 = new DateTime(2014, 11, 14);
+            testDateBeginCrop_Pivot_3 = new DateTime(2014, 10, 18);
 
             //Pivot End Dates for each Pivot
-            testDateEndCrop_Pivot2 = new DateTime(2015, 3, 21);
-            testDateEndCrop_Pivot3_4 = new DateTime(2015, 3, 14);
-            testDateEndCrop_Pivot5 = new DateTime(2015, 3, 18);
+            testDateEndCrop_Pivot1 = new DateTime(2015, 3, 21);
+            testDateEndCrop_Pivot2 = new DateTime(2015, 3, 14);
+            testDateEndCrop_Pivot3 = new DateTime(2015, 3, 18);
 
             //Pivot Efficiency
+            testEfficiency_Pivot_1 = 0.85;
             testEfficiency_Pivot_2 = 0.85;
-            testEfficiency_Pivot_3_4 = 0.85;
-            testEfficiency_Pivot_5 = 0.85;
+            testEfficiency_Pivot_3 = 0.85;
             
             //Pivot Surface
+            testSurface_Pivot_1 = 300;
             testSurface_Pivot_2 = 300;
-            testSurface_Pivot_3_4 = 300;
-            testSurface_Pivot_5 = 300;
+            testSurface_Pivot_3 = 300;
 
             //Specie Base Temp
             testSojaBaseTemp = 8;
@@ -343,15 +385,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             createCropIrrigationWeatherSantaLucia();
 
             //Creating Crop Irrigation Weather Records
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_2, 
+            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_1_Maiz_2007, 
                                                                 testInitialPhenologicalStage_Maiz, 
-                                                                testDateBeginCrop_Pivot2, testDateEndCrop_Pivot2);
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_3_4,
+                                                                testDateBeginCrop_Pivot_1, testDateEndCrop_Pivot1);
+            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_2_Tammi_2008,
                                                                 testInitialPhenologicalStage_Soja,
-                                                                testDateBeginCrop_Pivot3_4, testDateEndCrop_Pivot3_4);
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_5,
+                                                                testDateBeginCrop_Pivot_2, testDateEndCrop_Pivot2);
+            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010,
                                                                 testInitialPhenologicalStage_Maiz,
-                                                                testDateBeginCrop_Pivot5, testDateEndCrop_Pivot5);
+                                                                testDateBeginCrop_Pivot_3, testDateEndCrop_Pivot3);
 
             //23.  Add Information of Weather
             ExternalData.AddWeatherData(testIrrigationSystem, testWeatherStation, testWeatherDataStartDate);
@@ -364,29 +406,29 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             
             //Find the records of Crop Irrigation Unit (Pivots)
-            testCropIrrigationWeatherRecord_Pivot_2 = testCropIrrigationWeather_Pivot_2.CropIrrigationWeatherRecord;
-            testCropIrrigationWeatherRecord_Pivot_3_4 = testCropIrrigationWeather_Pivot_3_4.CropIrrigationWeatherRecord;
-            testCropIrrigationWeatherRecord_Pivot_5 = testCropIrrigationWeather_Pivot_5.CropIrrigationWeatherRecord;
+            testCropIrrigationWeatherRecord_Pivot_1 = testCropIrrigationWeather_Pivot_1_Maiz_2007.CropIrrigationWeatherRecord;
+            testCropIrrigationWeatherRecord_Pivot_2 = testCropIrrigationWeather_Pivot_2_Tammi_2008.CropIrrigationWeatherRecord;
+            testCropIrrigationWeatherRecord_Pivot_3 = testCropIrrigationWeather_Pivot_3_LaPerdiz_2010.CropIrrigationWeatherRecord;
 
             //Add Phenological Stege Ajustements
+            PhenologicalStageChange_Pivot1 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot1);
             PhenologicalStageChange_Pivot2 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot2);
-            PhenologicalStageChange_Pivot3_4 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot3_4);
-            PhenologicalStageChange_Pivot5 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot5);
+            PhenologicalStageChange_Pivot3 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot5);
 
             //Add information to Irrigation Units to calculate lIrrigation for each one
-            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_2, SantaLuciaPivotList.Pivot2);
-            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_3_4, SantaLuciaPivotList.Pivot3_4);
-            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_5, SantaLuciaPivotList.Pivot5);
+            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_1_Maiz_2007, SantaLuciaPivotList.Pivot1);
+            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_2_Tammi_2008, SantaLuciaPivotList.Pivot2);
+            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, SantaLuciaPivotList.Pivot5);
             
             //Layout from Irrigation Units
-            textLogPivot2 = testCropIrrigationWeatherRecord_Pivot_2.OutPut;
-            textLogPivot3_4 = testCropIrrigationWeatherRecord_Pivot_3_4.OutPut;
-            textLogPivot5 = testCropIrrigationWeatherRecord_Pivot_5.OutPut;
+            textLogPivot2 = testCropIrrigationWeatherRecord_Pivot_1.OutPut;
+            textLogPivot3_4 = testCropIrrigationWeatherRecord_Pivot_2.OutPut;
+            textLogPivot5 = testCropIrrigationWeatherRecord_Pivot_3.OutPut;
 
             //Layout from System the daily records
-            textLogPivot2 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_2);
-            textLogPivot3_4 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_3_4);
-            textLogPivot5 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_5);
+            textLogPivot2 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_1);
+            textLogPivot3_4 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_2);
+            textLogPivot5 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_3);
 
 
             //Layout in txt format
@@ -395,13 +437,13 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             this.printSystemData(textLogPivot5, "IrrigationSystemTestPivot5");
 
             //Layout in CSV format
-            this.printSystemDataCSV("IrrigationSystem-TestPivot2-", testCropIrrigationWeatherRecord_Pivot_2.Titles, testCropIrrigationWeatherRecord_Pivot_2.Messages);
-            this.printSystemDataCSV("IrrigationSystem-TestPivot3_4-", testCropIrrigationWeatherRecord_Pivot_3_4.Titles, testCropIrrigationWeatherRecord_Pivot_3_4.Messages);
-            this.printSystemDataCSV("IrrigationSystem-TestPivot5-", testCropIrrigationWeatherRecord_Pivot_5.Titles, testCropIrrigationWeatherRecord_Pivot_5.Messages);
+            this.printSystemDataCSV("IrrigationSystem-TestPivot2-", testCropIrrigationWeatherRecord_Pivot_1.Titles, testCropIrrigationWeatherRecord_Pivot_1.Messages);
+            this.printSystemDataCSV("IrrigationSystem-TestPivot3_4-", testCropIrrigationWeatherRecord_Pivot_2.Titles, testCropIrrigationWeatherRecord_Pivot_2.Messages);
+            this.printSystemDataCSV("IrrigationSystem-TestPivot5-", testCropIrrigationWeatherRecord_Pivot_3.Titles, testCropIrrigationWeatherRecord_Pivot_3.Messages);
 
-            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot2-", testCropIrrigationWeatherRecord_Pivot_2.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_2.MessagesDaily);
-            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot3_4-", testCropIrrigationWeatherRecord_Pivot_3_4.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_3_4.MessagesDaily);
-            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot5-", testCropIrrigationWeatherRecord_Pivot_5.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_5.MessagesDaily);
+            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot2-", testCropIrrigationWeatherRecord_Pivot_1.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_1.MessagesDaily);
+            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot3_4-", testCropIrrigationWeatherRecord_Pivot_2.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_2.MessagesDaily);
+            this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot5-", testCropIrrigationWeatherRecord_Pivot_3.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_3.MessagesDaily);
 
         }
 
@@ -425,23 +467,23 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         /// </summary>
         private void createIrrigationUnits_SantaLucia()
         {
-            testIrrigationUnit_IrrigationList_Pivot_2 = new List<Pair<DateTime, double>>();
-            testIrrigationUnit_CropList_Pivot_2 = new List<Crop>();
-            testIU_Pivot_2 = testIrrigationSystem.AddIrrrigationUnit("Pivot 2", "Pivot", testEfficiency_Pivot_2,
-                               testIrrigationUnit_IrrigationList_Pivot_2, testSurface_Pivot_2,
-                               testIrrigationUnit_CropList_Pivot_2, testBomb, testLocationSantaLucia);
+            testIrrigationUnit_IrrigationList_Pivot_1_Maiz_2007 = new List<Pair<DateTime, double>>();
+            testIrrigationUnit_CropList_Pivot_1_Maiz_2007 = new List<Crop>();
+            testIU_Pivot_1_Maiz_2007 = testIrrigationSystem.AddIrrrigationUnit("Pivot 2", "Pivot", testEfficiency_Pivot_1,
+                               testIrrigationUnit_IrrigationList_Pivot_1_Maiz_2007, testSurface_Pivot_1,
+                               testIrrigationUnit_CropList_Pivot_1_Maiz_2007, testBomb, testLocationSantaLucia);
             
-            testIrrigationUnit_IrrigationList_Pivot_3_4 = new List<Pair<DateTime, double>>();
-            testIrrigationUnit_CropList_Pivot_3_4 = new List<Crop>();
-            testIU_Pivot_3_4 = testIrrigationSystem.AddIrrrigationUnit("Pivot 3 y 4", "Pivot", testEfficiency_Pivot_3_4,
-                            testIrrigationUnit_IrrigationList_Pivot_3_4, testSurface_Pivot_3_4, 
-                            testIrrigationUnit_CropList_Pivot_3_4, testBomb, testLocationSantaLucia);
+            testIrrigationUnit_IrrigationList_Pivot_2_Tammi_2008 = new List<Pair<DateTime, double>>();
+            testIrrigationUnit_CropList_Pivot_2_Tammi_2008 = new List<Crop>();
+            testIU_Pivot_2_Tammi_2008 = testIrrigationSystem.AddIrrrigationUnit("Pivot 3 y 4", "Pivot", testEfficiency_Pivot_3_4,
+                            testIrrigationUnit_IrrigationList_Pivot_2_Tammi_2008, testSurface_Pivot_3_4, 
+                            testIrrigationUnit_CropList_Pivot_2_Tammi_2008, testBomb, testLocationSantaLucia);
             
-            testIrrigationUnit_IrrigationList_Pivot_5 = new List<Pair<DateTime, double>>();
-            testIrrigationUnit_CropList_Pivot_5 = new List<Crop>();
-            testIU_Pivot_5 = testIrrigationSystem.AddIrrrigationUnit("Pivot 5", "Pivot", testEfficiency_Pivot_5,
-                            testIrrigationUnit_IrrigationList_Pivot_5, testSurface_Pivot_5, 
-                            testIrrigationUnit_CropList_Pivot_5, testBomb, testLocationSantaLucia);
+            testIrrigationUnit_IrrigationList_Pivot_3_LaPerdiz_2010 = new List<Pair<DateTime, double>>();
+            testIrrigationUnit_CropList_Pivot_3_LaPerdiz_2010 = new List<Crop>();
+            testIU_Pivot_3_LaPerdiz2010 = testIrrigationSystem.AddIrrrigationUnit("Pivot 5", "Pivot", testEfficiency_Pivot_5,
+                            testIrrigationUnit_IrrigationList_Pivot_3_LaPerdiz_2010, testSurface_Pivot_5, 
+                            testIrrigationUnit_CropList_Pivot_3_LaPerdiz_2010, testBomb, testLocationSantaLucia);
 
         }
 
@@ -450,18 +492,18 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         /// </summary>
         private void createCropIrrigationWeatherSantaLucia()
         {
-            testCropIrrigationWeather_Pivot_2 = testIrrigationSystem.AddCropIrrigationWeather
-                                                    (testIU_Pivot_2, testCrop_Maiz_Sur, testWeatherStation, 
+            testCropIrrigationWeather_Pivot_1_Maiz_2007 = testIrrigationSystem.AddCropIrrigationWeather
+                                                    (testIU_Pivot_1_Maiz_2007, testCrop_Maiz_Sur, testWeatherStation, 
                                                     testWeatherStation, testPREDETERMINATED_IRRIGATION, 
                                                     testLocationSantaLucia, testSoil_Pivot_2, null);
 
-            testCropIrrigationWeather_Pivot_3_4 = testIrrigationSystem.AddCropIrrigationWeather
-                                                    (testIU_Pivot_3_4, testCrop_Soja_Sur,testWeatherStation,
+            testCropIrrigationWeather_Pivot_2_Tammi_2008 = testIrrigationSystem.AddCropIrrigationWeather
+                                                    (testIU_Pivot_2_Tammi_2008, testCrop_Soja_Sur,testWeatherStation,
                                                     testWeatherStation, testPREDETERMINATED_IRRIGATION, 
                                                     testLocationSantaLucia, testSoil_Pivot_3_4, null);
 
-            testCropIrrigationWeather_Pivot_5 = testIrrigationSystem.AddCropIrrigationWeather
-                                                    (testIU_Pivot_5, testCrop_Maiz_Sur, testWeatherStation, 
+            testCropIrrigationWeather_Pivot_3_LaPerdiz_2010 = testIrrigationSystem.AddCropIrrigationWeather
+                                                    (testIU_Pivot_3_LaPerdiz2010, testCrop_Maiz_Sur, testWeatherStation, 
                                                     testWeatherStation, testPREDETERMINATED_IRRIGATION, 
                                                     testLocationSantaLucia, testSoil_Pivot_5, null);
 
@@ -473,55 +515,55 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private void addRainData()
         {
             // DATOS DE LLUVIA
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 10, 29), 66);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 10, 31), 2.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 11, 1), 2.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 11, 2), 10);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 11, 3), 35);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 11, 22), 27);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 11, 30), 130);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 8), 15);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 21), 5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 23), 5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 27), 4.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 31), 3.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2015, 01, 06), 15);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2015, 01, 13), 42);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2015, 01, 19), 10);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2015, 01, 28), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 10, 29), 66);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 10, 31), 2.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 11, 1), 2.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 11, 2), 10);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 11, 3), 35);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 11, 22), 27);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 11, 30), 130);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 8), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 21), 5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 23), 5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 27), 4.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 31), 3.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2015, 01, 06), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2015, 01, 13), 42);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2015, 01, 19), 10);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2015, 01, 28), 15);
 
 
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 11, 22), 27);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 11, 30), 130);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 8), 15);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 21), 5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 23), 5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 27), 4.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 31), 3.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 06), 15);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 13), 42);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 19), 10);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 28), 15);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 02, 23), 36);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 03, 03), 38);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 11, 22), 27);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 11, 30), 130);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 12, 8), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 12, 21), 5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 12, 23), 5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 12, 27), 4.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 12, 31), 3.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2015, 01, 06), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2015, 01, 13), 42);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2015, 01, 19), 10);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2015, 01, 28), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2015, 02, 23), 36);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2015, 03, 03), 38);
 
 
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 10, 29), 66);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 10, 31), 2.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 11, 1), 2.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 11, 2), 10);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 11, 3), 35);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 11, 22), 27);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 11, 30), 130);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 8), 15);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 21), 5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 23), 5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 27), 4.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 31), 3.5);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2015, 01, 06), 15);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2015, 01, 13), 42);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2015, 01, 19), 10);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2015, 01, 28), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 10, 29), 66);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 10, 31), 2.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 11, 1), 2.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 11, 2), 10);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 11, 3), 35);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 11, 22), 27);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 11, 30), 130);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 8), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 21), 5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 23), 5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 27), 4.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 31), 3.5);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2015, 01, 06), 15);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2015, 01, 13), 42);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2015, 01, 19), 10);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2015, 01, 28), 15);
 
             //TODO: 2 Layout Rain Weather Data
             
@@ -536,36 +578,36 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             
             //Pivot 2
             //Riego inicial
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 10, 22), new Pair<double, Utils.WaterInputType>(22, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 17), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 20), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 23), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 26), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2014, 12, 30), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2015, 01, 22), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2, new DateTime(2015, 01, 25), new Pair<double, Utils.WaterInputType>(20, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 10, 22), new Pair<double, Utils.WaterInputType>(22, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 17), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 20), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 23), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 26), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2014, 12, 30), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2015, 01, 22), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_1_Maiz_2007, new DateTime(2015, 01, 25), new Pair<double, Utils.WaterInputType>(20, Utils.WaterInputType.Irrigation), true);
 
             //PIVOT 3_4
             //Riego inicial
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 11, 15), new Pair<double, Utils.WaterInputType>(5, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 11, 19), new Pair<double, Utils.WaterInputType>(7, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 16), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2014, 12, 28), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 02), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_4, new DateTime(2015, 01, 24), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 11, 15), new Pair<double, Utils.WaterInputType>(5, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 11, 19), new Pair<double, Utils.WaterInputType>(7, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 12, 16), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2014, 12, 28), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2015, 01, 02), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_2_Tammi_2008, new DateTime(2015, 01, 24), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
             
             //dias 14, 18 y 22 de diciembre, todos de 5 mm
             //PIVOT 5
             //Riego inicial
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 10, 19), new Pair<double, Utils.WaterInputType>(7, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 10, 21), new Pair<double, Utils.WaterInputType>(7, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 14), new Pair<double, Utils.WaterInputType>(5, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 19), new Pair<double, Utils.WaterInputType>(5, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 23), new Pair<double, Utils.WaterInputType>(5, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 29), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2014, 12, 31), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2015, 01, 21), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
-            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_5, new DateTime(2015, 01, 25), new Pair<double, Utils.WaterInputType>(20, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 10, 19), new Pair<double, Utils.WaterInputType>(7, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 10, 21), new Pair<double, Utils.WaterInputType>(7, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 14), new Pair<double, Utils.WaterInputType>(5, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 19), new Pair<double, Utils.WaterInputType>(5, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 23), new Pair<double, Utils.WaterInputType>(5, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 29), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2014, 12, 31), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2015, 01, 21), new Pair<double, Utils.WaterInputType>(10, Utils.WaterInputType.Irrigation), true);
+            testIrrigationSystem.AddOrUpdateIrrigationDataToList(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, new DateTime(2015, 01, 25), new Pair<double, Utils.WaterInputType>(20, Utils.WaterInputType.Irrigation), true);
 
 
             //TODO: 3 Layout Irrigation Weather Data
@@ -580,7 +622,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             Stage lStageToChange;
 
             lPhenologicalStageChange = new List<Pair<DateTime, Stage>>();
-            if (pPivot.Equals(SantaLuciaPivotList.Pivot2))
+            if (pPivot.Equals(SantaLuciaPivotList.Pivot1))
             {
                 //First Change
                 lDateTimeToChange = new DateTime(2014, 11, 20);
@@ -592,7 +634,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 //lPhenologicalStageChange.Add(new Pair<DateTime, Stage>(lDateTimeToChange, lStageToChange));
             }
             
-            if (pPivot.Equals(SantaLuciaPivotList.Pivot3_4))
+            if (pPivot.Equals(SantaLuciaPivotList.Pivot2))
             {
                 //First Change
                 lDateTimeToChange = new DateTime(2014, 12, 25);
@@ -648,10 +690,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 
                 testIrrigationSystem.addDailyRecordToList(lCropIrrigationWeather, lDateOfRecord, lObservation);
 
-                if (pPivot.Equals(SantaLuciaPivotList.Pivot2))
+                if (pPivot.Equals(SantaLuciaPivotList.Pivot1))
                 {
                     //Adjustment of Phenological Stage for Pivot2
-                    foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot2)
+                    foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot1)
                     {
                         if (item.First.Equals(lDateOfRecord))
                         {
@@ -660,10 +702,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                         }
                     }
                 }
-                if (pPivot.Equals(SantaLuciaPivotList.Pivot3_4))
+                if (pPivot.Equals(SantaLuciaPivotList.Pivot2))
                 {
                     //Adjustment of Phenological Stage for Pivot3_4
-                    foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot3_4)
+                    foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot2)
                     {
                         if (item.First.Equals(lDateOfRecord))
                         {
@@ -675,7 +717,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 if (pPivot.Equals(SantaLuciaPivotList.Pivot5))
                 {
                     //Adjustment of Phenological Stage for Pivot5
-                    foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot5)
+                    foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot3)
                     {
                         if (item.First.Equals(lDateOfRecord))
                         {
@@ -699,7 +741,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             //Suelos
             testSoil_Pivot_1 = testIrrigationSystem.AddSoil("Suelo Pivot 1", "Suelo Pivot 1", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_1_DepthLimit);
             testSoil_Pivot_2 = testIrrigationSystem.AddSoil("Suelo Pivot 2", "Suelo Pivot 2", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_2_DepthLimit);
-            testSoil_Pivot_3_4 = testIrrigationSystem.AddSoil("Suelo Pivot 3_4", "Suelo Pivot 3_4", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_3_4_DepthLimit);
+            testSoil_Pivot_3_4 = testIrrigationSystem.AddSoil("Suelo Pivot 3_4", "Suelo Pivot 3_4", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_3_DepthLimit);
             testSoil_Pivot_5 = testIrrigationSystem.AddSoil("Suelo Pivot 5", "Suelo Pivot 5", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_5_DepthLimit);
 
             // horizon_1A = new Horizon(1,"Horizonte A - Suelo 1", 1, "A",)

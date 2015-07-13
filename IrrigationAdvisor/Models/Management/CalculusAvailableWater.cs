@@ -81,7 +81,7 @@ namespace IrrigationAdvisor.Models.Management
 
             lAvailableWater = pCropIrrigationWeather.GetSoilAvailableWaterCapacity();
             lPermanentWiltingPoint = pCropIrrigationWeather.GetSoilPermanentWiltingPoint();
-            //This is the Threshold to determinate the need of irrigation
+            //This is the Threshold to determinate the need of lIrrigation
             lThreshold = Math.Round(lAvailableWater * InitialTables.PERCENTAGE_LIMIT_OF_AVAILABLE_WATER_CAPACITY, 2) + lPermanentWiltingPoint;
 
             lMinEvapotrasnpirationToIrrigate = pCropIrrigationWeather.Crop.MinEvapotranspirationToIrrigate;

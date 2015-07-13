@@ -152,11 +152,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Water
 
-        private List<Rain> rainList;
-        private List<Water.Irrigation> irrigationList;
-        private List<WaterInput> waterInputList;
-        private List<WaterOutput> waterOutputList;
-
+        
         #endregion
 
         #region Weather
@@ -282,30 +278,7 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Water
-        public List<Rain > RainList
-        {
-            get { return rainList; }
-            set { rainList = value; }
-        }
-
-        public List<Water.Irrigation> IrrigationList
-        {
-            get { return irrigationList; }
-            set { irrigationList = value; }
-        }
-
-        public List<WaterInput> WaterInputList
-        {
-            get { return waterInputList; }
-            set { waterInputList = value; }
-        }
-
-        public List<WaterOutput> WaterOutputList
-        {
-            get { return waterOutputList; }
-            set { waterOutputList = value; }
-        }
-
+        
         #endregion
 
         #region Weather
@@ -387,11 +360,6 @@ namespace IrrigationAdvisor.Models.Management
 
             #region Water
 
-            this.RainList = new List<Rain>();
-            this.IrrigationList = new List<Water.Irrigation>();
-            this.waterInputList = new List<WaterInput>();
-            this.waterOutputList = new List<WaterOutput>();
-
             #endregion
             
             #region Weather
@@ -462,6 +430,8 @@ namespace IrrigationAdvisor.Models.Management
 
         }
 
+        
+
         #endregion
 
         #region Security
@@ -472,47 +442,6 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Water
         
-        /// <summary>
-        /// TODO add description
-        /// </summary>
-        /// <param name="pCropIrrigationWeather"></param>
-        /// <param name="pDateTime"></param>
-        /// <returns></returns>
-        private Water.Irrigation getIrrigationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
-        {
-            Water.Irrigation lReturn = null;
-            IEnumerable<Water.Irrigation> lIrrigationListOrderByDescendingByDate;
-            lIrrigationListOrderByDescendingByDate = this.irrigationList.OrderByDescending(lWaterInput => lWaterInput.Date);
-            //TODO change to contains for date 
-            foreach (Water.Irrigation lWaterInput in lIrrigationListOrderByDescendingByDate)
-                if (Utilities.Utils.isTheSameDay(lWaterInput.Date, pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
-                {
-                    lReturn = lWaterInput;
-                    return lReturn;
-                }
-            return lReturn;
-        }
-
-        /// <summary>
-        /// Add description
-        /// </summary>
-        /// <param name="pCropIrrigationWeather"></param>
-        /// <param name="pDateTime"></param>
-        /// <returns></returns>
-        private Rain  getRainFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
-        {
-            Rain  lReturn = null;
-            foreach(Rain  lRain in this.rainList)
-                if(Utilities.Utils.isTheSameDay(lRain.Date,pDateTime) && lRain.CropIrrigationWeather.Equals(pCropIrrigationWeather))
-                {
-                    lReturn = lRain;
-                    return lReturn;
-                }
-            return lReturn;
-
-        }
-
-
         #endregion
 
         #region Weather
@@ -550,7 +479,7 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pRegion"></param>
         /// <returns></returns>
-        private List<EffectiveRain> GetEffectiveRainList(Region pRegion)
+        private List<EffectiveRain> getEffectiveRainList(Region pRegion)
         {
             List <EffectiveRain> lReturnEffectiveRain = new List<EffectiveRain>();
             foreach(Region lRegion in this.RegionList)
@@ -1786,7 +1715,7 @@ namespace IrrigationAdvisor.Models.Management
                                                     pIrrigationUnit, pCrop,
                                                     pMainWeatherStation, pAlternativeWeatherStation,
                                                     pPredeterminatedIrrigationQuantity,
-                                                    pLocation, pSoil, 0, 0, 0, 0, 0);
+                                                    pLocation, pSoil);
 
             lCropIrrigationWeather.CropIrrigationWeatherRecord = pCropIrrigationWeatherRecord;
 
@@ -1823,7 +1752,7 @@ namespace IrrigationAdvisor.Models.Management
                                                     pIrrigationUnit, pCrop,
                                                     pMainWeatherStation, pAlternativeWeatherStation,
                                                     pPredeterminatedIrrigationQuantity,
-                                                    pLocation, pSoil, 0,0,0,0,0);
+                                                    pLocation, pSoil);
             lReturn = ExistCropIrrigationWeather(lCropIrrigationWeather);
             if(lReturn != null)
             {
@@ -1865,7 +1794,7 @@ namespace IrrigationAdvisor.Models.Management
                 lCropIrrigationWeatherRecord.HarvestDate = pHarvestDate;
 
                 //Get Effective Rain List from Region
-                lEffectiveRain = this.GetEffectiveRainList(pCropIrrigationWeather.IrrigationUnit.Location.Region);
+                lEffectiveRain = this.getEffectiveRainList(pCropIrrigationWeather.IrrigationUnit.Location.Region);
                 lCropIrrigationWeatherRecord.EffectiveRainList = lEffectiveRain;
                 
                 //Get Initial Hidric Balance
@@ -1891,8 +1820,8 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         /// <summary>
-        /// Colect the weather data, irrigation data and rain data and derive the cretion of a new daily record
-        /// This method verify the need of irrigation, and then recreate the daily record
+        /// Colect the weather data, lIrrigation data and lRain data and derive the cretion of a new daily record
+        /// This method verify the need of lIrrigation, and then recreate the daily record
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pDateTime"></param>
@@ -1917,18 +1846,29 @@ namespace IrrigationAdvisor.Models.Management
                     // Si hay datos de estacion meteorologica puedo seguir
                     if (lWeatherData != null)
                     {
-                        lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
-                        lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
+                        lIrrigation = pCropIrrigationWeather.GetIrrigation(pDateTime);
+                        lRain = pCropIrrigationWeather.GetRain(pDateTime);
+
                         //Get Data Weather form Main Weather Station
                         lMainWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.MainWeatherStation, pDateTime);
                         //Get Data Weather form Alternative Weather Station
-                        lAlternativeWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime); 
+                        lAlternativeWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime);
 
                         this.addDailyRecordToCropIrrigationWeather(pCropIrrigationWeather, lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);///Si ya existe registro para ese dia se sobre-escribe
-                        
+
                         //Luego de que agrego un registro verifico si hay que regar.
                         //Si es asi se agrega el riego a la lista y se reingresa el registro diario. 
                         this.verifyNeedForIrrigation(pCropIrrigationWeather, pDateTime);
+                    }
+                    else 
+                    {
+                        //TODO Usar datos historicos del clima para hacer los calculos con esos datos
+                        //Get Data Weather for the available Weather Station (Main or Alternative)
+                        lWeatherData = this.getAvailableWeatherStationData(pCropIrrigationWeather, pDateTime);
+                    
+                        pCropIrrigationWeather.AddDailyRecord(lWeatherData, pObservations);
+                        
+                        
                     }
                 }
             }
@@ -2187,13 +2127,12 @@ namespace IrrigationAdvisor.Models.Management
             
             try
             {
-                lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pIrrigationDate);
+                lNewIrrigation = pCropIrrigationWeather.GetIrrigation(pIrrigationDate);
                 //If there is not a registry then it is created 
                 //If there is an Irrigation Registry it is actualized 
                 if (lNewIrrigation == null)
                 {
                     lNewIrrigation = new Water.Irrigation();
-                    lNewIrrigation.CropIrrigationWeather = pCropIrrigationWeather;
                     lNewIrrigation.Date = pIrrigationDate;
                     if (pIsExtraIrrigation)
                     {
@@ -2205,9 +2144,9 @@ namespace IrrigationAdvisor.Models.Management
                         lNewIrrigation.Input = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                         
                     }
-                    // Set the type of irrigation. 
+                    // Set the type of lIrrigation. 
                     lNewIrrigation.Type = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.Second;
-                    this.IrrigationList.Add(lNewIrrigation);
+                    pCropIrrigationWeather.IrrigationList.Add(lNewIrrigation);
                 }
                 else
                 {
@@ -2220,7 +2159,7 @@ namespace IrrigationAdvisor.Models.Management
                     {
                         lNewIrrigation.Input += pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                     }
-                    // Override the type of irrigation. 
+                    // Override the type of lIrrigation. 
                     lNewIrrigation.Type = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.Second;
                     
                 }
@@ -2248,14 +2187,13 @@ namespace IrrigationAdvisor.Models.Management
             Rain lNewRain = null;
             try
             {
-                lNewRain = getRainFromList(pCropIrrigationWeather, pDate);
+                lNewRain = pCropIrrigationWeather.GetRain(pDate);
                 if (lNewRain == null)
                 {
                     lNewRain = new Rain();
-                    lNewRain.CropIrrigationWeather = pCropIrrigationWeather;
                     lNewRain.Date = pDate;
                     lNewRain.Input = pInput;
-                    this.RainList.Add(lNewRain);
+                    pCropIrrigationWeather.RainList.Add(lNewRain);
                 }
                 else // If there is a Raub actualize the registry
                 {
