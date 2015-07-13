@@ -13,7 +13,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// Modified: 2015-01-08
     /// Author: rodouy
     /// Description: 
-    ///     Returns the Kc for a Specie in a Region 
+    ///     Returns the CropCoefficient for a Specie in a Region 
     ///     It depends on the days after sowing
     ///     
     /// References:
@@ -44,7 +44,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     - CropCoefficient(cropCoefficientId, initialDays, initialKC
     ///         developmentDays, developmentKC, midSeasonDays
     ///         midSeasonKC, lateSeasonDays, lateSeasonKC)  -- consturctor with parameters
-    ///     - getKC(days)     -- method to get the name KC
+    ///     - GetCropCoefficient(days)     -- method to get the name KC
     /// 
     /// </summary>
     
@@ -168,8 +168,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <summary>
         /// Constructor of ClassTemplate
         /// UsingTable: field used to return the cropCroefficient. 
-        /// - False: return the kc from the list (day by day). 
-        /// - True: return the kc from the table (with 4 fixed points) 
+        /// - False: return the cropCoefficient from the list (day by day). 
+        /// - True: return the cropCoefficient from the table (with 4 fixed points) 
         /// </summary>
         public CropCoefficient()
         {
@@ -374,7 +374,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         /// <param name="pDays">Days after sowing of the Crop</param>
         /// <returns></returns>
-        public double getKC(int pDays)
+        public double GetCropCoefficient(int pDays)
         {
             double lReturn = 0;
             if (UsingTable)

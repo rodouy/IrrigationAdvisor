@@ -471,7 +471,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         public double getKC(int pDaysAfterSowing)
         {
             double lReturn = 0;
-            lReturn = this.CropCoefficient.getKC(pDaysAfterSowing);
+            lReturn = this.CropCoefficient.GetCropCoefficient(pDaysAfterSowing);
 
             return lReturn;
         }

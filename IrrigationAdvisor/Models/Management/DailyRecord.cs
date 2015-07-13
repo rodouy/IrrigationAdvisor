@@ -32,11 +32,11 @@ namespace IrrigationAdvisor.Models.Management
     ///     - mainWeatherData: WeatherData
     ///     - alternativeWeatherData: WeatherData
     ///     - date: DateTime                               - PK
-    ///     - growingDegree: double
+    ///     - growingDegreeDays: double
     ///     - totalGrowingDegree: double
     ///     - evapotranspirationCrop: WaterOutput
-    ///     - rain: WaterInput
-    ///     - irrigation: WaterInput 
+    ///     - lRain: WaterInput
+    ///     - lIrrigation: WaterInput 
     ///     - observations: String
     /// 
     /// Methods:
@@ -46,9 +46,9 @@ namespace IrrigationAdvisor.Models.Management
     ///     - GetRegion(): Region
     ///     - GetBaseTemperature(): double
     ///     - getDailyAverageTemperature(): double
-    ///     - getEvapotranspiration(): double
+    ///     - GetEvapotranspiration(): double
     ///     - getCropCoefficient(): double
-    ///     - GetEffectiveRain(Region, rain:double, Date): double
+    ///     - GetEffectiveRain(Region, lRain:double, Date): double
     ///     - setObservations(String): bool
     ///      
     /// </summary>
@@ -59,23 +59,47 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Fields
 
+        private DateTime dailyRecordDateTime;
+        //Weather Data
         private WeatherData mainWeatherData;
         private WeatherData alternativeWeatherData;
-        private DateTime dateHour;
-        private double growingDegree;
-        private double growingDegreeAcumulated;
-        private double modifiedGrowingDegree;
-        private double kc;
-        private WaterOutput evapotranspirationCrop;
+        //Calculus by Days After Sowing
+        private int daysAfterSowing;
+        private int daysAfterSowingModified;
+        //Calculus by Growing Degree Days
+        private Double growingDegreeDays;
+        private Double growingDegreeDaysAccumulated;
+        private Double growingDegreeDaysModified;
+        //Input Water Data
         private Water.Rain rain;
         private Water.Irrigation irrigation;
-        private String observations;
+        private DateTime lastWaterInputDate;
+        private DateTime lastBigWaterInputDate;       
+        private DateTime lastPartialWaterInputDate;
+        private Double lastPartialWaterInput;
 
+        //Output Water Data
+        private WaterOutput evapotranspirationCrop;
+
+        //Crop State
+        private Double hydricBalance;
+        private Double soilHydricVolume;
+        private Double totalEvapotranspirationCropFromLastWaterInput;
+        private Double cropCoefficient;
+        private String observations;
         
         #endregion
 
         #region Properties
-        
+
+        public DateTime DailyRecordDateTime
+        {
+            get { return dailyRecordDateTime; }
+            set { dailyRecordDateTime = value; }
+        }
+
+        #region WeatherData
+
         public WeatherData MainWeatherData
         {
             get { return mainWeatherData; }
@@ -87,53 +111,112 @@ namespace IrrigationAdvisor.Models.Management
             get { return alternativeWeatherData; }
             set { alternativeWeatherData = value; }
         }
- 
-        public DateTime DateHour
+
+        #endregion
+
+        #region CalculusByDaysAfterSowing
+
+        public int DaysAfterSowing
         {
-            get { return dateHour; }
-            set { dateHour = value; }
+            get { return daysAfterSowing; }
+            set { daysAfterSowing = value; }
         }
 
-        public double GrowingDegree
+        public int DaysAfterSowingModified
         {
-            get { return growingDegree; }
-            set { growingDegree = value; }
+            get { return daysAfterSowingModified; }
+            set { daysAfterSowingModified = value; }
         }
 
-        public double GrowingDegreeAcumulated
+        #endregion
+
+        #region CalculusByGrowingDegreeDays
+        
+        public double GrowingDegreeDays
         {
-            get { return growingDegreeAcumulated; }
-            set { growingDegreeAcumulated = value; }
-        }
-        public double ModifiedGrowingDegree
-        {
-            get { return modifiedGrowingDegree; }
-            set { modifiedGrowingDegree = value; }
+            get { return growingDegreeDays; }
+            set { growingDegreeDays = value; }
         }
 
-        public double Kc
+        public double GrowingDegreeDaysAccumulated
         {
-            get { return kc; }
-            set { kc = value; }
+            get { return growingDegreeDaysAccumulated; }
+            set { growingDegreeDaysAccumulated = value; }
         }
-        public  Water.WaterOutput EvapotranspirationCrop
+
+        public double GrowingDegreeDaysModified
         {
-            get { return evapotranspirationCrop; }
-            set { evapotranspirationCrop = value; }
+            get { return growingDegreeDaysModified; }
+            set { growingDegreeDaysModified = value; }
         }
+
+        #endregion
+
+        #region InputWaterData
 
         public Water.Rain Rain
         {
             get { return rain; }
             set { rain = value; }
         }
-
         public Water.Irrigation Irrigation
         {
             get { return irrigation; }
             set { irrigation = value; }
         }
+        public DateTime LastWaterInputDate
+        {
+            get { return lastWaterInputDate; }
+            set { lastWaterInputDate = value; }
+        }
+        public DateTime LastBigWaterInputDate
+        {
+            get { return lastBigWaterInputDate; }
+            set { lastBigWaterInputDate = value; }
+        }
+        public DateTime LastPartialWaterInputDate
+        {
+            get { return lastPartialWaterInputDate; }
+            set { lastPartialWaterInputDate = value; }
+        }
+        public Double LastPartialWaterInput
+        {
+            get { return lastPartialWaterInput; }
+            set { lastPartialWaterInput = value; }
+        }
         
+        #endregion
+
+        #region OutputWeatherData
+
+        public WaterOutput EvapotranspirationCrop
+        {
+            get { return evapotranspirationCrop; }
+            set { evapotranspirationCrop = value; }
+        }
+        #endregion
+
+        #region CropState
+        public Double HydricBalance
+        {
+            get { return hydricBalance; }
+            set { hydricBalance = value; }
+        }
+        public Double SoilHydricVolume
+        {
+            get { return soilHydricVolume; }
+            set { soilHydricVolume = value; }
+        }
+        public Double TotalEvapotranspirationCropFromLastWaterInput
+        {
+            get { return totalEvapotranspirationCropFromLastWaterInput; }
+            set { totalEvapotranspirationCropFromLastWaterInput = value; }
+        }
+        public double CropCoefficient
+        {
+            get { return cropCoefficient; }
+            set { cropCoefficient = value; }
+        }
         public String Observations
         {
             get { return observations; }
@@ -141,38 +224,101 @@ namespace IrrigationAdvisor.Models.Management
         }
         #endregion
 
+        #endregion
+
         #region Construction
 
         public DailyRecord() 
         {
+            this.DailyRecordDateTime = new DateTime();
+
             this.MainWeatherData = new WeatherData();
             this.AlternativeWeatherData = new WeatherData();
-            this.DateHour = new DateTime();
-            this.GrowingDegree = 0;
-            this.GrowingDegreeAcumulated = 0;
-            this.ModifiedGrowingDegree = 0;
-            this.Kc = 0;
-            this.EvapotranspirationCrop = new WaterOutput();
+
+            this.DaysAfterSowing = 0;
+            this.DaysAfterSowingModified = 0;
+
+            this.GrowingDegreeDays = 0;
+            this.GrowingDegreeDaysAccumulated = 0;
+            this.GrowingDegreeDaysModified = 0;
+
             this.Rain = new Water.Rain();
             this.Irrigation = new Water.Irrigation();
+            this.LastWaterInputDate = new DateTime();
+            this.LastBigWaterInputDate = new DateTime();
+            this.LastPartialWaterInputDate = new DateTime();
+            this.LastPartialWaterInput = 0;
+
+            this.EvapotranspirationCrop = new WaterOutput();
+
+            this.HydricBalance = 0;
+            this.SoilHydricVolume = 0;
+            this.TotalEvapotranspirationCropFromLastWaterInput = 0;
+            this.CropCoefficient = 0;
             this.Observations= "";
 
         }
 
-        public DailyRecord(WeatherData pMainWeatherData, WeatherData pAlternativeWeatherData,
-            DateTime pDateHour, double pGrowingDegree, double pGrowingDegreeAcumulated, double pModifiedGrowingDegree, double pKc, Water.WaterOutput pEvapotranspirationCrop,
-            Water.Rain pRain, Water.Irrigation pIrrigation, String pObservations) 
+
+        /// <summary>
+        /// Constructor with parameters
+        /// </summary>
+        /// <param name="pDailyRecordDateTime"></param>
+        /// <param name="pMainWeatherData"></param>
+        /// <param name="pAlternativeWeatherData"></param>
+        /// <param name="pDaysAfterSowing"></param>
+        /// <param name="pDaysAfterSowingModified"></param>
+        /// <param name="pGrowingDegreeDays"></param>
+        /// <param name="pGrowingDegreeDaysAccumulated"></param>
+        /// <param name="pGrowingDegreeDaysModified"></param>
+        /// <param name="pRain"></param>
+        /// <param name="pIrrigation"></param>
+        /// <param name="pLastWaterInputDate"></param>
+        /// <param name="pLastBigWaterInputDate"></param>
+        /// <param name="pLastPartialWaterInputDate"></param>
+        /// <param name="pLastPartialWaterInput"></param>
+        /// <param name="pKc"></param>
+        /// <param name="pEvapotranspirationCrop"></param>
+        /// <param name="pHydricBalance"></param>
+        /// <param name="pSoilHydricVolume"></param>
+        /// <param name="pTotalEvapotranspirationFromLastWaterInput"></param>
+        /// <param name="pCropCoefficient"></param>
+        /// <param name="pObservations"></param>
+        public DailyRecord(DateTime pDailyRecordDateTime, WeatherData pMainWeatherData, WeatherData pAlternativeWeatherData,
+                            int pDaysAfterSowing, int pDaysAfterSowingModified,
+                            Double pGrowingDegreeDays, Double pGrowingDegreeDaysAccumulated, Double pGrowingDegreeDaysModified, 
+                            Water.Rain pRain, Water.Irrigation pIrrigation,
+                            DateTime pLastWaterInputDate, DateTime pLastBigWaterInputDate,
+                            DateTime pLastPartialWaterInputDate, Double pLastPartialWaterInput,
+                            Water.WaterOutput pEvapotranspirationCrop,
+                            Double pHydricBalance, Double pSoilHydricVolume, Double pTotalEvapotranspirationFromLastWaterInput,
+                            Double pCropCoefficient, String pObservations) 
         {
+            this.DailyRecordDateTime = pDailyRecordDateTime;
+
             this.MainWeatherData = pMainWeatherData;
             this.AlternativeWeatherData = pAlternativeWeatherData;
-            this.DateHour = pDateHour;
-            this.GrowingDegree = pGrowingDegree;
-            this.GrowingDegreeAcumulated = pGrowingDegreeAcumulated;
-            this.ModifiedGrowingDegree = pModifiedGrowingDegree;
-            this.Kc = pKc;
-            this.EvapotranspirationCrop = pEvapotranspirationCrop;
+
+            this.DaysAfterSowing = pDaysAfterSowing;
+            this.DaysAfterSowingModified = pDaysAfterSowingModified;
+
+            this.GrowingDegreeDays = pGrowingDegreeDays;
+            this.GrowingDegreeDaysAccumulated = pGrowingDegreeDaysAccumulated;
+            this.GrowingDegreeDaysModified = pGrowingDegreeDaysModified;
+
             this.Rain = pRain;
             this.Irrigation = pIrrigation;
+            this.LastWaterInputDate = pLastWaterInputDate;
+            this.LastBigWaterInputDate = pLastBigWaterInputDate;
+            this.LastPartialWaterInputDate = pLastPartialWaterInputDate;
+            this.LastPartialWaterInput = pLastPartialWaterInput;
+
+            this.EvapotranspirationCrop = pEvapotranspirationCrop;
+
+            this.HydricBalance = pHydricBalance;
+            this.SoilHydricVolume = pSoilHydricVolume;
+            this.TotalEvapotranspirationCropFromLastWaterInput = pTotalEvapotranspirationFromLastWaterInput;
+            this.CropCoefficient = pCropCoefficient;
             this.Observations = pObservations;
         }
         #endregion
@@ -185,39 +331,42 @@ namespace IrrigationAdvisor.Models.Management
         //TODO DailyRecord - public methods
         ///     - GetBaseTemperature(): double
         ///     - getDailyAverageTemperature(): double
-        ///     - getEvapotranspiration(): double
+        ///     - GetEvapotranspiration(): double
         ///     - getCropCoefficient(): double
-        ///     - GetEffectiveRain(Region, rain:double, Date): double
+        ///     - GetEffectiveRain(Region, lRain:double, Date): double
         #endregion
 
         #region Overrides
+
+
         public override string ToString()
         {
-            string etc = this.EvapotranspirationCrop.GetTotalInput().ToString() + "          ";
-            string rain = "       ";
-            string irrigation = "       ";
+            string lEvapotranspirationCrop = this.EvapotranspirationCrop.GetTotalInput().ToString() + "          ";
+            string lRain = "       ";
+            string lIrrigation = "       ";
             int index = 5;
             if (this.Rain != null)
             {
-                rain = this.Rain.getTotalInput().ToString() + "           ";
+                lRain = this.Rain.getTotalInput().ToString() + "           ";
 
             } 
             if (this.Irrigation != null)
             {
-                irrigation = this.Irrigation.getTotalInput().ToString() + "           ";
+                lIrrigation = this.Irrigation.getTotalInput().ToString() + "           ";
 
             }
             string lReturn = 
-                "Fecha: " + this.DateHour.ToString() + "\t\t" +
-                "G.Dia: " + this.GrowingDegree + "\t\t" +
-                "ETc:" + etc.Substring(0,index) + "\t\t" +
-                "Lluvia: " + rain.Substring(0, index) + "\t\t" +
-                "Riego:" + irrigation.Substring(0, index) + "\t\t" +
-                "KC:" + this.Kc + "\t\t" +
+                "Fecha: " + this.DailyRecordDateTime.ToString() + "\t\t" +
+                "G.Dia: " + this.GrowingDegreeDays + "\t\t" +
+                "ETc:" + lEvapotranspirationCrop.Substring(0,index) + "\t\t" +
+                "Lluvia: " + lRain.Substring(0, index) + "\t\t" +
+                "Riego:" + lIrrigation.Substring(0, index) + "\t\t" +
+                "KC:" + this.CropCoefficient + "\t\t" +
                 "Obs:  " + this.Observations + "\t\t";
             return lReturn;
 
         }
+
         public override bool Equals(object obj)
         {
             if (obj == null || obj.GetType() != this.GetType())
@@ -225,15 +374,15 @@ namespace IrrigationAdvisor.Models.Management
                 return false;
             }
             DailyRecord lDailyRecord = obj as DailyRecord;
-            return this.DateHour.Date.Equals(lDailyRecord.DateHour.Date);
+            return this.DailyRecordDateTime.Date.Equals(lDailyRecord.DailyRecordDateTime.Date);
         }
+
         public override int GetHashCode()
         {
             return this.Observations.GetHashCode();
         }
+
         #endregion
-
-
 
 
     }

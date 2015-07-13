@@ -49,8 +49,8 @@ namespace IrrigationAdvisor.Models.Weather
     ///     - WeatherData(WeatherStation, Datetime, 
     ///         TemperatureMax double, TemperatureMin double, 
     ///         Evapotranspiration double)  -- consturctor with parameters
-    ///     - getAverageTemperature(Datetime pDate) double
-    ///     - getEvapotranspiration(Datetime pDate) double
+    ///     - GetAverageTemperature(Datetime pDate) double
+    ///     - GetEvapotranspiration(Datetime pDate) double
     /// 
     /// </summary>
     //[Serializable()]
@@ -391,7 +391,8 @@ namespace IrrigationAdvisor.Models.Weather
         #endregion
 
         #region Public Methods
-        public double getAverageTemperature()
+
+        public double GetAverageTemperature()
         {
             double lAverageTemperature = 0;
             try
@@ -406,7 +407,7 @@ namespace IrrigationAdvisor.Models.Weather
             return lAverageTemperature;
         }
 
-        public double getAverageHumidity()
+        public double GetAverageHumidity()
         {
             double lAverageHumidity = 0;
             try
@@ -421,7 +422,7 @@ namespace IrrigationAdvisor.Models.Weather
             return lAverageHumidity;
         }
 
-        public double getAverageBarometer()
+        public double GetAverageBarometer()
         {
             double lAverageBarometer = 0;
             try
@@ -436,9 +437,7 @@ namespace IrrigationAdvisor.Models.Weather
             return lAverageBarometer;
         }
 
-
-
-        public double getEvapotranspiration()
+        public double GetEvapotranspiration()
         {
             double lEvapotranspiration = 0;
             try

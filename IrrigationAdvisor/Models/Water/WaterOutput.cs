@@ -56,6 +56,7 @@ namespace IrrigationAdvisor.Models.Water
         #endregion
 
         #region Properties
+
         public double Input
         {
             get { return input; }
@@ -105,6 +106,7 @@ namespace IrrigationAdvisor.Models.Water
             this.ExtraInput = pExtraInput;
             this.ExtraDate = pExtraDate;
         }
+
         #endregion
 
         #region Private Helpers
