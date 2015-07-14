@@ -350,7 +350,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <param name="pDayAfterSowing"></param>
         /// <param name="pKC"></param>
         /// <returns></returns>
-        public bool addKCforDayAfterSowing(int pDayAfterSowing, double pKC)
+        public bool AddKCforDayAfterSowing(int pDayAfterSowing, double pKC)
         {
             bool lReturn = false;
             try

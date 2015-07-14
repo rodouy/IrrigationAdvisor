@@ -446,7 +446,6 @@ namespace IrrigationAdvisor.Models.Management
         }
 
 
-
         #endregion
 
 
@@ -592,6 +591,10 @@ namespace IrrigationAdvisor.Models.Management
             return lRetrun;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pRecordToDelete"></param>
         private void takeOffDailyRecord(DailyRecord pRecordToDelete)
         {
             int lDayAfterSowing;
@@ -602,7 +605,7 @@ namespace IrrigationAdvisor.Models.Management
             // Evapotraspiration revert
             if (pRecordToDelete.EvapotranspirationCrop != null)
             {
-                this.TotalEvapotranspirationCrop -= pRecordToDelete.EvapotranspirationCrop.GetTotalInput();
+                //this.TotalEvapotranspirationCrop -= pRecordToDelete.EvapotranspirationCrop.GetTotalInput();
                 this.HydricBalance += pRecordToDelete.EvapotranspirationCrop.GetTotalInput();
             }
 
@@ -611,16 +614,16 @@ namespace IrrigationAdvisor.Models.Management
             {
                 double lEffectiveRain = pRecordToDelete.Rain.getTotalInput();
                 double lRealRain = pRecordToDelete.Rain.getTotalInput();
-                this.TotalEffectiveRain -= lEffectiveRain;
-                this.TotalRealRain -= lRealRain;
+                //this.TotalEffectiveRain -= lEffectiveRain;
+                //this.TotalRealRain -= lRealRain;
                 this.HydricBalance -= lEffectiveRain;
             }
 
             // Irrigation revert
             if (pRecordToDelete.Irrigation != null)
             {
-                this.TotalIrrigation -= pRecordToDelete.Irrigation.Input;
-                this.TotalExtraIrrigation -= pRecordToDelete.Irrigation.ExtraInput;
+                //this.TotalIrrigation -= pRecordToDelete.Irrigation.Input;
+                //this.TotalExtraIrrigation -= pRecordToDelete.Irrigation.ExtraInput;
                 this.HydricBalance -= pRecordToDelete.Irrigation.getTotalInput();
             }
             
@@ -668,7 +671,7 @@ namespace IrrigationAdvisor.Models.Management
                 if (this.GrowingDegreeDaysModified <= lDailyRec.GrowingDegreeDaysAccumulated && this.GrowingDegreeDaysModified > lastGDRegistry)
                 {
                     lDate = lDailyRec.DailyRecordDateTime;
-                    lReturn = Utilities.Utils.getDaysDifference(this.SowingDate, lDate);
+                    lReturn = Utilities.Utils.GetDaysDifference(this.SowingDate, lDate);
                     return lReturn;
                 }
                 lastGDRegistry = lDailyRec.GrowingDegreeDaysAccumulated;
@@ -715,7 +718,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             foreach (DailyRecord lDailyRec in this.DailyRecordList)
             {
-                if (Utils.isTheSameDay(pDateTime, lDailyRec.DailyRecordDateTime))
+                if (Utils.IsTheSameDay(pDateTime, lDailyRec.DailyRecordDateTime))
                 {
                     lDailyRec.GrowingDegreeDaysModified += lModification;// +lDailyRecord.GrowingDegreeDaysModified;
                     this.GrowingDegreeDaysModified += lModification;
@@ -863,7 +866,7 @@ namespace IrrigationAdvisor.Models.Management
             int i = 0;
             foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (Utils.isTheSameDay(lDailyRecordItem.DailyRecordDateTime.Date, pDailyRecordDateTime.Date))
+                if (Utils.IsTheSameDay(lDailyRecordItem.DailyRecordDateTime.Date, pDailyRecordDateTime.Date))
                 {
                     lIndexToRemove = i;
                     lReturn = lDailyRecordItem;
@@ -909,7 +912,7 @@ namespace IrrigationAdvisor.Models.Management
                 //Growing Degree Days is average temperature menous Base Temperature                
                 lGrowingDegreeDays = this.calculateGrowingDegreeDays(pBaseTemperature, pWeatherData.GetAverageTemperature());
 
-                lDaysAfterSowing = Utils.getDaysDifference(this.SowingDate, pWeatherData.Date);
+                lDaysAfterSowing = Utils.GetDaysDifference(this.SowingDate, pWeatherData.Date);
 
                 //Get days after sowing according degrees days calculated from the accumulated degree days by Daily Records
                 lDailyRecord = this.getDailyRecordByGrowingDegreeDaysAccumulated(this.GrowingDegreeDaysModified);

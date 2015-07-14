@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 using IrrigationAdvisor.Models.Data;
 using IrrigationAdvisor.Models.Management;
 using IrrigationAdvisor.Models.Utilities;
@@ -36,11 +37,11 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     - cropCoefficientValue:         double
     ///     
     /// Methods:
-    ///     - PhenologialStageData()     -- constructor
-    ///     - PhenologialStageData(???)  -- consturctor with parameters
+    ///     - CropInformationByDate()     -- constructor
+    ///     - CropInformationByDate(???)  -- consturctor with parameters
     ///     
     /// </summary>
-    public class CropInformatioByDate
+    public class CropInformationByDate
     {
 
         #region Consts
@@ -49,12 +50,11 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region Fields
         /// <summary>
         /// The fields are:
-        ///     - phenologicalStage:            PhenologicalStage  - PK
         ///     - sowingDate:                   DateTime           - PK
         ///     - currentDate:                  DateTime           - PK
         ///     - accumulatedGrowingDegreeDays: double
         ///     - cropCoefficientValue:         double 
-        /// CropInformatioByDate    
+        /// CropInformationByDate    
         /// 
         /// modelo un calculo
         /// 
@@ -136,9 +136,9 @@ namespace IrrigationAdvisor.Models.Agriculture
         #region Construction
 
         /// <summary>
-        /// Constructor of CropInformatioByDate
+        /// Constructor of CropInformationByDate
         /// </summary>
-        public CropInformatioByDate(Specie pSpecie, DateTime  pSowingDate)
+        public CropInformationByDate(Specie pSpecie, DateTime  pSowingDate)
         {
             this.SowingDate = pSowingDate;
             this.Specie = pSpecie;
@@ -164,7 +164,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
             //Set DaysAfterSowing
             this.CurrentDate = pCurrentDate;
-            this.DaysAfterSowing = Utils.getDaysDifference(this.SowingDate, this.CurrentDate);
+            this.DaysAfterSowing = Utils.GetDaysDifference(this.SowingDate, this.CurrentDate);
 
             //Set accumulatedGrowingDegreeDays
             this.AccumulatedGrowingDegreeDays = InitialTables.GetAccumulatedGrowingDegreeDays(this.SowingDate,this.CurrentDate);
@@ -236,6 +236,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Overrides
         #endregion
+
 
     }
 }
