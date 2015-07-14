@@ -419,15 +419,7 @@ namespace IrrigationAdvisor.Models.Management
                                                     WeatherData pAlternativeWeatherData, Water.Rain pRain,
                                                     Water.Irrigation plIrrigation, string pObservations)
         {
-            foreach (CropIrrigationWeather lCropIrrigationWeather in this.CropIrrigationWeatherList)
-            {
-                if (lCropIrrigationWeather.Equals(pCropIrrigationWeather))
-                {
-                    pCropIrrigationWeather.AddDailyRecord(pWeatherData, pMainWeatherData, pAlternativeWeatherData, pRain, plIrrigation, pObservations);
-                    break;
-                }
-            }
-
+            pCropIrrigationWeather.AddDailyRecord(pWeatherData, pMainWeatherData, pAlternativeWeatherData, pRain, plIrrigation, pObservations);
         }
 
         
@@ -666,7 +658,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             Crop lReturn = null;
             int lCropId = this.CropList.Count();
-            Crop lCrop = new Crop(lCropId, pName, pRegion, pSpecie, pCropCoefficient, pStageList, pPhenologicalStageList,
+            Crop lCrop = new Crop(lCropId, pName, pRegion, pSpecie, pCropCoefficient, pPhenologicalStageList,
                                 pDensity, pMaxEvapotranspirationToIrrigate, pMinEvapotranspirationToIrrigate);
             lReturn = ExistCrop(lCrop);
             if (lReturn == null)
@@ -711,12 +703,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pMinEvapotranspirationToIrrigate"></param>
         /// <returns></returns>
         public Crop UpdateCrop(String pName, Region pRegion, Specie pSpecie,
-                        CropCoefficient pCropCoefficient, List<Stage> pStageList,
-                        List<PhenologicalStage> pPhenologicalStageList, 
+                        CropCoefficient pCropCoefficient, List<PhenologicalStage> pPhenologicalStageList, 
                         Double pDensity, Double pMaxEvapotranspirationToIrrigate, Double pMinEvapotranspirationToIrrigate)
         {
             Crop lReturn = null;
-            Crop lCrop = new Crop(0, pName, pRegion, pSpecie, pCropCoefficient, pStageList, pPhenologicalStageList, 
+            Crop lCrop = new Crop(0, pName, pRegion, pSpecie, pCropCoefficient, pPhenologicalStageList,
                             pDensity, pMaxEvapotranspirationToIrrigate, pMinEvapotranspirationToIrrigate);
             lReturn = ExistCrop(lCrop);
             if (lReturn != null)
@@ -725,8 +716,7 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.Region = pRegion;
                 lReturn.Specie = pSpecie;
                 lReturn.CropCoefficient = pCropCoefficient;
-                lReturn.StageList = pStageList;
-                lReturn.PhenologicalStageList = pPhenologicalStageList;
+                lReturn.UpdatePhenologicalStageList(pPhenologicalStageList);
                 lReturn.Density = pDensity;
                 lReturn.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
                 lReturn.MinEvapotranspirationToIrrigate = pMinEvapotranspirationToIrrigate;
@@ -1853,9 +1843,9 @@ namespace IrrigationAdvisor.Models.Management
                         lMainWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.MainWeatherStation, pDateTime);
                         //Get Data Weather form Alternative Weather Station
                         lAlternativeWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime);
-
-                        this.addDailyRecordToCropIrrigationWeather(pCropIrrigationWeather, lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);///Si ya existe registro para ese dia se sobre-escribe
-
+                        
+                        pCropIrrigationWeather.AddDailyRecord(lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);
+                        
                         //Luego de que agrego un registro verifico si hay que regar.
                         //Si es asi se agrega el riego a la lista y se reingresa el registro diario. 
                         this.verifyNeedForIrrigation(pCropIrrigationWeather, pDateTime);

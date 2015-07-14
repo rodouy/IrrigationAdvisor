@@ -75,7 +75,6 @@ namespace IrrigationAdvisor.Models.Agriculture
         public Stage Stage
         {
             get { return stage; }
-            set { stage = value; }
         }
         
         public double MinDegree
@@ -112,7 +111,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         public PhenologicalStage() 
         {
             this.phenologicalStageId = 0;
-            this.Stage = new Stage();
+            this.stage = new Stage();
             this.MinDegree = 0;
             this.MaxDegree = 0;
             this.RootDepth = 0;
@@ -134,7 +133,7 @@ namespace IrrigationAdvisor.Models.Agriculture
                                 Double pRootDepth, Double pHydricBalanceDepth)
         {
             this.phenologicalStageId = pPhenologicalStageId;
-            this.Stage = pStage;
+            this.stage = pStage;
             this.MinDegree = pMinDegree;
             this.MaxDegree = pMaxDegree;
             this.RootDepth = pRootDepth;
@@ -168,6 +167,18 @@ namespace IrrigationAdvisor.Models.Agriculture
             double lRootDepth;
             lRootDepth = this.rootDepth;
             return lRootDepth;
+        }
+
+        public Stage UpdateStage(String pName, String pDescripcion)
+        {
+            Stage lReturn = null;
+            if(!String.IsNullOrEmpty(pName) && !String.IsNullOrEmpty(pDescripcion))
+            {
+                this.Stage.Name = pName;
+                this.Stage.Description = pDescripcion;
+                lReturn = this.Stage;
+            }
+            return lReturn;
         }
 
         #endregion

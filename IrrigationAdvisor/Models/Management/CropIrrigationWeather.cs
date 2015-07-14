@@ -392,7 +392,7 @@ namespace IrrigationAdvisor.Models.Management
             
             if (pDailyRec.Irrigation != null)
             {
-                lDaysBetweenIrrigations = Utilities.Utils.getDaysDifference(this.CropIrrigationWeatherRecord.LastPartialWaterInputDate, pDailyRec.DailyRecordDateTime);
+                lDaysBetweenIrrigations = Utilities.Utils.GetDaysDifference(this.CropIrrigationWeatherRecord.LastPartialWaterInputDate, pDailyRec.DailyRecordDateTime);
 
                 // Calculate de effective lIrrigation depending on the irrigatioin efficiency of the Pivot
                 lIrrigationEfficiency = this.IrrigationUnit.IrrigationEfficiency;
@@ -477,7 +477,7 @@ namespace IrrigationAdvisor.Models.Management
 
             if (pDailyRec.Rain != null)
             {
-                lDaysBetweenRains = Utilities.Utils.getDaysDifference(this.CropIrrigationWeatherRecord.LastPartialWaterInputDate, pDailyRec.DailyRecordDateTime);
+                lDaysBetweenRains = Utilities.Utils.GetDaysDifference(this.CropIrrigationWeatherRecord.LastPartialWaterInputDate, pDailyRec.DailyRecordDateTime);
 
                 lRealRain = pDailyRec.Rain.getTotalInput();
                 //Calculate Rain Effective Value
@@ -558,6 +558,7 @@ namespace IrrigationAdvisor.Models.Management
             //Update the Phenological Stage depending in Growing Degree
             reviewPhenologicalStage();
 
+
             lFieldCapacity = this.GetSoilFieldCapacity();
 
             //TODO: Erase To debug
@@ -594,7 +595,7 @@ namespace IrrigationAdvisor.Models.Management
             lFieldCapacity = this.GetSoilFieldCapacity();
 
             //After a big lRain the HidricBalance keep its value = FieldCapacity for two days
-            lDaysAfterBigInputWater = Utilities.Utils.getDaysDifference(this.CropIrrigationWeatherRecord.LastBigWaterInputDate, pDailyRec.DailyRecordDateTime);
+            lDaysAfterBigInputWater = Utilities.Utils.GetDaysDifference(this.CropIrrigationWeatherRecord.LastBigWaterInputDate, pDailyRec.DailyRecordDateTime);
             if (lDaysAfterBigInputWater <= InitialTables.DAYS_HIDRIC_BALANCE_UNCHANGABLE_AFTER_BIG_WATER_INPUT)
             {
                 this.CropIrrigationWeatherRecord.HydricBalance = lFieldCapacity;
@@ -661,7 +662,7 @@ namespace IrrigationAdvisor.Models.Management
             }
 
             //After a big lRain the HidricBalance keep its value = FieldCapacity for two days
-            if (Utilities.Utils.getDaysDifference(this.LastBigWaterInput, pDailyRec.DailyRecordDateTime) < 3 && this.HydricBalance < lFieldCapacity)
+            if (Utilities.Utils.GetDaysDifference(this.LastBigWaterInput, pDailyRec.DailyRecordDateTime) < 3 && this.HydricBalance < lFieldCapacity)
             {
                 this.HydricBalance = lFieldCapacity;
             }
@@ -886,7 +887,7 @@ namespace IrrigationAdvisor.Models.Management
             IEnumerable<PhenologicalStage> lPhenologicalTableOrderByMinDegree;
             PhenologicalStage lNewPhenStage = null;
             Stage lStage;
-            CropInformatioByDate lCropIrrigationByDate;
+            CropInformationByDate lCropIrrigationByDate;
             
             //Order the phenological table
             lPhenologicalStageList = this.Crop.PhenologicalStageList;
@@ -908,7 +909,7 @@ namespace IrrigationAdvisor.Models.Management
             }
             else 
             {
-                lCropIrrigationByDate = new CropInformatioByDate(this.Crop.Specie, this.CropIrrigationWeatherRecord.SowingDate);
+                lCropIrrigationByDate = new CropInformationByDate(this.Crop.Specie, this.CropIrrigationWeatherRecord.SowingDate);
                 lStage = lCropIrrigationByDate.GetStage(this.CropIrrigationWeatherRecord.CropDate);
                 foreach (PhenologicalStage lPhenologicalStage in lPhenologicalTableOrderByMinDegree)
                 {
@@ -930,7 +931,7 @@ namespace IrrigationAdvisor.Models.Management
             Water.Irrigation lReturn = null;
             foreach (Water.Irrigation lIrrigation in this.IrrigationList)
             {
-                if(Utils.isTheSameDay(lIrrigation.Date,pDayOfIrrigation))
+                if(Utils.IsTheSameDay(lIrrigation.Date,pDayOfIrrigation))
                 {
                     lReturn = lIrrigation;
                 }
@@ -943,7 +944,7 @@ namespace IrrigationAdvisor.Models.Management
             Water.Rain lReturn = null;
             foreach (Water.Rain lRain in this.RainList)
             {
-                if (Utils.isTheSameDay(lRain.Date, pDayOfRain))
+                if (Utils.IsTheSameDay(lRain.Date, pDayOfRain))
                 {
                     lReturn = lRain;
                 }
@@ -988,7 +989,7 @@ namespace IrrigationAdvisor.Models.Management
 
                 if (lDays == 0)
                 {
-                    lDays = Utils.getDaysDifference(this.CropIrrigationWeatherRecord.SowingDate, pWeatherData.Date);
+                    lDays = Utils.GetDaysDifference(this.CropIrrigationWeatherRecord.SowingDate, pWeatherData.Date);
                 }
 
                 
@@ -1047,10 +1048,10 @@ namespace IrrigationAdvisor.Models.Management
 
                 if (lDays == 0)
                 {
-                    lDays = Utils.getDaysDifference(this.CropIrrigationWeatherRecord.SowingDate, pWeatherData.Date);
+                    lDays = Utils.GetDaysDifference(this.CropIrrigationWeatherRecord.SowingDate, pWeatherData.Date);
                 }
 
-                lKC_CropCoefficient = this.Crop.CropCoefficient.GetCropCoefficient(lDays);
+                lKC_CropCoefficient = this.Crop.GetCropCoefficient(lDays);
                 lRealEvapotraspiration = lEvapotranspiration * lKC_CropCoefficient;
                 lEvapotranspirationCrop = new EvapotranspirationCrop(
                     this, pWeatherData.Date, lRealEvapotraspiration);
@@ -1070,7 +1071,7 @@ namespace IrrigationAdvisor.Models.Management
                 int i = 0;
                 foreach (DailyRecord lDailyRecord in this.CropIrrigationWeatherRecord.DailyRecordList)
                 {
-                    if (Utils.isTheSameDay(lDailyRecord.DailyRecordDateTime.Date, pWeatherData.Date))
+                    if (Utils.IsTheSameDay(lDailyRecord.DailyRecordDateTime.Date, pWeatherData.Date))
                     {
                         indexToRemove = i;
                         lRecordToDelete = lDailyRecord;
@@ -1118,7 +1119,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             foreach (DailyRecord lDailyRec in this.CropIrrigationWeatherRecord.DailyRecordList)
             {
-                if (Utils.isTheSameDay(pDateTime, lDailyRec.DailyRecordDateTime))
+                if (Utils.IsTheSameDay(pDateTime, lDailyRec.DailyRecordDateTime))
                 {
                     lDailyRec.GrowingDegreeDaysModified += lModification;// +lDailyRecord.GrowingDegreeDaysModified;
                     this.CropIrrigationWeatherRecord.GrowingDegreeDaysModified += lModification;
