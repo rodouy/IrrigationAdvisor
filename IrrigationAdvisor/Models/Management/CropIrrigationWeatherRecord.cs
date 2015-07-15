@@ -1,4 +1,5 @@
-﻿using IrrigationAdvisor.Models.Agriculture;
+﻿/*
+using IrrigationAdvisor.Models.Agriculture;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1147,3 +1148,5 @@ namespace IrrigationAdvisor.Models.Management
 
     }
 }
+
+*/

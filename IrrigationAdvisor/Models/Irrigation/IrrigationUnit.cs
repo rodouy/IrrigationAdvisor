@@ -271,14 +271,18 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// <param name="pMinEvapotranspirationToIrrigate"></param>
         /// <returns></returns>
         public Crop UpdateCrop(String pName, Specie pSpecie, Region pRegion,
-                        CropCoefficient pCropCoefficient, List<Stage> pStageList,
+                        CropCoefficient pCropCoefficient,
                         List<PhenologicalStage> pPhenologicalStageList,
                         Double pDensity, Double pMaxEvapotranspirationToIrrigate, Double pMinEvapotranspirationToIrrigate)
         {
             Crop lReturn = null;
-            Crop lCrop = new Crop(0, pName, pRegion, pSpecie,
-                                    pCropCoefficient, pStageList,
-                                    pPhenologicalStageList, pDensity,
+            Crop lCrop = new Crop(0,
+                                    pName, 
+                                    pRegion, 
+                                    pSpecie,
+                                    pCropCoefficient, 
+                                    pPhenologicalStageList, 
+                                    pDensity,
                                     pMaxEvapotranspirationToIrrigate, 
                                     pMinEvapotranspirationToIrrigate);
             lReturn = this.ExistCrop(lCrop);
@@ -288,8 +292,7 @@ namespace IrrigationAdvisor.Models.Irrigation
                 lReturn.Region = pRegion;
                 lReturn.Specie = pSpecie;
                 lReturn.CropCoefficient = pCropCoefficient;
-                lReturn.StageList = pStageList;
-                lReturn.PhenologicalStageList = pPhenologicalStageList;
+                lReturn.UpdatePhenologicalStageList(pPhenologicalStageList);
                 lReturn.Density = pDensity;
                 lReturn.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
                 lReturn.MinEvapotranspirationToIrrigate = pMinEvapotranspirationToIrrigate;
