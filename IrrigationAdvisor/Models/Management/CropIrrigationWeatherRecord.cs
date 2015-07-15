@@ -688,7 +688,7 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pRain"></param>
         /// <returns></returns>
-        public double GetEffectiveRainValue(WaterInput pRain)
+        public double getEffectiveRainValue(WaterInput pRain)
         {
             double pReturn = 0;
             if (pRain != null)

@@ -1697,7 +1697,7 @@ namespace IrrigationAdvisor.Models.Management
             CropIrrigationWeather lReturn = null;
             long lCropIrrigationWeatherId = this.CropIrrigationWeatherList.Count();
             CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather();
-            lCropIrrigationWeather.CropIrrigationWeaterId = this.CropIrrigationWeatherList.Count();
+            lCropIrrigationWeather.CropIrrigationWeatherId = this.CropIrrigationWeatherList.Count();
             lCropIrrigationWeather.Crop= pCrop;
             lCropIrrigationWeather.MainWeatherStation=pMainWeatherStation;
             lCropIrrigationWeather.AlternativeWeatherStation= pAlternativeWeatherStation;
