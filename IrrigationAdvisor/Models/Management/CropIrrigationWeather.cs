@@ -633,7 +633,13 @@ namespace IrrigationAdvisor.Models.Management
             lReturn = lGrowingDegreeDays;
             return lReturn;
         }
-
+        
+        /// <summary>
+        /// Get the first DailyRecord from the list order by date with the  Growing Degree Days Accumulated
+        /// greater than the parameter degrees
+        /// </summary>
+        /// <param name="pGrowingDegreeDays"></param>
+        /// <returns></returns>
         private DailyRecord getDailyRecordByGrowingDegreeDaysAccumulated(Double pGrowingDegreeDays)
         {
             DailyRecord lRetrun = null;
