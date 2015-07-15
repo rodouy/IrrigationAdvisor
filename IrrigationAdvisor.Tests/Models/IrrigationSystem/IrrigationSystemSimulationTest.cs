@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -85,7 +86,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 2. Pivot 11 = LP Soja 2010   Temporada 2010-2011 - DDS - ET0 - Lluvias
                 3. Pivot 12 = LP Soja 2011   Temporada 2010-2011 - DDS - ET0 - Lluvias
                 4. Pivot 13 = LP Soja 2012   Temporada 2012-2013 - DDS - ET0 - Lluvias - CropCoefficient - ETc
-             */
+             
         enum SantaLuciaPivotList
         {
             Pivot1_Maiz_2007,
@@ -173,7 +174,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private double testCropMaxDegree_Soja;
         private double testCropRootDepth_Soja;
         private double testCropHydricBalanceDepth_Soja;
-        */
+        
 
         private List<EffectiveRain> testEffectiveRainsList;
         //private List<PhenologicalStage> testPhenologicalStageList;
@@ -195,10 +196,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private DateTime testWeatherDataStartDate;
 
+        
         private CropIrrigationWeatherRecord testCropIrrigationWeatherRecord_Pivot_1;
         private CropIrrigationWeatherRecord testCropIrrigationWeatherRecord_Pivot_2;
         private CropIrrigationWeatherRecord testCropIrrigationWeatherRecord_Pivot_3;
-
+        
         //Log information
         private String textLogPivot2;
         private String textLogPivot3_4;
@@ -263,7 +265,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 Predeterminada: 350.000 pl/ha
                 Alta: más de 400.000 pl/ha. En este caso tomar cropCoefficient correspondiente a región Árida
                 Baja: por el momento nada
-             */
+             
             
             testMaxEvapotranspirationToIrrigate_Maiz = 35;
             testMaxEvapotranspirationToIrrigate_Soja = 30;
@@ -281,7 +283,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testCropMaxDegree_Soja = 60;
             testCropRootDepth_Soja = 5;
             testCropHydricBalanceDepth_Soja = 15;
-            */
+            
 
 
             #endregion
@@ -333,8 +335,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testPhenologicalStageList_Soja = InitialTables.CreatePhenologicalStageListForSoja(testCrop_Soja_Sur);
 
             //10.  Add PhenologicalStageList to Crop
-            testCrop_Maiz_Sur.PhenologicalStageList = testPhenologicalStageList_Maiz;
-            testCrop_Soja_Sur.PhenologicalStageList = testPhenologicalStageList_Soja;
+            //testCrop_Maiz_Sur.PhenologicalStageList = testPhenologicalStageList_Maiz;
+            //testCrop_Soja_Sur.PhenologicalStageList = testPhenologicalStageList_Soja;
             
             //11.  Add Crops to System
             addCrops_SantaLucia();
@@ -406,14 +408,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             
             //Find the records of Crop Irrigation Unit (Pivots)
-            testCropIrrigationWeatherRecord_Pivot_1 = testCropIrrigationWeather_Pivot_1_Maiz_2007.CropIrrigationWeatherRecord;
-            testCropIrrigationWeatherRecord_Pivot_2 = testCropIrrigationWeather_Pivot_2_Tammi_2008.CropIrrigationWeatherRecord;
-            testCropIrrigationWeatherRecord_Pivot_3 = testCropIrrigationWeather_Pivot_3_LaPerdiz_2010.CropIrrigationWeatherRecord;
+            //testCropIrrigationWeatherRecord_Pivot_1 = testCropIrrigationWeather_Pivot_1_Maiz_2007.CropIrrigationWeatherRecord;
+            //testCropIrrigationWeatherRecord_Pivot_2 = testCropIrrigationWeather_Pivot_2_Tammi_2008.CropIrrigationWeatherRecord;
+            //testCropIrrigationWeatherRecord_Pivot_3 = testCropIrrigationWeather_Pivot_3_LaPerdiz_2010.CropIrrigationWeatherRecord;
 
             //Add Phenological Stege Ajustements
-            PhenologicalStageChange_Pivot1 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot1);
-            PhenologicalStageChange_Pivot2 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot2);
-            PhenologicalStageChange_Pivot3 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot5);
+            //PhenologicalStageChange_Pivot1 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot1);
+            //PhenologicalStageChange_Pivot2 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot2);
+            //PhenologicalStageChange_Pivot3 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot5);
 
             //Add information to Irrigation Units to calculate lIrrigation for each one
             AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_1_Maiz_2007, SantaLuciaPivotList.Pivot1);
@@ -421,14 +423,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, SantaLuciaPivotList.Pivot5);
             
             //Layout from Irrigation Units
-            textLogPivot2 = testCropIrrigationWeatherRecord_Pivot_1.OutPut;
-            textLogPivot3_4 = testCropIrrigationWeatherRecord_Pivot_2.OutPut;
-            textLogPivot5 = testCropIrrigationWeatherRecord_Pivot_3.OutPut;
+            //textLogPivot2 = testCropIrrigationWeatherRecord_Pivot_1.OutPut;
+            //textLogPivot3_4 = testCropIrrigationWeatherRecord_Pivot_2.OutPut;
+            //textLogPivot5 = testCropIrrigationWeatherRecord_Pivot_3.OutPut;
 
             //Layout from System the daily records
-            textLogPivot2 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_1);
-            textLogPivot3_4 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_2);
-            textLogPivot5 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_3);
+            //textLogPivot2 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_1);
+            //textLogPivot3_4 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_2);
+            //textLogPivot5 += Environment.NewLine + Environment.NewLine + testIrrigationSystem.printDailyRecordsList(testCropIrrigationWeatherRecord_Pivot_3);
 
 
             //Layout in txt format
@@ -436,6 +438,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             this.printSystemData(textLogPivot3_4, "IrrigationSystemTestPivot3_4");
             this.printSystemData(textLogPivot5, "IrrigationSystemTestPivot5");
 
+            
             //Layout in CSV format
             this.printSystemDataCSV("IrrigationSystem-TestPivot2-", testCropIrrigationWeatherRecord_Pivot_1.Titles, testCropIrrigationWeatherRecord_Pivot_1.Messages);
             this.printSystemDataCSV("IrrigationSystem-TestPivot3_4-", testCropIrrigationWeatherRecord_Pivot_2.Titles, testCropIrrigationWeatherRecord_Pivot_2.Messages);
@@ -444,7 +447,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot2-", testCropIrrigationWeatherRecord_Pivot_1.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_1.MessagesDaily);
             this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot3_4-", testCropIrrigationWeatherRecord_Pivot_2.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_2.MessagesDaily);
             this.printSystemDataCSV("IrrigationSystem-DailyRecords-TestPivot5-", testCropIrrigationWeatherRecord_Pivot_3.TitlesDaily, testCropIrrigationWeatherRecord_Pivot_3.MessagesDaily);
-
+            
         }
 
         #region Private Helpers
@@ -851,3 +854,5 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
     }
 }
+
+*/
