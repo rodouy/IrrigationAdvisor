@@ -99,7 +99,11 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
         #region CropInformationByDate
+
         public const String SOWINGDATE_COLUMN_NAME = "SowingDate";
+        public const int MAX_DAY_AFTER_SOWING_TO_IRRIGATE = 300;
+        public const int DEGREE_DAYS_PER_DAY = 5;
+
         #endregion
 
         #endregion
@@ -2005,10 +2009,10 @@ namespace IrrigationAdvisor.Models.Data
 
         public static double  GetAccumulatedGrowingDegreeDays(DateTime pSowingDate, DateTime pCurrentDate)
         {
-            DataTable lSoja_Phenology_Information = AddTemperatureInformation();
+            DataTable lTemperature_Information = AddTemperatureInformation();
             double lReturn = 0;
 
-            foreach (DataRow row in lSoja_Phenology_Information.Rows)
+            foreach (DataRow row in lTemperature_Information.Rows)
             {
                 DateTime lDay = row.Field<DateTime>(0);
                 if (Utilities.Utils.IsTheSameDay(lDay, pSowingDate) || Utilities.Utils.IsTheSameDay(lDay, pCurrentDate) || (lDay > pSowingDate && lDay < pCurrentDate))
