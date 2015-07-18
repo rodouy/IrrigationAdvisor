@@ -22,17 +22,14 @@ namespace IrrigationAdvisor.Tests.Models.Data
         [TestMethod]
         public void testGetCropInformationByDateForSoja() 
         {
-            List<Pair<String, int>> result = InitialTables.GetCropInformationByDateForSoja(new DateTime(2014, 9, 24));
-
+            List<Pair<String, int>> result = InitialTables.GetCropInformationByDateForSoja(new DateTime(2014, 9, 24), null);
 
         }
 
         [TestMethod]
         public void testGetCropInformationByDateForMaiz()
         {
-            List<Pair<String, int>> result = InitialTables.GetCropInformationByDateForMaiz(new DateTime(2014, 9, 24));
-
-
+            List<Pair<String, int>> result = InitialTables.GetCropInformationByDateForMaiz(new DateTime(2014, 9, 24), null);
         }
     }
 }
