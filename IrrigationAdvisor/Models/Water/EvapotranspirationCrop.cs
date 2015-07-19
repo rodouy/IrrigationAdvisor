@@ -62,7 +62,7 @@ namespace IrrigationAdvisor.Models.Water
         {
             this.type = Utils.WaterOutputType.Evapotranspiration;
             this.Date = pDate;
-            this.Input = pInput;
+            this.Output = pInput;
 
         }
 

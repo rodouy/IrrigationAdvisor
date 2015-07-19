@@ -401,7 +401,7 @@ namespace IrrigationAdvisor.Models.Management
 
         
         /// <summary>
-        /// Search the CropIrrigationWeather of the CropIrrigationWeatherList and delegate the creation of the daily record
+        /// Creation of the daily record
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pWeatherData"></param>
@@ -412,10 +412,10 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pObservations"></param>
         private void addDailyRecordToCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather,
                                                     WeatherData pWeatherData, WeatherData pMainWeatherData,
-                                                    WeatherData pAlternativeWeatherData, Water.Rain pRain,
-                                                    Water.Irrigation plIrrigation, string pObservations)
+                                                    WeatherData pAlternativeWeatherData, String pObservations)
         {
-            pCropIrrigationWeather.AddDailyRecord(pWeatherData, pMainWeatherData, pAlternativeWeatherData, pRain, plIrrigation, pObservations);
+            
+            pCropIrrigationWeather.AddDailyRecordAccordingGrowinDegreeDays(pWeatherData, pMainWeatherData, pAlternativeWeatherData, pObservations);
         }
         
         
@@ -1810,8 +1810,8 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         /// <summary>
-        /// Colect the weather data, lIrrigation data and lRain data and derive the cretion of a new daily record
-        /// This method verify the need of lIrrigation, and then recreate the daily record
+        /// Colect the weather data, lIrrigationItem data and lRainItem data and derive the cretion of a new daily record
+        /// This method verify the need of lIrrigationItem, and then recreate the daily record
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pDateTime"></param>
@@ -1821,11 +1821,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             bool lReturn = false;
             WeatherData lWeatherData = null;
-            WeatherData lMainWeatherData = null;
-            WeatherData lAlternativeWeatherData = null;
-            Water.Rain lRain = null;
-            Water.Irrigation lIrrigation = null;
-
+            
             try
             {
                 //Controlo que la CropIrrigationWeather exista y la fecha no sean null
@@ -1836,15 +1832,7 @@ namespace IrrigationAdvisor.Models.Management
                     // Si hay datos de estacion meteorologica puedo seguir
                     if (lWeatherData != null)
                     {
-                        lIrrigation = pCropIrrigationWeather.GetIrrigation(pDateTime);
-                        lRain = pCropIrrigationWeather.GetRain(pDateTime);
-
-                        //Get Data Weather form Main Weather Station
-                        lMainWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.MainWeatherStation, pDateTime);
-                        //Get Data Weather form Alternative Weather Station
-                        lAlternativeWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime);
-                        
-                        pCropIrrigationWeather.AddDailyRecord(lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);
+                        pCropIrrigationWeather.AddDailyRecord(lWeatherData, pObservations);
                         
                         //Luego de que agrego un registro verifico si hay que regar.
                         //Si es asi se agrega el riego a la lista y se reingresa el registro diario. 
@@ -1853,11 +1841,8 @@ namespace IrrigationAdvisor.Models.Management
                     else 
                     {
                         //TODO Usar datos historicos del clima para hacer los calculos con esos datos
-                        //Get Data Weather for the available Weather Station (Main or Alternative)
-                        lWeatherData = this.getAvailableWeatherStationData(pCropIrrigationWeather, pDateTime);
-                    
-                        pCropIrrigationWeather.AddDailyRecord(lWeatherData, pObservations);
                         
+                        //pCropIrrigationWeather.AddDailyRecord(lWeatherData, pObservations);
                         
                     }
                 }
@@ -2134,7 +2119,7 @@ namespace IrrigationAdvisor.Models.Management
                         lNewIrrigation.Input = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                         
                     }
-                    // Set the type of lIrrigation. 
+                    // Set the type of lIrrigationItem. 
                     lNewIrrigation.Type = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.Second;
                     pCropIrrigationWeather.IrrigationList.Add(lNewIrrigation);
                 }
@@ -2149,7 +2134,7 @@ namespace IrrigationAdvisor.Models.Management
                     {
                         lNewIrrigation.Input += pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                     }
-                    // Override the type of lIrrigation. 
+                    // Override the type of lIrrigationItem. 
                     lNewIrrigation.Type = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.Second;
                     
                 }

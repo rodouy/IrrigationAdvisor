@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using IrrigationAdvisor.Models.Agriculture;
 using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Weather;
 using IrrigationAdvisor.Models.Water;
@@ -35,8 +36,8 @@ namespace IrrigationAdvisor.Models.Management
     ///     - growingDegreeDays: double
     ///     - totalGrowingDegree: double
     ///     - evapotranspirationCrop: WaterOutput
-    ///     - lRain: WaterInput
-    ///     - lIrrigation: WaterInput 
+    ///     - lRainItem: WaterInput
+    ///     - lIrrigationItem: WaterInput 
     ///     - observations: String
     /// 
     /// Methods:
@@ -48,7 +49,7 @@ namespace IrrigationAdvisor.Models.Management
     ///     - getDailyAverageTemperature(): double
     ///     - GetEvapotranspiration(): double
     ///     - getCropCoefficient(): double
-    ///     - GetEffectiveRain(Region, lRain:double, Date): double
+    ///     - GetEffectiveRain(Region, lRainItem:double, Date): double
     ///     - setObservations(String): bool
     ///      
     /// </summary>
@@ -60,17 +61,27 @@ namespace IrrigationAdvisor.Models.Management
         #region Fields
 
         private DateTime dailyRecordDateTime;
-        //Weather Data
+        
+        #region Weather Data
+
         private WeatherData mainWeatherData;
         private WeatherData alternativeWeatherData;
-        //Calculus by Days After Sowing
+
+        #endregion
+
+        #region Calculus of Phenological Adjustment
+
         private int daysAfterSowing;
         private int daysAfterSowingModified;
-        //Calculus by Growing Degree Days
+
         private Double growingDegreeDays;
         private Double growingDegreeDaysAccumulated;
         private Double growingDegreeDaysModified;
-        //Input Water Data
+
+        #endregion
+
+        #region Water Data
+
         private Water.Rain rain;
         private Water.Irrigation irrigation;
         private DateTime lastWaterInputDate;
@@ -78,16 +89,34 @@ namespace IrrigationAdvisor.Models.Management
         private DateTime lastPartialWaterInputDate;
         private Double lastPartialWaterInput;
 
-        //Output Water Data
         private WaterOutput evapotranspirationCrop;
 
-        //Crop State
+        #endregion
+
+        #region Crop State
+
+        private PhenologicalStage phenologicalStage;
         private Double hydricBalance;
         private Double soilHydricVolume;
         private Double totalEvapotranspirationCropFromLastWaterInput;
         private Double cropCoefficient;
         private String observations;
-        
+
+        #endregion
+
+        #region Totals
+
+        private double totalEvapotranspirationCrop;
+        private double totalEffectiveRain;
+        private double totalRealRain;
+        private double totalIrrigation;
+        private double totalIrrigationInHydricBalance;
+        private double totalExtraIrrigation;
+        private double totalExtraIrrigationInHidricBalance;
+
+        #endregion
+
+
         #endregion
 
         #region Properties
@@ -152,6 +181,8 @@ namespace IrrigationAdvisor.Models.Management
 
         #endregion
 
+        #region Water Data
+
         #region InputWaterData
 
         public Water.Rain Rain
@@ -196,38 +227,101 @@ namespace IrrigationAdvisor.Models.Management
         }
         #endregion
 
-        #region CropState
+        #endregion
+
+        #region Crop State
+
+        public PhenologicalStage PhenologicalStage
+        {
+            get { return phenologicalStage; }
+            set { phenologicalStage = value; }
+        }
+
         public Double HydricBalance
         {
             get { return hydricBalance; }
             set { hydricBalance = value; }
         }
+
         public Double SoilHydricVolume
         {
             get { return soilHydricVolume; }
             set { soilHydricVolume = value; }
         }
+
         public Double TotalEvapotranspirationCropFromLastWaterInput
         {
             get { return totalEvapotranspirationCropFromLastWaterInput; }
             set { totalEvapotranspirationCropFromLastWaterInput = value; }
         }
+
         public double CropCoefficient
         {
             get { return cropCoefficient; }
             set { cropCoefficient = value; }
         }
+
         public String Observations
         {
             get { return observations; }
             set { observations = value; }
         }
+
+        #endregion
+
+        #region Totals
+
+        public double TotalEvapotranspirationCrop
+        {
+            get { return totalEvapotranspirationCrop; }
+            set { totalEvapotranspirationCrop = value; }
+        }
+
+        public double TotalEffectiveRain
+        {
+            get { return totalEffectiveRain; }
+            set { totalEffectiveRain = value; }
+        }
+
+        public double TotalRealRain
+        {
+            get { return totalRealRain; }
+            set { totalRealRain = value; }
+        }
+
+        public double TotalIrrigation
+        {
+            get { return totalIrrigation; }
+            set { totalIrrigation = value; }
+        }
+
+        public double TotalIrrigationInHydricBalance
+        {
+            get { return totalIrrigationInHydricBalance; }
+            set { totalIrrigationInHydricBalance = value; }
+        }
+
+        public double TotalExtraIrrigation
+        {
+            get { return totalExtraIrrigation; }
+            set { totalExtraIrrigation = value; }
+        }
+
+        public double TotalExtraIrrigationInHidricBalance
+        {
+            get { return totalExtraIrrigationInHidricBalance; }
+            set { totalExtraIrrigationInHidricBalance = value; }
+        }
+
         #endregion
 
         #endregion
 
         #region Construction
 
+        /// <summary>
+        /// Constructor without parameters
+        /// </summary>
         public DailyRecord() 
         {
             this.DailyRecordDateTime = new DateTime();
@@ -251,11 +345,20 @@ namespace IrrigationAdvisor.Models.Management
 
             this.EvapotranspirationCrop = new WaterOutput();
 
+            this.PhenologicalStage = new PhenologicalStage();
             this.HydricBalance = 0;
             this.SoilHydricVolume = 0;
             this.TotalEvapotranspirationCropFromLastWaterInput = 0;
             this.CropCoefficient = 0;
             this.Observations= "";
+
+            this.TotalEvapotranspirationCrop = 0;
+            this.TotalEffectiveRain = 0;
+            this.TotalRealRain = 0;
+            this.TotalIrrigation = 0;
+            this.TotalIrrigationInHydricBalance = 0;
+            this.TotalExtraIrrigation = 0;
+            this.TotalExtraIrrigationInHidricBalance = 0;
 
         }
 
@@ -266,7 +369,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pDailyRecordDateTime"></param>
         /// <param name="pMainWeatherData"></param>
         /// <param name="pAlternativeWeatherData"></param>
-        /// <param name="pDaysAfterSowing"></param>
+        /// <param name="pDaysAfterSowingModified"></param>
         /// <param name="pDaysAfterSowingModified"></param>
         /// <param name="pGrowingDegreeDays"></param>
         /// <param name="pGrowingDegreeDaysAccumulated"></param>
@@ -290,7 +393,7 @@ namespace IrrigationAdvisor.Models.Management
                             Water.Rain pRain, Water.Irrigation pIrrigation,
                             DateTime pLastWaterInputDate, DateTime pLastBigWaterInputDate,
                             DateTime pLastPartialWaterInputDate, Double pLastPartialWaterInput,
-                            Water.WaterOutput pEvapotranspirationCrop,
+                            Water.WaterOutput pEvapotranspirationCrop, PhenologicalStage pPhenologicalStage,
                             Double pHydricBalance, Double pSoilHydricVolume, Double pTotalEvapotranspirationFromLastWaterInput,
                             Double pCropCoefficient, String pObservations) 
         {
@@ -315,12 +418,23 @@ namespace IrrigationAdvisor.Models.Management
 
             this.EvapotranspirationCrop = pEvapotranspirationCrop;
 
+            this.PhenologicalStage = pPhenologicalStage;
             this.HydricBalance = pHydricBalance;
             this.SoilHydricVolume = pSoilHydricVolume;
             this.TotalEvapotranspirationCropFromLastWaterInput = pTotalEvapotranspirationFromLastWaterInput;
             this.CropCoefficient = pCropCoefficient;
             this.Observations = pObservations;
+
+            this.TotalEvapotranspirationCrop = 0;
+            this.TotalEffectiveRain = 0;
+            this.TotalRealRain = 0;
+            this.TotalIrrigation = 0;
+            this.TotalIrrigationInHydricBalance = 0;
+            this.TotalExtraIrrigation = 0;
+            this.TotalExtraIrrigationInHidricBalance = 0;
+
         }
+        
         #endregion
 
         #region Private Helpers
@@ -333,7 +447,7 @@ namespace IrrigationAdvisor.Models.Management
         ///     - getDailyAverageTemperature(): double
         ///     - GetEvapotranspiration(): double
         ///     - getCropCoefficient(): double
-        ///     - GetEffectiveRain(Region, lRain:double, Date): double
+        ///     - GetEffectiveRain(Region, lRainItem:double, Date): double
         #endregion
 
         #region Overrides
@@ -341,18 +455,18 @@ namespace IrrigationAdvisor.Models.Management
 
         public override string ToString()
         {
-            string lEvapotranspirationCrop = this.EvapotranspirationCrop.GetTotalInput().ToString() + "          ";
+            string lEvapotranspirationCrop = this.EvapotranspirationCrop.GetTotalOutput().ToString() + "          ";
             string lRain = "       ";
             string lIrrigation = "       ";
             int index = 5;
             if (this.Rain != null)
             {
-                lRain = this.Rain.getTotalInput().ToString() + "           ";
+                lRain = this.Rain.GetTotalInput().ToString() + "           ";
 
             } 
             if (this.Irrigation != null)
             {
-                lIrrigation = this.Irrigation.getTotalInput().ToString() + "           ";
+                lIrrigation = this.Irrigation.GetTotalInput().ToString() + "           ";
 
             }
             string lReturn = 

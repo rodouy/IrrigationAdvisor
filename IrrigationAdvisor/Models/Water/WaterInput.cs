@@ -9,7 +9,7 @@ namespace IrrigationAdvisor.Models.Water
     /// Create: 2014-10-30
     /// Author: monicarle
     /// Description: 
-    ///     Describes an Input of water over a Crop
+    ///     Describes an Output of water over a Crop
     ///     
     /// References:
     ///     none
@@ -22,17 +22,17 @@ namespace IrrigationAdvisor.Models.Water
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - input double
+    ///     - output double
     ///     - date DateTime         - PK
-    ///     - extraInput double
+    ///     - extraOutput double
     ///     - extraDate DateTime    
     ///     - cropIrrigationWeather - PK
     ///     - type String
     /// 
     /// Methods:
     ///     - WaterInput()      -- constructor
-    ///     - WaterInput(input, date, extraInput, extraDate)  -- consturctor with parameters
-    ///     - GetInputType()
+    ///     - WaterInput(output, date, extraOutput, extraDate)  -- consturctor with parameters
+    ///     - GetOutputType()
     /// 
     /// </summary>
     public class WaterInput
@@ -111,12 +111,20 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Public Methods
 
-        public String getInputType()
+        /// <summary>
+        /// Get the Water output Type
+        /// </summary>
+        /// <returns></returns>
+        public String GetInputType()
         {
             return this.TYPE;
         }
 
-        public double getTotalInput()
+        /// <summary>
+        /// Get the Input plus the Extra Input
+        /// </summary>
+        /// <returns></returns>
+        public double GetTotalInput()
         {
             return this.Input + this.ExtraInput;
         }
@@ -124,12 +132,18 @@ namespace IrrigationAdvisor.Models.Water
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Return the Total Input
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            string lReturn = this.getTotalInput().ToString();
+            string lReturn = this.GetTotalInput().ToString();
             return lReturn;
 
         }
+
         #endregion
 
 

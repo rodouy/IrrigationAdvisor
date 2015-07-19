@@ -63,7 +63,7 @@ namespace IrrigationAdvisor.Models.Management
         #region Public Methods
 
         /// <summary>
-        /// If the evapotranspiration Acumulated from last water input is bigger than max evapotranspiration to irrigatte
+        /// If the evapotranspiration Acumulated from last water output is bigger than max evapotranspiration to irrigatte
         /// we need to irrigate
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
@@ -78,7 +78,7 @@ namespace IrrigationAdvisor.Models.Management
 
             lEvapotrAcum = pCropIrrigationWeather.GetTotalEvapotranspirationCropFromLastWaterInput();
 
-            //If the evapotranspiration Acumulated from last water input is bigger than max evapotranspiration to irrigatte
+            //If the evapotranspiration Acumulated from last water output is bigger than max evapotranspiration to irrigatte
             //we need to irrigate
             if (lEvapotrAcum >= lMaxEvapotrToIrr)
             {
