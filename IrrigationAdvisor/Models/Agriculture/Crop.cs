@@ -547,7 +547,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <summary>
         /// Returns the KC for a Crop giving the days after sowing.
         /// </summary>
-        /// <param name="pDaysAfterSowing"></param>
+        /// <param name="pDaysAfterSowingModified"></param>
         /// <returns></returns>
         public double GetCropCoefficient(int pDaysAfterSowing)
         {

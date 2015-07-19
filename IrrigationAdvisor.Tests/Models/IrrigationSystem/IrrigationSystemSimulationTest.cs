@@ -417,7 +417,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             //PhenologicalStageChange_Pivot2 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot2);
             //PhenologicalStageChange_Pivot3 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot5);
 
-            //Add information to Irrigation Units to calculate lIrrigation for each one
+            //Add information to Irrigation Units to calculate lIrrigationItem for each one
             AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_1_Maiz_2007, SantaLuciaPivotList.Pivot1);
             AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_2_Tammi_2008, SantaLuciaPivotList.Pivot2);
             AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010, SantaLuciaPivotList.Pivot5);
@@ -513,7 +513,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         }
 
         /// <summary>
-        /// Add lRain data for each pivot
+        /// Add lRainItem data for each pivot
         /// </summary>
         private void addRainData()
         {
@@ -837,8 +837,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 System.DateTime.Today.Month.ToString() +
                 System.DateTime.Today.Day.ToString();
             
-            //Input of file information
-            lOutputFile.FileHeader = "Table with all the lIrrigation results.";
+            //Output of file information
+            lOutputFile.FileHeader = "Table with all the lIrrigationItem results.";
             lOutputFile.FileTitles = pTitles;
             lOutputFile.FileMessages = pMessages;
             lOutputFile.FileFooter = "Finish all the information.";

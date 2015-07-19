@@ -246,7 +246,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             // Add the column to the table.
             this.ListOfKC.Columns.Add(column);
 
-            // Make the "DayAfterSowing" column the primary key column.
+            // Make the "DaysAfterSowing" column the primary key column.
             DataColumn[] PrimaryKeyColumns = new DataColumn[1];
             PrimaryKeyColumns[0] = this.ListOfKC.Columns[dayColumnName];
             this.ListOfKC.PrimaryKey = PrimaryKeyColumns;

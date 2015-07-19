@@ -9,7 +9,7 @@ namespace IrrigationAdvisor.Models.Water
     /// Create: 2014-12-05
     /// Author: monicarle
     /// Description: 
-    ///     Return the real value of a lRain depending on the date and the mm of the lRain
+    ///     Return the real value of a lRainItem depending on the date and the mm of the lRainItem
     ///     
     /// References:
     ///     none

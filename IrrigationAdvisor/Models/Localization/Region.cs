@@ -56,7 +56,7 @@ namespace IrrigationAdvisor.Models.Localization
         ///     - name: the name of the region
         ///     - location: the location of the region
         ///     - specieList: list of the species of the region
-        ///     - effectiveRainList: effective lRain (by month) for the region
+        ///     - effectiveRainList: effective lRainItem (by month) for the region
         ///     
         /// </summary>
         private long regionId;
@@ -199,7 +199,7 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
-        /// Update the effective lRain if exists in List, else return null
+        /// Update the effective lRainItem if exists in List, else return null
         /// </summary>
         /// <param name="pMonth"></param>
         /// <param name="pMinRain"></param>
