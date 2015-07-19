@@ -1267,7 +1267,8 @@ namespace IrrigationAdvisor.Models.Management
 
             if(pCalculusOfPhenologicalStage == Utilities.Utils.CalculusOfPhenologicalStage.ByDaysAfterSowing)
             {
-                this.cropInformationByDate = new CropInformationByDate(this.Crop.Specie, this.SowingDate);
+                this.cropInformationByDate = new CropInformationByDate(this.Crop.Specie, this.SowingDate,
+                                                                    this.Crop.CropCoefficient, this.Crop.PhenologicalStageList);
             }
 
             if(pCalculusOfPhenologicalStage == Utilities.Utils.CalculusOfPhenologicalStage.ByGrowingDegreeDays)
