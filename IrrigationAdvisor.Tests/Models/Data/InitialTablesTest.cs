@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using IrrigationAdvisor.Models.Agriculture;
+
 namespace IrrigationAdvisor.Tests.Models.Data
 {
     [TestClass]
@@ -22,14 +24,14 @@ namespace IrrigationAdvisor.Tests.Models.Data
         [TestMethod]
         public void testGetCropInformationByDateForSoja() 
         {
-            List<Pair<String, int>> result = InitialTables.GetCropInformationByDateForSoja(new DateTime(2014, 9, 24), null);
+            List<Pair<Stage, int>> result = InitialTables.GetCropInformationByDateForSoja(new DateTime(2014, 9, 24), null);
 
         }
 
         [TestMethod]
         public void testGetCropInformationByDateForMaiz()
         {
-            List<Pair<String, int>> result = InitialTables.GetCropInformationByDateForMaiz(new DateTime(2014, 9, 24), null);
+            List<Pair<Stage, int>> result = InitialTables.GetCropInformationByDateForMaiz(new DateTime(2014, 9, 24), null);
         }
     }
 }
