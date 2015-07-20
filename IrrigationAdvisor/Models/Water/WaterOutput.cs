@@ -22,17 +22,17 @@ namespace IrrigationAdvisor.Models.Water
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - input double
+    ///     - output double
     ///     - date DateTime         - PK
-    ///     - extraInput double
+    ///     - extraOutput double
     ///     - extraDate DateTime    
     ///     - cropIrrigationWeather - PK
     ///     - type String
     /// 
     /// Methods:
     ///     - WaterOutput()      -- constructor
-    ///     - WaterOutput(input, date, extraInput, extraDate)  -- consturctor with parameters
-    ///     - GetInputType()
+    ///     - WaterOutput(output, date, extraOutput, extraDate)  -- consturctor with parameters
+    ///     - GetOutputType()
     /// 
     /// </summary>
     public class WaterOutput
@@ -45,22 +45,21 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Fields
 
-        private double input;
+        private Double output;
         private DateTime date;
-        private double extraInput;
+        private Double extraOutput;
         private DateTime extraDate;
         private Management.CropIrrigationWeather cropIrrigationWeather;
 
-        
 
         #endregion
 
         #region Properties
 
-        public double Input
+        public Double Output
         {
-            get { return input; }
-            set { input = value; }
+            get { return output; }
+            set { output = value; }
         }
 
         public DateTime Date
@@ -69,10 +68,10 @@ namespace IrrigationAdvisor.Models.Water
             set { date = value; }
         }
 
-        public double ExtraInput
+        public double ExtraOutput
         {
-            get { return extraInput; }
-            set { extraInput = value; }
+            get { return extraOutput; }
+            set { extraOutput = value; }
         }
 
         public DateTime ExtraDate
@@ -91,19 +90,29 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Construction
 
+        /// <summary>
+        /// Contructor without parameters
+        /// </summary>
         public WaterOutput()
         {
             this.Date = DateTime.Now;
-            this.Input = 0;
+            this.Output = 0;
             this.ExtraDate = DateTime.Now;
-            this.ExtraInput = 0;
+            this.ExtraOutput = 0;
         }
 
-        public WaterOutput(double pInput, DateTime pDate, double pExtraInput, DateTime pExtraDate)
+        /// <summary>
+        /// Constructor with parameters
+        /// </summary>
+        /// <param name="pOutput"></param>
+        /// <param name="pDate"></param>
+        /// <param name="pExtraOutput"></param>
+        /// <param name="pExtraDate"></param>
+        public WaterOutput(Double pOutput, DateTime pDate, Double pExtraOutput, DateTime pExtraDate)
         {
-            this.Input = pInput;
+            this.Output = pOutput;
             this.Date = pDate;
-            this.ExtraInput = pExtraInput;
+            this.ExtraOutput = pExtraOutput;
             this.ExtraDate = pExtraDate;
         }
 
@@ -114,18 +123,39 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Public Methods
 
-        public String GetInputType()
+        /// <summary>
+        /// Get the Water Output type
+        /// </summary>
+        /// <returns></returns>
+        public String GetOutputType()
         {
             return this.TYPE;
         }
 
-        public double GetTotalInput()
+        /// <summary>
+        /// Get the Output plus ExtraOutput
+        /// </summary>
+        /// <returns></returns>
+        public double GetTotalOutput()
         {
-            return this.Input + this.ExtraInput;
+            return this.Output + this.ExtraOutput;
         }
+
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Return the Total Input
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            string lReturn = this.GetTotalOutput().ToString();
+            return lReturn;
+
+        }
+
         #endregion
 
     }

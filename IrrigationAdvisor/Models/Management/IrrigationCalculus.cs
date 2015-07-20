@@ -109,7 +109,7 @@ namespace IrrigationAdvisor.Models.Management
             lReturn = new Pair<double,Utils.WaterInputType>();
             lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeather);
             lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeather);
-            lPercentageAvailableWater = pCropIrrigationWeather.GetPercentageOfAvailableWater();
+            lPercentageAvailableWater = pCropIrrigationWeather.GetPercentageOfAvailableWaterTakingIntoAccointPermanentWiltingPoint();
 
             //If we need to irrigate by Evapotranspiraton, then Available water has to be lower than 60% 
             if (lIrrigationByEvapotranspiration && lPercentageAvailableWater < InitialTables.PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)

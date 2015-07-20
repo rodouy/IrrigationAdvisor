@@ -48,15 +48,15 @@ namespace IrrigationAdvisor.Models.Utilities
         public enum IrrigationUnitType
         {
             /// <summary>
-            /// 
+            /// Irrigation type Pivot
             /// </summary>
             Pivot,
             /// <summary>
-            /// 
+            /// Irrigation type Sprinkler
             /// </summary>
             Sprinkler,
             /// <summary>
-            /// 
+            /// Irrigation type Drip
             /// </summary>
             Drip
         }
@@ -87,6 +87,20 @@ namespace IrrigationAdvisor.Models.Utilities
             /// 
             /// </summary>
             Evapotranspiration
+        }
+
+        public enum CalculusOfPhenologicalStage
+        {
+            /// <summary>
+            /// Use Days After Sowing for the calculus of Phenological Stage
+            /// Phenological Stage, Deep of Root and Crop Coefficient depend on this calculus
+            /// </summary>
+            ByDaysAfterSowing,
+            /// <summary>
+            /// Use Growing Degree Days for the calculus of Phenological Stage
+            /// Phenological Stage, Deep of Root and Crop Coefficient depend on this calculus
+            /// </summary>
+            ByGrowingDegreeDays,
         }
 
         #endregion
