@@ -464,7 +464,7 @@ namespace IrrigationAdvisor.Models.Management
 
             if (pDate != null)
             {
-                lDailyRecordOrderByDate = this.DailyRecordList.OrderBy(lDailyRecord => lDailyRecord.DailyRecordDateTime);
+                lDailyRecordOrderByDate = this.DailyRecordList.OrderBy(lDailyRecordItem => lDailyRecordItem.DailyRecordDateTime);
 
                 foreach (DailyRecord lDailyRecordToDelete in lDailyRecordOrderByDate)
                 {
@@ -660,22 +660,22 @@ namespace IrrigationAdvisor.Models.Management
         /// Get days after sowing according degrees days calculated from the accumulated degree days by Daily Records
         /// </summary>
         /// <returns></returns>
-        public int GetDaysAfterSowingForModifiedGrowingDegree()
+        public int GetDaysAfterSowingForModifiedGrowingDegreeDays()
         {
             int lReturn = 0;
-            double lastGDRegistry = 0;
+            double lLastGrowingDegreeDaysRegistry = 0;
             DateTime lDate = DateTime.MinValue;
-            IEnumerable<DailyRecord> lDailyRecordOrderByDate = this.DailyRecordList.OrderBy(lDailyRecord => lDailyRecord.DailyRecordDateTime);
+            IEnumerable<DailyRecord> lDailyRecordOrderByDate = this.DailyRecordList.OrderBy(lDailyRecordItem => lDailyRecordItem.DailyRecordDateTime);
 
-            foreach (DailyRecord lDailyRecord in lDailyRecordOrderByDate)
+            foreach (DailyRecord lDailyRecordItem in lDailyRecordOrderByDate)
             {
-                if (this.GrowingDegreeDaysModified <= lDailyRecord.GrowingDegreeDaysAccumulated && this.GrowingDegreeDaysModified > lastGDRegistry)
+                if (this.GrowingDegreeDaysModified <= lDailyRecordItem.GrowingDegreeDaysAccumulated && this.GrowingDegreeDaysModified > lLastGrowingDegreeDaysRegistry)
                 {
-                    lDate = lDailyRecord.DailyRecordDateTime;
+                    lDate = lDailyRecordItem.DailyRecordDateTime;
                     lReturn = Utilities.Utils.GetDaysDifference(this.SowingDate, lDate);
                     return lReturn;
                 }
-                lastGDRegistry = lDailyRecord.GrowingDegreeDaysAccumulated;
+                lLastGrowingDegrelDailyRecordItemy = lDailyRecord.GrowingDegreeDaysAccumulated;
             }
             return lReturn;
         }
@@ -717,11 +717,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="lModification"></param>
         public void adjustmentPhenology(Stage pStage, DateTime pDateTime, double lModification)
         {
-            foreach (DailyRecord lDailyRecord in this.DailyRecordList)
+            foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (Utils.IsTheSameDay(pDateTime, lDailyRecord.DailyRecordDateTime))
+                if (Utils.IsTheSameDay(pDateTime, lDailyRecordItem.DailyRecordDateTime))
                 {
-                    lDailyRecord.GrowingDegreeDaysModified += lModification;/lDailyRecordToDeleteord.GrowingDegreeDaysModified;
+                    lDailyRecordItem.GrowingDegreeDaysModified += lModification;/lDailyRecordToDeleteord.GrowingDegreeDaysModified;
                     this.GrowingDegreeDaysModified += lModification;
                 }
             }
@@ -736,11 +736,11 @@ namespace IrrigationAdvisor.Models.Management
         {
             double lRetrun = 0;
 
-            foreach (DailyRecord lDailyRecord in this.DailyRecordList)
+            foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (lDailyRecord.DailyRecordDateTime.Date.Equals(pDate.Date))
+                if (lDailyRecordItem.DailyRecordDateTime.Date.Equals(pDate.Date))
                 {
-                    lRetrun = lDailyRecord.Rain.Output +lDailyRecordc.RainExtraOutputt;
+                    lRetrun = lDailyRecordItem.Rain.Output +lDailyRecordc.RainExtraOutputt;
                     break;
                 }
             }
@@ -757,11 +757,11 @@ namespace IrrigationAdvisor.Models.Management
         {
             DailyRecord lRetrun = null;
 
-            foreach (DailyRecord lDailyRecord in this.DailyRecordList)
+            foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (lDailyRecord.DailyRecordDateTime.Date.Equals(pDate.Date))
+                if (lDailyRecordItem.DailyRecordDateTime.Date.Equals(pDate.Date))
                 {
-                    lRetrun = lDailyRecord;
+                    lRetrun = lDailyRecordItem;
                     break;
                 }
             }
@@ -778,11 +778,11 @@ namespace IrrigationAdvisor.Models.Management
         {
             double lRetrun = 0;
 
-            foreach (DailyRecord lDailyRecord in this.DailyRecordList)
+            foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (lDailyRecord.DailyRecordDateTime.Date.Equals(pDate.Date))
+                if (lDailyRecordItem.DailyRecordDateTime.Date.Equals(pDate.Date))
                 {
-                    lRetrun = lDailyRecord.GrowingDegreeDays;
+                    lRetrun = lDailyRecordItem.GrowingDegreeDays;
                     break;
                 }
             }
@@ -798,11 +798,11 @@ namespace IrrigationAdvisor.Models.Management
         {
             double lRetrun = 0;
 
-            foreach (DailyRecord lDailyRecord in this.DailyRecordList)
+            foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (lDailyRecord.DailyRecordDateTime.Date.Equals(pDate.Date))
+                if (lDailyRecordItem.DailyRecordDateTime.Date.Equals(pDate.Date))
                 {
-                    lRetrun = lDailyRecord.EvapotranspirationCrop.Output +lDailyRecordc.EvapotranspirationCropExtraOutputt;
+                    lRetrun = lDailyRecordItem.EvapotranspirationCrop.Output +lDailyRecordc.EvapotranspirationCropExtraOutputt;
                     break;
                 }
             }
@@ -817,11 +817,11 @@ namespace IrrigationAdvisor.Models.Management
         public String GetObservations(DateTime pDate)
         {
             String lRetrun = "";
-            foreach (DailyRecord lDailyRecord in this.DailyRecordList)
+            foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (lDailyRecord.DailyRecordDateTime.Date.Equals(pDate.Date))
+                if (lDailyRecordItem.DailyRecordDateTime.Date.Equals(pDate.Date))
                 {
-                    lRetrun = lDailyRecord.Observations;
+                    lRetrun = lDailyRecordItem.Observations;
                     break;
                 }
             }
@@ -839,12 +839,12 @@ namespace IrrigationAdvisor.Models.Management
             DateTime oneDayBefore = pDate.AddDays(-1);
             DateTime twoDaysBefore = pDate.AddDays(-2);
 
-            foreach (DailyRecord lDailyRecord in this.DailyRecordList)
+            foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (lDailyRecord.DailyRecordDateTime.Date.Equals(pDate.Date) || lDailyRecord.DailyRecordDateTime.Date.Equals(oneDayBefore.Date) ||
-                    lDailyRecord.DailyRecordDateTime.Date.Equals(twoDaysBefore.Date))
+                if (lDailyRecordItem.DailyRecordDateTime.Date.Equals(pDate.Date) || lDailyRecordItem.DailyRecordDateTime.Date.Equals(oneDayBefore.Date) ||
+                    lDailyRecordItem.DailyRecordDateTime.Date.Equals(twoDaysBefore.Date))
                 {
-                    lRetrun += lDailyRecord.EvapotranspirationCrop.Output +lDailyRecordc.EvapotranspirationCropExtraOutputt;
+                    lRetrun += lDailyRecordItem.EvapotranspirationCrop.Output +lDailyRecordc.EvapotranspirationCropExtraOutputt;
                 }
             }
             return lRetrun;

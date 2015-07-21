@@ -119,6 +119,12 @@ namespace IrrigationAdvisor.Models.Utilities
 
         #region Public Methods
 
+        /// <summary>
+        /// Return the difference in days between two Dates
+        /// </summary>
+        /// <param name="oldDate"></param>
+        /// <param name="newDate"></param>
+        /// <returns></returns>
         public static int GetDaysDifference(DateTime oldDate, DateTime newDate)
         {
             // Difference in days, hours, and minutes.
@@ -128,6 +134,12 @@ namespace IrrigationAdvisor.Models.Utilities
             return  ts.Days;
         }
 
+        /// <summary>
+        /// Return if the Dates have the same year, month and day.
+        /// </summary>
+        /// <param name="dateOne"></param>
+        /// <param name="dateTwo"></param>
+        /// <returns></returns>
         public static bool IsTheSameDay(DateTime dateOne, DateTime dateTwo)
         {
             bool lReturn = false ;
@@ -137,6 +149,26 @@ namespace IrrigationAdvisor.Models.Utilities
             }
             return lReturn;
         }
+
+        /// <summary>
+        /// Return if the Dates have the same year, month, day and hour.
+        /// </summary>
+        /// <param name="dateOne"></param>
+        /// <param name="dateTwo"></param>
+        /// <returns></returns>
+        public static bool IsTheSameDayAndHour(DateTime dateOne, DateTime dateTwo)
+        {
+            bool lReturn = false;
+            if (dateOne.Year == dateTwo.Year 
+                && dateOne.Month == dateTwo.Month 
+                && dateOne.Day == dateTwo.Day
+                && dateOne.Hour == dateTwo.Hour)
+            {
+                lReturn = true;
+            }
+            return lReturn;
+        }
+
         #endregion
 
         #region Overrides
