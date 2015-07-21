@@ -387,13 +387,13 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             createCropIrrigationWeatherSantaLucia();
 
             //Creating Crop Irrigation Weather Records
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_1_Maiz_2007, 
+            testIrrigationSystem.InicializeCropIrrigationWeather(testCropIrrigationWeather_Pivot_1_Maiz_2007, 
                                                                 testInitialPhenologicalStage_Maiz, 
                                                                 testDateBeginCrop_Pivot_1, testDateEndCrop_Pivot1);
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_2_Tammi_2008,
+            testIrrigationSystem.InicializeCropIrrigationWeather(testCropIrrigationWeather_Pivot_2_Tammi_2008,
                                                                 testInitialPhenologicalStage_Soja,
                                                                 testDateBeginCrop_Pivot_2, testDateEndCrop_Pivot2);
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010,
+            testIrrigationSystem.InicializeCropIrrigationWeather(testCropIrrigationWeather_Pivot_3_LaPerdiz_2010,
                                                                 testInitialPhenologicalStage_Maiz,
                                                                 testDateBeginCrop_Pivot_3, testDateEndCrop_Pivot3);
 

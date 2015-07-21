@@ -346,13 +346,13 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             //23.  Add Information of Weather
             ExternalData.AddWeatherData(testIrrigationSystem, testWeatherStation, testWeatherDataStartDate);
 
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_2, 
+            testIrrigationSystem.InicializeCropIrrigationWeather(testCropIrrigationWeather_Pivot_2, 
                                                                 testInitialPhenologicalStage_Maiz, 
                                                                 testDateBeginCrop_Pivot2, testDateEndCrop_Pivot2);
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_3_4,
+            testIrrigationSystem.InicializeCropIrrigationWeather(testCropIrrigationWeather_Pivot_3_4,
                                                                 testInitialPhenologicalStage_Soja,
                                                                 testDateBeginCrop_Pivot3_4, testDateEndCrop_Pivot3_4);
-            testIrrigationSystem.AddCropIrrigationWeatherRecord(testCropIrrigationWeather_Pivot_5,
+            testIrrigationSystem.InicializeCropIrrigationWeather(testCropIrrigationWeather_Pivot_5,
                                                                 testInitialPhenologicalStage_Maiz,
                                                                 testDateBeginCrop_Pivot5, testDateEndCrop_Pivot5);
 
@@ -364,11 +364,6 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             addIrrigationData();
 
             
-            //Find the records of Crop Irrigation Unit (Pivots)
-            //testCropIrrigationWeatherRecord_Pivot_2 = testCropIrrigationWeather_Pivot_2.CropIrrigationWeatherRecord;
-            //testCropIrrigationWeatherRecord_Pivot_3_4 = testCropIrrigationWeather_Pivot_3_4.CropIrrigationWeatherRecord;
-            //testCropIrrigationWeatherRecord_Pivot_5 = testCropIrrigationWeather_Pivot_5.CropIrrigationWeatherRecord;
-
             //Add Phenological Stege Ajustements
             PhenologicalStageChange_Pivot2 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot2);
             PhenologicalStageChange_Pivot3_4 = AddListOfPhenologicalStageAdjustments(SantaLuciaPivotList.Pivot3_4);
@@ -465,9 +460,6 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                                                     (testIU_Pivot_5, testCrop_Maiz_Sur, testWeatherStation, 
                                                     testWeatherStation, testPREDETERMINATED_IRRIGATION, 
                                                     testLocationSantaLucia, testSoil_Pivot_5);
-
-
-        
 
         }
 
