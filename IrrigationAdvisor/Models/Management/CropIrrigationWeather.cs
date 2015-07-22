@@ -791,22 +791,25 @@ namespace IrrigationAdvisor.Models.Management
         private DailyRecord getDailyRecordByGrowingDegreeDaysAccumulated(Double pGrowingDegreeDays)
         {
             DailyRecord lRetrun = null;
+            DailyRecord lDailyRecordByGrowingDegreeDaysAccumulated = null;
             IEnumerable<DailyRecord> lDailyRecordOrderByDate = null;
 
             if (pGrowingDegreeDays >= 0)
             {
                 lDailyRecordOrderByDate = this.DailyRecordList.OrderBy(lDailyRecord => lDailyRecord.DailyRecordDateTime);
 
-                foreach (DailyRecord lDailyRecord in lDailyRecordOrderByDate)
+                foreach (DailyRecord lDailyRecordItem in lDailyRecordOrderByDate)
                 {
                     //Compare Dates, is not important the Time
-                    if (pGrowingDegreeDays <= lDailyRecord.GrowingDegreeDaysAccumulated)
+                    if (pGrowingDegreeDays <= lDailyRecordItem.GrowingDegreeDaysAccumulated)
                     {
-                        lRetrun = lDailyRecord;
+                        lDailyRecordByGrowingDegreeDaysAccumulated = lDailyRecordItem;
+                        break;
                     }
                 }
             }
 
+            lRetrun = lDailyRecordByGrowingDegreeDaysAccumulated;
             return lRetrun;
         }
 
@@ -1281,26 +1284,32 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// 
+        /// Return the Days After Sowing for Modified Growing Degree
         /// </summary>
         /// <returns></returns>
-        public int GetDaysAfterSowingForModifiedGrowingDegree()
+        public int GetDaysAfterSowingForGrowingDegreeDaysModified()
         {
             int lReturn = 0;
-            double lastGDRegistry = 0;
+            int lDaysAfterSowing = 0;
+            Double lLastGrowingDegreeDaysRegistry = 0;
             DateTime lDate = DateTime.MinValue;
-            IEnumerable<DailyRecord> lDailyRecordOrderByDate = this.DailyRecordList.OrderBy(lDailyRec => lDailyRec.DailyRecordDateTime);
+            IEnumerable<DailyRecord> lDailyRecordOrderByDate;
+            
+            lDailyRecordOrderByDate = this.DailyRecordList.OrderBy(lDailyRecord => lDailyRecord.DailyRecordDateTime);
 
-            foreach (DailyRecord lDailyRec in lDailyRecordOrderByDate)
+            foreach (DailyRecord lDailyRecordItem in lDailyRecordOrderByDate)
             {
-                if (this.GrowingDegreeDaysModified <= lDailyRec.GrowingDegreeDaysAccumulated && this.GrowingDegreeDaysModified > lastGDRegistry)
+                if (this.GrowingDegreeDaysModified <= lDailyRecordItem.GrowingDegreeDaysAccumulated 
+                    && this.GrowingDegreeDaysModified > lLastGrowingDegreeDaysRegistry)
                 {
-                    lDate = lDailyRec.DailyRecordDateTime;
-                    lReturn = Utilities.Utils.GetDaysDifference(this.SowingDate, lDate);
-                    return lReturn;
+                    lDate = lDailyRecordItem.DailyRecordDateTime;
+                    lDaysAfterSowing = Utilities.Utils.GetDaysDifference(this.SowingDate, lDate);
+                    break;
                 }
-                lastGDRegistry = lDailyRec.GrowingDegreeDaysAccumulated;
+                lLastGrowingDegreeDaysRegistry = lDailyRecordItem.GrowingDegreeDaysAccumulated;
             }
+
+            lReturn = lDaysAfterSowing;
             return lReturn;
         }
 
@@ -1312,6 +1321,8 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pStage"></param>
         /// <param name="pDateTime"></param>
         /// <param name="lModification"></param>
+        
+
         
         public void AdjustmentPhenology(Stage pStage, DateTime pDateTime, double lModification)
         {
@@ -1864,6 +1875,34 @@ namespace IrrigationAdvisor.Models.Management
 
         #endregion
 
+        #region Weather
+
+        /// <summary>
+        /// Return the WeatherData from the available weather station.
+        /// First search in the main station. If there is no data, then search in the alternative wheather station.
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
+        public WeatherData GetWeatherDataFromAvailableWeatherStation(DateTime pDateTime)
+        {
+            WeatherData lReturn = null;
+            WeatherData lWeatherData = null;
+
+            if (pDateTime != null)
+            {
+                lWeatherData = this.MainWeatherStation.FindWeatherData(pDateTime);
+                if (lWeatherData == null)
+                {
+                    lWeatherData = this.AlternativeWeatherStation.FindWeatherData(pDateTime);
+                } 
+            }
+
+            lReturn = lWeatherData;
+            return lReturn;
+        }
+
+        #endregion
 
         /// <summary>
         /// Retrun Phenological Stage where Growing Degree Days is between Min and Max Degree
@@ -1941,51 +1980,70 @@ namespace IrrigationAdvisor.Models.Management
             return lReturn;
         }
 
-        public void AddDailyRecordAccordingGrowinDegreeDays(WeatherData pWeatherData,
-                                   WeatherData pMainWeatherData, WeatherData pAlternativeWeatherData,
-                                   //Double pBaseTemperature, Water.Rain pRain, Water.Irrigation pIrrigation,
-                                   //DateTime pLastWaterInputDate, DateTime pLastBigWaterInputDate,
-                                   //DateTime pLastPartialWaterInputDate, Double pLastPartialWaterInput,
-                                   String pObservations)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pDateTime"></param>
+        /// <param name="pObservations"></param>
+        public void AddDailyRecordAccordingDaysAfterSowing(DateTime pDateTime, String pObservations)
         {
             try
             {
+                WeatherData lWeatherData;
                 DateTime lDailyRecordDateTime;
-                Double lEvapotranspiration;
-                Double lGrowingDegreeDays;
+                Double lEvapotranspiration = 0;
+                Double lGrowingDegreeDays = 0;
+                Double lGrowingDegreeDaysModified = 0;
                 DailyRecord lDailyRecord;
-                int lDaysAfterSowing;
-                int lDaysAfterSowingModified;
-                Double lCropCoefficient;
-                Double lEvapotranspirationCropInput;
-                WaterOutput lEvapotranspirationCrop;
-                DailyRecord lNewDailyRecord;
+                int lDaysAfterSowing = 0;
+                int lDaysAfterSowingModified = 0;
+                Double lCropCoefficient = 0;
+                Double lEvapotranspirationCropInput = 0;
+                WaterOutput lEvapotranspirationCrop = null;
+                DailyRecord lNewDailyRecord = null;
+                WeatherData lMainWeatherData = null;
+                WeatherData lAlternativeWeatherData = null;
 
-                lDailyRecordDateTime = pWeatherData.Date;
+                lWeatherData = this.GetWeatherDataFromAvailableWeatherStation(pDateTime);
+                
+                lDailyRecordDateTime = pDateTime;
 
                 //1.- Evapotranspiration
-                lEvapotranspiration = pWeatherData.GetEvapotranspiration();
+                if(lWeatherData != null)
+                {
+                    lEvapotranspiration = lWeatherData.GetEvapotranspiration();
+                }
 
-                //2.- Growing Degree Days
-                //Growing Degree Days is average temperature menous Base Temperature                
-                lGrowingDegreeDays = this.calculateGrowingDegreeDaysForOneDay(this.GetBaseTemperature(), pWeatherData.GetAverageTemperature());
-                
-                //3.- Days After Sowing 
-                lDaysAfterSowing = Utils.GetDaysDifference(this.SowingDate, pWeatherData.Date);
-                
-                //4.- Get Daily Record by Growing Degrees Days Modified
-                //Get days after sowing according degrees days calculated from the accumulated degree days by Daily Records
-                lDailyRecord = this.getDailyRecordByGrowingDegreeDaysAccumulated(this.GrowingDegreeDaysModified);
+                //2.- Days After Sowing 
+                lDaysAfterSowing = this.calculateDaysAfterSowingForOneDay(this.SowingDate, lDailyRecordDateTime);
 
-                //5.- Get the Days After Sowing Modified according to Growing Degree Days Modified
-                //If we do not modified GDD, DAS will be 0
+                //3.- Growing Degree Days
+                //Growing Degree Days is average temperature menous Base Temperature 
+                if (lWeatherData != null)
+                {
+                    lGrowingDegreeDays = this.calculateGrowingDegreeDaysForOneDay(this.GetBaseTemperature(), lWeatherData.GetAverageTemperature());
+                }
+                else
+                {
+                    //lGrowingDegreeDays = InitialTables.GetGrowingDegreeDays(lDailyRecordDateTime);
+                    this.GrowingDegreeDaysAccumulated += lGrowingDegreeDays;
+                    this.GrowingDegreeDaysModified += lGrowingDegreeDays; 
+                }
+
+                //4.- Get Daily Record by Days After Sowing Modified
+                lDailyRecord = this.getDailyRecordByDaysAfterSowingAccumulated(this.DaysAfterSowingModified);
+
+                //5.- Get the Growing Degree Days Modifiedaccording to Days After Sowing Modified 
+                //If we do not modified DAS, GDD will be 0
                 if (lDailyRecord == null)
                 {
+                    lGrowingDegreeDaysModified = lGrowingDegreeDays;
                     lDaysAfterSowingModified = lDaysAfterSowing;
                 }
                 else
                 {
-                    lDaysAfterSowingModified = lDailyRecord.DaysAfterSowing;
+                    lGrowingDegreeDaysModified = lDailyRecord.GrowingDegreeDaysModified;
+                    lDaysAfterSowingModified = this.DaysAfterSowingModified;
                 }
 
                 //6.- Get Crop Coefficient by Days After Sowing Modified
@@ -1993,12 +2051,19 @@ namespace IrrigationAdvisor.Models.Management
 
 
                 //7.- Calculus of Evapotranspiration Crop
-                lEvapotranspirationCropInput = lEvapotranspiration * lCropCoefficient;
-                lEvapotranspirationCrop = new EvapotranspirationCrop(pWeatherData.Date, lEvapotranspirationCropInput);
+                if (lWeatherData != null)
+                {
+                    lEvapotranspirationCropInput = lEvapotranspiration * lCropCoefficient;
+                    lEvapotranspirationCrop = new EvapotranspirationCrop(lWeatherData.Date, lEvapotranspirationCropInput);
+                }
 
                 //8.- Weather Data
-                //WeatherData lMainWeatherData, lAlternativeWeatherData;
-
+                lMainWeatherData = this.MainWeatherStation.FindWeatherData(lDailyRecordDateTime);
+                if(this.AlternativeWeatherStation != null)
+                {
+                    lAlternativeWeatherData = this.AlternativeWeatherStation.FindWeatherData(lDailyRecordDateTime);
+                }
+                
                 //9.- Water Input
                 Rain lRain = this.GetRain(lDailyRecordDateTime);
                 Water.Irrigation lIrrigation = this.GetIrrigation(lDailyRecordDateTime);
@@ -2008,8 +2073,8 @@ namespace IrrigationAdvisor.Models.Management
                 //  pLastPartialWaterInputDate, pLastPartialWaterInput, 
                 //  this.HydricBalance, this.SoilHydricVolume,
                 //  this.TotalEvapotranspirationCropFromLastWaterInput
-                lNewDailyRecord = new DailyRecord(lDailyRecordDateTime, pMainWeatherData, pAlternativeWeatherData,
-                                                lDaysAfterSowing, lDaysAfterSowingModified,
+                lNewDailyRecord = new DailyRecord(lDailyRecordDateTime, lMainWeatherData, lAlternativeWeatherData,
+                                                this.DaysAfterSowing, this.DaysAfterSowingModified,
                                                 lGrowingDegreeDays, this.GrowingDegreeDaysAccumulated, this.GrowingDegreeDaysModified,
                                                 lRain, lIrrigation, this.LastWaterInputDate, this.LastBigWaterInputDate,
                                                 this.LastPartialWaterInputDate, this.LastPartialWaterInput,
@@ -2047,50 +2112,110 @@ namespace IrrigationAdvisor.Models.Management
             }
         }
 
-
-        public void AddDailyRecord(WeatherData pWeatherData,
-                                    String pObservations)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pDateTime"></param>
+        /// <param name="pObservations"></param>
+        public void AddDailyRecordAccordingGrowinDegreeDays(DateTime pDateTime, String pObservations)
         {
             try
             {
-                DateTime lWeatherDate;
-                Water.Irrigation lIrrigation;
-                Water.Rain lRain;
+                WeatherData lWeatherData;
+                DateTime lDailyRecordDateTime;
+                Double lEvapotranspiration = 0;
+                Double lGrowingDegreeDays = 0;
+                Double lGrowingDegreeDaysModified = 0;
+                DailyRecord lDailyRecord;
+                int lDaysAfterSowing = 0;
+                int lDaysAfterSowingModified = 0;
+                Double lCropCoefficient = 0;
+                Double lEvapotranspirationCropInput = 0;
+                WaterOutput lEvapotranspirationCrop = null;
+                DailyRecord lNewDailyRecord = null;
+                WeatherData lMainWeatherData = null;
+                WeatherData lAlternativeWeatherData = null;
+
+                lWeatherData = this.GetWeatherDataFromAvailableWeatherStation(pDateTime);
                 
-                double lAverageTemp;
-                double lEvapotranspiration;
-                double lBaseTemperature;
-                double lGrowingDegree;
-                double lGrowingDegreeAcumulated;
-                int lDays;
-                double lKC_CropCoefficient;
-                double lRealEvapotraspiration;
-                WaterOutput lEvapotranspirationCrop;
-                DailyRecord lNewDailyRecord;
-                
-                lWeatherDate = pWeatherData.Date;
-                lIrrigation = this.GetIrrigation(lWeatherDate);
-                lRain = this.GetRain(lWeatherDate);
+                lDailyRecordDateTime = pDateTime;
 
-                //Get all Temperature data
-                lAverageTemp = pWeatherData.GetAverageTemperature();
-                lEvapotranspiration = pWeatherData.GetEvapotranspiration();
-                lBaseTemperature = this.GetBaseTemperature();
-                //Growing Degree is average temperature menous Base Temperature
-                lGrowingDegree = lAverageTemp - lBaseTemperature;
-                lGrowingDegreeAcumulated = this.GrowingDegreeDaysAccumulated + lGrowingDegree;
+                //1.- Evapotranspiration
+                lEvapotranspiration = lWeatherData.GetEvapotranspiration();
 
-                //Get days after sowing for Modified Growing Degree
-                lDays = this.GetDaysAfterSowingForModifiedGrowingDegree();
+                //2.- Days After Sowing 
+                lDaysAfterSowing = this.calculateDaysAfterSowingForOneDay(this.SowingDate, lDailyRecordDateTime);
 
-                if (lDays == 0)
+                //3.- Growing Degree Days
+                //Growing Degree Days is average temperature menous Base Temperature                
+                lGrowingDegreeDays = this.calculateGrowingDegreeDaysForOneDay(this.GetBaseTemperature(), lWeatherData.GetAverageTemperature());
+
+                //4.- Get Daily Record by Growing Degrees Days Modified
+                lDailyRecord = this.getDailyRecordByGrowingDegreeDaysAccumulated(this.GrowingDegreeDaysModified);
+
+                //5.- Get the Days After Sowing Modified according to Growing Degree Days Modified
+                //If we do not modified GDD, DAS will be 0
+                if (lDailyRecord == null)
                 {
-                    lDays = Utils.GetDaysDifference(this.SowingDate, pWeatherData.Date);
+                    lDaysAfterSowingModified = lDaysAfterSowing;
+                }
+                else
+                {
+                    lDaysAfterSowingModified = lDailyRecord.DaysAfterSowing;
                 }
 
-                
+                //6.- Get Crop Coefficient by Days After Sowing Modified
+                lCropCoefficient = this.Crop.CropCoefficient.GetCropCoefficient(lDaysAfterSowingModified);
 
 
+                //7.- Calculus of Evapotranspiration Crop
+                lEvapotranspirationCropInput = lEvapotranspiration * lCropCoefficient;
+                lEvapotranspirationCrop = new EvapotranspirationCrop(lWeatherData.Date, lEvapotranspirationCropInput);
+
+                //8.- Weather Data
+                lMainWeatherData = this.MainWeatherStation.FindWeatherData(lDailyRecordDateTime);
+                if (this.AlternativeWeatherStation != null)
+                {
+                    lAlternativeWeatherData = this.AlternativeWeatherStation.FindWeatherData(lDailyRecordDateTime);
+                }
+
+                //9.- Water Input
+                Rain lRain = this.GetRain(lDailyRecordDateTime);
+                Water.Irrigation lIrrigation = this.GetIrrigation(lDailyRecordDateTime);
+
+                //We need to update some fields for calculations:
+                //  pLastWaterInputDate, pLastBigWaterInputDate, 
+                //  pLastPartialWaterInputDate, pLastPartialWaterInput, 
+                //  this.HydricBalance, this.SoilHydricVolume,
+                //  this.TotalEvapotranspirationCropFromLastWaterInput
+                lNewDailyRecord = new DailyRecord(lDailyRecordDateTime, lMainWeatherData, lAlternativeWeatherData,
+                                                this.DaysAfterSowing, this.DaysAfterSowingModified,
+                                                lGrowingDegreeDays, this.GrowingDegreeDaysAccumulated, this.GrowingDegreeDaysModified,
+                                                lRain, lIrrigation, this.LastWaterInputDate, this.LastBigWaterInputDate,
+                                                this.LastPartialWaterInputDate, this.LastPartialWaterInput,
+                                                lEvapotranspirationCrop, this.PhenologicalStage,
+                                                this.HydricBalance, this.SoilHydricVolume,
+                                                this.TotalEvapotranspirationCropFromLastWaterInput,
+                                                lCropCoefficient, pObservations);
+
+                this.UpdateDailyRecordListUpToDate(lDailyRecordDateTime);
+
+
+                //If it's the initial registry set the initial Hidric Balance
+                if (lDaysAfterSowing == 0)
+                {
+                    this.HydricBalance = this.GetInitialHydricBalance();
+                    this.DaysAfterSowing = 0;// new Pair<int, DateTime>(-1, this.CropIrrigationWeatherRecord.SowingDate);
+                }
+
+                //Set the new values (after add a new dailyRecord) for the variables used to resume the state of the crop.
+                // Use the last state (day before) to calculate the new state
+                setNewValuesAndReviewSummaryData(lNewDailyRecord);
+
+
+                this.DailyRecordList.Add(lNewDailyRecord);
+
+                this.OutPut += this.PrintState(this);
             }
             catch (Exception ex)
             {
@@ -2140,7 +2265,7 @@ namespace IrrigationAdvisor.Models.Management
                 lGrowingDegreeAcumulated = this.GrowingDegreeDaysAccumulated + lGrowingDegree;
 
                 //Get days after sowing for Modified Growing Degree
-                lDays = this.GetDaysAfterSowingForModifiedGrowingDegree();
+                lDays = this.GetDaysAfterSowingForGrowingDegreeDaysModified();
 
                 if (lDays == 0)
                 {
@@ -2176,12 +2301,12 @@ namespace IrrigationAdvisor.Models.Management
                 int indexToRemove = -1;
                 DailyRecord lRecordToDelete = null;
                 int i = 0;
-                foreach (DailyRecord lDailyRecord in this.DailyRecordList)
+                foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
                 {
-                    if (Utils.IsTheSameDay(lDailyRecord.DailyRecordDateTime.Date, pWeatherData.Date))
+                    if (Utils.IsTheSameDay(lDailyRecordItem.DailyRecordDateTime.Date, pWeatherData.Date))
                     {
                         indexToRemove = i;
-                        lRecordToDelete = lDailyRecord;
+                        lRecordToDelete = lDailyRecordItem;
                     }
                     i++;
                 }
@@ -2226,11 +2351,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="lModification"></param>
         public void AdjustmentPhenology(Stage pStage, DateTime pDateTime, double lModification)
         {
-            foreach (DailyRecord lDailyRec in this.DailyRecordList)
+            foreach (DailyRecord lDailyRecordItem in this.DailyRecordList)
             {
-                if (Utils.IsTheSameDay(pDateTime, lDailyRec.DailyRecordDateTime))
+                if (Utils.IsTheSameDay(pDateTime, lDailyRecordItem.DailyRecordDateTime))
                 {
-                    lDailyRec.GrowingDegreeDaysModified += lModification;// +lDailyRecordToDelete.GrowingDegreeDaysModified;
+                    lDailyRecordItem.GrowingDegreeDaysModified += lModification;// +lDailyRecordToDelete.GrowingDegreeDaysModified;
                     this.GrowingDegreeDaysModified += lModification;
                 }
             }
@@ -2265,13 +2390,15 @@ namespace IrrigationAdvisor.Models.Management
         #region Overrides
         public override bool Equals(object obj)
         {
+            bool lReturn = false;
             if (obj == null || obj.GetType() != this.GetType())
             {
                 return false;
             }
             CropIrrigationWeather lCropIrrigationWeather = obj as CropIrrigationWeather;
-            return this.Crop.Equals(lCropIrrigationWeather.Crop) &&
+            lReturn = this.Crop.Equals(lCropIrrigationWeather.Crop) &&
                     this.IrrigationUnit.Equals(lCropIrrigationWeather.IrrigationUnit);
+            return lReturn;
         }
 
         public override int GetHashCode()

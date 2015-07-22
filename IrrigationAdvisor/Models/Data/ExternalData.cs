@@ -3172,7 +3172,7 @@ namespace IrrigationAdvisor.Models.Data
 
             //Last data record
             lWeatherStation = pWeatherStation;
-            lLastDay = pIrrigationSystem.WeatherDataList[pIrrigationSystem.WeatherDataList.Count - 1].Date;
+            lLastDay = lWeatherStation.WeatherDataList[lWeatherStation.WeatherDataList.Count - 1].Date;
             lEvapotranspirationLast3Weight = 0.2;
             lEvapotranspirationLast2Weight = 0.3;
             lEvapotranspirationLast1Weight = 0.5;

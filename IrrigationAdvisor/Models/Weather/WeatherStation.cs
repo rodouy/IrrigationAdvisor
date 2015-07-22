@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using IrrigationAdvisor.Models.Utilities;
+
 namespace IrrigationAdvisor.Models.Weather
 {
     /// <summary>
@@ -48,7 +50,7 @@ namespace IrrigationAdvisor.Models.Weather
         #region Fields
         /// <summary>
         ///  Fields of Class:
-        ///     - idWeatherStation long
+        ///     - weatherStationId long
         ///     - name String
         ///     - model String
         ///     - dateOfInstallation Date
@@ -58,7 +60,7 @@ namespace IrrigationAdvisor.Models.Weather
         ///     - location Location
         ///     - giveET bool
         /// </summary>
-        private long idWeatherStation;
+        private long weatherStationId;
         private String name;
         private String model;
         private DateTime dateOfInstallation;
@@ -67,13 +69,14 @@ namespace IrrigationAdvisor.Models.Weather
         private int wirelessTransmission;
         private Location location;
         private bool giveET;
-        
+        private List<WeatherData> weatherDataList;
+
         #endregion
 
         #region Properties
         /// <summary>
         /// Properties of Class:
-        ///     - idWeatherStation long
+        ///     - weatherStationId long
         ///     - name String
         ///     - model String
         ///     - dateOfInstallation Date
@@ -85,10 +88,10 @@ namespace IrrigationAdvisor.Models.Weather
         /// </summary>
          
 
-        public long IdWeatherStation
+        public long WeatherStationId
         {
-            get { return idWeatherStation; }
-            set { idWeatherStation = value; }
+            get { return weatherStationId; }
+            set { weatherStationId = value; }
         }
 
         public String Name
@@ -139,6 +142,13 @@ namespace IrrigationAdvisor.Models.Weather
             set { giveET = value; }
         }
 
+        public List<WeatherData> WeatherDataList
+        {
+            get { return weatherDataList; }
+            set { weatherDataList = value; }
+        }
+        
+
         //[field: NonSerialized()]
         //public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
@@ -151,7 +161,7 @@ namespace IrrigationAdvisor.Models.Weather
         /// </summary>
         public WeatherStation()
         {
-            this.IdWeatherStation = 0;
+            this.WeatherStationId = 0;
             this.Name = "";
             this.Model = "";
             this.DateOfInstallation = DateTime.Now;
@@ -160,12 +170,13 @@ namespace IrrigationAdvisor.Models.Weather
             this.WirelessTransmission = 0;
             this.Location = new Location();
             this.GiveET = false;
+            this.WeatherDataList = new List<WeatherData>();
         }
 
         /// <summary>
         /// TODO add description
         /// </summary>
-        /// <param name="pIdWeatherStation"></param>
+        /// <param name="pWeatherStationId"></param>
         /// <param name="pName"></param>
         /// <param name="pModel"></param>
         /// <param name="pDateOfInstallation"></param>
@@ -175,13 +186,13 @@ namespace IrrigationAdvisor.Models.Weather
         /// <param name="pLocation"></param>
         /// <param name="pGiveET"></param>
         public WeatherStation(
-            long pIdWeatherStation, String pName, String pModel,
+            long pWeatherStationId, String pName, String pModel,
             DateTime pDateOfInstallation, DateTime pDateOfService,
             DateTime pUpdateTime, int pWirelessTransmission,
-            Location pLocation, bool pGiveET
-            )
+            Location pLocation, bool pGiveET,
+            List<WeatherData> pWeatherDataList)
         {
-            this.IdWeatherStation = pIdWeatherStation;
+            this.WeatherStationId = pWeatherStationId;
             this.Name = pName;
             this.Model = pModel;
             this.DateOfInstallation = pDateOfInstallation;
@@ -190,6 +201,7 @@ namespace IrrigationAdvisor.Models.Weather
             this.WirelessTransmission = pWirelessTransmission;
             this.Location = pLocation;
             this.GiveET = pGiveET;
+            this.WeatherDataList = pWeatherDataList;
         }
 
         #endregion
@@ -198,6 +210,135 @@ namespace IrrigationAdvisor.Models.Weather
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Find a WeatherData with the same Year, Month, Day and Hour as Parameter
+        /// </summary>
+        /// <param name="pDate"></param>
+        /// <returns></returns>
+        public WeatherData FindWeatherData(DateTime pDateHour)
+        {
+            WeatherData lReturn;
+            WeatherData lWeatherData = null;
+
+            if(pDateHour != null)
+            {
+                foreach (WeatherData lWeatherDataItem in this.WeatherDataList)
+                {
+                    if(Utils.IsTheSameDayAndHour(pDateHour, lWeatherDataItem.Date))
+                    {
+                        lWeatherData = lWeatherDataItem;
+                        break;
+                    }
+                }
+            }
+
+            lReturn = lWeatherData;
+            return lReturn;
+        }
+
+        /// <summary>
+        /// If WeatherData exist in list, return the WeatherData,
+        /// else return null.
+        /// </summary>
+        /// <param name="pWeatherData"></param>
+        /// <returns></returns>
+        public WeatherData ExistWeatherData(WeatherData pWeatherData)
+        {
+            WeatherData lReturn = null;
+
+            if(pWeatherData != null)
+            {
+                foreach (WeatherData lWeatherDataitem in this.WeatherDataList)
+                {
+                    if(lWeatherDataitem.Equals(pWeatherData))
+                    {
+                        lReturn = lWeatherDataitem;
+                        break;
+                    }
+                }
+            }
+
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add a new WeatherData and return it,
+        /// if exists returns null.
+        /// </summary>
+        /// <param name="pDateTime"></param>
+        /// <param name="pTemperature"></param>
+        /// <param name="pSolarRadiation"></param>
+        /// <param name="pTemMax"></param>
+        /// <param name="pTemMin"></param>
+        /// <param name="pEvapotranspiration"></param>
+        /// <returns></returns>
+        public WeatherData AddWeatherData(DateTime pDateTime,
+                                        Double pTemperature, Double pSolarRadiation, 
+                                        Double pTemMax, Double pTemMin, 
+                                        Double pEvapotranspiration)
+        {
+            WeatherData lReturn;
+            WeatherData lWeatherData = null;
+            long lWeatherDataId = 0;
+            try
+            {
+                lWeatherDataId = this.WeatherDataList.Count();
+                lWeatherData = new WeatherData(lWeatherDataId, pDateTime, pTemperature, 
+                                                    pTemMax, pTemMin, pSolarRadiation, 
+                                                    pEvapotranspiration);
+                if(this.ExistWeatherData(lWeatherData) == null)
+                {
+                    this.WeatherDataList.Add(lWeatherData);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in WeatherStation.AddWeatherDataToList " + e.Message);
+                //TODO manage and log the exception
+                throw e;
+            }
+
+            lReturn = lWeatherData;
+            return lReturn;
+        }
+
+
+        /// <summary>
+        /// Update an existing WeatherData,
+        /// if not exists, return null.
+        /// </summary>
+        /// <param name="pDateTime"></param>
+        /// <param name="pTemperature"></param>
+        /// <param name="pSolarRadiation"></param>
+        /// <param name="pTemMax"></param>
+        /// <param name="pTemMin"></param>
+        /// <param name="pEvapotranspiration"></param>
+        /// <returns></returns>
+        public WeatherData UpdateWeatherData(DateTime pDateTime,
+                                        Double pTemperature, Double pSolarRadiation, 
+                                        Double pTemMax, Double pTemMin, 
+                                        Double pEvapotranspiration)
+        {
+            WeatherData lReturn;
+            WeatherData lWeatherData = new WeatherData(0, pDateTime, pTemperature,
+                                                    pSolarRadiation, pTemMax, pTemMin,
+                                                    pEvapotranspiration);
+
+            lReturn = ExistWeatherData(lWeatherData);
+            if(lReturn != null)
+            {
+                lWeatherData.Date = pDateTime;
+                lWeatherData.Temperature = pTemperature;
+                lWeatherData.SolarRadiation = pSolarRadiation;
+                lWeatherData.TemperatureMax = pTemMax;
+                lWeatherData.TemperatureMin = pTemMin;
+                lWeatherData.Evapotranspiration = pEvapotranspiration;
+            }
+            return lReturn;
+        }
+
         #endregion
 
         #region Overrides

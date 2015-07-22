@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using IrrigationAdvisor.Models.Utilities;
+
 namespace IrrigationAdvisor.Models.Weather
 {
     /// <summary>
@@ -22,7 +24,6 @@ namespace IrrigationAdvisor.Models.Weather
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - WeatherStation    weatherStation
     ///     - Datetime          date
     ///     - double            temperature
     ///     - double            temperatureMax
@@ -46,7 +47,7 @@ namespace IrrigationAdvisor.Models.Weather
     /// 
     /// Methods:
     ///     - WeatherData()      -- constructor
-    ///     - WeatherData(WeatherStation, Datetime, 
+    ///     - WeatherData(Datetime, 
     ///         TemperatureMax double, TemperatureMin double, 
     ///         Evapotranspiration double)  -- consturctor with parameters
     ///     - GetAverageTemperature(Datetime pDate) double
@@ -63,7 +64,7 @@ namespace IrrigationAdvisor.Models.Weather
         #region Fields
         /// <summary>
         /// The fields are:
-        ///     - WeatherStation    weatherStation
+        ///     - long              weatherDataId
         ///     - Datetime          date
         ///     - double            temperature
         ///     - double            temperatureMax
@@ -85,7 +86,8 @@ namespace IrrigationAdvisor.Models.Weather
         ///     - double            evapotranspirationMonth
         ///     - double            evapotranspirationYear
         /// </summary>
-        private WeatherStation weatherStation;
+
+        private long weatherDataId;
         private DateTime date;
         private double temperature;
         private double temperatureMax;
@@ -111,17 +113,12 @@ namespace IrrigationAdvisor.Models.Weather
 
         #region Properties
 
-        public WeatherStation WeatherStation
+        public long WeatherDataId
         {
-            get { return weatherStation; }
-            set 
-            { 
-                weatherStation = value;
-                //PropertyChanged(this, 
-                //    new System.ComponentModel.PropertyChangedEventArgs("WeatherStation"));
-            }
+            get { return weatherDataId; }
+            set { weatherDataId = value; }
         }
-
+        
         public DateTime Date
         {
             get { return date; }
@@ -257,9 +254,10 @@ namespace IrrigationAdvisor.Models.Weather
         #endregion
 
         #region Construction
+
         public WeatherData()
         {
-            this.WeatherStation = new WeatherStation();
+            this.WeatherDataId = 0;
             this.Date = DateTime.Now;
             this.Temperature = 0;
             this.TemperatureMax = 0;
@@ -284,7 +282,7 @@ namespace IrrigationAdvisor.Models.Weather
 
         public WeatherData
             (
-            WeatherStation pWeatherStation,
+            long pWeatherDataId,
             DateTime pDate,
             double pTemperature,
             double pTemperatureMax,
@@ -293,7 +291,7 @@ namespace IrrigationAdvisor.Models.Weather
             double pEvapotranspiration
             )
         {
-            this.WeatherStation = pWeatherStation;
+            this.WeatherDataId = pWeatherDataId;
             this.Date = pDate;
             this.Temperature = pTemperature;
             this.TemperatureMax = pTemperatureMax;
@@ -318,7 +316,7 @@ namespace IrrigationAdvisor.Models.Weather
 
         public WeatherData
             (
-            WeatherStation pWeatherStation,
+            long pWeatherDataId,
             DateTime pDate,
             double pTemperature,
             double pTemperatureMax,
@@ -341,7 +339,7 @@ namespace IrrigationAdvisor.Models.Weather
             double pEvapotranspirationYear
             )
         {
-            this.WeatherStation = pWeatherStation;
+            this.WeatherDataId = pWeatherDataId;
             this.Date = pDate;
             this.Temperature = pTemperature;
             this.TemperatureMax = pTemperatureMax;
@@ -363,9 +361,11 @@ namespace IrrigationAdvisor.Models.Weather
             this.EvapotranspirationMonth = pEvapotranspirationMonth;
             this.EvapotranspirationYear = pEvapotranspirationYear;
         }
+
         #endregion
 
         #region Private Helpers
+
         /// <summary>
         /// Get Average from two double values;
         /// </summary>
@@ -452,14 +452,14 @@ namespace IrrigationAdvisor.Models.Weather
             }
             return lEvapotranspiration;
         }
+
         #endregion
 
         #region Overrides
+
         public override string ToString()
         {
             string lReturn = 
-                "Name " +
-                this.WeatherStation.Name + ";" +
                 "Date " +
                 this.Date.ToString() + ";" +
                 "Temperatures (now, max, min) " +
@@ -489,6 +489,30 @@ namespace IrrigationAdvisor.Models.Weather
                 this.EvapotranspirationYear.ToString() + ";";
             return lReturn;
         }
+
+        /// <summary>
+        /// Overrides equals:
+        /// Year, Month, Day and Hour
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            bool lReturn = false;
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return lReturn;
+            }
+            WeatherData lWeatherData = obj as WeatherData;
+            lReturn = Utils.IsTheSameDayAndHour(lWeatherData.Date, this.Date);
+            return lReturn;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Date.GetHashCode();
+        }
+
         #endregion
 
     }
