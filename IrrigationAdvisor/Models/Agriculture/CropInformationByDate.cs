@@ -290,7 +290,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         //Information by CURRENT_DATE
 
         /// <summary>
-        /// 
+        /// Return the Stage that should be a crop at a CurrentDate parameter
+        /// Using information of INIA
         /// </summary>
         /// <param name="pCurrentDate"></param>
         /// <returns></returns>
@@ -300,17 +301,36 @@ namespace IrrigationAdvisor.Models.Agriculture
             return this.Stage;
         }
 
+        /// <summary>
+        /// Return the CropCoefficient that should be a crop at a CurrentDate parameter
+        /// Using information of INIA
+        /// </summary>
+        /// <param name="pCurrentDate"></param>
+        /// <returns></returns>
         public Double GetCropCoefficient(DateTime pCurrentDate)
         {
             this.setFieldsAccordingCurrentDate(pCurrentDate);
             return this.CropCoefficientValue;
         }
+
+        /// <summary>
+        /// Return the Acumulated Growing Degree Days that should be a crop at a CurrentDate parameter
+        /// Using information of INIA
+        /// </summary>
+        /// <param name="pCurrentDate"></param>
+        /// <returns></returns>
         public double GetAccumulatedGrowingDegreeDays(DateTime pCurrentDate)
         {
             this.setFieldsAccordingCurrentDate(pCurrentDate);
             return this.AccumulatedGrowingDegreeDays;
         }
 
+        /// <summary>
+        /// Return the Day After Sowing that should be a crop at a CurrentDate parameter
+        /// Using information of INIA
+        /// </summary>
+        /// <param name="pCurrentDate"></param>
+        /// <returns></returns>
         public int GetDaysAfterSowing(DateTime pCurrentDate)
         {
             this.setFieldsAccordingCurrentDate(pCurrentDate);
@@ -319,6 +339,12 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         //Information By DAYS_AFTER_SOWING
 
+        /// <summary>
+        /// Return the Stage that should be a crop at a Day After Sowing parameter
+        /// Using information of INIA
+        /// </summary>
+        /// <param name="pDayAfterSowing"></param>
+        /// <returns></returns>
         public Stage GetStage(int pDayAfterSowing)
         {
             DateTime lCurrentDate = this.SowingDate.AddDays(pDayAfterSowing);
@@ -326,6 +352,11 @@ namespace IrrigationAdvisor.Models.Agriculture
             return this.Stage;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pDayAfterSowing"></param>
+        /// <returns></returns>
         public Double GetCropCoefficient(int pDayAfterSowing)
         {
             DateTime lCurrentDate = this.SowingDate.AddDays(pDayAfterSowing);

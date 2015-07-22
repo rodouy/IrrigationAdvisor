@@ -2023,6 +2023,28 @@ namespace IrrigationAdvisor.Models.Data
             return lReturn;
         }
 
+        /// <summary>
+        /// Return the 
+        /// </summary>
+        /// <param name="pCurrentDate"></param>
+        /// <returns></returns>
+        public static double GetGrowingDegreeDays(DateTime pCurrentDate)
+        {
+            DataTable lTemperature_Information = AddTemperatureInformation();
+            double lReturn = 0;
+
+            foreach (DataRow row in lTemperature_Information.Rows)
+            {
+                DateTime lDay = row.Field<DateTime>(0);
+                if (Utilities.Utils.IsTheSameDay(lDay, pCurrentDate))
+                {
+                    lReturn = row.Field<double>(1);
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
 
     }
 }
