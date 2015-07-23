@@ -455,7 +455,12 @@ namespace IrrigationAdvisor.Models.Management
 
         public override string ToString()
         {
-            string lEvapotranspirationCrop = this.EvapotranspirationCrop.GetTotalOutput().ToString() + "          ";
+            string lEvapotranspirationCrop = "       ";
+            
+            if (this.EvapotranspirationCrop != null)
+            {
+                lEvapotranspirationCrop = this.EvapotranspirationCrop.GetTotalOutput().ToString() + "          ";
+            }
             string lRain = "       ";
             string lIrrigation = "       ";
             int index = 5;
