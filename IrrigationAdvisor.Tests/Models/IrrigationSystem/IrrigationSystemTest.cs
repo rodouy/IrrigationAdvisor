@@ -637,7 +637,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lObservation = "Dia " + (i + 1);
                 lDateOfRecord = lFromDate.AddDays(i);
 
-                if (lDateOfRecord.Date.Equals(new DateTime(2015, 1, 22)))
+                if (lDateOfRecord.Date.Equals(new DateTime(2015, 02, 05)))
                 {
                     //System.Diagnostics.Debugger.Break();
                 }

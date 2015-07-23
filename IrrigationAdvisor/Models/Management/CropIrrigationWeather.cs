@@ -1127,8 +1127,8 @@ namespace IrrigationAdvisor.Models.Management
             this.DaysAfterSowing = lDayAfterSowing;
             this.DaysAfterSowingModified = lDayAfterSowingModified;
 
-            this.GrowingDegreeDaysAccumulated += pDailyRecord.GrowingDegreeDays;
-            this.GrowingDegreeDaysModified += pDailyRecord.GrowingDegreeDaysModified;
+            //this.GrowingDegreeDaysAccumulated += pDailyRecord.GrowingDegreeDays;
+            //this.GrowingDegreeDaysModified += pDailyRecord.GrowingDegreeDaysModified;
 
             //Update the Phenological Stage depending in Calculus Method
             setNewPhenologicalStageAccordingCalculusMethod();
@@ -1159,8 +1159,11 @@ namespace IrrigationAdvisor.Models.Management
 
             //Total EvapotranspirationCrop From Last Water Input adjustment 
             //after Irrigation and Rain Adjustment
-            this.TotalEvapotranspirationCropFromLastWaterInput += pDailyRecord.EvapotranspirationCrop.GetTotalOutput();
-
+            if (pDailyRecord.EvapotranspirationCrop != null)
+            {
+                this.TotalEvapotranspirationCropFromLastWaterInput += pDailyRecord.EvapotranspirationCrop.GetTotalOutput();
+            }
+            
             //After a big RAIN input, the Hydric Balance keep its value = FieldCapacity for X days
             //LastBigWaterInputDate it will be inicialized after rain Adjunstment
             lDaysAfterBigInputWater = Utilities.Utils.GetDaysDifference(this.LastBigWaterInputDate, pDailyRecord.DailyRecordDateTime);
@@ -1623,10 +1626,17 @@ namespace IrrigationAdvisor.Models.Management
             Double lReturn;
             Double lDepth = 0;
 
-            lDepth = pPhenologicalStage.HydricBalanceDepth;
-            if (lDepth > this.Soil.DepthLimit)
+            if (pPhenologicalStage != null)
             {
-                lDepth = this.Soil.DepthLimit;
+                lDepth = pPhenologicalStage.HydricBalanceDepth;
+                if (lDepth > this.Soil.DepthLimit)
+                {
+                    lDepth = this.Soil.DepthLimit;
+                }
+            }
+            else
+            {
+                //TODO See best answer to GetHydricBalanceDepthTakingIntoAccountSoilDepthLimit Method
             }
 
             lReturn = lDepth;
@@ -2488,7 +2498,14 @@ namespace IrrigationAdvisor.Models.Management
                 lMessageDaily = new List<string>();
                 lMessageDaily.Add(lDR.DailyRecordDateTime.ToString());
                 lMessageDaily.Add(lDR.GrowingDegreeDays.ToString());
-                lMessageDaily.Add(lDR.EvapotranspirationCrop.GetTotalOutput().ToString());
+                if (lDR.EvapotranspirationCrop == null)
+                {
+                    lMessageDaily.Add("0");
+                }
+                else
+                {
+                    lMessageDaily.Add(lDR.EvapotranspirationCrop.GetTotalOutput().ToString());
+                }
                 if (lDR.Rain == null)
                 {
                     lMessageDaily.Add("0");
