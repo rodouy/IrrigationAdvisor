@@ -1647,6 +1647,15 @@ namespace IrrigationAdvisor.Models.Management
             lCropIrrigationWeather.CropIrrigationWeatherId = this.CropIrrigationWeatherList.Count();
             lCropIrrigationWeather.IrrigationUnit = pIrrigationUnit;
             lCropIrrigationWeather.Crop= pCrop;
+            if (pCrop != null)
+            {
+                CropInformationByDate lCropInformationByDate = new CropInformationByDate();
+                lCropInformationByDate.CropCoefficient = pCrop.CropCoefficient;
+                lCropInformationByDate.PhenologicalStageList = pCrop.PhenologicalStageList;
+                lCropInformationByDate.Specie = pCrop.Specie;
+                lCropIrrigationWeather.CropInformationByDate = lCropInformationByDate;
+                
+            }
             lCropIrrigationWeather.MainWeatherStation=pMainWeatherStation;
             lCropIrrigationWeather.AlternativeWeatherStation= pAlternativeWeatherStation;
             lCropIrrigationWeather.PredeterminatedIrrigationQuantity=pPredeterminatedIrrigationQuantity;
@@ -1729,6 +1738,7 @@ namespace IrrigationAdvisor.Models.Management
 
                 pCropIrrigationWeather.PhenologicalStage = pInitialPhenologicalStage;
                 pCropIrrigationWeather.SowingDate = pSowingDate;
+                pCropIrrigationWeather.CropInformationByDate.SowingDate = pSowingDate;
                 pCropIrrigationWeather.HarvestDate = pHarvestDate;
 
                 //Get Effective Rain List from Region
