@@ -637,9 +637,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
                 lObservation = "Dia " + (i + 1);
                 lDateOfRecord = lFromDate.AddDays(i);
 
-                if (lDateOfRecord.Date.Equals(new DateTime(2015, 02, 05)))
+                if (lDateOfRecord.Date.Equals(new DateTime(2015, 10, 24)))
                 {
-                    //System.Diagnostics.Debugger.Break();
+                    System.Diagnostics.Debugger.Break();
                 }
                 
                 testIrrigationSystem.addDailyRecordToList(lCropIrrigationWeather, lDateOfRecord, lObservation);
