@@ -266,6 +266,7 @@ namespace IrrigationAdvisor.Models.Management
         public CropInformationByDate CropInformationByDate
         {
             get { return cropInformationByDate; }
+            set { cropInformationByDate = value;  }
         }
 
         public int DaysAfterSowing
@@ -528,7 +529,8 @@ namespace IrrigationAdvisor.Models.Management
             this.TotalEvapotranspirationCropFromLastWaterInput = 0;
 
             //Calculus of Phenological Adjustment
-            this.calculusMethodForPhenologicalAdjustment = Utils.CalculusOfPhenologicalStage.ByGrowingDegreeDays;
+            this.calculusMethodForPhenologicalAdjustment = Utils.CalculusOfPhenologicalStage.ByDaysAfterSowing;
+            this.CropInformationByDate = new CropInformationByDate();
             this.cropInformationByDate = null;
             this.DaysAfterSowing = 1;
             this.DaysAfterSowingModified = 1;
@@ -2057,7 +2059,8 @@ namespace IrrigationAdvisor.Models.Management
                 }
                 else
                 {
-                    //lGrowingDegreeDays = InitialTables.GetGrowingDegreeDays(lDailyRecordDateTime);
+                    //TODO pasar el metodo GetGrowingDegreeDays a la clase CropInformationByDate
+                    lGrowingDegreeDays = InitialTables.GetGrowingDegreeDays(lDailyRecordDateTime);
                     this.GrowingDegreeDaysAccumulated += lGrowingDegreeDays;
                     this.GrowingDegreeDaysModified += lGrowingDegreeDays; 
                 }

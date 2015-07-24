@@ -145,6 +145,14 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Construction
+        public CropInformationByDate()
+        {
+            this.SowingDate = DateTime.MinValue;
+            this.Specie = new Specie();
+            this.CropCoefficient = new CropCoefficient();
+            this.PhenologicalStageList = new List<PhenologicalStage>();
+ 
+        }
 
         /// <summary>
         /// Constructor of CropInformationByDate
