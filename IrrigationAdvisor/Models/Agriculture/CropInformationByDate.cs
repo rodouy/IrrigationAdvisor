@@ -188,7 +188,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.DaysAfterSowing = Utils.GetDaysDifference(this.SowingDate, this.CurrentDate);
 
             //Set accumulatedGrowingDegreeDays
-            this.AccumulatedGrowingDegreeDays = InitialTables.GetAccumulatedGrowingDegreeDays(this.SowingDate,this.CurrentDate);
+            this.AccumulatedGrowingDegreeDays = InitialTables.GetAccumulatedGrowingDegreeDays(this.SowingDate, this.CurrentDate, this.Specie.BaseTemperature);
 
             //Set Stage
             lStageDurationInformation = getStageDurationInformation();
@@ -241,13 +241,19 @@ namespace IrrigationAdvisor.Models.Agriculture
             }
 
         }
+
+        /// <summary>
+        /// TODO: to explain
+        /// </summary>
+        /// <param name="pGrowingDegreeDays"></param>
+        /// <returns></returns>
         private PhenologicalStage setPhenologicalStage(Double pGrowingDegreeDays)
         {
             PhenologicalStage lReturn = null;
             
             foreach (PhenologicalStage lPhenologicalStage in this.PhenologicalStageList)
             {
-                if(pGrowingDegreeDays <= lPhenologicalStage.MinDegree && pGrowingDegreeDays >= lPhenologicalStage.MaxDegree)
+                if(pGrowingDegreeDays >= lPhenologicalStage.MinDegree && pGrowingDegreeDays <= lPhenologicalStage.MaxDegree)
                 {
                     lReturn = lPhenologicalStage;
                 }
@@ -270,22 +276,24 @@ namespace IrrigationAdvisor.Models.Agriculture
         {
             //TODO Sacar hardcodeo de nombre de especies 
             List<Pair<Stage, int>> lReturn = null;
+            List<Pair<Stage, int>> lStageDurationInDays = null;
             List<Stage> lStageList = null;
 
             lStageList = this.getStageList();
             if (this.Specie.Name.ToUpper().Equals("SOJA"))
             {
-                
-                lReturn = InitialTables.GetCropInformationByDateForSoja(this.SowingDate, lStageList);
+                lStageDurationInDays = InitialTables.GetCropInformationByDateForSoja(this.SowingDate, lStageList);
             }
             else if (this.Specie.Name.ToUpper().Equals("MAIZ"))
             {
-                lReturn = InitialTables.GetCropInformationByDateForMaiz(this.SowingDate, lStageList);
+                lStageDurationInDays = InitialTables.GetCropInformationByDateForMaiz(this.SowingDate, lStageList);
             }
             else if (this.Specie.Name.ToUpper().Equals("SORGO"))
             {
-
+                //TODO: SORGO magic table
             }
+
+            lReturn = lStageDurationInDays;
             return lReturn;
 
         }

@@ -2026,6 +2026,7 @@ namespace IrrigationAdvisor.Models.Management
                 WeatherData lWeatherData;
                 DateTime lDailyRecordDateTime;
                 Double lEvapotranspiration = 0;
+                Double lBaseTemperature = 0;
                 Double lGrowingDegreeDays = 0;
                 Double lGrowingDegreeDaysModified = 0;
                 DailyRecord lDailyRecord;
@@ -2053,14 +2054,15 @@ namespace IrrigationAdvisor.Models.Management
 
                 //3.- Growing Degree Days
                 //Growing Degree Days is average temperature menous Base Temperature 
+                lBaseTemperature = this.GetBaseTemperature();
                 if (lWeatherData != null)
                 {
-                    lGrowingDegreeDays = this.calculateGrowingDegreeDaysForOneDay(this.GetBaseTemperature(), lWeatherData.GetAverageTemperature());
+                    lGrowingDegreeDays = this.calculateGrowingDegreeDaysForOneDay(lBaseTemperature, lWeatherData.GetAverageTemperature());
                 }
                 else
                 {
                     //TODO pasar el metodo GetGrowingDegreeDays a la clase CropInformationByDate
-                    lGrowingDegreeDays = InitialTables.GetGrowingDegreeDays(lDailyRecordDateTime);
+                    lGrowingDegreeDays = InitialTables.GetGrowingDegreeDays(lDailyRecordDateTime, lBaseTemperature);
                     this.GrowingDegreeDaysAccumulated += lGrowingDegreeDays;
                     this.GrowingDegreeDaysModified += lGrowingDegreeDays; 
                 }

@@ -121,6 +121,12 @@ namespace IrrigationAdvisor.Models.Data
 
         #region Private Helpers
 
+        /// <summary>
+        /// TODO: to explain
+        /// </summary>
+        /// <param name="pTableName"></param>
+        /// <param name="pStageList"></param>
+        /// <returns></returns>
         private static DataTable CreateTableForPhenologyInformation(String pTableName, List<Stage> pStageList)
         {
             DataTable lPhenology;
@@ -163,6 +169,12 @@ namespace IrrigationAdvisor.Models.Data
 
         }
 
+        /// <summary>
+        /// TODO: to explain
+        /// </summary>
+        /// <param name="pMaiz_Phenology_Information"></param>
+        /// <param name="pColumnNames"></param>
+        /// <returns></returns>
         private static DataTable AddMaizInformation(DataTable pMaiz_Phenology_Information, List<Stage> pColumnNames)
         {
             pMaiz_Phenology_Information = AddRowForPhenologicInformation(pMaiz_Phenology_Information, new DateTime(2014, 9, 1), pColumnNames, new int[] { 17, 6, 5, 7, 7, 6, 7, 6, 7, 5, 4, 5, 4, 3, 2, 4, 5, 12, 8, 6, 12, 22, 22 });
@@ -322,7 +334,12 @@ namespace IrrigationAdvisor.Models.Data
             return pMaiz_Phenology_Information;
         }
 
-        
+        /// <summary>
+        /// TODO: to explain
+        /// </summary>
+        /// <param name="pSoja_Phenology_Information"></param>
+        /// <param name="pColumnNames"></param>
+        /// <returns></returns>
         private static DataTable AddSojaInformation(DataTable pSoja_Phenology_Information, List<Stage> pColumnNames)
         {
             pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 9, 24), pColumnNames, new int[] { 16, 5, 4, 5, 5, 3, 3, 2, 2, 3, 2, 7, 7, 3, 3, 7, 7, 32, 32, 20, 40 });
@@ -434,6 +451,7 @@ namespace IrrigationAdvisor.Models.Data
             pSoja_Phenology_Information = AddRowForPhenologicInformation(pSoja_Phenology_Information, new DateTime(2014, 1, 8), pColumnNames, new int[] { 8, 4, 3, 5, 4, 2, 2, 2, 2, 3, 2, 4, 4, 2, 2, 2, 2, 21, 21, 1, 2 });
             return pSoja_Phenology_Information;
         }
+        
         /// <summary>
         /// Add a row to the PhenologicalInformationTable
         /// Requirements: pStageList.Length = pDurations.Length -1
@@ -459,6 +477,10 @@ namespace IrrigationAdvisor.Models.Data
             return pPhenologicInformation;
         }
         
+        /// <summary>
+        /// TODO: to explain
+        /// </summary>
+        /// <returns></returns>
         private static DataTable AddTemperatureInformation()
         {
             DataTable lTemperatureData;
@@ -748,245 +770,245 @@ namespace IrrigationAdvisor.Models.Data
             row = lTemperatureData.NewRow();
             row["Date"] = new DateTime(2014, 12, 31); row["Average"] = 24.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 1); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 1); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 2); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 2); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 3); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 3); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 4); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 4); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 5); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 5); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 6); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 6); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 7); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 7); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 8); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 8); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 9); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 9); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 10); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 10); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 11); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 11); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 12); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 12); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 13); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 13); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 14); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 14); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 15); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 15); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 16); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 16); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 17); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 17); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 18); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 18); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 19); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 19); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 20); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 20); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 21); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 21); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 22); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 22); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 23); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 23); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 24); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 24); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 25); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 25); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 26); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 26); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 27); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 27); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 28); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 28); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 29); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 29); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 30); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 30); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 1, 31); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 1, 31); row["Average"] = 25.5f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 1); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 1); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 2); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 2); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 3); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 3); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 4); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 4); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 5); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 5); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 6); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 6); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 7); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 7); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 8); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 8); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 9); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 9); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 10); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 10); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 11); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 11); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 12); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 12); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 13); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 13); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 14); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 14); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 15); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 15); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 16); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 16); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 17); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 17); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 18); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 18); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 19); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 19); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 20); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 20); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 21); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 21); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 22); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 22); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 23); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 23); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 24); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 24); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 25); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 25); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 26); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 26); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 27); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 27); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 2, 28); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 2, 28); row["Average"] = 25.35f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 1); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 1); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 2); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 2); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 3); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 3); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 4); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 4); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 5); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 5); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 6); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 6); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 7); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 7); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 8); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 8); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 9); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 9); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 10); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 10); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 11); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 11); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 12); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 12); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 13); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 13); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 14); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 14); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 15); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 15); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 16); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 16); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 17); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 17); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 18); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 18); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 19); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 19); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 20); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 20); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 21); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 21); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 22); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 22); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 23); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 23); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 24); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 24); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 25); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 25); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 26); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 26); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 27); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 27); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 28); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 28); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 29); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 29); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 30); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 30); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 3, 31); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 3, 31); row["Average"] = 22.8f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 1); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 1); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 2); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 2); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 3); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 3); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 4); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 4); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 5); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 5); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 6); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 6); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 7); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 7); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 8); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 8); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 9); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 9); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 10); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 10); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 11); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 11); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 12); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 12); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 13); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 13); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 14); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 14); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 15); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 15); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 16); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 16); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 17); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 17); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 18); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 18); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 19); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 19); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 20); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 20); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 21); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 21); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 22); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 22); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 23); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 23); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 24); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 24); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 25); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 25); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 26); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 26); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 27); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 27); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 28); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 28); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 29); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 29); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             row = lTemperatureData.NewRow();
-            row["Date"] = new DateTime(2014, 4, 30); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
+            row["Date"] = new DateTime(2015, 4, 30); row["Average"] = 18.6f; lTemperatureData.Rows.Add(row);
             
 
             
@@ -1992,7 +2014,7 @@ namespace IrrigationAdvisor.Models.Data
             foreach (DataRow row in lMaiz_Phenology_Information.Rows)
             {
                 DateTime lDay = row.Field<DateTime>(0);
-                if (Utilities.Utils.IsTheSameDay(lDay, pSowingDate))
+                if (Utils.IsTheSameDayWithoutYear(lDay, pSowingDate))
                 {
                     //Si encuentro la fecha de siembra itero la fila para guardar informacion de la duracion de cada stage
                     //object[] lDataRow = row.ItemArray;
@@ -2018,19 +2040,31 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
 
-        public static double  GetAccumulatedGrowingDegreeDays(DateTime pSowingDate, DateTime pCurrentDate)
+        public static Double GetAccumulatedGrowingDegreeDays(DateTime pSowingDate, DateTime pCurrentDate, 
+                                                            Double pBaseTemperature)
         {
-            DataTable lTemperature_Information = AddTemperatureInformation();
-            double lReturn = 0;
+            Double lReturn = 0;
+            Double lAccumulatedGrowingDegreeDays = 0;
+            Double lTemperature;
+            Double lGrowingDegreeDays;
+            DataTable lTemperature_Information;
+            DateTime lDay;
+
+            lTemperature_Information = AddTemperatureInformation();
 
             foreach (DataRow row in lTemperature_Information.Rows)
             {
-                DateTime lDay = row.Field<DateTime>(0);
-                if (Utilities.Utils.IsTheSameDay(lDay, pSowingDate) || Utilities.Utils.IsTheSameDay(lDay, pCurrentDate) || (lDay > pSowingDate && lDay < pCurrentDate))
+                lDay = row.Field<DateTime>(0);
+                if (Utils.IsBetweenDatesWithoutYear(pSowingDate, pCurrentDate, lDay))
                 {
-                    lReturn += row.Field<double>(1);
+                    lTemperature = row.Field<double>(1);
+                    lGrowingDegreeDays = lTemperature - pBaseTemperature;
+                    lAccumulatedGrowingDegreeDays += lGrowingDegreeDays;
                 }
+                //TODO: break when lday > pcurrent date
             }
+
+            lReturn = lAccumulatedGrowingDegreeDays;
             return lReturn;
         }
 
@@ -2039,20 +2073,28 @@ namespace IrrigationAdvisor.Models.Data
         /// </summary>
         /// <param name="pCurrentDate"></param>
         /// <returns></returns>
-        public static double GetGrowingDegreeDays(DateTime pCurrentDate)
+        public static double GetGrowingDegreeDays(DateTime pCurrentDate, Double pBaseTemperature)
         {
-            DataTable lTemperature_Information = AddTemperatureInformation();
-            double lReturn = 0;
+            Double lReturn;
+            Double lTemperature = 0;
+            Double lGrowingDegreeDays = 0;
+            DataTable lTemperature_Information;
+            DateTime lDay;
 
+            lTemperature_Information = AddTemperatureInformation();
+            
             foreach (DataRow row in lTemperature_Information.Rows)
             {
-                DateTime lDay = row.Field<DateTime>(0);
-                if (Utilities.Utils.IsTheSameDay(lDay, pCurrentDate))
+                lDay = row.Field<DateTime>(0);
+                if (Utils.IsTheSameDayWithoutYear(lDay, pCurrentDate))
                 {
-                    lReturn = row.Field<double>(1);
+                    lTemperature = row.Field<double>(1);
+                    lGrowingDegreeDays = lTemperature - pBaseTemperature;
                     break;
                 }
             }
+
+            lReturn = lGrowingDegreeDays;
             return lReturn;
         }
 
