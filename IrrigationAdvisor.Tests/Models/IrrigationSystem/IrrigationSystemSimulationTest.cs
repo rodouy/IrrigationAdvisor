@@ -799,10 +799,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_07_SLP2_2012, FarmPivotList.Pivot_07_SLP2_2012);
             AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_08_SLP2_2013, FarmPivotList.Pivot_08_SLP2_2013);
             AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_09_SLP5_2013, FarmPivotList.Pivot_09_SLP5_2013);
-            //AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_10_SL_Soja_2013, FarmPivotList.Pivot_10_SL_Soja_2013);
-            //AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_11_LP_Soja_2010, FarmPivotList.Pivot_11_LP_Soja_2010);
-            //AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, FarmPivotList.Pivot_12_LP_Soja_2011);
-            //AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, FarmPivotList.Pivot_13_LP_Soja_2012);
+            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_10_SL_Soja_2013, FarmPivotList.Pivot_10_SL_Soja_2013);
+            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_11_LP_Soja_2010, FarmPivotList.Pivot_11_LP_Soja_2010);
+            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, FarmPivotList.Pivot_12_LP_Soja_2011);
+            AddDataIrrigationUnit(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, FarmPivotList.Pivot_13_LP_Soja_2012);
             #endregion
 
             #region 29. Layout from Irrigation Units
@@ -1398,7 +1398,14 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             //The start day is one day after sowing because the first day is created when the testCrop is created
             lFromDate = pCropIrrigationWeather.SowingDate.AddDays(1);
-            lToDate = DateTime.Now.AddDays(7);
+            if(pCropIrrigationWeather.HarvestDate > DateTime.Now)
+            {
+                lToDate = DateTime.Now.AddDays(7);
+            }
+            else
+            {
+                lToDate = pCropIrrigationWeather.HarvestDate;
+            }
 
             lDiffDays = lToDate.Subtract(lFromDate).TotalDays;
             lCropIrrigationWeather = pCropIrrigationWeather;
