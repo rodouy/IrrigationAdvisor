@@ -675,10 +675,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             ExternalData.AddWeatherData_Pivot_07(testIrrigationSystem, testWeatherStation_Pivot_07);
             ExternalData.AddWeatherData_Pivot_08(testIrrigationSystem, testWeatherStation_Pivot_08);
             ExternalData.AddWeatherData_Pivot_09(testIrrigationSystem, testWeatherStation_Pivot_09);
-            //ExternalData.AddWeatherData_Pivot_10(testIrrigationSystem, testWeatherStation_Pivot_10);
-            //ExternalData.AddWeatherData_Pivot_11(testIrrigationSystem, testWeatherStation_Pivot_11);
-            //ExternalData.AddWeatherData_Pivot_12(testIrrigationSystem, testWeatherStation_Pivot_12);
-            //ExternalData.AddWeatherData_Pivot_13(testIrrigationSystem, testWeatherStation_Pivot_13);
+            ExternalData.AddWeatherData_Pivot_10(testIrrigationSystem, testWeatherStation_Pivot_10);
+            ExternalData.AddWeatherData_Pivot_11(testIrrigationSystem, testWeatherStation_Pivot_11);
+            ExternalData.AddWeatherData_Pivot_12(testIrrigationSystem, testWeatherStation_Pivot_12);
+            ExternalData.AddWeatherData_Pivot_13(testIrrigationSystem, testWeatherStation_Pivot_13);
             
             ExternalData.AddWeatherData2007(testIrrigationSystem, testWeatherStationAlternative);
             #endregion
@@ -1424,7 +1424,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                 if (pPivot.Equals(FarmPivotList.Pivot_01_Maiz_2007))
                 {
-                    //Adjustment of Phenological Stage for Pivot2
+                    //Adjustment of Phenological Stage for Pivot 01
                     foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot_01)
                     {
                         if (item.First.Equals(lDateOfRecord))
@@ -1437,7 +1437,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                 if (pPivot.Equals(FarmPivotList.Pivot_02_Tammi_2008))
                 {
-                    //Adjustment of Phenological Stage for Pivot3_4
+                    //Adjustment of Phenological Stage for Pivot 02
                     foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot_02)
                     {
                         if (item.First.Equals(lDateOfRecord))
@@ -1450,7 +1450,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                 if (pPivot.Equals(FarmPivotList.Pivot_03_LaPerdiz_2010))
                 {
-                    //Adjustment of Phenological Stage for Pivot5
+                    //Adjustment of Phenological Stage for Pivot 03
                     foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot_03)
                     {
                         if (item.First.Equals(lDateOfRecord))
@@ -1463,7 +1463,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                 if (pPivot.Equals(FarmPivotList.Pivot_04_NK900_2010))
                 {
-                    //Adjustment of Phenological Stage for Pivot5
+                    //Adjustment of Phenological Stage for Pivot 04
                     foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot_04)
                     {
                         if (item.First.Equals(lDateOfRecord))
@@ -1476,7 +1476,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                 if (pPivot.Equals(FarmPivotList.Pivot_05_NK900_2012))
                 {
-                    //Adjustment of Phenological Stage for Pivot5
+                    //Adjustment of Phenological Stage for Pivot 05
                     foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot_05)
                     {
                         if (item.First.Equals(lDateOfRecord))
@@ -1489,7 +1489,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                 if (pPivot.Equals(FarmPivotList.Pivot_06_SLP2_2010))
                 {
-                    //Adjustment of Phenological Stage for Pivot5
+                    //Adjustment of Phenological Stage for Pivot 06
                     foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot_06)
                     {
                         if (item.First.Equals(lDateOfRecord))
@@ -1502,7 +1502,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
                 if (pPivot.Equals(FarmPivotList.Pivot_07_SLP2_2012))
                 {
-                    //Adjustment of Phenological Stage for Pivot5
+                    //Adjustment of Phenological Stage for Pivot 07
                     foreach (Pair<DateTime, Stage> item in PhenologicalStageChange_Pivot_07)
                     {
                         if (item.First.Equals(lDateOfRecord))
