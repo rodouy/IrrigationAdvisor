@@ -3483,7 +3483,33 @@ namespace IrrigationAdvisor.Models.Data
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(089), 0, 0, 0, 0, 6.4);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(090), 0, 0, 0, 0, 5.4);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(091), 0, 0, 0, 0, 5.4);  // Month - 2007-11-15
-            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(092), 0, 0, 0, 0, );
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(092), 0, 0, 0, 0, 6.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(093), 0, 0, 0, 0, 7.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(094), 0, 0, 0, 0, 6.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(095), 0, 0, 0, 0, 7.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(096), 0, 0, 0, 0, 4.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(097), 0, 0, 0, 0, 3.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(098), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(099), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(100), 0, 0, 0, 0, 5.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(101), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(102), 0, 0, 0, 0, 3.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(103), 0, 0, 0, 0, 5.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(104), 0, 0, 0, 0, 5.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(105), 0, 0, 0, 0, 3.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(106), 0, 0, 0, 0, 4.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(107), 0, 0, 0, 0, 5.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(108), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(109), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(110), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(111), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(112), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(113), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(114), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(115), 0, 0, 0, 0, 6.0);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(116), 0, 0, 0, 0, 6.0);
+
+
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(093), 0, 0, 0, 0, 7.5);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(094), 0, 0, 0, 0, 6.1);
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(095), 0, 0, 0, 0, 5.7);
@@ -3511,7 +3537,393 @@ namespace IrrigationAdvisor.Models.Data
             pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(117), 0, 0, 0, 0, 5.3);
 
         }
-        
+
+        public static void AddWeatherData_Pivot_07(IrrigationSystem pIrrigationSystem,
+                                WeatherStation pWeatherStation)
+        {
+            WeatherStation lWeatherStation;
+            DateTime lFirstDay = new DateTime(2012, 11, 20);
+
+
+            lWeatherStation = pWeatherStation;
+
+            // DATOS DEL TIEMPO
+
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(0), 0, 0, 0, 0, 5.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(1), 0, 0, 0, 0, 6.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(2), 0, 0, 0, 0, 2.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(3), 0, 0, 0, 0, 3.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(4), 0, 0, 0, 0, 5.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(5), 0, 0, 0, 0, 5.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(6), 0, 0, 0, 0, 3.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(7), 0, 0, 0, 0, 6.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(8), 0, 0, 0, 0, 5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(9), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(10), 0, 0, 0, 0, 3.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(11), 0, 0, 0, 0, 6.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(12), 0, 0, 0, 0, 7.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(13), 0, 0, 0, 0, 5.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(14), 0, 0, 0, 0, 3.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(15), 0, 0, 0, 0, 6.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(16), 0, 0, 0, 0, 2.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(17), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(18), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(19), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(20), 0, 0, 0, 0, 5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(21), 0, 0, 0, 0, 5.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(22), 0, 0, 0, 0, 6.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(23), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(24), 0, 0, 0, 0, 6.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(25), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(26), 0, 0, 0, 0, 2.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(27), 0, 0, 0, 0, 6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(28), 0, 0, 0, 0, 3.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(29), 0, 0, 0, 0, 4.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(30), 0, 0, 0, 0, 3.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(31), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(32), 0, 0, 0, 0, 7.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(33), 0, 0, 0, 0, 6.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(34), 0, 0, 0, 0, 8.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(35), 0, 0, 0, 0, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(36), 0, 0, 0, 0, 5.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(37), 0, 0, 0, 0, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(38), 0, 0, 0, 0, 6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(39), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(40), 0, 0, 0, 0, 7.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(41), 0, 0, 0, 0, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(42), 0, 0, 0, 0, 6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(43), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(44), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(45), 0, 0, 0, 0, 6.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(46), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(47), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(48), 0, 0, 0, 0, 6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(49), 0, 0, 0, 0, 5.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(50), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(51), 0, 0, 0, 0, 6.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(52), 0, 0, 0, 0, 6.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(53), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(54), 0, 0, 0, 0, 6.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(55), 0, 0, 0, 0, 6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(56), 0, 0, 0, 0, 6.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(57), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(58), 0, 0, 0, 0, 4.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(59), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(60), 0, 0, 0, 0, 4.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(61), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(62), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(63), 0, 0, 0, 0, 6.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(64), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(65), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(66), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(67), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(68), 0, 0, 0, 0, 7.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(69), 0, 0, 0, 0, 7.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(70), 0, 0, 0, 0, 6.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(71), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(72), 0, 0, 0, 0, 5.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(73), 0, 0, 0, 0, 7.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(74), 0, 0, 0, 0, 5.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(75), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(76), 0, 0, 0, 0, 5.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(77), 0, 0, 0, 0, 6.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(78), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(79), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(80), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(81), 0, 0, 0, 0, 6.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(82), 0, 0, 0, 0, 3.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(83), 0, 0, 0, 0, 4.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(84), 0, 0, 0, 0, 6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(85), 0, 0, 0, 0, 3.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(86), 0, 0, 0, 0, 4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(87), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(88), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(89), 0, 0, 0, 0, 4.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(90), 0, 0, 0, 0, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(91), 0, 0, 0, 0, 2.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(92), 0, 0, 0, 0, 3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(93), 0, 0, 0, 0, 3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(94), 0, 0, 0, 0, 5.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(95), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(96), 0, 0, 0, 0, 3.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(97), 0, 0, 0, 0, 5.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(98), 0, 0, 0, 0, 4.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(99), 0, 0, 0, 0, 4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(100), 0, 0, 0, 0, 4.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(101), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(102), 0, 0, 0, 0, 3.7);
+
+        }
+
+        public static void AddWeatherData_Pivot_08(IrrigationSystem pIrrigationSystem,
+                                WeatherStation pWeatherStation)
+        {
+            WeatherStation lWeatherStation;
+            DateTime lFirstDay = new DateTime(2013, 10, 15);
+
+
+            lWeatherStation = pWeatherStation;
+
+            // DATOS DEL TIEMPO
+
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(0), 0, 0, 0, 0, 4.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(1), 0, 0, 0, 0, 4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(2), 0, 0, 0, 0, 3.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(3), 0, 0, 0, 0, 3.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(4), 0, 0, 0, 0, 4.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(5), 0, 0, 0, 0, 2.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(6), 0, 0, 0, 0, 3.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(7), 0, 0, 0, 0, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(8), 0, 0, 0, 0, 4.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(9), 0, 0, 0, 0, 3.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(10), 0, 0, 0, 0, 3.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(11), 0, 0, 0, 0, 3.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(12), 0, 0, 0, 0, 5.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(13), 0, 0, 0, 0, 5.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(14), 0, 0, 0, 0, 5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(15), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(16), 0, 0, 0, 0, 3.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(17), 0, 0, 0, 0, 2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(18), 0, 0, 0, 0, 1.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(19), 0, 0, 0, 0, 4.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(20), 0, 0, 0, 0, 4.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(21), 0, 0, 0, 0, 5.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(22), 0, 0, 0, 0, 7.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(23), 0, 0, 0, 0, 3.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(24), 0, 0, 0, 0, 2.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(25), 0, 0, 0, 0, 4.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(26), 0, 0, 0, 0, 3.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(27), 0, 0, 0, 0, 2.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(28), 0, 0, 0, 0, 6.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(29), 0, 0, 0, 0, 7.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(30), 0, 0, 0, 0, 8.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(31), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(32), 0, 0, 0, 0, 5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(33), 0, 0, 0, 0, 5.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(34), 0, 0, 0, 0, 5.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(35), 0, 0, 0, 0, 2.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(36), 0, 0, 0, 0, 2.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(37), 0, 0, 0, 0, 4.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(38), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(39), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(40), 0, 0, 0, 0, 7.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(41), 0, 0, 0, 0, 3.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(42), 0, 0, 0, 0, 2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(43), 0, 0, 0, 0, 2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(44), 0, 0, 0, 0, 5.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(45), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(46), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(47), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(48), 0, 0, 0, 0, 7.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(49), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(50), 0, 0, 0, 0, 8.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(51), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(52), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(53), 0, 0, 0, 0, 7.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(54), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(55), 0, 0, 0, 0, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(56), 0, 0, 0, 0, 4.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(57), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(58), 0, 0, 0, 0, 5.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(59), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(60), 0, 0, 0, 0, 7.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(61), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(62), 0, 0, 0, 0, 6.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(63), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(64), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(65), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(66), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(67), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(68), 0, 0, 0, 0, 6.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(69), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(70), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(71), 0, 0, 0, 0, 6.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(72), 0, 0, 0, 0, 6.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(73), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(74), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(75), 0, 0, 0, 0, 6.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(76), 0, 0, 0, 0, 8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(77), 0, 0, 0, 0, 4.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(78), 0, 0, 0, 0, 7.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(79), 0, 0, 0, 0, 3.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(80), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(81), 0, 0, 0, 0, 7.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(82), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(83), 0, 0, 0, 0, 7.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(84), 0, 0, 0, 0, 2.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(85), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(86), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(87), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(88), 0, 0, 0, 0, 6.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(89), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(90), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(91), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(92), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(93), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(94), 0, 0, 0, 0, 5.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(95), 0, 0, 0, 0, 5.8);
+
+        }
+
+        public static void AddWeatherData_Pivot_09(IrrigationSystem pIrrigationSystem,
+                                WeatherStation pWeatherStation)
+        {
+            WeatherStation lWeatherStation;
+            DateTime lFirstDay = new DateTime(2013, 11, 10);
+
+
+            lWeatherStation = pWeatherStation;
+
+            // DATOS DEL TIEMPO
+
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(0), 0, 0, 0, 0, 3.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(1), 0, 0, 0, 0, 2.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(2), 0, 0, 0, 0, 6.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(3), 0, 0, 0, 0, 7.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(4), 0, 0, 0, 0, 8.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(5), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(6), 0, 0, 0, 0, 5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(7), 0, 0, 0, 0, 5.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(8), 0, 0, 0, 0, 5.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(9), 0, 0, 0, 0, 2.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(10), 0, 0, 0, 0, 2.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(11), 0, 0, 0, 0, 4.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(12), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(13), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(14), 0, 0, 0, 0, 7.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(15), 0, 0, 0, 0, 3.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(16), 0, 0, 0, 0, 2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(17), 0, 0, 0, 0, 2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(18), 0, 0, 0, 0, 5.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(19), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(20), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(21), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(22), 0, 0, 0, 0, 7.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(23), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(24), 0, 0, 0, 0, 8.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(25), 0, 0, 0, 0, 5.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(26), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(27), 0, 0, 0, 0, 7.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(28), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(29), 0, 0, 0, 0, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(30), 0, 0, 0, 0, 4.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(31), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(32), 0, 0, 0, 0, 5.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(33), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(34), 0, 0, 0, 0, 7.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(35), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(36), 0, 0, 0, 0, 6.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(37), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(38), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(39), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(40), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(41), 0, 0, 0, 0, 6.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(42), 0, 0, 0, 0, 6.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(43), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(44), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(45), 0, 0, 0, 0, 6.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(46), 0, 0, 0, 0, 6.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(47), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(48), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(49), 0, 0, 0, 0, 6.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(50), 0, 0, 0, 0, 8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(51), 0, 0, 0, 0, 4.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(52), 0, 0, 0, 0, 7.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(53), 0, 0, 0, 0, 3.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(54), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(55), 0, 0, 0, 0, 7.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(56), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(57), 0, 0, 0, 0, 7.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(58), 0, 0, 0, 0, 2.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(59), 0, 0, 0, 0, 6.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(60), 0, 0, 0, 0, 6.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(61), 0, 0, 0, 0, 5.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(62), 0, 0, 0, 0, 6.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(63), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(64), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(65), 0, 0, 0, 0, 5.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(66), 0, 0, 0, 0, 6.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(67), 0, 0, 0, 0, 7.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(68), 0, 0, 0, 0, 7.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(69), 0, 0, 0, 0, 8.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(70), 0, 0, 0, 0, 7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(71), 0, 0, 0, 0, 6.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(72), 0, 0, 0, 0, 3.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(73), 0, 0, 0, 0, 4.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(74), 0, 0, 0, 0, 7.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(75), 0, 0, 0, 0, 3.6);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(76), 0, 0, 0, 0, 4.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(77), 0, 0, 0, 0, 5.1);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(78), 0, 0, 0, 0, 4.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(79), 0, 0, 0, 0, 2.2);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(80), 0, 0, 0, 0, 2.9);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(81), 0, 0, 0, 0, 5.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(82), 0, 0, 0, 0, 5.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(83), 0, 0, 0, 0, 2.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(84), 0, 0, 0, 0, 2.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(85), 0, 0, 0, 0, 2.3);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(86), 0, 0, 0, 0, 4.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(87), 0, 0, 0, 0, 4.8);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(88), 0, 0, 0, 0, 1.7);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(89), 0, 0, 0, 0, 2.4);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(90), 0, 0, 0, 0, 5.5);
+            pIrrigationSystem.AddWeatherDataToList(lWeatherStation, lFirstDay.AddDays(91), 0, 0, 0, 0, 2.4);
+
+        }
+
+
+        public static void AddWeatherData_Pivot_10(IrrigationSystem pIrrigationSystem,
+                                WeatherStation pWeatherStation)
+        {
+            WeatherStation lWeatherStation;
+            DateTime lFirstDay = new DateTime(2010, 10, 26);
+
+
+            lWeatherStation = pWeatherStation;
+
+            // DATOS DEL TIEMPO
+        }
+
+
+        public static void AddWeatherData_Pivot_11(IrrigationSystem pIrrigationSystem,
+                                WeatherStation pWeatherStation)
+        {
+            WeatherStation lWeatherStation;
+            DateTime lFirstDay = new DateTime(2010, 10, 26);
+
+
+            lWeatherStation = pWeatherStation;
+
+            // DATOS DEL TIEMPO
+        }
+
+
+        public static void AddWeatherData_Pivot_12(IrrigationSystem pIrrigationSystem,
+                                WeatherStation pWeatherStation)
+        {
+            WeatherStation lWeatherStation;
+            DateTime lFirstDay = new DateTime(2010, 10, 26);
+
+
+            lWeatherStation = pWeatherStation;
+
+            // DATOS DEL TIEMPO
+        }
+
+
+        public static void AddWeatherData_Pivot_13(IrrigationSystem pIrrigationSystem,
+                                WeatherStation pWeatherStation)
+        {
+            WeatherStation lWeatherStation;
+            DateTime lFirstDay = new DateTime(2010, 10, 26);
+
+
+            lWeatherStation = pWeatherStation;
+
+            // DATOS DEL TIEMPO
+        }
+
+
         public static void AddWeatherData(IrrigationSystem pIrrigationSystem,
                                 WeatherStation pWeatherStation, DateTime pStartDate)
         {

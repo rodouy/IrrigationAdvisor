@@ -1642,14 +1642,19 @@ namespace IrrigationAdvisor.Models.Management
                                                     Location pLocation, Soil pSoil)
         {
             CropIrrigationWeather lReturn = null;
-            long lCropIrrigationWeatherId = this.CropIrrigationWeatherList.Count();
-            CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather();
-            lCropIrrigationWeather.CropIrrigationWeatherId = this.CropIrrigationWeatherList.Count();
+            long lCropIrrigationWeatherId = 0;
+            CropIrrigationWeather lCropIrrigationWeather = null;
+            CropInformationByDate lCropInformationByDate = null;
+            
+            lCropIrrigationWeatherId = this.CropIrrigationWeatherList.Count();
+            lCropIrrigationWeather = new CropIrrigationWeather();
+            lCropIrrigationWeather.CropIrrigationWeatherId = lCropIrrigationWeatherId;
             lCropIrrigationWeather.IrrigationUnit = pIrrigationUnit;
-            lCropIrrigationWeather.Crop= pCrop;
+            lCropIrrigationWeather.Crop = pCrop;
+                
             if (pCrop != null)
             {
-                CropInformationByDate lCropInformationByDate = new CropInformationByDate();
+                lCropInformationByDate = new CropInformationByDate();
                 lCropInformationByDate.CropCoefficient = pCrop.CropCoefficient;
                 lCropInformationByDate.PhenologicalStageList = pCrop.PhenologicalStageList;
                 lCropInformationByDate.Specie = pCrop.Specie;
@@ -1724,17 +1729,14 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public CropIrrigationWeather InicializeCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather,
                                                                     PhenologicalStage pInitialPhenologicalStage, 
-                                                                    DateTime pSowingDate, DateTime pHarvestDate) 
+                                                                    DateTime pSowingDate, DateTime pHarvestDate,
+                                                                    Utils.CalculusOfPhenologicalStage pCalculusOfPhenologicalStage) 
         {
             CropIrrigationWeather lReturn = null;
-            //CropIrrigationWeatherRecord lCropIrrigationWeatherRecord;
             List<EffectiveRain> lEffectiveRain;
             double lHydricBalance;
             try
             {
-
-                //Create the cropIrrigationWeatherRecord for the CropIrrigationWeather
-                //lCropIrrigationWeatherRecord = new CropIrrigationWeatherRecord();
 
                 pCropIrrigationWeather.PhenologicalStage = pInitialPhenologicalStage;
                 pCropIrrigationWeather.SowingDate = pSowingDate;
@@ -1749,6 +1751,8 @@ namespace IrrigationAdvisor.Models.Management
                 lHydricBalance = pCropIrrigationWeather.GetInitialHydricBalance();
                 pCropIrrigationWeather.HydricBalance = lHydricBalance;
 
+                //Set Calculus Method for Phenological Adjustment
+                pCropIrrigationWeather.SetCalculusMethodForPhenologicalAdjustment(pCalculusOfPhenologicalStage);
                 
                 //Create the initial registry
                 this.addDailyRecordToList(pCropIrrigationWeather, pSowingDate, "Initial registry");
@@ -2071,7 +2075,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public void AddOrUpdateIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
                                                     DateTime pIrrigationDate, 
-                                                    Pair<double,  Utils.WaterInputType> pQuantityOfWaterToIrrigateAndTypeOfIrrigation, 
+                                                    Pair<double, Utils.WaterInputType> pQuantityOfWaterToIrrigateAndTypeOfIrrigation, 
                                                     bool pIsExtraIrrigation)
         {
             Water.Irrigation lNewIrrigation = null;

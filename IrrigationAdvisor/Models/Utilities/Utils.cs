@@ -135,15 +135,68 @@ namespace IrrigationAdvisor.Models.Utilities
         }
 
         /// <summary>
+        /// Return if the Date One is Later than Date Two.
+        /// NOT Compares Years.
+        /// </summary>
+        /// <param name="pDateOne"></param>
+        /// <param name="pDateTwo"></param>
+        /// <returns></returns>
+        public static bool IsBetweenDatesWithoutYear(DateTime pDateOne, DateTime pDateTwo, DateTime pDateBetween)
+        {
+            bool lReturn = false;
+            DateTime lNewDateTime;
+
+            if (pDateTwo >= pDateOne)
+            {
+                lNewDateTime = new DateTime(pDateOne.Year, pDateBetween.Month, pDateBetween.Day);
+                if (pDateOne <= lNewDateTime && pDateTwo >= lNewDateTime)
+                {
+                    lReturn = true;
+                }
+            }
+            else
+            {
+                lNewDateTime = new DateTime(pDateTwo.Year, pDateBetween.Month, pDateBetween.Day);
+                if (pDateOne >= lNewDateTime && pDateTwo <= lNewDateTime)
+                {
+                    lReturn = true;
+                }
+            }
+
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return if the Dates have the same month and day.
+        /// NOT Compares Years.
+        /// </summary>
+        /// <param name="pDateOne"></param>
+        /// <param name="pDateTwo"></param>
+        /// <returns></returns>
+        public static bool IsTheSameDayWithoutYear(DateTime pDateOne, DateTime pDateTwo)
+        {
+            bool lReturn = false;
+            bool lIsTheSameDay = false;
+
+            if (pDateOne.Month == pDateTwo.Month && pDateOne.Day == pDateTwo.Day)
+            {
+                lIsTheSameDay = true;
+            }
+
+            lReturn = lIsTheSameDay;
+            return lReturn;
+        }
+
+        /// <summary>
         /// Return if the Dates have the same year, month and day.
         /// </summary>
-        /// <param name="dateOne"></param>
-        /// <param name="dateTwo"></param>
+        /// <param name="pDateOne"></param>
+        /// <param name="pDateTwo"></param>
         /// <returns></returns>
-        public static bool IsTheSameDay(DateTime dateOne, DateTime dateTwo)
+        public static bool IsTheSameDay(DateTime pDateOne, DateTime pDateTwo)
         {
             bool lReturn = false ;
-            if (dateOne.Year == dateTwo.Year && dateOne.Month == dateTwo.Month && dateOne.Day == dateTwo.Day)
+            if (pDateOne.Year == pDateTwo.Year && pDateOne.Month == pDateTwo.Month && pDateOne.Day == pDateTwo.Day)
             {
                 lReturn = true;
             }
@@ -153,8 +206,8 @@ namespace IrrigationAdvisor.Models.Utilities
         /// <summary>
         /// Return if the Dates have the same year, month, day and hour.
         /// </summary>
-        /// <param name="dateOne"></param>
-        /// <param name="dateTwo"></param>
+        /// <param name="pDateOne"></param>
+        /// <param name="pDateTwo"></param>
         /// <returns></returns>
         public static bool IsTheSameDayAndHour(DateTime dateOne, DateTime dateTwo)
         {
