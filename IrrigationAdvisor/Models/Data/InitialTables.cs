@@ -1980,7 +1980,7 @@ namespace IrrigationAdvisor.Models.Data
             foreach (DataRow row in lSoja_Phenology_Information.Rows)
             {
                 DateTime lDay = row.Field<DateTime>(0);
-                if (Utilities.Utils.IsTheSameDay(lDay, pSowingDate))
+                if (Utils.IsTheSameDayWithoutYear(lDay, pSowingDate))
                 {
                     //Si encuentro la fecha de siembra itero la fila para guardar informacion de la duracion de cada stage
                     //object[] lDataRow = row.ItemArray;

@@ -1276,14 +1276,33 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 02, 17), 20);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 02, 21), 45);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 02, 28), 41);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 02, 29), 14);
-            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 03, 01), 10);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 03, 01), 14);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 03, 02), 10);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 03, 06), 65);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 03, 12), 5);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 03, 13), 20);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 03, 19), 56);
             testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_12_LP_Soja_2011, new DateTime(2011, 03, 26), 11);
-            
+
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2012, 12, 10), 72);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2012, 12, 13), 7);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2012, 12, 15), 10);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2012, 12, 17), 12);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2012, 12, 20), 117);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 01, 04), 60);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 01, 17), 20);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 02, 04), 44);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 02, 10), 6);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 02, 13), 8);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 02, 17), 6);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 02, 19), 9);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 02, 21), 20);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 02, 24), 40);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 03, 02), 40);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 03, 10), 44);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 03, 10), 40);
+            testIrrigationSystem.AddRainDataToList(testCropIrrigationWeather_Pivot_13_LP_Soja_2012, new DateTime(2013, 03, 19), 22);
+
            
 
         }
