@@ -481,7 +481,7 @@ namespace IrrigationAdvisor.Models.Data
         /// TODO: to explain
         /// </summary>
         /// <returns></returns>
-        private static DataTable AddTemperatureInformation()
+        public static DataTable AddTemperatureInformation()
         {
             DataTable lTemperatureData;
             DataSet dataSetOfTemperatureData;
@@ -1958,6 +1958,7 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
         #region Crop Information By Date
+
         /// <summary>
         /// Given a Date for the SowingDate return the duration for each phenological stage.
         /// Information obtained from INIA.
@@ -1999,6 +2000,7 @@ namespace IrrigationAdvisor.Models.Data
             return lCropCyclesInformationList;
         }
 
+
         public static List<Pair<Stage, int>> GetCropInformationByDateForMaiz(DateTime pSowingDate, List<Stage> pStageList)
         {
             //Creo Variable local para guardar informacion a retornar
@@ -2038,65 +2040,6 @@ namespace IrrigationAdvisor.Models.Data
         #endregion
 
         #endregion
-
-
-        public static Double GetAccumulatedGrowingDegreeDays(DateTime pSowingDate, DateTime pCurrentDate, 
-                                                            Double pBaseTemperature)
-        {
-            Double lReturn = 0;
-            Double lAccumulatedGrowingDegreeDays = 0;
-            Double lTemperature;
-            Double lGrowingDegreeDays;
-            DataTable lTemperature_Information;
-            DateTime lDay;
-
-            lTemperature_Information = AddTemperatureInformation();
-
-            foreach (DataRow row in lTemperature_Information.Rows)
-            {
-                lDay = row.Field<DateTime>(0);
-                if (Utils.IsBetweenDatesWithoutYear(pSowingDate, pCurrentDate, lDay))
-                {
-                    lTemperature = row.Field<double>(1);
-                    lGrowingDegreeDays = lTemperature - pBaseTemperature;
-                    lAccumulatedGrowingDegreeDays += lGrowingDegreeDays;
-                }
-                //TODO: break when lday > pcurrent date
-            }
-
-            lReturn = lAccumulatedGrowingDegreeDays;
-            return lReturn;
-        }
-
-        /// <summary>
-        /// Return the 
-        /// </summary>
-        /// <param name="pCurrentDate"></param>
-        /// <returns></returns>
-        public static double GetGrowingDegreeDays(DateTime pCurrentDate, Double pBaseTemperature)
-        {
-            Double lReturn;
-            Double lTemperature = 0;
-            Double lGrowingDegreeDays = 0;
-            DataTable lTemperature_Information;
-            DateTime lDay;
-
-            lTemperature_Information = AddTemperatureInformation();
-            
-            foreach (DataRow row in lTemperature_Information.Rows)
-            {
-                lDay = row.Field<DateTime>(0);
-                if (Utils.IsTheSameDayWithoutYear(lDay, pCurrentDate))
-                {
-                    lTemperature = row.Field<double>(1);
-                    lGrowingDegreeDays = lTemperature - pBaseTemperature;
-                    break;
-                }
-            }
-
-            lReturn = lGrowingDegreeDays;
-            return lReturn;
-        }
 
 
     }

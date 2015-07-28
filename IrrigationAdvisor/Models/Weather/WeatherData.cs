@@ -25,33 +25,33 @@ namespace IrrigationAdvisor.Models.Weather
     /// -----------------------------------------------------------------
     /// Fields of Class:
     ///     - Datetime          date
-    ///     - double            temperature
-    ///     - double            temperatureMax
-    ///     - double            temperatureMin
-    ///     - double            temperatureDewPoint
-    ///     - double            humidity
-    ///     - double            humidityMax
-    ///     - double            humidityMin
-    ///     - double            barometer
-    ///     - double            barometerMax
-    ///     - double            barometerMin
-    ///     - double            solarRadiation
-    ///     - double            UVRadiation
-    ///     - double            RainDay
-    ///     - double            RainStorm
-    ///     - double            RainMonth
-    ///     - double            RainYear
-    ///     - double            evapotranspiration
-    ///     - double            evapotranspirationMonth
-    ///     - double            evapotranspirationYear
+    ///     - Double            temperature
+    ///     - Double            temperatureMax
+    ///     - Double            temperatureMin
+    ///     - Double            temperatureDewPoint
+    ///     - Double            humidity
+    ///     - Double            humidityMax
+    ///     - Double            humidityMin
+    ///     - Double            barometer
+    ///     - Double            barometerMax
+    ///     - Double            barometerMin
+    ///     - Double            solarRadiation
+    ///     - Double            UVRadiation
+    ///     - Double            RainDay
+    ///     - Double            RainStorm
+    ///     - Double            RainMonth
+    ///     - Double            RainYear
+    ///     - Double            evapotranspiration
+    ///     - Double            evapotranspirationMonth
+    ///     - Double            evapotranspirationYear
     /// 
     /// Methods:
     ///     - WeatherData()      -- constructor
     ///     - WeatherData(Datetime, 
-    ///         TemperatureMax double, TemperatureMin double, 
-    ///         Evapotranspiration double)  -- consturctor with parameters
-    ///     - GetAverageTemperature(Datetime pDate) double
-    ///     - GetEvapotranspiration(Datetime pDate) double
+    ///         TemperatureMax Double, TemperatureMin Double, 
+    ///         Evapotranspiration Double)  -- consturctor with parameters
+    ///     - GetAverageTemperature(Datetime pDate) Double
+    ///     - GetEvapotranspiration(Datetime pDate) Double
     /// 
     /// </summary>
     //[Serializable()]
@@ -66,48 +66,49 @@ namespace IrrigationAdvisor.Models.Weather
         /// The fields are:
         ///     - long              weatherDataId
         ///     - Datetime          date
-        ///     - double            temperature
-        ///     - double            temperatureMax
-        ///     - double            temperatureMin
-        ///     - double            temperatureDewPoint
-        ///     - double            humidity
-        ///     - double            humidityMax
-        ///     - double            humidityMin
-        ///     - double            barometer
-        ///     - double            barometerMax
-        ///     - double            barometerMin
-        ///     - double            solarRadiation
-        ///     - double            UVRadiation
-        ///     - double            RainDay
-        ///     - double            RainStorm
-        ///     - double            RainMonth
-        ///     - double            RainYear
-        ///     - double            evapotranspiration
-        ///     - double            evapotranspirationMonth
-        ///     - double            evapotranspirationYear
+        ///     - Double            temperature
+        ///     - Double            temperatureMax
+        ///     - Double            temperatureMin
+        ///     - Double            temperatureDewPoint
+        ///     - Double            humidity
+        ///     - Double            humidityMax
+        ///     - Double            humidityMin
+        ///     - Double            barometer
+        ///     - Double            barometerMax
+        ///     - Double            barometerMin
+        ///     - Double            solarRadiation
+        ///     - Double            UVRadiation
+        ///     - Double            RainDay
+        ///     - Double            RainStorm
+        ///     - Double            RainMonth
+        ///     - Double            RainYear
+        ///     - Double            evapotranspiration
+        ///     - Double            evapotranspirationMonth
+        ///     - Double            evapotranspirationYear
         /// </summary>
 
         private long weatherDataId;
         private DateTime date;
-        private double temperature;
-        private double temperatureMax;
-        private double temperatureMin;
-        private double temperatureDewPoint;
-        private double humidity;
-        private double humidityMax;
-        private double humidityMin;
-        private double barometer;
-        private double barometerMax;
-        private double barometerMin;
-        private double solarRadiation;
-        private double uvRadiation;
-        private double rainDay;
-        private double rainStorm;
-        private double rainMonth;
-        private double rainYear;
-        private double evapotranspiration;
-        private double evapotranspirationMonth;
-        private double evapotranspirationYear;
+        private Double temperature;
+        private Double temperatureMax;
+        private Double temperatureMin;
+        private Double temperatureDewPoint;
+        private Double humidity;
+        private Double humidityMax;
+        private Double humidityMin;
+        private Double barometer;
+        private Double barometerMax;
+        private Double barometerMin;
+        private Double solarRadiation;
+        private Double uvRadiation;
+        private Double rainDay;
+        private Double rainStorm;
+        private Double rainMonth;
+        private Double rainYear;
+        private Double evapotranspiration;
+        private Double evapotranspirationMonth;
+        private Double evapotranspirationYear;
+        private Utils.WeatherDataType weatherDataType;
 
         #endregion
 
@@ -130,7 +131,7 @@ namespace IrrigationAdvisor.Models.Weather
             }
         }
 
-        public double Temperature
+        public Double Temperature
         {
             get { return temperature; }
             set 
@@ -141,7 +142,7 @@ namespace IrrigationAdvisor.Models.Weather
             }
         }
 
-        public double TemperatureMax
+        public Double TemperatureMax
         {
             get { return temperatureMax; }
             set 
@@ -152,7 +153,7 @@ namespace IrrigationAdvisor.Models.Weather
             }
         }
 
-        public double TemperatureMin
+        public Double TemperatureMin
         {
             get { return temperatureMin; }
             set 
@@ -163,7 +164,7 @@ namespace IrrigationAdvisor.Models.Weather
             }
         }
 
-        public double TemperatureDewPoint
+        public Double TemperatureDewPoint
         {
             get { return temperatureDewPoint; }
             set 
@@ -173,88 +174,112 @@ namespace IrrigationAdvisor.Models.Weather
                 //    new System.ComponentModel.PropertyChangedEventArgs("TemperatureDewPoint"));
             }
         }
-        public double Humidity
+
+        public Double Humidity
         {
             get { return humidity; }
             set { humidity = value; }
         }
-        public double HumidityMax
+
+        public Double HumidityMax
         {
             get { return humidityMax; }
             set { humidityMax = value; }
         }
-        public double HumidityMin
+
+        public Double HumidityMin
         {
             get { return humidityMin; }
             set { humidityMin = value; }
         }
-        public double Barometer
+
+        public Double Barometer
         {
             get { return barometer; }
             set { barometer = value; }
         }
-        public double BarometerMax
+
+        public Double BarometerMax
         {
             get { return barometerMax; }
             set { barometerMax = value; }
         }
-        public double BarometerMin
+
+        public Double BarometerMin
         {
             get { return barometerMin; }
             set { barometerMin = value; }
         }
-        public double SolarRadiation
+
+        public Double SolarRadiation
         {
             get { return solarRadiation; }
             set { solarRadiation = value; }
         }
-        public double UVRadiation
+
+        public Double UVRadiation
         {
             get { return uvRadiation; }
             set { uvRadiation = value; }
         }
-        public double RainDay
+
+        public Double RainDay
         {
             get { return rainDay; }
             set { rainDay = value; }
         }
-        public double RainStorm
+
+        public Double RainStorm
         {
             get { return rainStorm; }
             set { rainStorm = value; }
         }
-        public double RainMonth
+
+        public Double RainMonth
         {
             get { return rainMonth; }
             set { rainMonth = value; }
         }
-        public double RainYear
+
+        public Double RainYear
         {
             get { return rainYear; }
             set { rainYear = value; }
         }
-        public double Evapotranspiration
+
+        public Double Evapotranspiration
         {
             get { return evapotranspiration; }
             set { evapotranspiration = value; }
         }
-        public double EvapotranspirationMonth
+
+        public Double EvapotranspirationMonth
         {
             get { return evapotranspirationMonth; }
             set { evapotranspirationMonth = value; }
         }
-        public double EvapotranspirationYear
+
+        public Double EvapotranspirationYear
         {
             get { return evapotranspirationYear; }
             set { evapotranspirationYear = value; }
         }
-        
+
+        public Utils.WeatherDataType WeatherDataType
+        {
+            get { return weatherDataType; }
+            set { weatherDataType = value; }
+        }
+
         //[field: NonSerialized()]
         //public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Construction
 
+        /// <summary>
+        /// Constructor without parameters
+        /// </summary>
         public WeatherData()
         {
             this.WeatherDataId = 0;
@@ -278,17 +303,30 @@ namespace IrrigationAdvisor.Models.Weather
             this.Evapotranspiration = 0;
             this.EvapotranspirationMonth = 0;
             this.EvapotranspirationYear = 0;
+            this.WeatherDataType = Utils.WeatherDataType.AllData;
         }
 
+        /// <summary>
+        /// Constructor wiht the minimum parameters
+        /// </summary>
+        /// <param name="pWeatherDataId"></param>
+        /// <param name="pDate"></param>
+        /// <param name="pTemperature"></param>
+        /// <param name="pTemperatureMax"></param>
+        /// <param name="pTemperatureMin"></param>
+        /// <param name="pSolarRadiation"></param>
+        /// <param name="pEvapotranspiration"></param>
+        /// <param name="pWeatherDataType"></param>
         public WeatherData
             (
             long pWeatherDataId,
             DateTime pDate,
-            double pTemperature,
-            double pTemperatureMax,
-            double pTemperatureMin,
-            double pSolarRadiation,
-            double pEvapotranspiration
+            Double pTemperature,
+            Double pTemperatureMax,
+            Double pTemperatureMin,
+            Double pSolarRadiation,
+            Double pEvapotranspiration,
+            Utils.WeatherDataType pWeatherDataType
             )
         {
             this.WeatherDataId = pWeatherDataId;
@@ -312,31 +350,58 @@ namespace IrrigationAdvisor.Models.Weather
             this.Evapotranspiration = pEvapotranspiration;
             this.EvapotranspirationMonth = 0;
             this.EvapotranspirationYear = 0;
+            this.WeatherDataType = pWeatherDataType;
         }
 
+        /// <summary>
+        /// Constructor with all parameters
+        /// </summary>
+        /// <param name="pWeatherDataId"></param>
+        /// <param name="pDate"></param>
+        /// <param name="pTemperature"></param>
+        /// <param name="pTemperatureMax"></param>
+        /// <param name="pTemperatureMin"></param>
+        /// <param name="pTemperatureDewPoint"></param>
+        /// <param name="pHumidity"></param>
+        /// <param name="pHumidityMax"></param>
+        /// <param name="pHumidityMin"></param>
+        /// <param name="pBarometer"></param>
+        /// <param name="pBarometerMax"></param>
+        /// <param name="pBarometerMin"></param>
+        /// <param name="pSolarRadiation"></param>
+        /// <param name="pUVRadiation"></param>
+        /// <param name="pRainDay"></param>
+        /// <param name="pRainStorm"></param>
+        /// <param name="pRainMonth"></param>
+        /// <param name="pRainYear"></param>
+        /// <param name="pEvapotranspiration"></param>
+        /// <param name="pEvapotranspirationMonth"></param>
+        /// <param name="pEvapotranspirationYear"></param>
+        /// <param name="pWeatherDataType"></param>
         public WeatherData
             (
             long pWeatherDataId,
             DateTime pDate,
-            double pTemperature,
-            double pTemperatureMax,
-            double pTemperatureMin,
-            double pTemperatureDewPoint,
-            double pHumidity,
-            double pHumidityMax,
-            double pHumidityMin,
-            double pBarometer,
-            double pBarometerMax,
-            double pBarometerMin,
-            double pSolarRadiation,
-            double pUVRadiation,
-            double pRainDay,
-            double pRainStorm,
-            double pRainMonth,
-            double pRainYear,
-            double pEvapotranspiration,
-            double pEvapotranspirationMonth,
-            double pEvapotranspirationYear
+            Double pTemperature,
+            Double pTemperatureMax,
+            Double pTemperatureMin,
+            Double pTemperatureDewPoint,
+            Double pHumidity,
+            Double pHumidityMax,
+            Double pHumidityMin,
+            Double pBarometer,
+            Double pBarometerMax,
+            Double pBarometerMin,
+            Double pSolarRadiation,
+            Double pUVRadiation,
+            Double pRainDay,
+            Double pRainStorm,
+            Double pRainMonth,
+            Double pRainYear,
+            Double pEvapotranspiration,
+            Double pEvapotranspirationMonth,
+            Double pEvapotranspirationYear,
+            Utils.WeatherDataType pWeatherDataType
             )
         {
             this.WeatherDataId = pWeatherDataId;
@@ -360,6 +425,7 @@ namespace IrrigationAdvisor.Models.Weather
             this.Evapotranspiration = pEvapotranspiration;
             this.EvapotranspirationMonth = pEvapotranspirationMonth;
             this.EvapotranspirationYear = pEvapotranspirationYear;
+            this.WeatherDataType = pWeatherDataType;
         }
 
         #endregion
@@ -367,14 +433,14 @@ namespace IrrigationAdvisor.Models.Weather
         #region Private Helpers
 
         /// <summary>
-        /// Get Average from two double values;
+        /// Get Average from two Double values;
         /// </summary>
         /// <param name="pMax"></param>
         /// <param name="pMin"></param>
         /// <returns></returns>
-        private double getAverage(double pMax, double pMin)
+        private Double getAverage(Double pMax, Double pMin)
         {
-            double lAverage = 0;
+            Double lAverage = 0;
             try
             {
                 if (pMax == 0 || pMin == 0)
@@ -392,9 +458,13 @@ namespace IrrigationAdvisor.Models.Weather
 
         #region Public Methods
 
-        public double GetAverageTemperature()
+        /// <summary>
+        /// Get the Average Temperature between Max and Min Temperature
+        /// </summary>
+        /// <returns></returns>
+        public Double GetAverageTemperature()
         {
-            double lAverageTemperature = 0;
+            Double lAverageTemperature = 0;
             try
             {
                 lAverageTemperature =
@@ -407,9 +477,13 @@ namespace IrrigationAdvisor.Models.Weather
             return lAverageTemperature;
         }
 
-        public double GetAverageHumidity()
+        /// <summary>
+        /// Get the Average Humidity between Max and Min Humidity
+        /// </summary>
+        /// <returns></returns>
+        public Double GetAverageHumidity()
         {
-            double lAverageHumidity = 0;
+            Double lAverageHumidity = 0;
             try
             {
                 lAverageHumidity = 
@@ -422,9 +496,13 @@ namespace IrrigationAdvisor.Models.Weather
             return lAverageHumidity;
         }
 
-        public double GetAverageBarometer()
+        /// <summary>
+        /// Get the Average Pressure between Max and Min Pressure mesure
+        /// </summary>
+        /// <returns></returns>
+        public Double GetAverageBarometer()
         {
-            double lAverageBarometer = 0;
+            Double lAverageBarometer = 0;
             try
             {                
                 lAverageBarometer = 
@@ -437,9 +515,13 @@ namespace IrrigationAdvisor.Models.Weather
             return lAverageBarometer;
         }
 
-        public double GetEvapotranspiration()
+        /// <summary>
+        /// Get Evapotranspiration
+        /// </summary>
+        /// <returns></returns>
+        public Double GetEvapotranspiration()
         {
-            double lEvapotranspiration = 0;
+            Double lEvapotranspiration = 0;
             try
             {
                 if (this.Evapotranspiration != 0)
