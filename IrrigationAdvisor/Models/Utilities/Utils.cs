@@ -19,13 +19,23 @@ namespace IrrigationAdvisor.Models.Utilities
     {
         #region Consts
         
+        /// <summary>
+        /// Default Language
+        /// </summary>
         public static String LANGUAGE = "English";
+        /// <summary>
+        /// Default Region
+        /// </summary>
         public static String REGION = "Uruguay";
         
         #endregion
         
         #region Enums
 
+        /// <summary>
+        /// Notification Types
+        /// Silent, Inform, Ask
+        /// </summary>
         public enum NotificationType
         {
             /// <summary>
@@ -34,17 +44,21 @@ namespace IrrigationAdvisor.Models.Utilities
             /// </summary>
             Silent,
             /// <summary>
-            /// Users will be notified an exception has occurred,
-            ///     exceptions will be automatically logged
+            /// Users will be notified if an exception has occurred,
+            ///     and exceptions will be automatically logged
             /// </summary>
             Inform,
             /// <summary>
-            /// Users will be notified an exception has occurred
+            /// Users will be notified if an exception has occurred
             ///     and will be asked if they want the exception logged.
             /// </summary>
             Ask
         }
 
+        /// <summary>
+        /// Types of Irrigation Units
+        /// Pivot, Sprinkler, Drip
+        /// </summary>
         public enum IrrigationUnitType
         {
             /// <summary>
@@ -61,34 +75,46 @@ namespace IrrigationAdvisor.Models.Utilities
             Drip
         }
 
+        /// <summary>
+        /// Types of Water Input
+        /// Rain, Irrigation, IrrigationByETCAccumulated, IrrigationByHydricBalance
+        /// </summary>
         public enum WaterInputType
         {
             /// <summary>
-            /// 
+            /// Rain
             /// </summary>
             Rain,
             /// <summary>
-            /// 
+            /// Irrigation
             /// </summary>
             Irrigation,
             /// <summary>
-            /// 
+            /// Irrigation when ETc is bigger than x degrees
             /// </summary>
             IrrigationByETCAcumulated,
             /// <summary>
-            /// 
+            /// Irrigation when HB is lower than x%
             /// </summary>
             IrrigationByHydricBalance,
         }
 
+        /// <summary>
+        /// Types of Water Output
+        /// Evapotranspiration
+        /// </summary>
         public enum WaterOutputType
         {
             /// <summary>
-            /// 
+            /// Evapotranspiration
             /// </summary>
             Evapotranspiration
         }
 
+        /// <summary>
+        /// Calculus of how to know the Phenological Stage
+        /// By Days After Sowing, By Growing Degree Days
+        /// </summary>
         public enum CalculusOfPhenologicalStage
         {
             /// <summary>
@@ -101,6 +127,30 @@ namespace IrrigationAdvisor.Models.Utilities
             /// Phenological Stage, Deep of Root and Crop Coefficient depend on this calculus
             /// </summary>
             ByGrowingDegreeDays,
+        }
+
+        /// <summary>
+        /// Type of information of the Weather Data
+        /// All Data, Temperature, Evapotranspiration, NoData
+        /// </summary>
+        public enum WeatherDataType
+        {
+            /// <summary>
+            /// Temperature and Evapotranspiration
+            /// </summary>
+            AllData,
+            /// <summary>
+            /// Only Temperature data
+            /// </summary>
+            Temperature,
+            /// <summary>
+            /// Only Evapotranspiration data
+            /// </summary>
+            Evapotranspiraton,
+            /// <summary>
+            /// Invalid Data
+            /// </summary>
+            NoData,
         }
 
         #endregion
@@ -118,6 +168,8 @@ namespace IrrigationAdvisor.Models.Utilities
         #endregion
 
         #region Public Methods
+
+        #region Dates
 
         /// <summary>
         /// Return the difference in days between two Dates
@@ -221,6 +273,8 @@ namespace IrrigationAdvisor.Models.Utilities
             }
             return lReturn;
         }
+
+        #endregion
 
         #endregion
 

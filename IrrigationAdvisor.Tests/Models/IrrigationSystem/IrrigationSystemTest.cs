@@ -325,11 +325,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #region 20.  Create Weather Station
             testWeatherStation = testIrrigationSystem.AddWeatherStation("WeatherStation Santa Lucia", "Model 1234", 
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1, 
-                                                                    testLocationSantaLucia, true);
+                                                                    testLocationSantaLucia, true, Utils.WeatherDataType.AllData);
             
             testWeatherStationAlternative = testIrrigationSystem.AddWeatherStation("WeatherStation Minas", "Model 2342",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1, 
-                                                                    testLocationMinas, true);
+                                                                    testLocationMinas, true, Utils.WeatherDataType.AllData);
             #endregion
 
             #region 21.  Create Irrigation Units

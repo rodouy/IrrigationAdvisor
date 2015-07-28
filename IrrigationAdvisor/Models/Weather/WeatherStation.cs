@@ -70,6 +70,7 @@ namespace IrrigationAdvisor.Models.Weather
         private Location location;
         private bool giveET;
         private List<WeatherData> weatherDataList;
+        private Utils.WeatherDataType weatherDataType;
 
         #endregion
 
@@ -147,7 +148,12 @@ namespace IrrigationAdvisor.Models.Weather
             get { return weatherDataList; }
             set { weatherDataList = value; }
         }
-        
+
+        public Utils.WeatherDataType WeatherDataType
+        {
+            get { return weatherDataType; }
+            set { weatherDataType = value; }
+        }
 
         //[field: NonSerialized()]
         //public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
@@ -171,10 +177,11 @@ namespace IrrigationAdvisor.Models.Weather
             this.Location = new Location();
             this.GiveET = false;
             this.WeatherDataList = new List<WeatherData>();
+            this.WeatherDataType = Utils.WeatherDataType.AllData;
         }
 
         /// <summary>
-        /// TODO add description
+        /// Constructor with all parameters
         /// </summary>
         /// <param name="pWeatherStationId"></param>
         /// <param name="pName"></param>
@@ -185,12 +192,15 @@ namespace IrrigationAdvisor.Models.Weather
         /// <param name="pWirelessTransmission"></param>
         /// <param name="pLocation"></param>
         /// <param name="pGiveET"></param>
+        /// <param name="pWeatherDataList"></param>
+        /// <param name="pWeatherDataType"></param>
         public WeatherStation(
             long pWeatherStationId, String pName, String pModel,
             DateTime pDateOfInstallation, DateTime pDateOfService,
             DateTime pUpdateTime, int pWirelessTransmission,
             Location pLocation, bool pGiveET,
-            List<WeatherData> pWeatherDataList)
+            List<WeatherData> pWeatherDataList,
+            Utils.WeatherDataType pWeatherDataType)
         {
             this.WeatherStationId = pWeatherStationId;
             this.Name = pName;
@@ -202,11 +212,69 @@ namespace IrrigationAdvisor.Models.Weather
             this.Location = pLocation;
             this.GiveET = pGiveET;
             this.WeatherDataList = pWeatherDataList;
+            this.WeatherDataType = pWeatherDataType;
         }
 
         #endregion
 
         #region Private Helpers
+
+        /// <summary>
+        /// Set Weather Data Type by Weather Information
+        /// Depends on WetherDataType of Weather Station, 
+        /// and on Temperatures and Evapotranspiration of WeatherData
+        /// </summary>
+        /// <param name="pWeatherData"></param>
+        /// <returns></returns>
+        private Utils.WeatherDataType SetWeatherDataTypeByWeatherInformation(WeatherData pWeatherData)
+        {
+            Utils.WeatherDataType lReturn;
+            Utils.WeatherDataType lWeatherDataType;
+
+            lWeatherDataType = Utils.WeatherDataType.NoData;
+            if (this.ExistWeatherData(pWeatherData) != null)
+            {
+                lWeatherDataType = this.WeatherDataType;
+
+                //If we only have Evapotranspiraton
+                if (lWeatherDataType == Utils.WeatherDataType.Evapotranspiraton)
+                {
+                    pWeatherData.Temperature = 0;
+                    pWeatherData.TemperatureMax = 0;
+                    pWeatherData.TemperatureMin = 0;
+                    pWeatherData.WeatherDataType = lWeatherDataType;
+                }
+                //If we only have Temperature
+                else if (lWeatherDataType == Utils.WeatherDataType.Temperature)
+                {
+                    pWeatherData.Evapotranspiration = 0;
+                    pWeatherData.WeatherDataType = lWeatherDataType;
+                }
+                else
+                {
+                    //Has No Data
+                    if (pWeatherData.Evapotranspiration == 0 
+                        && pWeatherData.TemperatureMax == 0 && pWeatherData.TemperatureMin == 0)
+                    {
+                        pWeatherData.WeatherDataType = Utils.WeatherDataType.NoData;
+                    }
+                    //No Temperature Data
+                    else if (pWeatherData.TemperatureMax == 0 && pWeatherData.TemperatureMin == 0)
+                    {
+                        pWeatherData.WeatherDataType = Utils.WeatherDataType.Evapotranspiraton;
+                    }
+                    //No Evapotranspiration Data
+                    else if (pWeatherData.Evapotranspiration == 0)
+                    {
+                        pWeatherData.WeatherDataType = Utils.WeatherDataType.Temperature;
+                    }
+                }
+            }
+
+            lReturn = lWeatherDataType;
+            return lReturn;
+        }
+
         #endregion
 
         #region Public Methods
@@ -274,19 +342,26 @@ namespace IrrigationAdvisor.Models.Weather
         /// <param name="pEvapotranspiration"></param>
         /// <returns></returns>
         public WeatherData AddWeatherData(DateTime pDateTime,
-                                        Double pTemperature, Double pSolarRadiation, 
-                                        Double pTemMax, Double pTemMin, 
+                                        Double pTemperature, Double pSolarRadiation,
+                                        Double pTemperatureMax, Double pTemperatureMin, 
                                         Double pEvapotranspiration)
         {
             WeatherData lReturn;
             WeatherData lWeatherData = null;
+            Utils.WeatherDataType lWeatherDataType;
             long lWeatherDataId = 0;
+
             try
             {
                 lWeatherDataId = this.WeatherDataList.Count();
-                lWeatherData = new WeatherData(lWeatherDataId, pDateTime, pTemperature, 
-                                                    pTemMax, pTemMin, pSolarRadiation, 
-                                                    pEvapotranspiration);
+                lWeatherDataType = this.WeatherDataType;
+                
+                lWeatherData = new WeatherData(lWeatherDataId, pDateTime, pTemperature,
+                                                pTemperatureMax, pTemperatureMin, pSolarRadiation,
+                                                pEvapotranspiration, lWeatherDataType);
+
+                lWeatherDataType = SetWeatherDataTypeByWeatherInformation(lWeatherData);
+                
                 if(this.ExistWeatherData(lWeatherData) == null)
                 {
                     this.WeatherDataList.Add(lWeatherData);
@@ -317,24 +392,38 @@ namespace IrrigationAdvisor.Models.Weather
         /// <param name="pEvapotranspiration"></param>
         /// <returns></returns>
         public WeatherData UpdateWeatherData(DateTime pDateTime,
-                                        Double pTemperature, Double pSolarRadiation, 
-                                        Double pTemMax, Double pTemMin, 
+                                        Double pTemperature, Double pSolarRadiation,
+                                        Double pTemperatureMax, Double pTemperatureMin, 
                                         Double pEvapotranspiration)
         {
             WeatherData lReturn;
-            WeatherData lWeatherData = new WeatherData(0, pDateTime, pTemperature,
-                                                    pSolarRadiation, pTemMax, pTemMin,
-                                                    pEvapotranspiration);
+            WeatherData lWeatherData = null;
+            Utils.WeatherDataType lWeatherDataType;
 
-            lReturn = ExistWeatherData(lWeatherData);
-            if(lReturn != null)
+            try
             {
-                lWeatherData.Date = pDateTime;
-                lWeatherData.Temperature = pTemperature;
-                lWeatherData.SolarRadiation = pSolarRadiation;
-                lWeatherData.TemperatureMax = pTemMax;
-                lWeatherData.TemperatureMin = pTemMin;
-                lWeatherData.Evapotranspiration = pEvapotranspiration;
+                lWeatherDataType = this.WeatherDataType;
+                lWeatherData = new WeatherData(0, pDateTime, pTemperature,
+                                                pTemperatureMax, pTemperatureMin, pSolarRadiation,
+                                                pEvapotranspiration, lWeatherDataType);
+
+                lReturn = ExistWeatherData(lWeatherData);
+                if(lReturn != null)
+                {
+                    lReturn.Date = pDateTime;
+                    lReturn.Temperature = pTemperature;
+                    lReturn.SolarRadiation = pSolarRadiation;
+                    lReturn.TemperatureMax = pTemperatureMax;
+                    lReturn.TemperatureMin = pTemperatureMin;
+                    lReturn.Evapotranspiration = pEvapotranspiration;
+                    lWeatherDataType = SetWeatherDataTypeByWeatherInformation(lReturn);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in WeatherStation.AddWeatherDataToList " + e.Message);
+                //TODO manage and log the exception
+                throw e;
             }
             return lReturn;
         }
