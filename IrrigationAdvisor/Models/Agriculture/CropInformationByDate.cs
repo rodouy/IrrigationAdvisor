@@ -7,6 +7,7 @@ using System.Web;
 using IrrigationAdvisor.Models.Data;
 using IrrigationAdvisor.Models.Management;
 using IrrigationAdvisor.Models.Utilities;
+using System.Data;
 
 namespace IrrigationAdvisor.Models.Agriculture
 {
@@ -145,6 +146,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Construction
+
         public CropInformationByDate()
         {
             this.SowingDate = DateTime.MinValue;
@@ -169,6 +171,70 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Private Helpers
+
+        #region MagicTable
+
+        public Double GetAccumulatedGrowingDegreeDays(DateTime pSowingDate, DateTime pCurrentDate,
+                                                            Double pBaseTemperature)
+        {
+            Double lReturn = 0;
+            Double lAccumulatedGrowingDegreeDays = 0;
+            Double lTemperature;
+            Double lGrowingDegreeDays;
+            DataTable lTemperature_Information;
+            DateTime lDay;
+
+            //TODO: AddTemperatureInformation transform to method by date
+            lTemperature_Information = InitialTables.AddTemperatureInformation();
+
+            foreach (DataRow row in lTemperature_Information.Rows)
+            {
+                lDay = row.Field<DateTime>(0);
+                if (Utils.IsBetweenDatesWithoutYear(pSowingDate, pCurrentDate, lDay))
+                {
+                    lTemperature = row.Field<double>(1);
+                    lGrowingDegreeDays = lTemperature - pBaseTemperature;
+                    lAccumulatedGrowingDegreeDays += lGrowingDegreeDays;
+                }
+                //TODO: break when lday > pcurrent date
+            }
+
+            lReturn = lAccumulatedGrowingDegreeDays;
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return the 
+        /// </summary>
+        /// <param name="pCurrentDate"></param>
+        /// <returns></returns>
+        public double GetGrowingDegreeDays(DateTime pCurrentDate, Double pBaseTemperature)
+        {
+            Double lReturn;
+            Double lTemperature = 0;
+            Double lGrowingDegreeDays = 0;
+            DataTable lTemperature_Information;
+            DateTime lDay;
+
+            lTemperature_Information = InitialTables.AddTemperatureInformation();
+
+            foreach (DataRow row in lTemperature_Information.Rows)
+            {
+                lDay = row.Field<DateTime>(0);
+                if (Utils.IsTheSameDayWithoutYear(lDay, pCurrentDate))
+                {
+                    lTemperature = row.Field<double>(1);
+                    lGrowingDegreeDays = lTemperature - pBaseTemperature;
+                    break;
+                }
+            }
+
+            lReturn = lGrowingDegreeDays;
+            return lReturn;
+        }
+
+        #endregion
+
         /// <summary>
         /// Given a Current Date set:
         /// - DaysAfterSowing
@@ -188,7 +254,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.DaysAfterSowing = Utils.GetDaysDifference(this.SowingDate, this.CurrentDate);
 
             //Set accumulatedGrowingDegreeDays
-            this.AccumulatedGrowingDegreeDays = InitialTables.GetAccumulatedGrowingDegreeDays(this.SowingDate, this.CurrentDate, this.Specie.BaseTemperature);
+            this.AccumulatedGrowingDegreeDays = GetAccumulatedGrowingDegreeDays(this.SowingDate, this.CurrentDate, this.Specie.BaseTemperature);
 
             //Set Stage
             lStageDurationInformation = getStageDurationInformation();

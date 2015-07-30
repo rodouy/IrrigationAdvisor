@@ -1796,13 +1796,13 @@ namespace IrrigationAdvisor.Models.Management
                         if(pCropIrrigationWeather.CalculusMethodForPhenologicalAdjustment.Equals(
                                             Utils.CalculusOfPhenologicalStage.ByGrowingDegreeDays))
                         {
-                            pCropIrrigationWeather.AddDailyRecordAccordingGrowinDegreeDays(pDateTime, pObservations);
+                            pCropIrrigationWeather.AddDailyRecordAccordingGrowinDegreeDays(pDateTime, pObservations, lWeatherData);
                         }
 
                         if (pCropIrrigationWeather.CalculusMethodForPhenologicalAdjustment.Equals(
                                             Utils.CalculusOfPhenologicalStage.ByDaysAfterSowing))
                         {
-                            pCropIrrigationWeather.AddDailyRecordAccordingDaysAfterSowing(pDateTime, pObservations);
+                            pCropIrrigationWeather.AddDailyRecordAccordingDaysAfterSowing(pDateTime, pObservations, lWeatherData);
                         }
 
                         //Luego de que agrego un registro verifico si hay que regar.
@@ -1812,7 +1812,7 @@ namespace IrrigationAdvisor.Models.Management
                     else 
                     {
                         
-                        pCropIrrigationWeather.AddDailyRecordAccordingDaysAfterSowing(pDateTime, pObservations);
+                        pCropIrrigationWeather.AddDailyRecordAccordingDaysAfterSowing(pDateTime, pObservations, lWeatherData);
                         
                     }
                 }
@@ -1939,14 +1939,16 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pEvapotranspiration"></param>
         /// <returns></returns>
         public void AddWeatherDataToList(WeatherStation pWeatherStation, DateTime pDateTime,
-                                        double pTemperature, double pSolarRadiation, double pTemMax,
-                                        double pTemMin, double pEvapotranspiration)
+                                        Double pTemperature, Double pSolarRadiation, Double pTemMax,
+                                        Double pTemMin, Double pEvapotranspiration)
         {
             
             try
             {
                 WeatherData lWeatherData;
+                
                 lWeatherData = pWeatherStation.AddWeatherData(pDateTime, pTemperature, pSolarRadiation, pTemMax, pTemMin, pEvapotranspiration);
+
                 if(lWeatherData == null)
                 {
                     pWeatherStation.UpdateWeatherData(pDateTime, pTemperature, pSolarRadiation,
@@ -2003,16 +2005,20 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public WeatherStation AddWeatherStation (String pName, String pModel, DateTime pDateOfInstallation,
                                 DateTime pDateOfService, DateTime pUpdateTime, int pWirelessTransmission,
-                                Location pLocation, bool pGiveET)
+                                Location pLocation, bool pGiveET, Utils.WeatherDataType pWeatherDataType)
         {
             WeatherStation lReturn = null;
+            WeatherStation lWeatherStation = null;
+            long lWeatherStationId = 0;
+            List<WeatherData> lWeatherDataList = null;
 
-            long lWeatherStationId = this.WeatherStationList.Count();
-            List<WeatherData> lWeatherDataList = new List<WeatherData>();
-            WeatherStation lWeatherStation = new WeatherStation(lWeatherStationId,
+            lWeatherStationId = this.WeatherStationList.Count();
+            lWeatherDataList = new List<WeatherData>();
+            lWeatherStation = new WeatherStation(lWeatherStationId,
                                 pName, pModel, pDateOfInstallation, pDateOfService,
                                 pUpdateTime, pWirelessTransmission, pLocation, pGiveET,
-                                lWeatherDataList);
+                                lWeatherDataList, pWeatherDataType);
+
             if(ExistWeatherStation(lWeatherStation) == null)
             {
                 this.WeatherStationList.Add(lWeatherStation);
@@ -2035,17 +2041,19 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pLocation"></param>
         /// <param name="pGiveET"></param>
         /// <param name="pWeatherDataList"></param>
+        /// <param name="pWeatherDataType"></param>
         /// <returns></returns>
         public WeatherStation UpdateWeatherStation(String pName, String pModel, DateTime pDateOfInstallation,
                                 DateTime pDateOfService, DateTime pUpdateTime, int pWirelessTransmission,
-                                Location pLocation, bool pGiveET, List<WeatherData> pWeatherDataList)
+                                Location pLocation, bool pGiveET, List<WeatherData> pWeatherDataList,
+                                Utils.WeatherDataType pWeatherDataType)
         {
             WeatherStation lReturn = null;
 
             WeatherStation lWeatherStation = new WeatherStation(0, pName, pModel,
                                 pDateOfInstallation, pDateOfService, pUpdateTime,
                                 pWirelessTransmission, pLocation, pGiveET,
-                                pWeatherDataList);
+                                pWeatherDataList, pWeatherDataType);
             lReturn = ExistWeatherStation(lWeatherStation);
             if(lReturn != null)
             {
@@ -2058,6 +2066,7 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.Location = pLocation;
                 lReturn.GiveET = pGiveET;
                 lReturn.WeatherDataList = pWeatherDataList;
+                lReturn.WeatherDataType = pWeatherDataType;
             }
 
             return lReturn;
