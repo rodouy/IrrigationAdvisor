@@ -135,6 +135,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Management
 
+        private DateTime dateOfReference;
         private List<CropIrrigationWeather> cropIrrigationWeatherList;
         private IrrigationCalculus irrigationCalculus;
 
@@ -242,13 +243,16 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Management
 
+        public DateTime DateOfReference
+        {
+            get { return dateOfReference; }
+        }
+        
         public List<CropIrrigationWeather> CropIrrigationWeatherList
         {
             get { return cropIrrigationWeatherList; }
             set { cropIrrigationWeatherList = value; }
         }
-
-       
 
         public IrrigationCalculus IrrigationCalculus
         {
@@ -333,6 +337,7 @@ namespace IrrigationAdvisor.Models.Management
             
             #region Management
 
+            this.dateOfReference = DateTime.Now;
             this.CropIrrigationWeatherList = new List<CropIrrigationWeather>();
             this.IrrigationCalculus = new IrrigationCalculus();
             
@@ -1598,6 +1603,58 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Management
+
+        #region Date of Reference
+
+        /// <summary>
+        /// Set date of reference
+        /// </summary>
+        /// <param name="pDateOfReference"></param>
+        /// <returns></returns>
+        public DateTime SetDateOfReference (DateTime pDateOfReference)
+        {
+            DateTime lReturn;
+            
+            if (pDateOfReference != null)
+            {
+                this.dateOfReference = pDateOfReference;
+            }
+
+            lReturn = pDateOfReference;
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add days to Date of Reference
+        /// </summary>
+        /// <param name="pDays"></param>
+        /// <returns></returns>
+        public DateTime AddDayToDateOfReference(int pDays)
+        {
+            DateTime lReturn;
+
+            this.dateOfReference = this.DateOfReference.AddDays(pDays);
+
+            lReturn = this.DateOfReference;
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add hours to Date of Reference
+        /// </summary>
+        /// <param name="pHour"></param>
+        /// <returns></returns>
+        public DateTime AddHourToDateOfReference(int pHour)
+        {
+            DateTime lReturn;
+
+            this.dateOfReference = this.DateOfReference.AddHours(pHour);
+
+            lReturn = this.DateOfReference;
+            return lReturn;
+        }
+
+        #endregion
 
         #region CropIrrigationWeather
 
