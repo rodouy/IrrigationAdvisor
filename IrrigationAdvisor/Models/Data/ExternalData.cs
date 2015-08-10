@@ -36,7 +36,6 @@ namespace IrrigationAdvisor.Models.Data
     public static class ExternalData
     {
 
-
         #region Consts
         #endregion
 
