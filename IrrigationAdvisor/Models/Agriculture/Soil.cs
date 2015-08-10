@@ -37,7 +37,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// Methods:
     ///     - Soil()      -- constructor
     ///     - Soil(name, description location, testDate, depthLimit)  -- consturctor with parameters
-    ///     - GetSoilFieldCapacity(double: RootDepth)
+    ///     - GetFieldCapacity(double: RootDepth)
     ///     - GetPermanentWiltingPoint(double: RootDepth)
     ///     - GetAvailableWaterCapacity(double: RootDepth)
     /// 

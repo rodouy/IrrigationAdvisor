@@ -19,23 +19,13 @@ namespace IrrigationAdvisor.Models.Utilities
     {
         #region Consts
         
-        /// <summary>
-        /// Default Language
-        /// </summary>
         public static String LANGUAGE = "English";
-        /// <summary>
-        /// Default Region
-        /// </summary>
         public static String REGION = "Uruguay";
         
         #endregion
         
         #region Enums
 
-        /// <summary>
-        /// Notification Types
-        /// Silent, Inform, Ask
-        /// </summary>
         public enum NotificationType
         {
             /// <summary>
@@ -44,113 +34,59 @@ namespace IrrigationAdvisor.Models.Utilities
             /// </summary>
             Silent,
             /// <summary>
-            /// Users will be notified if an exception has occurred,
-            ///     and exceptions will be automatically logged
+            /// Users will be notified an exception has occurred,
+            ///     exceptions will be automatically logged
             /// </summary>
             Inform,
             /// <summary>
-            /// Users will be notified if an exception has occurred
+            /// Users will be notified an exception has occurred
             ///     and will be asked if they want the exception logged.
             /// </summary>
             Ask
         }
 
-        /// <summary>
-        /// Types of Irrigation Units
-        /// Pivot, Sprinkler, Drip
-        /// </summary>
         public enum IrrigationUnitType
         {
             /// <summary>
-            /// Irrigation type Pivot
+            /// 
             /// </summary>
             Pivot,
             /// <summary>
-            /// Irrigation type Sprinkler
+            /// 
             /// </summary>
             Sprinkler,
             /// <summary>
-            /// Irrigation type Drip
+            /// 
             /// </summary>
             Drip
         }
 
-        /// <summary>
-        /// Types of Water Input
-        /// Rain, Irrigation, IrrigationByETCAccumulated, IrrigationByHydricBalance
-        /// </summary>
         public enum WaterInputType
         {
             /// <summary>
-            /// Rain
+            /// 
             /// </summary>
             Rain,
             /// <summary>
-            /// Irrigation
+            /// 
             /// </summary>
             Irrigation,
             /// <summary>
-            /// Irrigation when ETc is bigger than x degrees
+            /// 
             /// </summary>
             IrrigationByETCAcumulated,
             /// <summary>
-            /// Irrigation when HB is lower than x%
+            /// 
             /// </summary>
             IrrigationByHydricBalance,
         }
 
-        /// <summary>
-        /// Types of Water Output
-        /// Evapotranspiration
-        /// </summary>
         public enum WaterOutputType
         {
             /// <summary>
-            /// Evapotranspiration
+            /// 
             /// </summary>
             Evapotranspiration
-        }
-
-        /// <summary>
-        /// Calculus of how to know the Phenological Stage
-        /// By Days After Sowing, By Growing Degree Days
-        /// </summary>
-        public enum CalculusOfPhenologicalStage
-        {
-            /// <summary>
-            /// Use Days After Sowing for the calculus of Phenological Stage
-            /// Phenological Stage, Deep of Root and Crop Coefficient depend on this calculus
-            /// </summary>
-            ByDaysAfterSowing,
-            /// <summary>
-            /// Use Growing Degree Days for the calculus of Phenological Stage
-            /// Phenological Stage, Deep of Root and Crop Coefficient depend on this calculus
-            /// </summary>
-            ByGrowingDegreeDays,
-        }
-
-        /// <summary>
-        /// Type of information of the Weather Data
-        /// All Data, Temperature, Evapotranspiration, NoData
-        /// </summary>
-        public enum WeatherDataType
-        {
-            /// <summary>
-            /// Temperature and Evapotranspiration
-            /// </summary>
-            AllData,
-            /// <summary>
-            /// Only Temperature data
-            /// </summary>
-            Temperature,
-            /// <summary>
-            /// Only Evapotranspiration data
-            /// </summary>
-            Evapotranspiraton,
-            /// <summary>
-            /// Invalid Data
-            /// </summary>
-            NoData,
         }
 
         #endregion
@@ -169,15 +105,7 @@ namespace IrrigationAdvisor.Models.Utilities
 
         #region Public Methods
 
-        #region Dates
-
-        /// <summary>
-        /// Return the difference in days between two Dates
-        /// </summary>
-        /// <param name="oldDate"></param>
-        /// <param name="newDate"></param>
-        /// <returns></returns>
-        public static int GetDaysDifference(DateTime oldDate, DateTime newDate)
+        public static int getDaysDifference(DateTime oldDate, DateTime newDate)
         {
             // Difference in days, hours, and minutes.
             TimeSpan ts = newDate - oldDate;
@@ -186,96 +114,15 @@ namespace IrrigationAdvisor.Models.Utilities
             return  ts.Days;
         }
 
-        /// <summary>
-        /// Return if the Date One is Later than Date Two.
-        /// NOT Compares Years.
-        /// </summary>
-        /// <param name="pDateOne"></param>
-        /// <param name="pDateTwo"></param>
-        /// <returns></returns>
-        public static bool IsBetweenDatesWithoutYear(DateTime pDateOne, DateTime pDateTwo, DateTime pDateBetween)
-        {
-            bool lReturn = false;
-            DateTime lNewDateTime;
-
-            if (pDateTwo >= pDateOne)
-            {
-                lNewDateTime = new DateTime(pDateOne.Year, pDateBetween.Month, pDateBetween.Day);
-                if (pDateOne <= lNewDateTime && pDateTwo >= lNewDateTime)
-                {
-                    lReturn = true;
-                }
-            }
-            else
-            {
-                lNewDateTime = new DateTime(pDateTwo.Year, pDateBetween.Month, pDateBetween.Day);
-                if (pDateOne >= lNewDateTime && pDateTwo <= lNewDateTime)
-                {
-                    lReturn = true;
-                }
-            }
-
-            return lReturn;
-        }
-
-        /// <summary>
-        /// Return if the Dates have the same month and day.
-        /// NOT Compares Years.
-        /// </summary>
-        /// <param name="pDateOne"></param>
-        /// <param name="pDateTwo"></param>
-        /// <returns></returns>
-        public static bool IsTheSameDayWithoutYear(DateTime pDateOne, DateTime pDateTwo)
-        {
-            bool lReturn = false;
-            bool lIsTheSameDay = false;
-
-            if (pDateOne.Month == pDateTwo.Month && pDateOne.Day == pDateTwo.Day)
-            {
-                lIsTheSameDay = true;
-            }
-
-            lReturn = lIsTheSameDay;
-            return lReturn;
-        }
-
-        /// <summary>
-        /// Return if the Dates have the same year, month and day.
-        /// </summary>
-        /// <param name="pDateOne"></param>
-        /// <param name="pDateTwo"></param>
-        /// <returns></returns>
-        public static bool IsTheSameDay(DateTime pDateOne, DateTime pDateTwo)
+        public static bool isTheSameDay(DateTime dateOne, DateTime dateTwo)
         {
             bool lReturn = false ;
-            if (pDateOne.Year == pDateTwo.Year && pDateOne.Month == pDateTwo.Month && pDateOne.Day == pDateTwo.Day)
+            if (dateOne.Year == dateTwo.Year && dateOne.Month == dateTwo.Month && dateOne.Day == dateTwo.Day)
             {
                 lReturn = true;
             }
             return lReturn;
         }
-
-        /// <summary>
-        /// Return if the Dates have the same year, month, day and hour.
-        /// </summary>
-        /// <param name="pDateOne"></param>
-        /// <param name="pDateTwo"></param>
-        /// <returns></returns>
-        public static bool IsTheSameDayAndHour(DateTime dateOne, DateTime dateTwo)
-        {
-            bool lReturn = false;
-            if (dateOne.Year == dateTwo.Year 
-                && dateOne.Month == dateTwo.Month 
-                && dateOne.Day == dateTwo.Day
-                && dateOne.Hour == dateTwo.Hour)
-            {
-                lReturn = true;
-            }
-            return lReturn;
-        }
-
-        #endregion
-
         #endregion
 
         #region Overrides

@@ -9,7 +9,7 @@ namespace IrrigationAdvisor.Models.Water
     /// Create: 2014-10-30
     /// Author: monicarle
     /// Description: 
-    ///     Describes an Output of water over a Crop
+    ///     Describes an Input of water over a Crop
     ///     
     /// References:
     ///     none
@@ -22,17 +22,17 @@ namespace IrrigationAdvisor.Models.Water
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - output double
+    ///     - input double
     ///     - date DateTime         - PK
-    ///     - extraOutput double
+    ///     - extraInput double
     ///     - extraDate DateTime    
     ///     - cropIrrigationWeather - PK
     ///     - type String
     /// 
     /// Methods:
     ///     - WaterInput()      -- constructor
-    ///     - WaterInput(output, date, extraOutput, extraDate)  -- consturctor with parameters
-    ///     - GetOutputType()
+    ///     - WaterInput(input, date, extraInput, extraDate)  -- consturctor with parameters
+    ///     - getInputType()
     /// 
     /// </summary>
     public class WaterInput
@@ -111,39 +111,24 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Public Methods
 
-        /// <summary>
-        /// Get the Water output Type
-        /// </summary>
-        /// <returns></returns>
-        public String GetInputType()
+        public String getInputType()
         {
             return this.TYPE;
         }
 
-        /// <summary>
-        /// Get the Input plus the Extra Input
-        /// </summary>
-        /// <returns></returns>
-        public double GetTotalInput()
+        public double getTotalInput()
         {
             return this.Input + this.ExtraInput;
         }
-        
         #endregion
 
         #region Overrides
-
-        /// <summary>
-        /// Return the Total Input
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            string lReturn = this.GetTotalInput().ToString();
+            string lReturn = this.getTotalInput().ToString();
             return lReturn;
 
         }
-
         #endregion
 
 

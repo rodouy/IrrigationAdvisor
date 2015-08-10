@@ -132,7 +132,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// <summary>
         /// TODO add description
         /// </summary>
-        /// <param name="pCropId"></param>
+        /// <param name="pIdCrop"></param>
         /// <param name="pName"></param>
         /// <param name="pIrrigationType"></param>
         /// <param name="pIrrigationEfficiency"></param>
@@ -141,11 +141,11 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// <param name="pCropList"></param>
         /// <param name="pBomb"></param>
         /// <param name="pLocation"></param>
-        public IrrigationUnit(long pIrrigationUnitId, String pName, String pIrrigationType,
+        public IrrigationUnit(long pIdIrrigationUnit, String pName, String pIrrigationType,
             double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList,
             double pSurface, List<Crop> pCropList, Bomb pBomb, Location pLocation)
         {
-            this.IdIrrigationUnit = pIrrigationUnitId;
+            this.IdIrrigationUnit = pIdIrrigationUnit;
             this.Name = pName;
             this.IrrigationType = pIrrigationType;
             this.IrrigationEfficiency = pIrrigationEfficiency;
@@ -234,7 +234,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         }
 
         /// <summary>
-        /// Add a new Crop and return it, if exists returns null
+        /// TODO add description
         /// </summary>
         /// <param name="pCrop"></param>
         /// <returns></returns>
@@ -258,41 +258,29 @@ namespace IrrigationAdvisor.Models.Irrigation
         }
 
         /// <summary>
-        /// Update an existing Crop, if not exists return null
+        /// TODO add description
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pSpecie"></param>
         /// <param name="pRegion"></param>
-        /// <param name="pCropCoefficient"></param>
-        /// <param name="pStageList"></param>
         /// <param name="pPhenologicalStageList"></param>
         /// <param name="pDensity"></param>
         /// <param name="pMaxEvapotranspirationToIrrigate"></param>
-        /// <param name="pMinEvapotranspirationToIrrigate"></param>
         /// <returns></returns>
         public Crop UpdateCrop(String pName, Specie pSpecie, Region pRegion,
-                        CropCoefficient pCropCoefficient,
                         List<PhenologicalStage> pPhenologicalStageList,
                         Double pDensity, Double pMaxEvapotranspirationToIrrigate, Double pMinEvapotranspirationToIrrigate)
         {
             Crop lReturn = null;
-            Crop lCrop = new Crop(0,
-                                    pName, 
-                                    pRegion, 
-                                    pSpecie,
-                                    pCropCoefficient, 
-                                    pPhenologicalStageList, 
-                                    pDensity,
-                                    pMaxEvapotranspirationToIrrigate, 
-                                    pMinEvapotranspirationToIrrigate);
+            Crop lCrop = new Crop(0, pName, pSpecie, pRegion, pPhenologicalStageList,
+                            pDensity, pMaxEvapotranspirationToIrrigate, pMinEvapotranspirationToIrrigate);
             lReturn = this.ExistCrop(lCrop);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
-                lReturn.Region = pRegion;
                 lReturn.Specie = pSpecie;
-                lReturn.CropCoefficient = pCropCoefficient;
-                lReturn.UpdatePhenologicalStageList(pPhenologicalStageList);
+                lReturn.Region = pRegion;
+                lReturn.PhenologicalStageList = pPhenologicalStageList;
                 lReturn.Density = pDensity;
                 lReturn.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
                 lReturn.MinEvapotranspirationToIrrigate = pMinEvapotranspirationToIrrigate;

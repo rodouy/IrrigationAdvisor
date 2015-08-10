@@ -32,7 +32,7 @@ namespace IrrigationAdvisor.Models.Management
     /// Methods:
     ///     - IrrigationCalculus()      -- constructor
     ///     - IrrigationCalculus(name)  -- consturctor with parameters
-    ///     - HowMuchToIrrigate(dateTime, cropIrrigationWater)
+    ///     - howMuchToIrrigate(dateTime, cropIrrigationWater)
     /// </summary>
     public class IrrigationCalculus
     {
@@ -98,8 +98,8 @@ namespace IrrigationAdvisor.Models.Management
         /// Calculate how much to irrigate in a Date.
         /// Use both ways to calculate: by available water and by acumulated evapotranspirationCrop
         /// </summary>
-        /// <param name="pName">new name</param>
-        public Pair <double,Utils.WaterInputType> HowMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
+        /// <param name="pNewName">new name</param>
+        public Pair <double,Utils.WaterInputType> howMuchToIrrigate(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
         {
             Pair<double, Utils.WaterInputType> lReturn; 
             bool lIrrigationByEvapotranspiration;
@@ -107,19 +107,19 @@ namespace IrrigationAdvisor.Models.Management
             double lPercentageAvailableWater;
 
             lReturn = new Pair<double,Utils.WaterInputType>();
-            lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeather);
-            lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeather);
-            lPercentageAvailableWater = pCropIrrigationWeather.GetPercentageOfAvailableWaterTakingIntoAccointPermanentWiltingPoint();
+            lIrrigationByEvapotranspiration = CalculusEvapotranspiration.IrrigateByEvapotranspiration(pCropIrrigationWeatherRecord);
+            lIrrigationByHydricBalance = CalculusAvailableWater.IrrigateByHydricBalance(pCropIrrigationWeatherRecord);
+            lPercentageAvailableWater = pCropIrrigationWeatherRecord.getPercentageOfAvailableWater();
 
             //If we need to irrigate by Evapotranspiraton, then Available water has to be lower than 60% 
             if (lIrrigationByEvapotranspiration && lPercentageAvailableWater < InitialTables.PERCENTAGE_OF_AVAILABE_WATER_TO_IRRIGATE)
             {
-                lReturn.First = pCropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn.First = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
                 lReturn.Second = Utils.WaterInputType.IrrigationByETCAcumulated;
             }
             else if (lIrrigationByHydricBalance)
             {
-                lReturn.First = pCropIrrigationWeather.PredeterminatedIrrigationQuantity;
+                lReturn.First = pCropIrrigationWeatherRecord.CropIrrigationWeather.PredeterminatedIrrigationQuantity;
                 lReturn.Second = Utils.WaterInputType.IrrigationByHydricBalance;
             }
 

@@ -58,11 +58,12 @@ namespace IrrigationAdvisor.Models.Water
             this.type = Utils.WaterOutputType.Evapotranspiration;
         }
 
-        public EvapotranspirationCrop(DateTime pDate, double pInput)
+        public EvapotranspirationCrop(CropIrrigationWeather pCropIrrigationWeather, DateTime pDate, double pInput)
         {
             this.type = Utils.WaterOutputType.Evapotranspiration;
+            this.CropIrrigationWeather = pCropIrrigationWeather;
             this.Date = pDate;
-            this.Output = pInput;
+            this.Input = pInput;
 
         }
 
@@ -75,8 +76,8 @@ namespace IrrigationAdvisor.Models.Water
         
         #endregion
 
-        #region Overrides
-        #endregion
+            #region Overrides
+            #endregion
 
         #endregion
 

@@ -22,17 +22,17 @@ namespace IrrigationAdvisor.Models.Water
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - output double
+    ///     - input double
     ///     - date DateTime         - PK
-    ///     - extraOutput double
+    ///     - extraInput double
     ///     - extraDate DateTime    
     ///     - cropIrrigationWeather - PK
     ///     - type String
     /// 
     /// Methods:
     ///     - WaterOutput()      -- constructor
-    ///     - WaterOutput(output, date, extraOutput, extraDate)  -- consturctor with parameters
-    ///     - GetOutputType()
+    ///     - WaterOutput(input, date, extraInput, extraDate)  -- consturctor with parameters
+    ///     - getInputType()
     /// 
     /// </summary>
     public class WaterOutput
@@ -45,21 +45,21 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Fields
 
-        private Double output;
+        private double input;
         private DateTime date;
-        private Double extraOutput;
+        private double extraInput;
         private DateTime extraDate;
         private Management.CropIrrigationWeather cropIrrigationWeather;
 
+        
 
         #endregion
 
         #region Properties
-
-        public Double Output
+        public double Input
         {
-            get { return output; }
-            set { output = value; }
+            get { return input; }
+            set { input = value; }
         }
 
         public DateTime Date
@@ -68,10 +68,10 @@ namespace IrrigationAdvisor.Models.Water
             set { date = value; }
         }
 
-        public double ExtraOutput
+        public double ExtraInput
         {
-            get { return extraOutput; }
-            set { extraOutput = value; }
+            get { return extraInput; }
+            set { extraInput = value; }
         }
 
         public DateTime ExtraDate
@@ -90,32 +90,21 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Construction
 
-        /// <summary>
-        /// Contructor without parameters
-        /// </summary>
         public WaterOutput()
         {
             this.Date = DateTime.Now;
-            this.Output = 0;
+            this.Input = 0;
             this.ExtraDate = DateTime.Now;
-            this.ExtraOutput = 0;
+            this.ExtraInput = 0;
         }
 
-        /// <summary>
-        /// Constructor with parameters
-        /// </summary>
-        /// <param name="pOutput"></param>
-        /// <param name="pDate"></param>
-        /// <param name="pExtraOutput"></param>
-        /// <param name="pExtraDate"></param>
-        public WaterOutput(Double pOutput, DateTime pDate, Double pExtraOutput, DateTime pExtraDate)
+        public WaterOutput(double pInput, DateTime pDate, double pExtraInput, DateTime pExtraDate)
         {
-            this.Output = pOutput;
+            this.Input = pInput;
             this.Date = pDate;
-            this.ExtraOutput = pExtraOutput;
+            this.ExtraInput = pExtraInput;
             this.ExtraDate = pExtraDate;
         }
-
         #endregion
 
         #region Private Helpers
@@ -123,39 +112,17 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Public Methods
 
-        /// <summary>
-        /// Get the Water Output type
-        /// </summary>
-        /// <returns></returns>
-        public String GetOutputType()
+        public String getInputType()
         {
             return this.TYPE;
         }
-
-        /// <summary>
-        /// Get the Output plus ExtraOutput
-        /// </summary>
-        /// <returns></returns>
-        public double GetTotalOutput()
+        public double getTotalInput()
         {
-            return this.Output + this.ExtraOutput;
+            return this.Input + this.ExtraInput;
         }
-
         #endregion
 
         #region Overrides
-
-        /// <summary>
-        /// Return the Total Input
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            string lReturn = this.GetTotalOutput().ToString();
-            return lReturn;
-
-        }
-
         #endregion
 
     }

@@ -62,7 +62,7 @@ namespace IrrigationAdvisor.Tests.Models.Utilities
             lFilePath = lOutputFile.FilePath;
             lDataSplit = lOutputFile.DataSplit;
 
-            //Output of file information
+            //Input of file information
             lOutputFile.FileHeader = "File Header inforation";
             lOutputFile.FileTitles = lTitles;
             lOutputFile.FileMessages = lMessages;

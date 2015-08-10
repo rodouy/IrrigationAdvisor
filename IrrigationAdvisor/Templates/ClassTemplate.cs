@@ -71,7 +71,7 @@ namespace IrrigationAdvisor.Templates
         /// <summary>
         /// Constructor of ClassTemplate with parameters
         /// </summary>
-        /// <param name="pName"></param>
+        /// <param name="pNewName"></param>
         public ClassTemplate(String pNewName)
         {
             this.Name = pNewName;
@@ -112,7 +112,7 @@ namespace IrrigationAdvisor.Templates
         /// <summary>
         /// Method to set the name field
         /// </summary>
-        /// <param name="pName">new name</param>
+        /// <param name="pNewName">new name</param>
         public void SetName(string pNewName)
         {
             this.Name = this.setUpper(pNewName);

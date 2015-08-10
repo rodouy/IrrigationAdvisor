@@ -21,7 +21,7 @@ namespace IrrigationAdvisor.Models.Localization
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - cityId long
+    ///     - idCity long
     ///     - name String
     ///     - position Position
     ///     City
@@ -40,26 +40,27 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Fields
-
         /// <summary>
         /// The fields are:
-        ///     - cityId: identifier
+        ///     - idCity: identifier
         ///     - name: the name of the city
         ///     - position: the position of the city
+        ///     
         /// </summary>
-        private long cityId;
+        private long idCity;
         private String name;
         private Position position;
+
 
         #endregion
 
         #region Properties
 
 
-        public long CityId
+        public long IdCity
         {
-            get { return cityId; }
-            set { cityId = value; }
+            get { return idCity; }
+            set { idCity = value; }
         }
         
         public string Name
@@ -74,6 +75,7 @@ namespace IrrigationAdvisor.Models.Localization
             set { position = value; }
         }
 
+
         #endregion
 
         #region Construction
@@ -85,7 +87,7 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="location">Location of the region</param>
         public City()
         {
-            this.CityId = 0;
+            this.IdCity = 0;
             this.Name = "";
             this.Position = new Position ();
         }
@@ -93,12 +95,12 @@ namespace IrrigationAdvisor.Models.Localization
         /// <summary>
         /// Constructor with all Parameters
         /// </summary>
-        /// <param name="pCityId"></param>
+        /// <param name="pIdCity"></param>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
-        public City(long pCityId, String pName, Position pPosition)
+        public City(long pIdCity, String pName, Position pPosition)
         {
-            this.CityId = pCityId;
+            this.IdCity = pIdCity;
             this.Name = pName;
             this.Position = pPosition;
         }
@@ -106,14 +108,6 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Private Helpers
-
-        #endregion
-
-        #region Public Methods
-
-        //TODO: create method "change position"
-
-        
         #endregion
 
         #region Overrides
@@ -138,7 +132,6 @@ namespace IrrigationAdvisor.Models.Localization
         {
             return this.Name.GetHashCode();
         }
-
         #endregion
 
     }

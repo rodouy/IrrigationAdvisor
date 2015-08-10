@@ -10,12 +10,12 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// Author:  monicarle
     /// Modified: 2015-01-08
     /// Author: rodouy
-    /// Modified: 2015-06-14
-    /// Author: rodouy
     /// Description: 
     ///     Describes a phenological stage
     ///     
     /// References:
+    ///     Region
+    ///     Specie
     ///     Stage
     ///     
     /// Dependencies:
@@ -35,7 +35,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// 
     /// Methods:
     ///     - PhenologicalStage()      -- constructor
-    ///     - PhenologicalStage(stage, minDegree, maxDegree, rootDepth)  -- consturctor with parameters
+    ///     - PhenologicalStage(specie, stage, minDegree, maxDegree, rootDepth)  -- consturctor with parameters
     ///     - SetName(newName)     -- method to set the name field
     ///     + GetAverageDegree(): double
     /// 
@@ -56,7 +56,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - rootDepth: double
         ///     
         /// </summary>
-        private long phenologicalStageId;
+        private long idPhenologicalStage;
+        private Specie specie;
         private Stage stage;
         private double minDegree;
         private double maxDegree;
@@ -67,14 +68,21 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Properties
 
-        public long PhenologicalStageId
+        public long IdPhenologicalStage
         {
-            get { return phenologicalStageId; }
+            get { return idPhenologicalStage; }
+        }
+        
+        public Specie Specie
+        {
+            get { return specie; }
+            set { specie = value; }
         }
         
         public Stage Stage
         {
             get { return stage; }
+            set { stage = value; }
         }
         
         public double MinDegree
@@ -110,8 +118,9 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         public PhenologicalStage() 
         {
-            this.phenologicalStageId = 0;
-            this.stage = new Stage();
+            this.idPhenologicalStage = 0;
+            this.Specie = new Specie();
+            this.Stage = new Stage();
             this.MinDegree = 0;
             this.MaxDegree = 0;
             this.RootDepth = 0;
@@ -122,18 +131,19 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// Build an instance of a phenological stage for a specie. 
         /// It is used for a range between the max and min degree.
         /// </summary>
-        /// <param name="pPhenologicalStageId"></param>
+        /// <param name="pIDPhenologicalStage"></param>
         /// <param name="pSpecie"></param>
         /// <param name="pStage"></param>
         /// <param name="pMinDegree"></param>
         /// <param name="pMaxDegree"></param>
         /// <param name="pDepth"></param>
-        public PhenologicalStage(long pPhenologicalStageId, Stage pStage, 
-                                Double pMinDegree, Double pMaxDegree, 
-                                Double pRootDepth, Double pHydricBalanceDepth)
+        public PhenologicalStage(long pIDPhenologicalStage, Specie pSpecie, Stage pStage, 
+                                Double pMinDegree, Double pMaxDegree, Double pRootDepth,
+                                Double pHydricBalanceDepth)
         {
-            this.phenologicalStageId = pPhenologicalStageId;
-            this.stage = pStage;
+            this.idPhenologicalStage = pIDPhenologicalStage;
+            this.Specie = pSpecie;
+            this.Stage = pStage;
             this.MinDegree = pMinDegree;
             this.MaxDegree = pMaxDegree;
             this.RootDepth = pRootDepth;
@@ -169,18 +179,6 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lRootDepth;
         }
 
-        public Stage UpdateStage(String pName, String pDescripcion)
-        {
-            Stage lReturn = null;
-            if(!String.IsNullOrEmpty(pName) && !String.IsNullOrEmpty(pDescripcion))
-            {
-                this.Stage.Name = pName;
-                this.Stage.Description = pDescripcion;
-                lReturn = this.Stage;
-            }
-            return lReturn;
-        }
-
         #endregion
 
         #region Overrides
@@ -199,13 +197,14 @@ namespace IrrigationAdvisor.Models.Agriculture
                 return false;
             }
             PhenologicalStage lPhenologicalStage = obj as PhenologicalStage;
-            lReturn = this.Stage.Equals(lPhenologicalStage.Stage);
+            lReturn = this.Specie.Equals(lPhenologicalStage.Specie) &&
+                        this.Stage.Equals(lPhenologicalStage.Stage);
             return lReturn;
         }
 
         public override int GetHashCode()
         {
-            return this.Stage.GetHashCode();
+            return this.Specie.GetHashCode();
         }
 
         #endregion

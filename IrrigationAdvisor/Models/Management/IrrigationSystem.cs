@@ -107,6 +107,9 @@ namespace IrrigationAdvisor.Models.Management
        
         private List<Crop> cropList;
         private List<Soil> soilList;
+        private List<Specie> specieList;
+        private List<Stage> stageList;
+        private List<PhenologicalStage> phenologicalStageList;
         
         #endregion
 
@@ -135,8 +138,8 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Management
 
-        private DateTime dateOfReference;
         private List<CropIrrigationWeather> cropIrrigationWeatherList;
+        private List<CropIrrigationWeatherRecord> cropIrrigationWeatherRecordList;
         private IrrigationCalculus irrigationCalculus;
 
         #endregion
@@ -152,11 +155,16 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Water
 
-        
+        private List<Rain> rainList;
+        private List<Water.Irrigation> irrigationList;
+        private List<WaterInput> waterInputList;
+        private List<WaterOutput> waterOutputList;
+
         #endregion
 
         #region Weather
 
+        private List<WeatherData> weatherDataList;
         private List<WeatherStation> weatherStationList;             
         
         #endregion
@@ -177,6 +185,24 @@ namespace IrrigationAdvisor.Models.Management
         {
             get { return soilList; }
             set { soilList = value; }
+        }
+
+        public List<Specie> SpecieList
+        {
+            get { return specieList; }
+            set { specieList = value; }
+        }
+
+        public List<Stage> StageList
+        {
+            get { return stageList; }
+            set { stageList = value; }
+        }
+
+        public List<PhenologicalStage> PhenologicalStageList
+        {
+            get { return phenologicalStageList; }
+            set { phenologicalStageList = value; }
         }
 
         #endregion
@@ -243,15 +269,16 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Management
 
-        public DateTime DateOfReference
-        {
-            get { return dateOfReference; }
-        }
-        
         public List<CropIrrigationWeather> CropIrrigationWeatherList
         {
             get { return cropIrrigationWeatherList; }
             set { cropIrrigationWeatherList = value; }
+        }
+
+        public List<CropIrrigationWeatherRecord> CropIrrigationWeatherRecordList
+        {
+            get { return cropIrrigationWeatherRecordList; }
+            set { cropIrrigationWeatherRecordList = value; }
         }
 
         public IrrigationCalculus IrrigationCalculus
@@ -276,11 +303,39 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Water
-        
+        public List<Rain > RainList
+        {
+            get { return rainList; }
+            set { rainList = value; }
+        }
+
+        public List<Water.Irrigation> IrrigationList
+        {
+            get { return irrigationList; }
+            set { irrigationList = value; }
+        }
+
+        public List<WaterInput> WaterInputList
+        {
+            get { return waterInputList; }
+            set { waterInputList = value; }
+        }
+
+        public List<WaterOutput> WaterOutputList
+        {
+            get { return waterOutputList; }
+            set { waterOutputList = value; }
+        }
+
         #endregion
 
         #region Weather
 
+        public List<WeatherData> WeatherDataList
+        {
+            get { return weatherDataList; }
+            set { weatherDataList = value; }
+        }
 
         public List<WeatherStation> WeatherStationList
         {
@@ -307,9 +362,13 @@ namespace IrrigationAdvisor.Models.Management
 
             #region Agriculture
             
+            //this.PhenologicalStageList = new List<Pair< Region, List<PhenologicalStage>>>();
             this.CropList = new List<Crop>();
             this.SoilList = new List<Soil>();
-            
+            this.SpecieList = new List<Specie>();
+            this.StageList = new List<Stage>();
+            this.PhenologicalStageList = new List<PhenologicalStage>();
+
             #endregion
 
             #region Irrigation
@@ -337,8 +396,8 @@ namespace IrrigationAdvisor.Models.Management
             
             #region Management
 
-            this.dateOfReference = DateTime.Now;
             this.CropIrrigationWeatherList = new List<CropIrrigationWeather>();
+            this.cropIrrigationWeatherRecordList = new List<CropIrrigationWeatherRecord>();
             this.IrrigationCalculus = new IrrigationCalculus();
             
             #endregion
@@ -354,10 +413,16 @@ namespace IrrigationAdvisor.Models.Management
 
             #region Water
 
+            this.RainList = new List<Rain>();
+            this.IrrigationList = new List<Water.Irrigation>();
+            this.waterInputList = new List<WaterInput>();
+            this.waterOutputList = new List<WaterOutput>();
+
             #endregion
             
             #region Weather
             
+            this.WeatherDataList = new List<WeatherData>();
             this.WeatherStationList = new List<WeatherStation>();
             
             #endregion
@@ -397,7 +462,31 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Management
 
-        
+        /// <summary>
+        /// Search the cropIrrigationWeatherRecord of the CropIrrigationWeather and delegate the creation of the daily record
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pWeatherData"></param>
+        /// <param name="pMainWeatherData"></param>
+        /// <param name="pAlternativeWeatherData"></param>
+        /// <param name="pRain"></param>
+        /// <param name="plIrrigation"></param>
+        /// <param name="pObservations"></param>
+        private void addDailyRecordToCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather,
+                                                    WeatherData pWeatherData, WeatherData pMainWeatherData,
+                                                    WeatherData pAlternativeWeatherData, Water.Rain pRain,
+                                                    Water.Irrigation plIrrigation, string pObservations)
+        {
+            foreach (CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
+            {
+                if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    pCropIrrigationWeather.addDailyRecord(pWeatherData, pMainWeatherData, pAlternativeWeatherData, pRain, plIrrigation, pObservations);
+                    break;
+                }
+            }
+
+        }
 
         #endregion
 
@@ -409,16 +498,85 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Water
         
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
+        private Water.Irrigation getIrrigationFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        {
+            Water.Irrigation lReturn = null;
+            IEnumerable<Water.Irrigation> lIrrigationListOrderByDescendingByDate;
+            lIrrigationListOrderByDescendingByDate = this.irrigationList.OrderByDescending(lWaterInput => lWaterInput.Date);
+            //TODO change to contains for date 
+            foreach (Water.Irrigation lWaterInput in lIrrigationListOrderByDescendingByDate)
+                if (Utilities.Utils.isTheSameDay(lWaterInput.Date, pDateTime) && lWaterInput.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    lReturn = lWaterInput;
+                    return lReturn;
+                }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add description
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
+        private Rain  getRainFromList(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        {
+            Rain  lReturn = null;
+            foreach(Rain  lRain in this.rainList)
+                if(Utilities.Utils.isTheSameDay(lRain.Date,pDateTime) && lRain.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    lReturn = lRain;
+                    return lReturn;
+                }
+            return lReturn;
+
+        }
+
+
         #endregion
 
         #region Weather
+
+
+        /// <summary>
+        /// Return the WeatherData for the available weather station.
+        /// First search in the main station. If there is no data, then search in the alternative wheather station.
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pDateTime"></param>
+        /// <returns></returns>
+        private WeatherData getAvailableWeatherStationData(CropIrrigationWeather pCropIrrigationWeather, DateTime pDateTime)
+        {
+            WeatherData lReturn = null;
+            WeatherData lWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.MainWeatherStation, pDateTime);
+            if (lWeatherData != null)
+            {
+                lReturn = lWeatherData;
+            }
+            else
+            {
+                lWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime);
+                if (lWeatherData != null)
+                {
+                    lReturn = lWeatherData;
+                }
+
+            }
+            return lReturn;
+        }
 
         /// <summary>
         /// TODO add description
         /// </summary>
         /// <param name="pRegion"></param>
         /// <returns></returns>
-        private List<EffectiveRain> getEffectiveRainList(Region pRegion)
+        private List<EffectiveRain> GetEffectiveRainList(Region pRegion)
         {
             List <EffectiveRain> lReturnEffectiveRain = new List<EffectiveRain>();
             foreach(Region lRegion in this.RegionList)
@@ -437,40 +595,30 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="oldStage"></param>
         /// <param name="newStage"></param>
-        /// <param name="pCrop"></param>
+        /// <param name="pSpecie"></param>
         /// <returns></returns>
-        private double calculateDegreeStageDifference(Stage oldStage, Stage newStage, Crop pCrop)
+        private double calculateDegreeStageDifference(Stage oldStage, Stage newStage, Specie pSpecie)
         {
             double oldDegree = 0;
             double newDegree = 0;
             double lReturn = 0;
             List<PhenologicalStage> lPhenologicalStageList;
 
-            try
+            lPhenologicalStageList = pSpecie.PhenologicalStageList;
+            foreach (PhenologicalStage lPhenologicalStage in lPhenologicalStageList)
             {
-                lPhenologicalStageList = pCrop.PhenologicalStageList;
-                foreach (PhenologicalStage lPhenologicalStage in lPhenologicalStageList)
+                if (lPhenologicalStage.Stage.Equals(oldStage) && lPhenologicalStage.Specie.Equals(pSpecie))
                 {
-                    if (lPhenologicalStage.Stage.Equals(oldStage))
-                    {
-                        oldDegree = lPhenologicalStage.GetAverageDegree();
-                    }
-                    if (lPhenologicalStage.Stage.Equals(newStage))
-                    {
-                        newDegree = lPhenologicalStage.GetAverageDegree();
-                    }
-                    if (newDegree != 0 && oldDegree != 0)
-                    {
-                        lReturn = newDegree - oldDegree;
-                        break;
-                    }
+                    oldDegree = lPhenologicalStage.GetAverageDegree();
                 }
-
+                if (lPhenologicalStage.Stage.Equals(newStage) && lPhenologicalStage.Specie.Equals(pSpecie))
+                {
+                    newDegree = lPhenologicalStage.GetAverageDegree();
+                }
             }
-            catch (Exception)
+            if (newDegree != 0 && oldDegree != 0)
             {
-                
-                throw;
+                lReturn = newDegree - oldDegree;
             }
             return lReturn;
         }
@@ -486,72 +634,20 @@ namespace IrrigationAdvisor.Models.Management
         #region Crop
 
         /// <summary>
-        /// Return the list of Crops for a Region
-        /// </summary>
-        /// <param name="pRegion"></param>
-        /// <returns></returns>
-        public List<Crop> FindCrop(Region pRegion)
-        {
-            List<Crop> lReturn = null;
-            if(pRegion != null)
-            {
-                lReturn = new List<Crop>();
-                foreach (Crop item in this.CropList)
-                {
-                    if(item.Region.Equals(pRegion))
-                    {
-                        lReturn.Add(item);
-                    }
-                }
-                if(lReturn.Count == 0)
-                {
-                    lReturn = null;
-                }
-            }
-            return lReturn;
-        }
-
-        /// <summary>
-        /// Return the list of Crops for a Specie
-        /// </summary>
-        /// <param name="pSpecie"></param>
-        /// <returns></returns>
-        public List<Crop> FindCrop(Specie pSpecie)
-        {
-            List<Crop> lReturn = null;
-            if (pSpecie != null)
-            {
-                lReturn = new List<Crop>();
-                foreach (Crop item in this.CropList)
-                {
-                    if (item.Specie.Equals(pSpecie))
-                    {
-                        lReturn.Add(item);
-                    }
-                }
-                if (lReturn.Count == 0)
-                {
-                    lReturn = null;
-                }
-            }
-            return lReturn;
-        }
-
-        /// <summary>
         /// Find Crop by Name and Specie
         /// Name and Specie are the argument for Crop Equals
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pSpecie"></param>
         /// <returns></returns>
-        public Crop FindCrop(Region pRegion, Specie pSpecie)
+        public Crop FindCrop(String pName, Specie pSpecie)
         {
             Crop lReturn = null;
-            if (pRegion != null && pSpecie != null)
+            if(!String.IsNullOrEmpty(pName) && pSpecie != null)
             {
                 foreach (Crop item in this.CropList)
                 {
-                    if (item.Region.Equals(pRegion) && item.Specie.Equals(pSpecie))
+                    if (item.Name.Equals(pName) && item.Specie.Equals(pSpecie))
                     {
                         lReturn = item;
                         break;
@@ -588,24 +684,18 @@ namespace IrrigationAdvisor.Models.Management
         ///     if exist in the list, return the crop from the list.
         /// </summary>
         /// <param name="pName"></param>
-        /// <param name="pRegion"></param>
         /// <param name="pSpecie"></param>
-        /// <param name="pCropCoefficient"></param>
-        /// <param name="pStageList"></param>
         /// <param name="pPhenologicalStageList"></param>
         /// <param name="pDensity"></param>
         /// <param name="pMaxEvapotranspirationToIrrigate"></param>
-        /// <param name="pMinEvapotranspirationToIrrigate"></param>
         /// <returns></returns>
-        public Crop AddCrop(String pName, Region pRegion, Specie pSpecie, 
-                        CropCoefficient pCropCoefficient, List<Stage> pStageList,
+        public Crop AddCrop(String pName, Specie pSpecie, Region pRegion,
                         List<PhenologicalStage> pPhenologicalStageList, 
-                        Double pDensity, Double pMaxEvapotranspirationToIrrigate, 
-                        Double pMinEvapotranspirationToIrrigate)
+                        Double pDensity, Double pMaxEvapotranspirationToIrrigate, Double pMinEvapotranspirationToIrrigate)
         {
             Crop lReturn = null;
-            int lCropId = this.CropList.Count();
-            Crop lCrop = new Crop(lCropId, pName, pRegion, pSpecie, pCropCoefficient, pPhenologicalStageList,
+            int lIDCrop = this.CropList.Count();
+            Crop lCrop = new Crop(lIDCrop, pName, pSpecie, pRegion, pPhenologicalStageList,
                                 pDensity, pMaxEvapotranspirationToIrrigate, pMinEvapotranspirationToIrrigate);
             lReturn = ExistCrop(lCrop);
             if (lReturn == null)
@@ -616,54 +706,29 @@ namespace IrrigationAdvisor.Models.Management
             return lReturn;
         }
 
-        /// <summary>
-        /// Return the Crop if added because do not exist, 
-        ///     if exist in the list, return the crop from the list.
-        /// </summary>
-        /// <param name="pCrop"></param>
-        /// <returns></returns>
-        public Crop AddCrop(Crop pCrop)
-        {
-            Crop lReturn = null;
-            int lCropId = this.CropList.Count();
-            lReturn = ExistCrop(pCrop);
-            if (lReturn == null)
-            {
-                pCrop.CropId = lCropId;
-                this.CropList.Add(pCrop);
-                lReturn = pCrop;
-            }
-            return lReturn;
-        }
-
-        /// <summary>
+       /// <summary>
         /// Update the crop if exists in CropList, else return null
         /// </summary>
         /// <param name="pName"></param>
-        /// <param name="pRegion"></param>
         /// <param name="pSpecie"></param>
-        /// <param name="pCropCoefficient"></param>
-        /// <param name="pStageList"></param>
         /// <param name="pPhenologicalStageList"></param>
         /// <param name="pDensity"></param>
         /// <param name="pMaxEvapotranspirationToIrrigate"></param>
-        /// <param name="pMinEvapotranspirationToIrrigate"></param>
         /// <returns></returns>
-        public Crop UpdateCrop(String pName, Region pRegion, Specie pSpecie,
-                        CropCoefficient pCropCoefficient, List<PhenologicalStage> pPhenologicalStageList, 
+        public Crop UpdateCrop(String pName, Specie pSpecie, Region pRegion,
+                        List<PhenologicalStage> pPhenologicalStageList, 
                         Double pDensity, Double pMaxEvapotranspirationToIrrigate, Double pMinEvapotranspirationToIrrigate)
         {
             Crop lReturn = null;
-            Crop lCrop = new Crop(0, pName, pRegion, pSpecie, pCropCoefficient, pPhenologicalStageList,
+            Crop lCrop = new Crop(0, pName, pSpecie, pRegion, pPhenologicalStageList, 
                             pDensity, pMaxEvapotranspirationToIrrigate, pMinEvapotranspirationToIrrigate);
             lReturn = ExistCrop(lCrop);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
-                lReturn.Region = pRegion;
                 lReturn.Specie = pSpecie;
-                lReturn.CropCoefficient = pCropCoefficient;
-                lReturn.UpdatePhenologicalStageList(pPhenologicalStageList);
+                lReturn.Region = pRegion;
+                lReturn.PhenologicalStageList = pPhenologicalStageList;
                 lReturn.Density = pDensity;
                 lReturn.MaxEvapotranspirationToIrrigate = pMaxEvapotranspirationToIrrigate;
                 lReturn.MinEvapotranspirationToIrrigate = pMinEvapotranspirationToIrrigate;
@@ -675,7 +740,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Add Phenological Stage to Crop, if exist it return it.
         /// </summary>
         /// <param name="pCrop"></param>
-        /// <param name="pInitialPhenologicalStage"></param>
+        /// <param name="pPhenologicalStage"></param>
         /// <returns></returns>
         public PhenologicalStage AddPhenologicalStageToCrop(Crop pCrop, PhenologicalStage pPhenologicalStage)
         {
@@ -799,59 +864,339 @@ namespace IrrigationAdvisor.Models.Management
 
         #endregion
 
-        #region Phenological Stage
+        #region Specie
 
         /// <summary>
-        /// Find A Phenological Stage by Region, Specie and Stage
+        /// Return the Specie that has the same parameters, else return null.
         /// </summary>
-        /// <param name="pSpecie"></param>
-        /// <param name="pStage"></param>
+        /// <param name="pName"></param>
         /// <returns></returns>
-        public PhenologicalStage FindPhenologicalStage(Region pRegion, 
-                                            Specie pSpecie, Stage pStage)
+        public Specie FindSpecie(String pName)
         {
-            PhenologicalStage lReturn = null;
-            if (pRegion != null && pSpecie != null && pStage != null)
+            Specie lReturn = null;
+            if(!String.IsNullOrEmpty(pName))
             {
-                foreach (Crop lCropItem in this.CropList)
+                foreach (Specie item in this.SpecieList)
                 {
-                    if(lCropItem.Region.Equals(pRegion) && lCropItem.Specie.Equals(pSpecie))
+                    if(item.Name.Equals(pName))
                     {
-                        foreach (PhenologicalStage item in lCropItem.PhenologicalStageList)
-                        {
-                            if (item.Stage.Equals(pStage))
-                            {
-                                lReturn = item;
-                                break;
-                            }
-                        }
+                        lReturn = item;
+                        break;
                     }
                 }
             }
             return lReturn;
         }
 
-        
         /// <summary>
-        /// Adjustment of Phenology, calculating the degree stage difference
+        /// Return the Specie instance of the list equals the parameter
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        public Specie ExistSpecie(Specie pSpecie)
+        {
+            Specie lReturn = null;
+            foreach (Specie item in SpecieList)
+            {
+                if(item.Equals(pSpecie))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return the Specie added to the list.
+        /// If already exists, it return the one of the list.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pBaseTemperature"></param>
+        /// <returns></returns>
+        public Specie AddSpecie(String pName, double pBaseTemperature)
+        {
+            Specie lReturn = null;
+            int lIdSpecie = this.SpecieList.Count();
+            Specie lSpecie = new Specie(lIdSpecie, pName, pBaseTemperature, null, null);
+            lReturn = ExistSpecie(lSpecie);
+            if (lReturn == null)
+            {
+                this.SpecieList.Add(lSpecie);
+                lReturn = lSpecie;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return the Specie added to the list.
+        /// If allready exists, it return the one of the list.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pBaseTemperature"></param>
+        /// <param name="pCropCoefficient"></param>
+        /// <param name="pPhenologicalStageList"></param>
+        /// <returns></returns>
+        public Specie AddSpecie(String pName, double pBaseTemperature,
+                        CropCoefficient pCropCoefficient, 
+                        List<PhenologicalStage> pPhenologicalStageList)
+        {
+            Specie lReturn = null;
+            int lIdSpecie = this.SpecieList.Count();
+            Specie lSpecie = new Specie(lIdSpecie, pName, pBaseTemperature, pCropCoefficient, 
+                                    pPhenologicalStageList);
+            lReturn = ExistSpecie(lSpecie);
+            if(lReturn == null)
+            {
+                this.SpecieList.Add(lSpecie);
+                lReturn = lSpecie;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return the Specie updated in the list.
+        /// If not exists, it return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pBaseTemperature"></param>
+        /// <param name="pCropCoefficient"></param>
+        /// <param name="pPhenologicalStageList"></param>
+        /// <returns></returns>
+        public Specie UpdateSpecie(String pName, double pBaseTemperature,
+                        CropCoefficient pCropCoefficient,
+                        List<PhenologicalStage> pPhenologicalStageList)
+        {
+            Specie lReturn = null;
+            Specie lSpecie = new Specie(0, pName, pBaseTemperature, pCropCoefficient,
+                                    pPhenologicalStageList);
+            lReturn = ExistSpecie(lSpecie);
+            if (lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.BaseTemperature = pBaseTemperature;
+                lReturn.CropCoefficient = pCropCoefficient;
+                lReturn.PhenologicalStageList = pPhenologicalStageList;
+            }
+            return lReturn;
+        }
+
+        #endregion
+
+        #region Stage
+
+        /// <summary>
+        /// Find Stage by Name (Equals compare Property)
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public Stage FindStage(String pName)
+        {
+            Stage lReturn = null;
+            if(!String.IsNullOrEmpty(pName))
+            {
+                foreach (Stage item in this.StageList)
+                {
+                    if (item.Name.Equals(pName))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pStage"></param>
+        /// <returns></returns>
+        public Stage ExistStage(Stage pStage)
+        {
+            Stage lReturn = null;
+            if (pStage != null)
+            {
+                foreach (Stage item in StageList)
+                {
+                    if (item.Equals(pStage))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDescription"></param>
+        /// <returns></returns>
+        public Stage AddStage(String pName, String pDescription)
+        {
+            Stage lReturn = null;
+            long lIdStage = this.StageList.Count();
+            Stage lStage = new Stage(lIdStage, pName, pDescription);
+            if(ExistStage(lStage) == null)
+            {
+                this.StageList.Add(lStage);
+                lReturn = lStage;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// 
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pDescription"></param>
+        /// <returns></returns>
+        public Stage UpdateStage(String pName, String pDescription)
+        {
+            Stage lReturn = null;
+            Stage lStage = new Stage(0, pName, pDescription);
+            lReturn = ExistStage(lStage);
+            if(lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.Description = pDescription;
+            }
+            return lReturn;
+        }
+
+        #endregion
+
+        #region Phenological Stage
+
+        /// <summary>
+        /// Find A Phenological Stage by Specie and Stage
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <returns></returns>
+        public PhenologicalStage FindPhenologicalStage(Specie pSpecie, Stage pStage)
+        {
+            PhenologicalStage lReturn = null;
+            if (pSpecie != null && pStage != null)
+            {
+                foreach (PhenologicalStage item in this.PhenologicalStageList)
+                {
+                    if (item.Specie.Equals(pSpecie) && item.Stage.Equals(pStage))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return if the Phenological Stage exists in the list
+        /// </summary>
+        /// <param name="pPhenologicalStage"></param>
+        /// <returns></returns>
+        public PhenologicalStage ExistPhenologicalStage(PhenologicalStage pPhenologicalStage)
+        {
+            PhenologicalStage lReturn = null;
+            if(pPhenologicalStage != null)
+            {
+                foreach (PhenologicalStage item in this.PhenologicalStageList)
+                {
+                    if(item.Equals(pPhenologicalStage))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add a Phenological Stage if not exists, else return null
+        /// </summary>
+        /// <param name="pIdSoil"></param>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <param name="pMinDegree"></param>
+        /// <param name="pMaxDegree"></param>
+        /// <param name="pDepth"></param>
+        /// <returns></returns>
+        public PhenologicalStage AddPhenologicalStage(Specie pSpecie, Stage pStage, 
+                                        double pMinDegree, double pMaxDegree, 
+                                        double pRootDepth, double pHydricBalanceDepth)
+        {
+            PhenologicalStage lReturn = null;
+            long lIdPhenologicalStage = this.PhenologicalStageList.Count();
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(lIdPhenologicalStage,
+                                                    pSpecie, pStage, pMinDegree, pMaxDegree, 
+                                                    pRootDepth, pHydricBalanceDepth);
+            lReturn = ExistPhenologicalStage(lPhenologicalStage);
+            if (lReturn == null)
+            {
+                this.PhenologicalStageList.Add(lPhenologicalStage);
+                lReturn = lPhenologicalStage;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <param name="pStage"></param>
+        /// <param name="pMinDegree"></param>
+        /// <param name="pMaxDegree"></param>
+        /// <param name="pDepth"></param>
+        /// <returns></returns>
+        public PhenologicalStage UpdatePhenologicalStage(Specie pSpecie, Stage pStage, 
+                                        double pMinDegree, double pMaxDegree,
+                                        double pRootDepth, double pHydricBalanceDepth)
+        {
+            PhenologicalStage lReturn = null;
+            PhenologicalStage lPhenologicalStage = new PhenologicalStage(0, pSpecie, pStage, 
+                                                        pMinDegree, pMaxDegree, pRootDepth,
+                                                        pHydricBalanceDepth);
+            lReturn = ExistPhenologicalStage(lPhenologicalStage);
+            if(lReturn != null)
+            {
+                lReturn.Specie = pSpecie;
+                lReturn.Stage = pStage;
+                lReturn.MinDegree = pMinDegree;
+                lReturn.MaxDegree = pMaxDegree;
+                lReturn.RootDepth = pRootDepth;
+                lReturn.HydricBalanceDepth = pHydricBalanceDepth;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// TODO description adjustmentPhenology
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pNewStage"></param>
         /// <param name="pDateTime"></param>
-        public void AdjustmentPhenology(CropIrrigationWeather pCropIrrigationWeather, 
+        public void adjustmentPhenology(CropIrrigationWeather pCropIrrigationWeather, 
                                     Stage pNewStage, DateTime pDateTime)
         {
             Stage lActualStage;
             double lModification;
-            foreach (CropIrrigationWeather lCropIrrigationWeather in this.CropIrrigationWeatherList)
+            foreach (CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
             {
-                if (lCropIrrigationWeather.Equals(pCropIrrigationWeather))
+                if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
                 {
-                    lActualStage = lCropIrrigationWeather.PhenologicalStage.Stage;
-                    lModification = calculateDegreeStageDifference(lActualStage, pNewStage, pCropIrrigationWeather.Crop);
-                    lCropIrrigationWeather.AdjustmentPhenology(pNewStage, pDateTime, lModification);
+                    lActualStage = lCropIrrigationWeatherRecord.CropIrrigationWeather.PhenologicalStage.Stage;
+                    lModification = calculateDegreeStageDifference(lActualStage, pNewStage, pCropIrrigationWeather.Crop.Specie);
+                    lCropIrrigationWeatherRecord.adjustmentPhenology(pNewStage, pDateTime, lModification);
+
                 }
             }
+
         }
 
         #endregion
@@ -1029,8 +1374,8 @@ namespace IrrigationAdvisor.Models.Management
                                                 Bomb pBomb, Location pLocation)
         {
             IrrigationUnit lReturn = null;
-            long lIrrigationUnitId = this.irrigationUnitList.Count();
-            IrrigationUnit lIrrigationUnit = new IrrigationUnit(lIrrigationUnitId, pName, pIrrigationType,
+            long lIdIrrigationUnit = this.irrigationUnitList.Count();
+            IrrigationUnit lIrrigationUnit = new IrrigationUnit(lIdIrrigationUnit, pName, pIrrigationType,
                                                 pIrrigationEfficiency, pIrrigationList, pSurface,
                                                 pCropList, pBomb, pLocation);
             lReturn = ExistIrrigationUnit(lIrrigationUnit);
@@ -1084,45 +1429,6 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         #region Language
-
-        /// <summary>
-        /// TODO ExistLanguage description
-        /// </summary>
-        /// <param name="pLanguage"></param>
-        /// <returns></returns>
-        public Language.Language ExistLanguage(Language.Language pLanguage)
-        {
-            Language.Language lReturn = null;
-            foreach (Language.Language item in this.LanguageList)
-            {
-                if(item.Equals(pLanguage))
-                {
-                    lReturn = item;
-                    break;
-                }
-            }
-            return lReturn;
-        }
-
-        /// <summary>
-        /// TODO AddLanguage description
-        /// </summary>
-        /// <param name="pName"></param>
-        /// <returns></returns>
-        public Language.Language AddLanguage(String pName)
-        {
-            Language.Language lReturn = null;
-            long lLanguageId = this.LanguageList.Count();
-            Language.Language lLanguage = new Language.Language(lLanguageId, pName);
-            lReturn = ExistLanguage(lLanguage);
-            if(lReturn == null)
-            {
-                this.LanguageList.Add(lLanguage);
-                lReturn = lLanguage;
-            }
-            return lReturn;
-        }
-
         #endregion
 
         #region Localization
@@ -1180,8 +1486,8 @@ namespace IrrigationAdvisor.Models.Management
         public City AddCity(String pName, Position pPosition)
         {
             City lReturn = null;
-            long lCityId = this.CityList.Count();
-            City lCity = new City(lCityId, pName, pPosition);
+            long lIdCity = this.CityList.Count();
+            City lCity = new City(lIdCity, pName, pPosition);
             lReturn = ExistCity(lCity);
             if (lReturn == null)
             {
@@ -1232,110 +1538,73 @@ namespace IrrigationAdvisor.Models.Management
         #region Country
 
         /// <summary>
-        /// Find Country by Name, if not exists, return null
-        /// </summary>
-        /// <param name="pName"></param>
-        /// <returns></returns>
-        public Country FindCountry(String pName)
-        {
-            Country lReturn = null;
-            if(!String.IsNullOrEmpty(pName))
-            {
-                foreach (Country item in this.CountryList)
-                {
-                    if(item.Name.Equals(pName))
-                    {
-                        lReturn = item;
-                        break;
-                    }
-                }
-            }
-            return lReturn;
-        }
-
-        /// <summary>
-        /// If Country exist in List return the Country, 
-        /// else return null
+        /// TODO add description
         /// </summary>
         /// <param name="pCountry"></param>
         /// <returns></returns>
         public Country ExistCountry(Country pCountry)
         {
             Country lReturn = null;
-            if (pCountry != null)
+            foreach (Country item in this.CountryList)
             {
-                foreach (Country item in this.CountryList)
+                if (item.Equals(pCountry))
                 {
-                    if (item.Equals(pCountry))
-                    {
-                        lReturn = item;
-                        break;
-                    }
+                    lReturn = item;
+                    break;
                 }
             }
             return lReturn;
         }
 
         /// <summary>
-        /// Add a new Country and return it, if exists returns null
+        /// TODO add description
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pCapital"></param>
-        /// <param name="pLanguage"></param>
         /// <param name="pCityList"></param>
         /// <param name="pRegionList"></param>
         /// <returns></returns>
-        public Country AddCountry(String pName, City pCapital, 
-                                Language.Language pLanguage,
-                                List<City> pCityList, List<Region> pRegionList)
+        public Country AddCountry(String pName, City pCapital, List<City> pCityList,
+                                List<Region> pRegionList)
         {
             Country lReturn = null;
             long lIdCountry = this.CountryList.Count();
             Country lCountry = null;
 
-            if (!String.IsNullOrEmpty(pName) && pCapital != null)
+            if (pCityList == null || pRegionList == null)
             {
-                if (pCityList == null || pRegionList == null)
-                {
-                    lCountry = new Country(lIdCountry, pName, pLanguage, pCapital);
-                }
-                else
-                {
-                    lCountry = new Country(lIdCountry, pName, pLanguage, pCapital,
-                                            pCityList, pRegionList);
-                }
-                //Add Capital city to the list in Country, if exists will not repeat
-                lCountry.AddCity(pCapital);
-                if (ExistCountry(lCountry) == null)
-                {
-                    this.CountryList.Add(lCountry);
-                    lReturn = lCountry;
-                }
+                lCountry = new Country(lIdCountry, pName, pCapital);
+            }
+            else
+            {
+                lCountry = new Country(lIdCountry, pName, pCapital, pCityList, pRegionList);
+            }
+            lCountry.AddCity(pCapital);
+            if (ExistCountry(lCountry) == null)
+            {
+                this.CountryList.Add(lCountry);
+                lReturn = lCountry;
             }
             return lReturn;
         }
 
         /// <summary>
-        /// Update Country Name, Language, Capital City, CityList, RegionList
-        /// if not exist in list, return null
+        /// TODO add description
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pCapital"></param>
-        /// <param name="pLanguage"></param>
         /// <param name="pCityList"></param>
         /// <param name="pRegionList"></param>
         /// <returns></returns>
-        public Country UpdateCountry(String pName, City pCapital, 
-                                Language.Language pLanguage, 
-                                List<City> pCityList, List<Region> pRegionList)
+        public Country UpdateCountry(String pName, City pCapital, List<City> pCityList,
+                                List<Region> pRegionList)
         {
             Country lReturn = null;
-            Country lCountry = new Country(0, pName, pLanguage, pCapital, pCityList, pRegionList);
+            Country lCountry = new Country(0, pName, pCapital, pCityList, pRegionList);
             lReturn = ExistCountry(lCountry);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
-                lReturn.Language = pLanguage;
                 lReturn.Capital = pCapital;
                 lReturn.CityList = pCityList;
                 lReturn.RegionList = pRegionList;
@@ -1604,58 +1873,6 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Management
 
-        #region Date of Reference
-
-        /// <summary>
-        /// Set date of reference
-        /// </summary>
-        /// <param name="pDateOfReference"></param>
-        /// <returns></returns>
-        public DateTime SetDateOfReference (DateTime pDateOfReference)
-        {
-            DateTime lReturn;
-            
-            if (pDateOfReference != null)
-            {
-                this.dateOfReference = pDateOfReference;
-            }
-
-            lReturn = pDateOfReference;
-            return lReturn;
-        }
-
-        /// <summary>
-        /// Add days to Date of Reference
-        /// </summary>
-        /// <param name="pDays"></param>
-        /// <returns></returns>
-        public DateTime AddDayToDateOfReference(int pDays)
-        {
-            DateTime lReturn;
-
-            this.dateOfReference = this.DateOfReference.AddDays(pDays);
-
-            lReturn = this.DateOfReference;
-            return lReturn;
-        }
-
-        /// <summary>
-        /// Add hours to Date of Reference
-        /// </summary>
-        /// <param name="pHour"></param>
-        /// <returns></returns>
-        public DateTime AddHourToDateOfReference(int pHour)
-        {
-            DateTime lReturn;
-
-            this.dateOfReference = this.DateOfReference.AddHours(pHour);
-
-            lReturn = this.DateOfReference;
-            return lReturn;
-        }
-
-        #endregion
-
         #region CropIrrigationWeather
 
         /// <summary>
@@ -1681,49 +1898,32 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// Add Crop Irrigation Weather to System list
+        /// TODO add description
         /// </summary>
         /// <param name="pIrrigationUnit"></param>
         /// <param name="pCrop"></param>
         /// <param name="pMainWeatherStation"></param>
         /// <param name="pAlternativeWeatherStation"></param>
         /// <param name="pPredeterminatedIrrigationQuantity"></param>
+        /// <param name="pPhenologicalStage"></param>
         /// <param name="pLocation"></param>
+        /// <param name="pSowingDate"></param>
+        /// <param name="pHarvestDate"></param>
         /// <param name="pSoil"></param>
         /// <returns></returns>
-        public CropIrrigationWeather AddCropIrrigationWeather(IrrigationUnit pIrrigationUnit, 
-                                                    Crop pCrop,
-                                                    WeatherStation pMainWeatherStation, 
-                                                    WeatherStation pAlternativeWeatherStation,
-                                                    Double pPredeterminatedIrrigationQuantity, 
-                                                    Location pLocation, Soil pSoil)
+        public CropIrrigationWeather AddCropIrrigationWeather(IrrigationUnit pIrrigationUnit, Crop pCrop,
+                                                    WeatherStation pMainWeatherStation, WeatherStation pAlternativeWeatherStation,
+                                                    double pPredeterminatedIrrigationQuantity, PhenologicalStage pPhenologicalStage,
+                                                    Location pLocation, DateTime pSowingDate, DateTime pHarvestDate, Soil pSoil)
         {
             CropIrrigationWeather lReturn = null;
-            long lCropIrrigationWeatherId = 0;
-            CropIrrigationWeather lCropIrrigationWeather = null;
-            CropInformationByDate lCropInformationByDate = null;
-            
-            lCropIrrigationWeatherId = this.CropIrrigationWeatherList.Count();
-            lCropIrrigationWeather = new CropIrrigationWeather();
-            lCropIrrigationWeather.CropIrrigationWeatherId = lCropIrrigationWeatherId;
-            lCropIrrigationWeather.IrrigationUnit = pIrrigationUnit;
-            lCropIrrigationWeather.Crop = pCrop;
-                
-            if (pCrop != null)
-            {
-                lCropInformationByDate = new CropInformationByDate();
-                lCropInformationByDate.CropCoefficient = pCrop.CropCoefficient;
-                lCropInformationByDate.PhenologicalStageList = pCrop.PhenologicalStageList;
-                lCropInformationByDate.Specie = pCrop.Specie;
-                lCropIrrigationWeather.CropInformationByDate = lCropInformationByDate;
-                
-            }
-            lCropIrrigationWeather.MainWeatherStation=pMainWeatherStation;
-            lCropIrrigationWeather.AlternativeWeatherStation= pAlternativeWeatherStation;
-            lCropIrrigationWeather.PredeterminatedIrrigationQuantity=pPredeterminatedIrrigationQuantity;
-            lCropIrrigationWeather.Location=pLocation;
-            lCropIrrigationWeather.Soil= pSoil;
-            
+            long lIdCropIrrigationWeather = this.CropIrrigationWeatherList.Count();
+            CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather(lIdCropIrrigationWeather,
+                                                    pIrrigationUnit, pCrop,
+                                                    pMainWeatherStation, pAlternativeWeatherStation,
+                                                    pPredeterminatedIrrigationQuantity, pPhenologicalStage,
+                                                    pLocation, pSowingDate, pHarvestDate, pSoil);
+
             lReturn = ExistCropIrrigationWeather(lCropIrrigationWeather);
             if(lReturn == null)
             {
@@ -1741,7 +1941,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pMainWeatherStation"></param>
         /// <param name="pAlternativeWeatherStation"></param>
         /// <param name="pPredeterminatedIrrigationQuantity"></param>
-        /// <param name="pInitialPhenologicalStage"></param>
+        /// <param name="pPhenologicalStage"></param>
         /// <param name="pLocation"></param>
         /// <param name="pSowingDate"></param>
         /// <param name="pHarvestDate"></param>
@@ -1749,19 +1949,15 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public CropIrrigationWeather UpdateCropIrrigationWeather(IrrigationUnit pIrrigationUnit, Crop pCrop,
                                                     WeatherStation pMainWeatherStation, WeatherStation pAlternativeWeatherStation,
-                                                    double pPredeterminatedIrrigationQuantity, 
-                                                    Location pLocation, Soil pSoil)
+                                                    double pPredeterminatedIrrigationQuantity, PhenologicalStage pPhenologicalStage,
+                                                    Location pLocation, DateTime pSowingDate, DateTime pHarvestDate, Soil pSoil)
         {
             CropIrrigationWeather lReturn = null;
-            CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather();
-            lCropIrrigationWeather.IrrigationUnit = pIrrigationUnit;
-            lCropIrrigationWeather.Crop = pCrop;
-            lCropIrrigationWeather.MainWeatherStation = pMainWeatherStation;
-            lCropIrrigationWeather.AlternativeWeatherStation = pAlternativeWeatherStation;
-            lCropIrrigationWeather.PredeterminatedIrrigationQuantity = pPredeterminatedIrrigationQuantity;
-            lCropIrrigationWeather.Location= pLocation;
-            lCropIrrigationWeather.Soil = pSoil;
-                                                    
+            CropIrrigationWeather lCropIrrigationWeather = new CropIrrigationWeather(0,
+                                                    pIrrigationUnit, pCrop,
+                                                    pMainWeatherStation, pAlternativeWeatherStation,
+                                                    pPredeterminatedIrrigationQuantity, pPhenologicalStage,
+                                                    pLocation, pSowingDate, pHarvestDate, pSoil);
             lReturn = ExistCropIrrigationWeather(lCropIrrigationWeather);
             if(lReturn != null)
             {
@@ -1770,49 +1966,54 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.MainWeatherStation = pMainWeatherStation;
                 lReturn.AlternativeWeatherStation = pAlternativeWeatherStation;
                 lReturn.PredeterminatedIrrigationQuantity = pPredeterminatedIrrigationQuantity;
+                lReturn.PhenologicalStage = pPhenologicalStage;
                 lReturn.Location = pLocation;
+                lReturn.SowingDate = pSowingDate;
+                lReturn.HarvestDate = pHarvestDate;
                 lReturn.Soil = pSoil;
-
             }
             return lReturn;
         }
 
         /// <summary>
         /// Add to the system a new CropIrrigationWeather
-        /// Inicialize CropIrrigationWeather
+        /// Aditionaly create a cropIrrigationWeatherRecord for this CropIrrigationWeather
         /// and add the first DailyRecord
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <returns></returns>
-        public CropIrrigationWeather InicializeCropIrrigationWeather(CropIrrigationWeather pCropIrrigationWeather,
-                                                                    PhenologicalStage pInitialPhenologicalStage, 
-                                                                    DateTime pSowingDate, DateTime pHarvestDate,
-                                                                    Utils.CalculusOfPhenologicalStage pCalculusOfPhenologicalStage) 
+        public CropIrrigationWeather AddCropIrrigationWeatherRecord(CropIrrigationWeather pCropIrrigationWeather) 
         {
             CropIrrigationWeather lReturn = null;
+            CropIrrigationWeatherRecord lCropIrrigationWeatherRecord;
             List<EffectiveRain> lEffectiveRain;
-            double lHydricBalance;
+            double bhi;
+            DateTime lSowingDate;
             try
             {
 
-                pCropIrrigationWeather.PhenologicalStage = pInitialPhenologicalStage;
-                pCropIrrigationWeather.SowingDate = pSowingDate;
-                pCropIrrigationWeather.CropInformationByDate.SowingDate = pSowingDate;
-                pCropIrrigationWeather.HarvestDate = pHarvestDate;
+                //Create the cropIrrigationWeatherRecord for the CropIrrigationWeather
+                lCropIrrigationWeatherRecord = new CropIrrigationWeatherRecord();
 
                 //Get Effective Rain List from Region
-                lEffectiveRain = this.getEffectiveRainList(pCropIrrigationWeather.IrrigationUnit.Location.Region);
-                pCropIrrigationWeather.EffectiveRainList = lEffectiveRain;
-                
-                //Get Initial Hidric Balance
-                lHydricBalance = pCropIrrigationWeather.GetInitialHydricBalance();
-                pCropIrrigationWeather.HydricBalance = lHydricBalance;
+                lEffectiveRain = this.GetEffectiveRainList(pCropIrrigationWeather.IrrigationUnit.Location.Region);
 
-                //Set Calculus Method for Phenological Adjustment
-                pCropIrrigationWeather.SetCalculusMethodForPhenologicalAdjustment(pCalculusOfPhenologicalStage);
+                lCropIrrigationWeatherRecord.EffectiveRain = lEffectiveRain;
+                lCropIrrigationWeatherRecord.CropIrrigationWeather = pCropIrrigationWeather;
+
+                //Get Initial Hidric Balance
+                bhi = pCropIrrigationWeather.GetInitialHidricBalance();
+                lCropIrrigationWeatherRecord.HydricBalance = bhi;
+
+                pCropIrrigationWeather.CropIrrigationWeatherRecord = lCropIrrigationWeatherRecord;
+                
+                //Add to the system list 
+                this.CropIrrigationWeatherList.Add(pCropIrrigationWeather);
+                this.cropIrrigationWeatherRecordList.Add(lCropIrrigationWeatherRecord);
                 
                 //Create the initial registry
-                this.addDailyRecordToList(pCropIrrigationWeather, pSowingDate, "Initial registry");
+                lSowingDate = pCropIrrigationWeather.SowingDate;
+                this.addDailyRecordToList(pCropIrrigationWeather, lSowingDate, "Initial registry");
                 
             }
             catch (Exception e)
@@ -1827,8 +2028,8 @@ namespace IrrigationAdvisor.Models.Management
         #endregion
 
         /// <summary>
-        /// Colect the weather data, lIrrigationItem data and lRainItem data and derive the cretion of a new daily record
-        /// This method verify the need of lIrrigationItem, and then recreate the daily record
+        /// Colect the weather data, irrigation data and rain data and derive the cretion of a new daily record
+        /// This method verify the need of irrigation, and then recreate the daily record
         /// </summary>
         /// <param name="pCropIrrigationWeather"></param>
         /// <param name="pDateTime"></param>
@@ -1838,39 +2039,33 @@ namespace IrrigationAdvisor.Models.Management
         {
             bool lReturn = false;
             WeatherData lWeatherData = null;
-            
+            WeatherData lMainWeatherData = null;
+            WeatherData lAlternativeWeatherData = null;
+            Water.Rain lRain = null;
+            Water.Irrigation lIrrigation = null;
+
             try
             {
                 //Controlo que la CropIrrigationWeather exista y la fecha no sean null
                 if (this.CropIrrigationWeatherList.Contains(pCropIrrigationWeather) && pDateTime != null)
                 {
                     //Get Data Weather for the available Weather Station (Main or Alternative)
-                    lWeatherData = pCropIrrigationWeather.GetWeatherDataFromAvailableWeatherStation(pDateTime);
-
+                    lWeatherData = this.getAvailableWeatherStationData(pCropIrrigationWeather, pDateTime);
                     // Si hay datos de estacion meteorologica puedo seguir
                     if (lWeatherData != null)
                     {
-                        if(pCropIrrigationWeather.CalculusMethodForPhenologicalAdjustment.Equals(
-                                            Utils.CalculusOfPhenologicalStage.ByGrowingDegreeDays))
-                        {
-                            pCropIrrigationWeather.AddDailyRecordAccordingGrowinDegreeDays(pDateTime, pObservations, lWeatherData);
-                        }
+                        lIrrigation = this.getIrrigationFromList(pCropIrrigationWeather, pDateTime);
+                        lRain = this.getRainFromList(pCropIrrigationWeather, pDateTime);
+                        //Get Data Weather form Main Weather Station
+                        lMainWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.MainWeatherStation, pDateTime);
+                        //Get Data Weather form Alternative Weather Station
+                        lAlternativeWeatherData = GetWeatherDataByWeatherStationAndDate(pCropIrrigationWeather.AlternativeWeatherStation, pDateTime); 
 
-                        if (pCropIrrigationWeather.CalculusMethodForPhenologicalAdjustment.Equals(
-                                            Utils.CalculusOfPhenologicalStage.ByDaysAfterSowing))
-                        {
-                            pCropIrrigationWeather.AddDailyRecordAccordingDaysAfterSowing(pDateTime, pObservations, lWeatherData);
-                        }
-
+                        this.addDailyRecordToCropIrrigationWeather(pCropIrrigationWeather, lWeatherData, lMainWeatherData, lAlternativeWeatherData, lRain, lIrrigation, pObservations);///Si ya existe registro para ese dia se sobre-escribe
+                        
                         //Luego de que agrego un registro verifico si hay que regar.
                         //Si es asi se agrega el riego a la lista y se reingresa el registro diario. 
                         this.verifyNeedForIrrigation(pCropIrrigationWeather, pDateTime);
-                    }
-                    else 
-                    {
-                        
-                        pCropIrrigationWeather.AddDailyRecordAccordingDaysAfterSowing(pDateTime, pObservations, lWeatherData);
-                        
                     }
                 }
             }
@@ -1895,7 +2090,7 @@ namespace IrrigationAdvisor.Models.Management
             double lQuantityOfWaterToIrrigate;
             Utils.WaterInputType lTypeOfIrrigation;
 
-            lNeedForIrrigationPair = this.IrrigationCalculus.HowMuchToIrrigate(pCropIrrigationWeather);
+            lNeedForIrrigationPair = this.howMuchToIrrigate(pCropIrrigationWeather);
             lQuantityOfWaterToIrrigate = lNeedForIrrigationPair.First;
             lTypeOfIrrigation = lNeedForIrrigationPair.Second;
 
@@ -1906,7 +2101,33 @@ namespace IrrigationAdvisor.Models.Management
             }
         }
 
-        
+        /// <summary>
+        /// TODO explain method
+        /// </summary>
+        /// <param name="pCropIrrigationWeather"></param>
+        /// <returns></returns>
+        public Pair<double, Utils.WaterInputType> howMuchToIrrigate(CropIrrigationWeather pCropIrrigationWeather)
+        {
+            Pair<double, Utils.WaterInputType> lReturn = null;
+            CropIrrigationWeatherRecord lCropIrrigationWeatherRecord = null;
+            //Find the Crop Irrigation Weather Records
+            foreach (CropIrrigationWeatherRecord oneCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
+            {
+                if (oneCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    lCropIrrigationWeatherRecord = oneCropIrrigationWeatherRecord;
+                    break;
+                }
+
+            }
+            //With the Crop Irrigation Weather Records Calculate how much water to irrigate
+            if (lCropIrrigationWeatherRecord != null)
+            {
+                lReturn = this.IrrigationCalculus.howMuchToIrrigate(lCropIrrigationWeatherRecord);
+            }
+            return lReturn;
+        }
+
 
         #endregion
 
@@ -1918,19 +2139,19 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// TODO explain method
         /// </summary>
-        /// <param name="pCropIrrigationWeather"></param>
+        /// <param name="pCropIrrigationWeatherRecord"></param>
         /// <returns></returns>
-        public String printDailyRecordsList(CropIrrigationWeather pCropIrrigationWeather)
+        public String printDailyRecordsList(CropIrrigationWeatherRecord pCropIrrigationWeatherRecord)
         {
             String lReturn = Environment.NewLine + "DAILY RECORDS" + Environment.NewLine ;
             lReturn += Environment.NewLine +Environment.NewLine;
 
-            foreach (DailyRecord lDailyrecord in pCropIrrigationWeather.DailyRecordList)
+            foreach (DailyRecord lDailyrecord in pCropIrrigationWeatherRecord.DailyRecordList)
             {
                 lReturn += lDailyrecord.ToString() + Environment.NewLine;
             }
             //Add all the messages and titles to print the daily records
-            pCropIrrigationWeather.AddToPrintDailyRecords();
+            pCropIrrigationWeatherRecord.AddToPrintDailyRecords();
             return lReturn;
         }
 
@@ -1942,7 +2163,13 @@ namespace IrrigationAdvisor.Models.Management
         public String printDailyrecordsList(CropIrrigationWeather pCropIrrigationWeather)
         {
             String lReturn = "";
-            lReturn = printDailyRecordsList(pCropIrrigationWeather);
+            foreach(CropIrrigationWeatherRecord lCropIrrigationWeatherRecord in this.cropIrrigationWeatherRecordList)
+            {
+                if (lCropIrrigationWeatherRecord.CropIrrigationWeather.Equals(pCropIrrigationWeather))
+                {
+                    lReturn = printDailyRecordsList(lCropIrrigationWeatherRecord);
+                }
+            }
             return lReturn;
         }
 
@@ -1950,10 +2177,10 @@ namespace IrrigationAdvisor.Models.Management
         /// TODO explain method
         /// </summary>
         /// <returns></returns>
-        public String printWeatherDataList(WeatherStation pWeatherStation)
+        public String printWeatherDataList()
         {
             String lReturn = Environment.NewLine + "WEATHER DATA" + Environment.NewLine;
-            foreach (WeatherData lWeatherData in pWeatherStation.WeatherDataList)
+            foreach (WeatherData lWeatherData in this.WeatherDataList)
             {
                 lReturn += lWeatherData.ToString() + Environment.NewLine;
             }
@@ -1970,7 +2197,7 @@ namespace IrrigationAdvisor.Models.Management
         #region WeatherData
 
         /// <summary>
-        /// Return the WeatherData from WeatherStation and Date (depends on the hour)
+        /// TODO explain method
         /// </summary>
         /// <param name="pWeatherStation"></param>
         /// <param name="pDateTime"></param>
@@ -1978,9 +2205,16 @@ namespace IrrigationAdvisor.Models.Management
         public WeatherData GetWeatherDataByWeatherStationAndDate(WeatherStation pWeatherStation, DateTime pDateTime)
         {
             WeatherData lReturn = null;
-
-            lReturn = pWeatherStation.FindWeatherData(pDateTime);
-
+            IEnumerable<WeatherData> lWeatherDataListOrderByDescendingDate;
+            lWeatherDataListOrderByDescendingDate = this.WeatherDataList.OrderByDescending(lWeatherData => lWeatherData.Date);
+            foreach (WeatherData lWeatherData in lWeatherDataListOrderByDescendingDate)
+            {
+                if (lWeatherData.WeatherStation.Equals(pWeatherStation) && lWeatherData.Date.Equals(pDateTime.Date))
+                {
+                    lReturn = lWeatherData;
+                    return lReturn;
+                }
+            }
             return lReturn;
         }
 
@@ -1996,21 +2230,15 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pEvapotranspiration"></param>
         /// <returns></returns>
         public void AddWeatherDataToList(WeatherStation pWeatherStation, DateTime pDateTime,
-                                        Double pTemperature, Double pSolarRadiation, Double pTemMax,
-                                        Double pTemMin, Double pEvapotranspiration)
+            double pTemperature, double pSolarRadiation, double pTemMax,
+            double pTemMin, double pEvapotranspiration)
         {
             
             try
             {
-                WeatherData lWeatherData;
-                
-                lWeatherData = pWeatherStation.AddWeatherData(pDateTime, pTemperature, pSolarRadiation, pTemMax, pTemMin, pEvapotranspiration);
-
-                if(lWeatherData == null)
-                {
-                    pWeatherStation.UpdateWeatherData(pDateTime, pTemperature, pSolarRadiation,
-                                                        pTemMax, pTemMin, pEvapotranspiration);
-                }
+                WeatherData lData = new WeatherData(pWeatherStation, pDateTime,
+                    pTemperature, pTemMax, pTemMin, pSolarRadiation, pEvapotranspiration);
+                this.WeatherDataList.Add(lData);
             }
             catch (Exception e)
             {
@@ -2048,8 +2276,7 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// Create a new Weather Station from parameters,
-        /// If exist return null
+        /// TODO Add description
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pModel"></param>
@@ -2062,32 +2289,23 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public WeatherStation AddWeatherStation (String pName, String pModel, DateTime pDateOfInstallation,
                                 DateTime pDateOfService, DateTime pUpdateTime, int pWirelessTransmission,
-                                Location pLocation, bool pGiveET, Utils.WeatherDataType pWeatherDataType)
+                                Location pLocation, bool pGiveET)
         {
             WeatherStation lReturn = null;
-            WeatherStation lWeatherStation = null;
-            long lWeatherStationId = 0;
-            List<WeatherData> lWeatherDataList = null;
-
-            lWeatherStationId = this.WeatherStationList.Count();
-            lWeatherDataList = new List<WeatherData>();
-            lWeatherStation = new WeatherStation(lWeatherStationId,
+            long lIdWeatherStation = this.WeatherStationList.Count();
+            WeatherStation lWeatherStation = new WeatherStation(lIdWeatherStation,
                                 pName, pModel, pDateOfInstallation, pDateOfService,
-                                pUpdateTime, pWirelessTransmission, pLocation, pGiveET,
-                                lWeatherDataList, pWeatherDataType);
-
+                                pUpdateTime, pWirelessTransmission, pLocation, pGiveET);
             if(ExistWeatherStation(lWeatherStation) == null)
             {
                 this.WeatherStationList.Add(lWeatherStation);
                 lReturn = lWeatherStation;
             }
-
             return lReturn;
         }
 
         /// <summary>
-        /// Update the weather station,
-        /// if not exist, return null.
+        /// TODO add description
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pModel"></param>
@@ -2097,20 +2315,15 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pWirelessTransmission"></param>
         /// <param name="pLocation"></param>
         /// <param name="pGiveET"></param>
-        /// <param name="pWeatherDataList"></param>
-        /// <param name="pWeatherDataType"></param>
         /// <returns></returns>
         public WeatherStation UpdateWeatherStation(String pName, String pModel, DateTime pDateOfInstallation,
                                 DateTime pDateOfService, DateTime pUpdateTime, int pWirelessTransmission,
-                                Location pLocation, bool pGiveET, List<WeatherData> pWeatherDataList,
-                                Utils.WeatherDataType pWeatherDataType)
+                                Location pLocation, bool pGiveET)
         {
             WeatherStation lReturn = null;
-
             WeatherStation lWeatherStation = new WeatherStation(0, pName, pModel,
                                 pDateOfInstallation, pDateOfService, pUpdateTime,
-                                pWirelessTransmission, pLocation, pGiveET,
-                                pWeatherDataList, pWeatherDataType);
+                                pWirelessTransmission, pLocation, pGiveET);
             lReturn = ExistWeatherStation(lWeatherStation);
             if(lReturn != null)
             {
@@ -2122,10 +2335,7 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.WirelessTransmission = pWirelessTransmission;
                 lReturn.Location = pLocation;
                 lReturn.GiveET = pGiveET;
-                lReturn.WeatherDataList = pWeatherDataList;
-                lReturn.WeatherDataType = pWeatherDataType;
             }
-
             return lReturn;
         }
 
@@ -2140,20 +2350,20 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pIsExtraIrrigation"></param>
         /// <returns></returns>
         public void AddOrUpdateIrrigationDataToList(CropIrrigationWeather pCropIrrigationWeather,
-                                                    DateTime pIrrigationDate, 
-                                                    Pair<double, Utils.WaterInputType> pQuantityOfWaterToIrrigateAndTypeOfIrrigation, 
-                                                    bool pIsExtraIrrigation)
+            DateTime pIrrigationDate, Pair<double, Utils.WaterInputType> pQuantityOfWaterToIrrigateAndTypeOfIrrigation, bool pIsExtraIrrigation)
         {
             Water.Irrigation lNewIrrigation = null;
+
             
             try
             {
-                lNewIrrigation = pCropIrrigationWeather.GetIrrigation(pIrrigationDate);
+                lNewIrrigation = getIrrigationFromList(pCropIrrigationWeather, pIrrigationDate);
                 //If there is not a registry then it is created 
                 //If there is an Irrigation Registry it is actualized 
                 if (lNewIrrigation == null)
                 {
                     lNewIrrigation = new Water.Irrigation();
+                    lNewIrrigation.CropIrrigationWeather = pCropIrrigationWeather;
                     lNewIrrigation.Date = pIrrigationDate;
                     if (pIsExtraIrrigation)
                     {
@@ -2165,9 +2375,9 @@ namespace IrrigationAdvisor.Models.Management
                         lNewIrrigation.Input = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                         
                     }
-                    // Set the type of lIrrigationItem. 
+                    // Set the type of irrigation. 
                     lNewIrrigation.Type = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.Second;
-                    pCropIrrigationWeather.IrrigationList.Add(lNewIrrigation);
+                    this.IrrigationList.Add(lNewIrrigation);
                 }
                 else
                 {
@@ -2180,7 +2390,7 @@ namespace IrrigationAdvisor.Models.Management
                     {
                         lNewIrrigation.Input += pQuantityOfWaterToIrrigateAndTypeOfIrrigation.First;
                     }
-                    // Override the type of lIrrigationItem. 
+                    // Override the type of irrigation. 
                     lNewIrrigation.Type = pQuantityOfWaterToIrrigateAndTypeOfIrrigation.Second;
                     
                 }
@@ -2208,13 +2418,14 @@ namespace IrrigationAdvisor.Models.Management
             Rain lNewRain = null;
             try
             {
-                lNewRain = pCropIrrigationWeather.GetRain(pDate);
+                lNewRain = getRainFromList(pCropIrrigationWeather, pDate);
                 if (lNewRain == null)
                 {
                     lNewRain = new Rain();
+                    lNewRain.CropIrrigationWeather = pCropIrrigationWeather;
                     lNewRain.Date = pDate;
                     lNewRain.Input = pInput;
-                    pCropIrrigationWeather.RainList.Add(lNewRain);
+                    this.RainList.Add(lNewRain);
                 }
                 else // If there is a Raub actualize the registry
                 {

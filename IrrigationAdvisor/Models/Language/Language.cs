@@ -37,12 +37,6 @@ namespace IrrigationAdvisor.Models.Language
         #endregion
 
         #region Fields
-
-        /// <summary>
-        /// id of language
-        /// </summary>
-        private long languageId;
-
         /// <summary>
         /// name of the language
         /// </summary>
@@ -52,13 +46,6 @@ namespace IrrigationAdvisor.Models.Language
         #endregion
 
         #region Properties
-
-        public long LanguageId
-        {
-            get { return languageId; }
-            set { languageId = value; }
-        }
-
         public string Name
         {
             get { return name; }
@@ -68,14 +55,12 @@ namespace IrrigationAdvisor.Models.Language
         #endregion
 
         #region Construction
-
         /// <summary>
         /// Constructor of Language
         /// </summary>
         public Language()
         {
-            this.LanguageId = 0;
-            this.Name = "NO NAME";
+
         }
 
         /// <summary>
@@ -84,14 +69,7 @@ namespace IrrigationAdvisor.Models.Language
         /// <param name="name"></param>
         public Language(string newName)
         {
-            this.LanguageId = 0;
             this.Name = newName;
-        }
-
-        public Language(long pLanguageId, String pName)
-        {
-            this.LanguageId = pLanguageId;
-            this.Name = pName;
         }
 
         #endregion
@@ -100,40 +78,17 @@ namespace IrrigationAdvisor.Models.Language
         #endregion
 
         #region Public Methods
-        
-        #endregion
-
-        #region Overrides
-
         /// <summary>
         /// Return the name of the language
         /// </summary>
         /// <returns>name of language</returns>
-        public override string ToString()
+        public String toString()
         {
-            return this.Name;
+            return name;
         }
+        #endregion
 
-        /// <summary>
-        /// Overrides equals
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {
-            if (obj == null || obj.GetType() != this.GetType())
-            {
-                return false;
-            }
-            Language lLanguage = obj as Language;
-            return (this.Name.Equals(lLanguage.Name));
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Name.GetHashCode();
-        }
-
+        #region Overrides
         #endregion
 
     }

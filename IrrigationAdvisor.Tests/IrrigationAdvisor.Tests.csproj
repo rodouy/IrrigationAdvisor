@@ -86,8 +86,6 @@
     <Compile Include="Models\Crop\CropCoefficientTest.cs" />
     <Compile Include="Models\Crop\HorizonTest.cs" />
     <Compile Include="Models\Crop\SoilTest.cs" />
-    <Compile Include="Models\Data\InitialTablesTest.cs" />
-    <Compile Include="Models\IrrigationSystem\IrrigationSystemSimulationTest.cs" />
     <Compile Include="Models\IrrigationSystem\IrrigationSystemTest.cs" />
     <Compile Include="Models\Management\CropIrrigationWeatherRecordsTest.cs" />
     <Compile Include="Models\Utilities\PairTest.cs" />
@@ -96,7 +94,6 @@
     <Compile Include="Models\WeatherStation\WeatherInformationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
