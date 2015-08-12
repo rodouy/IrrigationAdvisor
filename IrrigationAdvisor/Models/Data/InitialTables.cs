@@ -1180,7 +1180,7 @@ namespace IrrigationAdvisor.Models.Data
             lCropCoefficient.AddKCforDayAfterSowing(145, 0.40);
 
 
-            #region Version Anterior a Correccion 11/01/2015
+            #region Version Before correction 11/01/2015
             //Version anterior a la correccion del dia 11/01/2015 segun mail de Sebastian
             /*
             CropCoefficient lCropCoefficient = new CropCoefficient(pSpecie, pRegionList);
