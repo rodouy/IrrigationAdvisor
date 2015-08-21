@@ -6814,3 +6814,7 @@ td.visible-print {
     display: none !important;
   }
 }
+.main-nav {
+    height: 69px;
+    width: 1000px;
+}
