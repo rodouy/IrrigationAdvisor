@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrigationAdvisor", "Irriga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrigationAdvisor.Tests", "IrrigationAdvisor.Tests\IrrigationAdvisor.Tests.csproj", "{872507C0-36E1-446C-B51D-D97F952B9E70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrigationAdvisorConsole", "IrrigationAdvisorConsole\IrrigationAdvisorConsole.csproj", "{E59BC4CE-8DC1-4BB8-8B8C-2E0B04FEB66B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{872507C0-36E1-446C-B51D-D97F952B9E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{872507C0-36E1-446C-B51D-D97F952B9E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{872507C0-36E1-446C-B51D-D97F952B9E70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59BC4CE-8DC1-4BB8-8B8C-2E0B04FEB66B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E59BC4CE-8DC1-4BB8-8B8C-2E0B04FEB66B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E59BC4CE-8DC1-4BB8-8B8C-2E0B04FEB66B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E59BC4CE-8DC1-4BB8-8B8C-2E0B04FEB66B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

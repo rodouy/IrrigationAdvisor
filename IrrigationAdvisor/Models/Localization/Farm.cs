@@ -9,6 +9,7 @@ using System.Web;
 
 using IrrigationAdvisor.Models.Utilities;
 
+
 namespace IrrigationAdvisor.Models.Localization
 {
     /// <summary>
@@ -28,7 +29,7 @@ namespace IrrigationAdvisor.Models.Localization
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - idFarm long - PK (Primary Key)
+    ///     - farmId long - PK (Primary Key)
     ///     - name String
     ///     - address String
     ///     - phone String
@@ -53,7 +54,7 @@ namespace IrrigationAdvisor.Models.Localization
 
         #region Fields
 
-        private long idFarm;
+        private long farmId;
         private String name;
         private String address;
         private String phone;
@@ -69,10 +70,11 @@ namespace IrrigationAdvisor.Models.Localization
 
         #region Properties
 
-        public long IdFarm
+        
+        public long FarmId
         {
-            get { return idFarm; }
-            set { idFarm = value; }
+            get { return farmId; }
+            set { farmId = value; }
         }
 
         public String Name
@@ -144,7 +146,7 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
         public Farm()
         {
-            this.IdFarm = 0;
+            this.FarmId = 0;
             this.Name = "NoName";
             this.Address = "";
             this.Phone = "";
@@ -160,7 +162,7 @@ namespace IrrigationAdvisor.Models.Localization
         /// <summary>
         /// TODO add description
         /// </summary>
-        /// <param name="pIdFarm"></param>
+        /// <param name="pFarmId"></param>
         /// <param name="pName"></param>
         /// <param name="pAddress"></param>
         /// <param name="pPhone"></param>
@@ -171,13 +173,13 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pWeatherStation"></param>
         /// <param name="pUser"></param>
         /// <param name="pIrrigationUnitList"></param>
-        public Farm(long pIdFarm, String pName, String pAddress,
+        public Farm(long pFarmId, String pName, String pAddress,
                     String pPhone, Location pLocation, int pHas,
                     List<Soil> pSoilList, List<Bomb> pBombList,
                     WeatherStation pWeatherStation, User pUser,
                     List<IrrigationUnit> pIrrigationUnitList)
         {
-            this.IdFarm = pIdFarm;
+            this.FarmId = pFarmId;
             this.Name = pName;
             this.Address = pAddress;
             this.Phone = pPhone;

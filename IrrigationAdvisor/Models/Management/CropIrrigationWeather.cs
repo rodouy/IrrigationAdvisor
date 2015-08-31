@@ -2061,7 +2061,7 @@ namespace IrrigationAdvisor.Models.Management
                 int lDaysAfterSowingModified = 0;
                 Double lCropCoefficient = 0;
                 Double lEvapotranspirationCropInput = 0;
-                WaterOutput lEvapotranspirationCrop = null;
+                EvapotranspirationCrop lEvapotranspirationCrop = null;
                 DailyRecord lNewDailyRecord = null;
                 WeatherData lMainWeatherData = null;
                 WeatherData lAlternativeWeatherData = null;
@@ -2220,7 +2220,7 @@ namespace IrrigationAdvisor.Models.Management
                 int lDaysAfterSowingModified = 0;
                 Double lCropCoefficient = 0;
                 Double lEvapotranspirationCropInput = 0;
-                WaterOutput lEvapotranspirationCrop = null;
+                EvapotranspirationCrop lEvapotranspirationCrop = null;
                 DailyRecord lNewDailyRecord = null;
                 WeatherData lMainWeatherData = null;
                 WeatherData lAlternativeWeatherData = null;

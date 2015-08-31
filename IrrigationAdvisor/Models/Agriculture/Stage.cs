@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Web;
 
@@ -62,6 +63,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - Name: the name of the instance
         /// </summary>
 
+        
         public long StageId
         {
             get { return stageId; }

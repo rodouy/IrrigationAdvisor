@@ -8,6 +8,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 
+
 namespace IrrigationAdvisor.Models.Weather
 {
     public class WeatherInformation
@@ -16,7 +17,8 @@ namespace IrrigationAdvisor.Models.Weather
         #endregion
 
         #region Fields
-        
+
+        private long weatherInformationId;
         private bool isTemperature = false;
         private bool isTemperatureMax = false;
         private bool isTemperatureMin = false;
@@ -48,13 +50,20 @@ namespace IrrigationAdvisor.Models.Weather
         private String requestData;
         private String responseData;
 
-
+        private long weatherDataId;
         private WeatherData weatherData;
 
         #endregion
 
         #region Properties
+
         
+        public long WeatherInformationId
+        {
+            get { return weatherInformationId; }
+            set { weatherInformationId = value; }
+        }
+
         public String WebAddress
         {
             get { return webAddress; }
@@ -77,6 +86,12 @@ namespace IrrigationAdvisor.Models.Weather
         {
             get { return responseData; }
             set { responseData = value; }
+        }
+
+        public long WeatherDataId
+        {
+            get { return weatherDataId; }
+            set { weatherDataId = value; }
         }
 
         public WeatherData WeatherData

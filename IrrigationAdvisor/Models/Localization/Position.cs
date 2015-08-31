@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace IrrigationAdvisor.Models.Localization
 {
     /// <summary>
@@ -40,8 +37,8 @@ namespace IrrigationAdvisor.Models.Localization
     ///     - getDistance(pOrigin Position, pDestiny Position) double
     /// 
     /// </summary>
-    //[Serializable()]
-    public class Position
+    
+    public partial class Position
     {
         #region Consts
         #endregion
@@ -53,10 +50,11 @@ namespace IrrigationAdvisor.Models.Localization
         ///     - latitude double
         ///     - longitude double
         /// </summary>
-        private double latitude;
-        private double longitude;
+        private long positionId;
+        private Double latitude;
+        private Double longitude;
         //First = latitude; Second = longitude
-        private Pair<double, double> thePosition;
+        private Pair<Double, Double> thePosition;
 
         #endregion
 
@@ -69,9 +67,12 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
 
 
-        [Key]
-        public virtual long id { get; set; }
-
+        
+        public virtual long PositionId
+        {
+            get { return positionId; }
+            set { positionId = value; }
+        }
 
         public virtual double Latitude
         {
@@ -83,7 +84,6 @@ namespace IrrigationAdvisor.Models.Localization
             }
         }
 
-
         public virtual double Longitude
         {
             get { return longitude; }
@@ -94,7 +94,6 @@ namespace IrrigationAdvisor.Models.Localization
             }
         }
 
-        
         public Pair<double, double> ThePosition
         {
             get { return thePosition; }
@@ -108,13 +107,15 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
         public Position()
         {
-            this.latitude = 0;
-            this.longitude = 0;
-            this.thePosition = new Pair<double, double>(this.latitude, this.longitude);
+            this.PositionId = 0;
+            this.Latitude = 0;
+            this.Longitude = 0;
+            this.thePosition = new Pair<Double, Double>(this.latitude, this.longitude);
         }
 
-        public Position(double pLatitude, double pLongitude)
+        public Position(long pPositionId, Double pLatitude, Double pLongitude)
         {
+            this.PositionId = pPositionId;
             this.latitude = pLatitude;
             this.longitude = pLongitude;
             this.thePosition = new Pair<double, double> (this.latitude, this.longitude);
@@ -153,7 +154,7 @@ namespace IrrigationAdvisor.Models.Localization
             Position lPosition = null;
             double lNewLatitude = pOrigin.Latitude + pLatitude;
             double lNewLongitude = pOrigin.Longitude + pLongitude;
-            lPosition = new Position(lNewLatitude, lNewLongitude);
+            lPosition = new Position(0, lNewLatitude, lNewLongitude);
             return lPosition;
         }
 

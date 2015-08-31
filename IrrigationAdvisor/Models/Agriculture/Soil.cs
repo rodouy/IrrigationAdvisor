@@ -1,6 +1,7 @@
 ﻿using IrrigationAdvisor.Models.Localization;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Web;
 
@@ -26,7 +27,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - idSoil long
+    ///     - soilId long
     ///     - name String
     ///     - description String
     ///     - location Location
@@ -60,7 +61,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Fields
 
-        private long idSoil;
+        private long soilId;
         private String name;
         private String description;
         private Location location;
@@ -73,12 +74,13 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Properties
 
-        public long IdSoil
-        {
-            get { return idSoil; }
-            set { idSoil = value; }
-        }
         
+        public long SoilId
+        {
+            get { return soilId; }
+            set { soilId = value; }
+        }
+
         public String Name
         {
             get { return name; }
@@ -121,7 +123,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         
         public Soil() 
         {
-            this.IdSoil = 0;
+            this.SoilId = 0;
             this.Name= "";
             this.Description = "";
             this.Location = null;
@@ -133,7 +135,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         public Soil(long pIdSoil, String pName, String pDescription, 
             Location pLocation, DateTime pTestDate, double pDepthLimit)
         {
-            this.IdSoil = pIdSoil;
+            this.SoilId = pIdSoil;
             this.Name = pName;
             this.Description = pDescription;
             this.Location = pLocation;

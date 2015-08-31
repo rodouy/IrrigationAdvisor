@@ -1,5 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using IrrigationAdvisor.Models.Localization;
+using Microsoft.Owin;
 using Owin;
+using System.Collections.Generic;
 
 [assembly: OwinStartupAttribute(typeof(IrrigationAdvisor.Startup))]
 namespace IrrigationAdvisor
@@ -10,5 +12,6 @@ namespace IrrigationAdvisor
         {
             ConfigureAuth(app);
         }
+
     }
 }
