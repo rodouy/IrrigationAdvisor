@@ -1,0 +1,151 @@
+﻿
+
+
+/* ======================================== */
+/* TABELAS
+/* ======================================== */
+
+
+/* Tabela simples */
+.tabela_simples {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+    .tabela_simples th {
+        padding: 10px;
+        background-color: #ededed;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tabela_simples td {
+        padding: 10px;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tabela_simples caption {
+        color: #999;
+        text-transform: uppercase;
+        padding: 5px;
+        font-size: 0.9em;
+    }
+
+    .tabela_simples th.sub, .tabela_mini th.sub {
+        padding: 15px 0;
+        font-weight: normal;
+    }
+
+/* Tabela mini, para apresentar muitos dados */
+.tabela_mini {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    font-size: 0.9em;
+}
+
+    .tabela_mini th {
+        text-align: left;
+        padding: 3px 5px;
+        background-color: #ededed;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tabela_mini td {
+        padding: 3px 5px;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tabela_mini caption {
+        color: #999;
+        text-transform: uppercase;
+        padding: 5px;
+        font-size: 0.9em;
+    }
+
+/* Tabela linhas */
+.tabela_linhas {
+    border-top: 1px solid #ccc;
+}
+
+    .tabela_linhas th {
+        text-align: left;
+        padding: 3px;
+        background-color: #ededed;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tabela_linhas td {
+        padding: 3px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tabela_linhas caption {
+        color: #999;
+        text-transform: uppercase;
+        padding: 5px;
+        font-size: 0.9em;
+    }
+
+/* Tabela cores */
+.tabela_cores th {
+    padding: 3px;
+    background-color: #ededed;
+    border: 1px solid #ccc;
+}
+
+.tabela_cores td {
+    padding: 3px;
+    border: 1px solid #ccc;
+}
+
+.tabela_cores caption {
+    color: #999;
+    text-transform: uppercase;
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+
+/* Itens e cores de status para <TD> */
+.status,
+.legenda_verde, .legenda_azul, .legenda_amarelo, .legenda_vermelho, .legenda_ciano {
+    width: 33px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.tabela_cores td.verde, .legenda_verde {
+    background-color: #339900;
+    border: 1px solid #026500;
+    color: black;
+}
+
+.tabela_cores td.azul, .legenda_azul {
+    background-color: #003399;
+    border: 1px solid #000066;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.tabela_cores td.amarelo, .legenda_amarelo {
+    background-color: #FFCC00;
+    border: 1px solid #FFaa00;
+    color: black;
+}
+
+.tabela_cores td.vermelho, .legenda_vermelho {
+    background-color: #FF0000;
+    border: 1px solid #CC0000;
+    color: white;
+}
+
+.tabela_cores td.ciano, .legenda_ciano {
+    background-color: #00FFFF;
+    border: 1px solid #B0C4DE;
+}
