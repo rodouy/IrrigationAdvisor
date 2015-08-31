@@ -4,18 +4,110 @@
 
 
 
+
+
+
 <div class="row">
+
+
+    <a title="Go to the home page">
+        <img src="../Content/Image/Farm.jpg">
+    </a>
+    <button id="create-user">+ Agregar Riego</button>
+
     @{ Html.RenderAction("FrontPagePartial", "Home"); }
+    @{ Html.RenderAction("WeatherPartial", "Home"); }
 
-    @*<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=Montevideo&color=#00aaff&font=Georgia&units=ca"> </iframe>*@
-
-    @*<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="75%"
-            src="http://forecast.io/embed/#lat=69.649205&lon=18.955324&name=Tromso, Norway&color=#00aaff&font=Helvetica&units=es"></iframe>*@
-    <a href="http://www.accuweather.com/es/uy/montevideo/349269/current-weather/349269" class="aw-widget-legal">
-        <!--
-        By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
-        -->
-    </a><div id="awtd1440113082473" class="aw-widget-36hour" data-locationkey="349269" data-unit="c" data-language="es" data-useip="false" data-uid="awtd1440113082473" data-editlocation="true"></div>
-    <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
 </div>
 
+<script>
+    $(function () {
+        var dialog, form,
+
+          // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+           name = $("#name"),
+          email = $("#email"),
+          password = $("#password"),
+          allFields = $([]).add(name).add(email).add(password),
+          tips = $(".validateTips");
+
+        function updateTips(t) {
+            tips
+              .text(t)
+              .addClass("ui-state-highlight");
+            setTimeout(function () {
+                tips.removeClass("ui-state-highlight", 1500);
+            }, 500);
+        }
+
+        function checkLength(o, n, min, max) {
+            if (o.val().length > max || o.val().length < min) {
+                o.addClass("ui-state-error");
+                updateTips("Length of " + n + " must be between " +
+                  min + " and " + max + ".");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkRegexp(o, regexp, n) {
+            if (!(regexp.test(o.val()))) {
+                o.addClass("ui-state-error");
+                updateTips(n);
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function addUser() {
+            var valid = true;
+            allFields.removeClass("ui-state-error");
+
+            valid = true;
+
+            if (valid) {
+                $("#users tbody").append("<tr>" +
+                  "<td>" + name.val() + "</td>" +
+                  "<td>" + email.val() + "</td>" +
+                  "<td>" + password.val() + "</td>" +
+                "</tr>");
+                dialog.dialog("close");
+            }
+            return valid;
+        }
+
+        dialog = $("#dialog-form").dialog({
+            autoOpen: false,
+            height: 300,
+            width: 350,
+            modal: true,
+            buttons: {
+                "Agregar": addUser,
+                "Cancelar": function () {
+                    dialog.dialog("close");
+                }
+            },
+            close: function () {
+                form[0].reset();
+                allFields.removeClass("ui-state-error");
+            }
+        });
+
+        form = dialog.find("form").on("submit", function (event) {
+            event.preventDefault();
+            addUser();
+        });
+
+        $("#create-user").button().on("click", function () {
+            dialog.dialog("open");
+        });
+    });
+</script>
+<div id="dialog-form" title="Create new user">
+
+    @{ Html.RenderAction("AddIrrigation", "Home"); }
+
+
+</div>

@@ -1,0 +1,21 @@
+﻿@model List<IrrigationAdvisor.Models.Irrigation.IrrigationUnit>
+     
+    
+    <form>
+        <fieldset>
+            <label for="name">Lluvia</label>
+            <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
+            <select>
+
+                @foreach (var item in Model)
+                {
+                    <option value="value">@item.Name</option>
+                }
+
+              
+            </select>
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+    </form>

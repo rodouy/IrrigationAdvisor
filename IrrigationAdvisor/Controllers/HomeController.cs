@@ -1,9 +1,13 @@
 ﻿using IrrigationAdvisor.Models.GridHome;
 using IrrigationAdvisor.Models.Localization;
+using IrrigationAdvisor.Models.Management;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,18 +37,17 @@ namespace IrrigationAdvisor.Controllers
         [ChildActionOnly]
         public PartialViewResult FrontPagePartial()
         {
-
-
             return PartialView("_FrontPagePartial", getGridPivotHome());
         }
-
-
+        [ChildActionOnly]
+        public PartialViewResult WeatherPartial()
+        {
+            return PartialView("_WeatherPartial", getWeather());
+        }
 
         private readonly List<GridPivotHome> gridPivotHome = new List<GridPivotHome>();
         public List<GridPivotHome> getGridPivotHome()
         {
-
-
             List<GridPivotDetailHome> gridPivotDetailHome2 = new List<GridPivotDetailHome>();
 
             gridPivotDetailHome2.Add(new GridPivotDetailHome(0, 10, 0, DateTime.Now.AddDays(-3), false, Models.Utilities.Utils.IrrigationStatus.Cyan));
@@ -55,17 +58,71 @@ namespace IrrigationAdvisor.Controllers
             gridPivotDetailHome2.Add(new GridPivotDetailHome(0, 0, 0, DateTime.Now.AddDays(+2), false, Models.Utilities.Utils.IrrigationStatus.Green));
             gridPivotDetailHome2.Add(new GridPivotDetailHome(0, 0, 0, DateTime.Now.AddDays(+2), false, Models.Utilities.Utils.IrrigationStatus.Green));
 
-
             List<GridPivotDetailHome> gridPivotDetailHome3 = new List<GridPivotDetailHome>();
-        
-         
- 
-
             gridPivotHome.Add(new GridPivotHome("Pivot 1", "v0", "Corn", gridPivotDetailHome2));
-            
- 
+
             return gridPivotHome;
 
         }
+
+        public List<IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather> getWeather()
+        {
+
+            List<IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather> GridWeatherList = new List<IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather>();
+
+            String high = string.Empty;
+            String low = string.Empty;
+            String weekday = string.Empty;
+            String month = string.Empty;
+            String urlImage = string.Empty;
+            String description = string.Empty;
+            String probabilityRain = string.Empty;
+            String mmRain = string.Empty;
+
+
+            // TODO Replace Url To web Config Diego E.
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://api.wunderground.com/api/ac6d819f785ccfa5/forecast10day/lang:SP/q/-34.8172490,-56.1590040.json");
+            httpWebRequest.Method = WebRequestMethods.Http.Get;
+            httpWebRequest.Accept = "application/json";
+            var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+            string json = string.Empty;
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                json = sr.ReadToEnd();
+            }
+
+            // Json To C#  DeserializeJsno to IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.RootObject
+            IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.RootObject jsonObj = JsonConvert.DeserializeObject<IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.RootObject>(json);
+
+
+            // Iterate ForecastDay
+            foreach (var item in jsonObj.forecast.simpleforecast.forecastday)
+            {
+                high = item.high.celsius;
+                low = item.low.celsius;
+                month = item.date.month.ToString();
+                weekday = item.date.weekday;
+                urlImage = "//icons.wxug.com/i/c/v4/" + item.icon + ".svg";
+                description = item.conditions;
+                probabilityRain = item.pop.ToString();
+                mmRain = item.qpf_allday.mm.ToString();
+                GridWeatherList.Add(new IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather(high, low, weekday, month, urlImage, description, probabilityRain, mmRain));
+            }
+
+            return GridWeatherList;
+        }
+
+        public PartialViewResult AddIrrigation()
+        {
+
+            IrrigationSystem testIrrigationSystem;
+            testIrrigationSystem = IrrigationSystem.Instance;
+
+
+
+            return PartialView("_AddIrrigation", testIrrigationSystem.IrrigationUnitList);
+        }
+
     }
 }
