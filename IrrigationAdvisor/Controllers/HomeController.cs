@@ -1,4 +1,5 @@
 ﻿using IrrigationAdvisor.Models.GridHome;
+using IrrigationAdvisor.Models.Irrigation;
 using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Management;
 using Newtonsoft.Json;
@@ -32,6 +33,21 @@ namespace IrrigationAdvisor.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+
+
+        //public Boolean AddRain()
+        //{
+        //    IrrigationSystem testIrrigationSystem;
+        //    testIrrigationSystem = IrrigationSystem.Instance;
+        //    return true;
+        //}
+
+        [HttpPost]
+        public ActionResult AddRain(string irrigation, string pivot)
+        {
+            return Json("Finished");
         }
 
         [ChildActionOnly]
@@ -119,8 +135,11 @@ namespace IrrigationAdvisor.Controllers
             IrrigationSystem testIrrigationSystem;
             testIrrigationSystem = IrrigationSystem.Instance;
 
-
-
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 1", "", 1, null, 1, null, null, null));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 2", "", 1, null, 1, null, null, null));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 3", "", 1, null, 1, null, null, null));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 4", "", 1, null, 1, null, null, null));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 5", "", 1, null, 1, null, null, null));
             return PartialView("_AddIrrigation", testIrrigationSystem.IrrigationUnitList);
         }
 

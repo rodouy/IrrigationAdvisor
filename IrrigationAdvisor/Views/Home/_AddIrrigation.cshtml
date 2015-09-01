@@ -1,21 +1,60 @@
 ﻿@model List<IrrigationAdvisor.Models.Irrigation.IrrigationUnit>
-     
-    
-    <form>
-        <fieldset>
-            <label for="name">Lluvia</label>
-            <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
-            <select>
 
-                @foreach (var item in Model)
-                {
-                    <option value="value">@item.Name</option>
-                }
 
-              
-            </select>
+<form>
+    <fieldset>
+        <label>Lluvia</label>
+        <input type="number" name="name" id="irrigation" value="Jane Smith"></br>
+        <label>Pivot  </label>
+        <select>
 
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </fieldset>
-    </form>
+            @foreach (var item in Model)
+            {
+                <option value="value">@item.Name</option>
+            }
+
+
+        </select>
+
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+    function do_save() {
+        if (Math.floor(Math.random() * 2) == 1) {
+            console.log('success');
+
+            return;
+        }
+        console.log('failure');
+        return false;
+    }
+
+    function addRain() {
+
+
+        var data = {
+            irrigation: $('#irrigation').val(),
+            pivot: "Passw"
+        };
+
+        $.ajax({
+            url: '@Url.Action("AddRain","Home")',
+            type: 'POST',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                alert("ffff");
+                $('#myModal').modal('hide');
+            }
+        });
+
+
+    }
+</script>
+

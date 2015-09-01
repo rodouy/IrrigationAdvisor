@@ -6,108 +6,37 @@
 
 
 
-
 <div class="row">
 
 
     <a title="Go to the home page">
         <img src="../Content/Image/Farm.jpg">
     </a>
-    <button id="create-user">+ Agregar Riego</button>
 
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#RainModal">Agregar Riego</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="RainModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar Riego </h4>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderAction("AddIrrigation", "Home"); }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="closemodal" class="btn btn-primary" onclick="addRain()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   
     @{ Html.RenderAction("FrontPagePartial", "Home"); }
-    @{ Html.RenderAction("WeatherPartial", "Home"); }
-
-</div>
-
-<script>
-    $(function () {
-        var dialog, form,
-
-          // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-           name = $("#name"),
-          email = $("#email"),
-          password = $("#password"),
-          allFields = $([]).add(name).add(email).add(password),
-          tips = $(".validateTips");
-
-        function updateTips(t) {
-            tips
-              .text(t)
-              .addClass("ui-state-highlight");
-            setTimeout(function () {
-                tips.removeClass("ui-state-highlight", 1500);
-            }, 500);
-        }
-
-        function checkLength(o, n, min, max) {
-            if (o.val().length > max || o.val().length < min) {
-                o.addClass("ui-state-error");
-                updateTips("Length of " + n + " must be between " +
-                  min + " and " + max + ".");
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        function checkRegexp(o, regexp, n) {
-            if (!(regexp.test(o.val()))) {
-                o.addClass("ui-state-error");
-                updateTips(n);
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        function addUser() {
-            var valid = true;
-            allFields.removeClass("ui-state-error");
-
-            valid = true;
-
-            if (valid) {
-                $("#users tbody").append("<tr>" +
-                  "<td>" + name.val() + "</td>" +
-                  "<td>" + email.val() + "</td>" +
-                  "<td>" + password.val() + "</td>" +
-                "</tr>");
-                dialog.dialog("close");
-            }
-            return valid;
-        }
-
-        dialog = $("#dialog-form").dialog({
-            autoOpen: false,
-            height: 300,
-            width: 350,
-            modal: true,
-            buttons: {
-                "Agregar": addUser,
-                "Cancelar": function () {
-                    dialog.dialog("close");
-                }
-            },
-            close: function () {
-                form[0].reset();
-                allFields.removeClass("ui-state-error");
-            }
-        });
-
-        form = dialog.find("form").on("submit", function (event) {
-            event.preventDefault();
-            addUser();
-        });
-
-        $("#create-user").button().on("click", function () {
-            dialog.dialog("open");
-        });
-    });
-</script>
-<div id="dialog-form" title="Create new user">
-
-    @{ Html.RenderAction("AddIrrigation", "Home"); }
-
+    @*@{ Html.RenderAction("WeatherPartial", "Home"); }*@
 
 </div>
