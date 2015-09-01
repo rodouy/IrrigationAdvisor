@@ -230,6 +230,8 @@
     <Compile Include="Models\CropCoefficientTable.cs" />
     <Compile Include="Models\Data\ExternalData.cs" />
     <Compile Include="Models\Data\InitialTables.cs" />
+    <Compile Include="Models\GridHome\GridDetailPivottHome.cs" />
+    <Compile Include="Models\GridHome\GriPivotHome .cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Localization\Farm.cs" />
     <Compile Include="Models\Management\IrrigationSystem.cs" />
@@ -355,6 +357,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\_AddIrrigation.cshtml" />
+    <Content Include="Views\Home\_FrontPagePartial.cshtml" />
+    <Content Include="Views\Home\_WeatherPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
