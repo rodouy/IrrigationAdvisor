@@ -35,7 +35,7 @@ namespace IrrigationAdvisor.Models.Localization
         ///     
         /// -----------------------------------------------------------------
         /// Fields of Class:
-        ///     - idLocation long
+        ///     - locationId long
         ///     - position Position <double,double>
         ///     - country Country
         ///     - region Region
@@ -49,9 +49,8 @@ namespace IrrigationAdvisor.Models.Localization
         ///     - minDistance(origin<double, double>, List<Location>): Location
         /// 
         /// </summary>
-        /// 
-    //[Serializable()]
-    public class Location
+    
+    public partial class Location
     {
         #region Const
         #endregion
@@ -59,51 +58,78 @@ namespace IrrigationAdvisor.Models.Localization
         #region Fields
         /// <summary>
         /// The fields are:
-        ///     - idLocation: location identifier
+        ///     - locationId: location identifier
         ///     - position: the position of the Locatioin
         ///     - country: the country of the Location
         ///     - region: the region of the Location
         ///     - city: the city of the Location
         ///     
         /// </summary>
-        private long idLocation;
-        private Position position;
-        private Country country;
-        private Region region;
-        private City city;
+        
+        private long locationId;
+        private long positionId;
+        private long countryId;
+        private long regionId;
+        private long cityId;
 
         #endregion
 
         #region Properties
 
-        public long IdLocation
-        {
-            get { return idLocation; }
-            set { idLocation = value; }
-        }
-
-        public Position Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
         
-        public Country Country
+        public long LocationId
         {
-            get { return country; }
-            set { country = value; }
+            get { return locationId; }
+            set { locationId = value; }
         }
 
-        public Region Region
+        public long PositionId
         {
-            get { return region; }
-            set { region = value; }
+            get { return positionId; }
+            set { positionId = value; }
         }
 
-        public City City
+        public long CountryId
         {
-            get { return city; }
-            set { city = value; }
+            get { return countryId; }
+            set { countryId = value; }
+        }
+
+        public long RegionId
+        {
+            get { return regionId; }
+            set { regionId = value; }
+        }
+
+        public long CityId
+        {
+            get { return cityId; }
+            set { cityId = value; }
+        }
+
+
+        public virtual Position Position
+        {
+            get;
+            set;
+        }
+
+        public virtual Country Country
+        {
+            get;
+            set;
+        }
+
+        public virtual Region Region
+        {
+            get;
+            set;
+        }
+
+        public virtual City City
+        {
+            get;
+            set;
         }
 
         #endregion
@@ -115,11 +141,11 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
         public Location()
         {
-            this.IdLocation = 0;
-            this.Position = new Position(0,0);
-            this.Country = new Country();
-            this.Region = new Region();
-            this.City = new City();
+            this.LocationId = 0;
+            this.PositionId = 0;
+            this.CountryId = 0;
+            this.RegionId = 0;
+            this.CityId = 0;
         }
 
         /// <summary>
@@ -133,13 +159,22 @@ namespace IrrigationAdvisor.Models.Localization
         public Location(long pIdLocation, Position pPosition, 
             Country pCountry, Region pRegion, City pCity )
         {
-            this.IdLocation = pIdLocation;
-            this.Position = pPosition;
-            this.Country = pCountry;
-            this.Region = pRegion;
-            this.City = pCity;
+            this.LocationId = pIdLocation;
+            this.PositionId = pPosition.PositionId;
+            this.CountryId = pCountry.CountryId;
+            this.RegionId = pRegion.RegionId;
+            this.CityId = pCity.CityId;
         }
 
+        public Location(long pLocationId, long pPositionId,
+            long pCountryId, long pRegionId, long pCityId)
+        {
+            this.LocationId = pLocationId;
+            this.PositionId = pPositionId;
+            this.CountryId = pCountryId;
+            this.RegionId = pRegionId;
+            this.CityId = pCityId;
+        }
         #endregion
 
         #region Private Helpers

@@ -1,6 +1,7 @@
 ﻿using IrrigationAdvisor.Models.Localization;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Web;
 
@@ -16,7 +17,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     Describes a specie
     ///     
     /// References:
-    ///     SpecieCycle
+    ///     SpecieCycleList
     ///     
     ///     
     /// Dependencies:
@@ -31,12 +32,12 @@ namespace IrrigationAdvisor.Models.Agriculture
     /// Fields of Class:
     ///     - specieId long
     ///     - name String
-    ///     - specieCycle SpecieCycle
+    ///     - specieCycleList SpecieCycleList
     ///     - baseTemeperature double
     ///     - 
     /// Methods: 
     ///     - Specie()      -- constructor
-    ///     - Specie(specieId, name, specieCycle, baseTemperature)  -- consturctor with parameters
+    ///     - Specie(specieId, name, specieCycleList, baseTemperature)  -- consturctor with parameters
     ///     - (double): double
     ///     - 
     /// 
@@ -51,42 +52,56 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// The fields are:
         ///     - specieId: identifier
         ///     - name: the name of the specie    -  PK
-        ///     - specieCycle: cycle of the specie    -  PK
+        ///     - specieCycleList: cycle of the specie    -  PK
         ///     - baseTemperature: base temperature of the specie for the region of the instance
         ///     
         /// </summary>
         private long specieId;
         private string name;
-        private SpecieCycle specieCycle;
+        private long specieCycleId;
         private double baseTemperature;
-        
+        private double stressTemperature;
+                
         #endregion
 
         #region Properties
 
+        
         public long SpecieId
         {
             get { return specieId; }
+            set { specieId = value; }
         }
 
         public String Name
         {
             get { return name; }
             set { name = value; }
-        }        
-        
-        public SpecieCycle SpecieCycle
-        {
-            get { return specieCycle; }
-            set { specieCycle = value; }
         }
 
+        public long SpecieCycleId
+        {
+            get { return specieCycleId; }
+            set { specieCycleId = value; }
+        }
+        
         public double BaseTemperature
         {
             get { return baseTemperature; }
             set { baseTemperature = value; }
         }
+        
+        public double StressTemperature
+        {
+            get { return stressTemperature; }
+            set { stressTemperature = value; }
+        }
 
+        public virtual SpecieCycle SpecieCycle
+        {
+            get;
+            set;
+        }
 
         #endregion
        
@@ -99,24 +114,9 @@ namespace IrrigationAdvisor.Models.Agriculture
         {
             this.specieId = 0;
             this.Name = "noName";
-            this.SpecieCycle = new SpecieCycle();
+            this.SpecieCycleId = 0;
             this.BaseTemperature = 0;
-        }
-
-        /// <summary>
-        /// Constructor of Specie with parameters
-        /// </summary>
-        /// <param name="pSpecieId"></param>
-        /// <param name="pName"></param>
-        /// <param name="pSpecieCycleName"></param>
-        /// <param name="pBaseTemperature"></param>
-        public Specie(long pSpecieId, String pName,
-                    String pSpecieCycleName, Double pBaseTemperature)
-        {
-            this.specieId = pSpecieId;
-            this.Name = pName;
-            this.SpecieCycle = new SpecieCycle(pSpecieCycleName);
-            this.BaseTemperature = pBaseTemperature;
+            this.StressTemperature = 0;
         }
 
         /// <summary>
@@ -127,12 +127,14 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <param name="pSpecieCycle"></param>
         /// <param name="pBaseTemperature"></param>
         public Specie(long pSpecieId, String pName,  
-            SpecieCycle pSpecieCycle, double pBaseTemperature)
+                    long pSpecieCycleId, Double pBaseTemperature,
+                    Double pStressTemperature)
         {
             this.specieId = pSpecieId;
             this.Name = pName;
-            this.SpecieCycle = pSpecieCycle;
+            this.SpecieCycleId = pSpecieCycleId;
             this.BaseTemperature = pBaseTemperature;
+            this.StressTemperature = pStressTemperature;
         }
 
         

@@ -5,6 +5,7 @@ using System.Web;
 
 using IrrigationAdvisor.Models.Utilities;
 
+
 namespace IrrigationAdvisor.Models.Weather
 {
     /// <summary>
@@ -114,6 +115,7 @@ namespace IrrigationAdvisor.Models.Weather
 
         #region Properties
 
+        
         public long WeatherDataId
         {
             get { return weatherDataId; }

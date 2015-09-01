@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Web;
 
@@ -26,8 +27,8 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     - name String - PK (Primary Key)
     /// 
     /// Methods:
-    ///     - SpecieCycle()        -- constructor
-    ///     - SpecieCycle(name)    -- consturctor with parameters
+    ///     - SpecieCycleList()        -- constructor
+    ///     - SpecieCycleList(name)    -- consturctor with parameters
     ///     - SetName(newName)     -- method to set the name field
     /// 
     /// </summary>
@@ -44,6 +45,8 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - duration: the duration of the cycle
         ///     
         /// </summary>
+
+        private long specieCycleId;
         private string name;
         private double duration;
 
@@ -55,6 +58,14 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// The properties are:
         ///     - Name: the name of the instance
         /// </summary>
+
+        
+        public long SpecieCycleId
+        {
+            get { return specieCycleId; }
+            set { specieCycleId = value; }
+        }
+
         public string Name
         {
             get { return name; }
@@ -67,35 +78,39 @@ namespace IrrigationAdvisor.Models.Agriculture
           get { return duration; }
           set { duration = value; }
         }
+
         #endregion
 
         #region Construction
 
         /// <summary>
-        /// Constructor of SpecieCycle
+        /// Constructor of SpecieCycleList
         /// </summary>
         public SpecieCycle()
         {
+            this.SpecieCycleId = 0;
             this.Name = "noname";
             this.Duration = 0;
         }
 
         /// <summary>
-        /// Constructor of SpecieCycle with Name parameter
+        /// Constructor of SpecieCycleList with Name parameter
         /// </summary>
         /// <param name="pName"></param>
-        public SpecieCycle(String pName)
+        public SpecieCycle(long pSpecieCycleId, String pName)
         {
+            this.SpecieCycleId = pSpecieCycleId;
             this.Name = pName;
         }
 
         /// <summary>
-        /// Constructor of SpecieCycle with parameters
+        /// Constructor of SpecieCycleList with parameters
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pDuration"></param>
-        public SpecieCycle(String pName, Double pDuration)
+        public SpecieCycle(long pSpecieCycleId, String pName, Double pDuration)
         {
+            this.SpecieCycleId = pSpecieCycleId;
             this.Name = pName;
             this.Duration = pDuration;
         }

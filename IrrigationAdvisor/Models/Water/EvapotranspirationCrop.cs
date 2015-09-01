@@ -80,5 +80,14 @@ namespace IrrigationAdvisor.Models.Water
 
         #endregion
 
+        #region Private Helpers
+        #endregion
+
+        #region Public Methods
+        #endregion
+
+        #region Overrides
+        #endregion
+
     }
 }

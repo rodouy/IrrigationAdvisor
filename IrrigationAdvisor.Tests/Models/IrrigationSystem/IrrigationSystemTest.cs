@@ -32,9 +32,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
         private Location testLocationSantaLucia;
         private Location testLocationMinas;
+        private SpecieCycle testSpecieCycleUnico;
+        private SpecieCycle testSpecieCycleCorto;
         private Specie testSpecieSoja;
         private Specie testSpecieMaiz;
-        private List<Specie> testSpecieList;
+        //private List<Specie> testSpecieList;
 
         private Stage testInitialStage_Maiz;
         private Stage testInitialStage_Soja;
@@ -117,8 +119,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Utils.CalculusOfPhenologicalStage testCalculusOfPhenologicalStage_Pivot_3_4;
         private Utils.CalculusOfPhenologicalStage testCalculusOfPhenologicalStage_Pivot_5;
 
-        private double testSojaBaseTemp;
-        private double testMaizBaseTemp;
+        private double testSojaBaseTemperature;
+        private double testSojaStressTemperature;
+        private double testMaizBaseTemperature;
+        private double testMaizStressTemperature;
         private double testPREDETERMINATED_IRRIGATION;
 
         private double testMaxEvapotranspirationToIrrigate_Maiz;
@@ -192,8 +196,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testSurface_Pivot_5 = 300;
 
             //Specie Base Temp
-            testSojaBaseTemp = 8;
-            testMaizBaseTemp = 10;
+            testSojaBaseTemperature = 8;
+            testSojaStressTemperature = 40;
+            testMaizBaseTemperature = 10;
+            testMaizStressTemperature = 40;
 
             testPREDETERMINATED_IRRIGATION = 20;
 
@@ -220,27 +226,29 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 1. Create position
-            testPositionUruguay = new Position(-32.523, -55.766);
-            testPositionRegionTemplada = new Position(-33.874333, -56.009694);
-            testPositionMontevideo = new Position(-34.9019718,-56.1640629);
-            testPositionMinas = new Position(-34.366747, -55.233317);
-            testPositionSantaLucia = new Position(-34.232518, -55.541477);
+            testPositionUruguay = new Position(1, -32.523, -55.766);
+            testPositionRegionTemplada = new Position(2, -33.874333, -56.009694);
+            testPositionMontevideo = new Position(3, -34.9019718,-56.1640629);
+            testPositionMinas = new Position(4, -34.366747, -55.233317);
+            testPositionSantaLucia = new Position(5, -34.232518, -55.541477);
             #endregion
 
-            #region 2. Create Region (First create Effective Rain, Specie List)
-            testRegion = testIrrigationSystem.AddRegion("Templada", testPositionRegionTemplada, null, null);
+            #region 2. Create Region (First create Specie Cycle List, Specie List, Effective Rain)
+            testRegion = testIrrigationSystem.AddRegion("Templada", testPositionRegionTemplada.PositionId, null, null, null);
             #endregion
 
-            #region 3. Create Specie
-            testSpecieMaiz = new Specie(0, "Maiz", "Unico", testMaizBaseTemp);
-            testSpecieSoja = new Specie(1, "Soja", "Corto", testSojaBaseTemp);
+            #region 3. Create Specie Cycle
+            testSpecieCycleUnico = testRegion.AddSpecieCycle("Unico");
+            testSpecieCycleCorto = testRegion.AddSpecieCycle("Corto");
             #endregion
 
             #region 4. Add Specie to SpecieList of Region
-            testSpecieList = new List<Specie>();
-            testSpecieList.Add(testSpecieMaiz);
-            testSpecieList.Add(testSpecieSoja);
-            testRegion.SpecieList = testSpecieList;
+            testSpecieMaiz = testRegion.AddSpecie("Maiz", "Corto", testMaizBaseTemperature, testMaizStressTemperature);
+            testSpecieSoja = testRegion.AddSpecie("Soja", "Corto", testSojaBaseTemperature, testSojaStressTemperature);
+            //testSpecieList = new List<Specie>();
+            //testSpecieList.Add(testSpecieMaiz);
+            //testSpecieList.Add(testSpecieSoja);
+            //testRegion.SpecieList = testSpecieList;
             #endregion
 
             #region 5. Initial Tables, Effective Rain List of Region
@@ -295,15 +303,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 14. Create City (Capital)
-            testCapital = testIrrigationSystem.AddCity("Montevideo", testPositionMontevideo);
+            testCapital = testIrrigationSystem.AddCity("Montevideo", testPositionMontevideo.PositionId);
             #endregion
 
             #region 15. Create Country (First create Capital City)
-            testCountry = testIrrigationSystem.AddCountry("Uruguay", testCapital, testLanguage, null, null);
+            testCountry = testIrrigationSystem.AddCountry("Uruguay", testCapital.PositionId, testLanguage.LanguageId, null, null);
             #endregion
 
             #region 16. Create City
-            testCityMinas = testIrrigationSystem.AddCity("Minas", testPositionMinas);
+            testCityMinas = testIrrigationSystem.AddCity("Minas", testPositionMinas.PositionId);
             testCityMinas = testIrrigationSystem.AddCityToCountry(testCountry, testCityMinas);
             #endregion
 
