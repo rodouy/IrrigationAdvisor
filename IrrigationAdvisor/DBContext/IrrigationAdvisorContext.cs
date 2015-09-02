@@ -46,7 +46,7 @@ namespace IrrigationAdvisor.DBContext
         }
 
         #region Agriculture
-        #if false
+        #if true
 
         public virtual DbSet<Crop> Crops { get; set; }
 

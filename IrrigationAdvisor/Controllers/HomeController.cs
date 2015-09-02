@@ -1,4 +1,5 @@
-﻿using IrrigationAdvisor.Models.GridHome;
+﻿using IrrigationAdvisor.DBContext;
+using IrrigationAdvisor.Models.GridHome;
 using IrrigationAdvisor.Models.Irrigation;
 using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Management;
@@ -45,8 +46,10 @@ namespace IrrigationAdvisor.Controllers
         //}
 
         [HttpPost]
-        public ActionResult AddRain(string irrigation, string pivot)
+        public ActionResult AddIrrigation(string irrigation, string pivot)
         {
+
+
             return Json("Finished");
         }
 
@@ -126,6 +129,8 @@ namespace IrrigationAdvisor.Controllers
                 GridWeatherList.Add(new IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather(high, low, weekday, month, urlImage, description, probabilityRain, mmRain));
             }
 
+
+
             return GridWeatherList;
         }
 
@@ -135,11 +140,17 @@ namespace IrrigationAdvisor.Controllers
             IrrigationSystem testIrrigationSystem;
             testIrrigationSystem = IrrigationSystem.Instance;
 
+            testIrrigationSystem.IrrigationUnitList = new List<IrrigationUnit>();
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 1", "", 1, null, 1, null, null, null));
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 2", "", 1, null, 1, null, null, null));
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 3", "", 1, null, 1, null, null, null));
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 4", "", 1, null, 1, null, null, null));
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 5", "", 1, null, 1, null, null, null));
+
+            IrrigationAdvisorContext var = new IrrigationAdvisorContext();
+            //var.Farms.Where(q => q.Name == "Santa Lucia").First().IrrigationUnitList
+            // var x =  var.Stages.Add(new Models.Agriculture.Stage(1,"Prueba", "desc"));
+
             return PartialView("_AddIrrigation", testIrrigationSystem.IrrigationUnitList);
         }
 
