@@ -46,7 +46,7 @@ namespace IrrigationAdvisor.DBContext
         }
 
         #region Agriculture
-        #if false
+        #if true
 
         public virtual DbSet<Crop> Crops { get; set; }
 
@@ -76,7 +76,8 @@ namespace IrrigationAdvisor.DBContext
         #endregion
 
         #region Irrigation
-        #if false
+        #if true
+
         public virtual DbSet<Bomb> Bombs { get; set; }
 
         public virtual DbSet<Drip> Drips { get; set; }
@@ -86,6 +87,7 @@ namespace IrrigationAdvisor.DBContext
         public virtual DbSet<Pivot> Pivots { get; set; }
 
         public virtual DbSet<Sprinkler> Sprinklers { get; set; }
+
         #endif      
         #endregion
         
@@ -179,9 +181,11 @@ namespace IrrigationAdvisor.DBContext
         {
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            
+
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
             #region Agriculture
-            #if false
+            #if true
 
             modelBuilder.Configurations.Add(new CropConfiguration());
             modelBuilder.Configurations.Add(new CropCoefficientConfiguration());
@@ -201,7 +205,7 @@ namespace IrrigationAdvisor.DBContext
             #endregion
         
             #region Irrigation
-            #if false
+            #if true
 
             modelBuilder.Configurations.Add(new BombConfiguration());
             modelBuilder.Configurations.Add(new DripConfiguration());

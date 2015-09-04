@@ -1,4 +1,4 @@
-﻿using IrrigationAdvisor.Models.GridHome;
+﻿//using IrrigationAdvisor.Models.GridHome;
 using IrrigationAdvisor.Models.Localization;
 using System;
 using System.Collections.Generic;
@@ -19,8 +19,10 @@ namespace IrrigationAdvisor.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
+#if false
             return View(getGridPivotHome());
+#endif
+            return View();
         }
 
         public ActionResult Contact()
@@ -30,6 +32,7 @@ namespace IrrigationAdvisor.Controllers
             return View();
         }
 
+#if false
         [ChildActionOnly]
         public PartialViewResult FrontPagePartial()
         {
@@ -67,5 +70,7 @@ namespace IrrigationAdvisor.Controllers
             return gridPivotHome;
 
         }
+#endif
+
     }
 }

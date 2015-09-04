@@ -26,32 +26,45 @@ namespace IrrigationAdvisorConsole
         
         static void Main(string[] args)
         {
-            //IASystem IASystem = new IrrigationAdvisorConsole.IASystem();
+            try
+            {
+                //IASystem IASystem = new IrrigationAdvisorConsole.IASystem();
 
-            #if false
-            Database.SetInitializer < IrrigationAdvisorContext>
-                (new DropCreateDatabaseIfModelChanges<IrrigationAdvisorContext>());
-            #endif
-            
-            /*
-             * Changing from DropCreateDatabaseIfModelChanges to DropCreateDatabaseAlways works, 
-             * the latter configuration causes the database to be recreated no matter what, 
-             * bypassing any sort of database versioning that might be causing an error.
-             */
-            #if true
-            Database.SetInitializer<IrrigationAdvisorContext>
-                (new DropCreateDatabaseAlways<IrrigationAdvisorContext>());
-            #endif
+                #if false
+                Database.SetInitializer < IrrigationAdvisorContext>
+                    (new DropCreateDatabaseIfModelChanges<IrrigationAdvisorContext>());
+                #endif
 
-            InsertLanguages();
-            InsertPositions();
-            InsertRegions();
-            InsertCities();
-            InsertCountry();
+                #if false
+                Database.SetInitializer < IrrigationAdvisorContext>
+                    (new CreateDatabaseIfNotExists<IrrigationAdvisorContext>());
+                #endif
+                /*
+                 * Changing from DropCreateDatabaseIfModelChanges to DropCreateDatabaseAlways works, 
+                 * the latter configuration causes the database to be recreated no matter what, 
+                 * bypassing any sort of database versioning that might be causing an error.
+                 */
+                #if true
+                Database.SetInitializer<IrrigationAdvisorContext>
+                    (new DropCreateDatabaseAlways<IrrigationAdvisorContext>());
+                #endif
+
+                InsertLanguages();
+                InsertPositions();
+                InsertRegions();
+                InsertCities();
+                InsertCountry();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Initialization Failed...");
+                Console.WriteLine(ex.Message);
+            }
 
         }
 
         #region Language
+
         private static void InsertLanguages()
         {
             var lBase = new Language
@@ -71,63 +84,72 @@ namespace IrrigationAdvisorConsole
 
             using (var context = new IrrigationAdvisorContext())
             {
-                context.Languages.Add(lBase);
+                //context.Languages.Add(lBase);
                 context.Languages.Add(lSpanish);
                 context.Languages.Add(lEnglish);
                 context.SaveChanges();
             }
         }
+        
         #endregion
 
         #region Localization
+        #if true
 
         private static void InsertPositions()
         {
             var lBase = new Position()
             {
+                Name = "Base",
                 Latitude = 0,
                 Longitude = 0
             };
 
             var lUruguay = new Position()
             {
+                Name = "Uruguay",
                 Latitude = -32.523,
                 Longitude = -55.766
             };
 
             var lRegionSur = new Position()
             {
+                Name = "Sur",
                 Latitude = -33.874333,
                 Longitude = -56.009694
             };
 
             var lRegionNorte = new Position()
             {
+                Name = "Norte",
                 Latitude = -31.381117,
                 Longitude = -56.539784
             };
 
             var lMontevideo = new Position()
             {
+                Name = "Montevideo",
                 Latitude = -34.9019718,
                 Longitude = -56.1640629
             };
 
             var lMinas = new Position()
             {
+                Name = "Minas",
                 Latitude = -34.366747,
                 Longitude = -55.233317
             };
 
             var lSantaLucia = new Position()
             {
+                Name = "Santa Lucia",
                 Latitude = -34.232518,
                 Longitude = -55.541477
             };
 
             using (var context = new IrrigationAdvisorContext())
             {
-                context.Positions.Add(lBase);
+                //context.Positions.Add(lBase);
                 context.Positions.Add(lUruguay);
                 context.Positions.Add(lRegionSur);
                 context.Positions.Add(lRegionNorte);
@@ -168,7 +190,7 @@ namespace IrrigationAdvisorConsole
             };
             using (var context = new IrrigationAdvisorContext())
             {
-                context.Regions.Add(lBase);
+                //context.Regions.Add(lBase);
                 context.Regions.Add(lSur);
                 context.Regions.Add(lNorte);
                 context.SaveChanges();
@@ -197,6 +219,14 @@ namespace IrrigationAdvisorConsole
                 PositionId = 5,
                 CountryId = 1
             };
+
+            using(var context = new IrrigationAdvisorContext())
+            {
+                //context.Cities.Add(lBase);
+                context.Cities.Add(lMontevideo);
+                context.Cities.Add(lMinas);
+                context.SaveChanges();
+            }
         }
 
         private static void InsertCountry()
@@ -220,16 +250,17 @@ namespace IrrigationAdvisorConsole
 
             using(var context = new IrrigationAdvisorContext())
             {
-                context.Countries.Add(lBase);
+                //context.Countries.Add(lBase);
                 context.Countries.Add(lUruguay);
                 context.SaveChanges();
             }
         }
 
+        #endif
         #endregion
 
         #region Agriculture
-        #if false
+        #if true
 
         private static void InsertSpecieCycles()
         {
@@ -250,7 +281,7 @@ namespace IrrigationAdvisorConsole
 
             using (var context = new IrrigationAdvisorContext())
             {
-                context.SpecieCycles.Add(lBase);
+                //context.SpecieCycles.Add(lBase);
                 context.SpecieCycles.Add(lCorto);
                 context.SpecieCycles.Add(lUnico);
                 context.SaveChanges();
@@ -285,7 +316,7 @@ namespace IrrigationAdvisorConsole
 
             using (var context = new IrrigationAdvisorContext())
             {
-                context.Species.Add(lBase);
+                //context.Species.Add(lBase);
                 context.Species.Add(lMaiz);
                 context.Species.Add(lSoja);
                 context.SaveChanges();
