@@ -1,0 +1,32 @@
+﻿@model List<IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather>
+
+@{
+    ViewBag.Title = "Weather";
+}
+</br>
+</br>
+
+<div id="fctDayScroll">
+    <div class="fctDayArrow" id="fctDayLeftArrow" style="display: none;">
+    </div>
+    <div class="fctDayArrow" id="fctDayRightArrow">
+    </div>
+    <ul id="fctDaySelect" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist" style="width: 1236.4999999702px;">
+
+
+        @foreach (var item in Model)
+        {
+            <li id="fctDay-20150823" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="horizontal-day-234" aria-labelledby="ui-id-5" aria-selected="true" style="width: 123.54999999702px;">
+                <a href="#horizontal-day-234" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-5">
+                    <div class="day-title">@item.weekday</div>
+                    <div class="temps"><span class="hi">@item.high</span> <span class="split">|</span> <span class="lo">@item.low</span></div>
+                    <div><img src="@item.urlImage" alt="Mostly Cloudy"></div>
+                    <div class="cond-text">@item.Description</div>
+                    <div>
+                        <span class="pop wet" title="chance of precipitation"></span><strong>@item.ProbabilityRain</strong>% / <strong>@item.MmRain</strong> mm
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

@@ -250,6 +250,8 @@
     <Compile Include="Models\Agriculture\CropCoefficientTable.cs" />
     <Compile Include="Models\Data\ExternalData.cs" />
     <Compile Include="Models\Data\InitialTables.cs" />
+    <Compile Include="Models\GridHome\GridDetailPivottHome.cs" />
+    <Compile Include="Models\GridHome\GriPivotHome .cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Language\LanguageContext.cs" />
     <Compile Include="Models\Localization\Farm.cs" />
@@ -289,6 +291,7 @@
     <Compile Include="Models\Utilities\Utils.cs" />
     <Compile Include="Models\Water\WaterInput.cs" />
     <Compile Include="Models\Water\WaterOutput.cs" />
+    <Compile Include="Models\Weather\ResultUnderGroundToSharp.cs" />
     <Compile Include="Models\Weather\WeatherData.cs" />
     <Compile Include="Models\Weather\WeatherInformation.cs" />
     <Compile Include="Models\Weather\WeatherStation.cs" />
@@ -306,6 +309,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\metro.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -322,10 +326,13 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\metro.js" />
+    <Content Include="Scripts\metro.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -471,6 +478,10 @@
     <Content Include="Views\Water\EffectiveRains\Details.cshtml" />
     <Content Include="Views\Water\EffectiveRains\Edit.cshtml" />
     <Content Include="Views\Water\EffectiveRains\Index.cshtml" />
+    <Content Include="Views\Home\_AddIrrigation.cshtml" />
+    <Content Include="Views\Home\_FrontPagePartial.cshtml" />
+    <Content Include="Views\Home\_WeatherPartial.cshtml" />
+    <Content Include="Views\Home\_AddPhenology.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

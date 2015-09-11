@@ -6,7 +6,7 @@ using System.Web;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using GridMvc.DataAnnotations;
+ 
 
 namespace IrrigationAdvisor.Models.GridHome
 {

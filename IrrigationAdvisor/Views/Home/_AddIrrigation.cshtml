@@ -1,0 +1,60 @@
+﻿@model List<IrrigationAdvisor.Models.Irrigation.IrrigationUnit>
+
+
+<form>
+    <fieldset>
+        <label>Riego</label>
+        <input type="number" name="name" id="irrigation" value="Jane Smith"></br>
+        <label>Pivot  </label>
+        <select id="pivot">
+
+            @foreach (var item in Model)
+            {
+                <option value="value">@item.Name</option>
+            }
+
+
+        </select>
+
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+    function do_save() {
+        if (Math.floor(Math.random() * 2) == 1) {
+            console.log('success');
+
+            return;
+        }
+        console.log('failure');
+        return false;
+    }
+
+    function AddIrrigation() {
+
+
+        var data = {
+            irrigation: $('#irrigation').val(),
+            pivot: $('#pivot').find('option:selected').text()
+        };
+
+        $.ajax({
+            url: '@Url.Action("AddIrrigation", "Home")',
+            type: 'POST',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                alert("ffff");
+                $('#myModal').modal('hide');
+            }
+        });
+
+
+    }
+</script>
+

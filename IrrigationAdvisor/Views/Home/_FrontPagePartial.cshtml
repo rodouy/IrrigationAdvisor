@@ -1,5 +1,5 @@
 ﻿@model List<IrrigationAdvisor.Models.GridHome.GridPivotHome>
-@using GridMvc.Html
+
 @{
     ViewBag.Title = "Pivot Irrigation";
 }
@@ -48,7 +48,18 @@
     }
 }
 
+@helper CustomTh(bool isToday, DateTime dateTime)
+{
+    if (isToday)
+    {
+        <th class="b6 tc f9" style="width: 10px; font-weight: bold; border-color: #CC2C07;    border: 2px solid;">@dateTime.ToShortDateString()</th>
+    }
+    else
+    {
+        <th class="b6 tc f9" style="width: 10px;font-weight: normal !important; ">@dateTime.ToShortDateString()</th>
 
+    }
+}
 <table class="tabela_cores" border="0" width="30%" cellspacing="3" cellpadding="2" style="float: left">
     <tbody>
         <tr class="header_results">
@@ -87,8 +98,8 @@
             <tr class="header_results">
                 @foreach (var x in Model.First().ListGridPivotDetailHome)
                 {
+                    @CustomTh(x.IsToday, x.DateTime)
 
-                    <th class="b6 tc f9" style="width: 10px; ">@x.DateTime.ToShortDateString()</th>
                 }
             </tr>
 
@@ -97,11 +108,7 @@
 
 
                 <tr class="body_results_01" onmouseover="this.style.backgroundColor='#CCFFFF';" onmouseout="this.style.backgroundColor=''">
-
-
                     @CustomRenderingOfColumn(item)
-
-
                 </tr>
             }
 

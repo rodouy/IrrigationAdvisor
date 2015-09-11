@@ -4,18 +4,97 @@
 
 
 
+
+
 <div class="row">
+
+
+
+
+
+    <div>
+
+        <img src="../Content/Image/Farm.jpg" style=" margin-top: 15px;">
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#IrrigationModal">Agregar Riego</button>
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#PhenologyModal">Agregar Fenología</button>
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#RainModal">Agregar Lluvia </button>
+    </div>
+
+    <!-- Modal Irrigation-->
+    <div class="modal fade" id="IrrigationModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar Riego </h4>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderAction("AddIrrigation", "Home"); }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="closemodal" class="btn btn-primary" onclick="AddIrrigation()">Guardar</button>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- Modal Rain-->
+    <div class="modal fade" id="RainModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar Riego </h4>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderAction("AddIrrigation", "Home"); }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="closemodal" class="btn btn-primary" onclick="AddIrrigation()">Guardar</button>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- Modal Phenology-->
+    <div class="modal fade" id="PhenologyModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar Riego </h4>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderAction("AddIrrigation", "Home"); }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="closemodal" class="btn btn-primary" onclick="AddIrrigation()">Guardar</button>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
     @{ Html.RenderAction("FrontPagePartial", "Home"); }
+    @{ Html.RenderAction("WeatherPartial", "Home"); }
 
-    @*<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="100%" src="http://forecast.io/embed/#lat=42.3583&lon=-71.0603&name=Montevideo&color=#00aaff&font=Georgia&units=ca"> </iframe>*@
-
-    @*<iframe id="forecast_embed" type="text/html" frameborder="0" height="245" width="75%"
-            src="http://forecast.io/embed/#lat=69.649205&lon=18.955324&name=Tromso, Norway&color=#00aaff&font=Helvetica&units=es"></iframe>*@
-    <a href="http://www.accuweather.com/es/uy/montevideo/349269/current-weather/349269" class="aw-widget-legal">
-        <!--
-        By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
-        -->
-    </a><div id="awtd1440113082473" class="aw-widget-36hour" data-locationkey="349269" data-unit="c" data-language="es" data-useip="false" data-uid="awtd1440113082473" data-editlocation="true"></div>
-    <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
 </div>
-
