@@ -314,10 +314,7 @@
     <Content Include="img\b21.png" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jssor.slider.mini.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
