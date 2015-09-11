@@ -297,27 +297,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="img\home\02.jpg" />
+    <Content Include="img\home\01.jpg" />
+    <Content Include="img\home\03.jpg" />
+    <Content Include="img\home\04.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ClassDiagram1.cd" />
-    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <None Include="Properties\PublishProfiles\prueba.pubxml" />
+    <Content Include="img\1920\blue.jpg" />
+    <Content Include="img\1920\purple.jpg" />
+    <Content Include="img\1920\red.jpg" />
+    <Content Include="img\a11.png" />
+    <Content Include="img\a21.png" />
+    <Content Include="img\b05.png" />
+    <Content Include="img\b21.png" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\metro.js" />
-    <Content Include="Scripts\metro.min.js" />
+    <Content Include="Scripts\jssor.slider.mini.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -361,6 +361,7 @@
     <Content Include="Views\Home\_FrontPagePartial.cshtml" />
     <Content Include="Views\Home\_WeatherPartial.cshtml" />
     <Content Include="Views\Home\_AddPhenology.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

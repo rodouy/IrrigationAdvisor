@@ -1,25 +1,17 @@
 ﻿@model List<IrrigationAdvisor.Models.Irrigation.IrrigationUnit>
 
-
-<form>
-    <fieldset>
-        <label>Riego</label>
-        <input type="number" name="name" id="irrigation" value="Jane Smith"></br>
-        <label>Pivot  </label>
-        <select id="pivot">
-
-            @foreach (var item in Model)
-            {
-                <option value="value">@item.Name</option>
-            }
-
-
-        </select>
-
-        <!-- Allow form submission with keyboard without duplicating the dialog button -->
-
-    </fieldset>
+<form class="contact" name="contact">
+    <label class="label badge" for="name">Riego</label><br>
+    <input type="text" name="name" class="input-xlarge"><br>
+    <label class="label badge" for="email">Pivot</label><br>
+    <select id="pivot">
+        @foreach (var item in Model)
+        {
+            <option value="value">@item.Name</option>
+        }
+    </select>
 </form>
+
 
 <script type="text/javascript">
     function do_save() {
@@ -48,8 +40,6 @@
             processData: false,
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-
-                alert("ffff");
                 $('#myModal').modal('hide');
             }
         });

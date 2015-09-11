@@ -75,6 +75,8 @@ h1 {
     font-size: 2em;
 }
 
+
+
 mark {
     color: #000;
     background: #ff0;
@@ -6067,7 +6069,7 @@ a.label:focus {
     white-space: nowrap;
     vertical-align: middle;
     background-color: #777;
-    border-radius: 10px;
+    margin-top: 15px;
 }
 
     .badge:empty {
@@ -8218,6 +8220,8 @@ button.close {
 .visible-print-inline-block {
     display: none !important;
 }
+
+
 
 @media print {
     .visible-print-inline-block {

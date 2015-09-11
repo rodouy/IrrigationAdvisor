@@ -15,6 +15,7 @@ using System.Web.Mvc;
 
 namespace IrrigationAdvisor.Controllers
 {
+    
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -31,19 +32,14 @@ namespace IrrigationAdvisor.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
+        public ActionResult Home()
+        {
+            return View();
+        }
 
-
-        //public Boolean AddRain()
-        //{
-        //    IrrigationSystem testIrrigationSystem;
-        //    testIrrigationSystem = IrrigationSystem.Instance;
-        //    return true;
-        //}
 
         [HttpPost]
         public ActionResult AddIrrigation(string irrigation, string pivot)
@@ -68,6 +64,7 @@ namespace IrrigationAdvisor.Controllers
         public List<GridPivotHome> getGridPivotHome()
         {
             List<GridPivotDetailHome> gridPivotDetailHome2 = new List<GridPivotDetailHome>();
+            List<GridPivotDetailHome> gridPivotDetailHome1 = new List<GridPivotDetailHome>();
 
             gridPivotDetailHome2.Add(new GridPivotDetailHome(0, 10, 0, DateTime.Now.AddDays(-3), false, Models.Utilities.Utils.IrrigationStatus.Cyan));
             gridPivotDetailHome2.Add(new GridPivotDetailHome(10, 0, 0, DateTime.Now.AddDays(-2), false, Models.Utilities.Utils.IrrigationStatus.Green));
@@ -77,8 +74,19 @@ namespace IrrigationAdvisor.Controllers
             gridPivotDetailHome2.Add(new GridPivotDetailHome(0, 0, 0, DateTime.Now.AddDays(+2), false, Models.Utilities.Utils.IrrigationStatus.Green));
             gridPivotDetailHome2.Add(new GridPivotDetailHome(0, 0, 0, DateTime.Now.AddDays(+2), false, Models.Utilities.Utils.IrrigationStatus.Green));
 
-            List<GridPivotDetailHome> gridPivotDetailHome3 = new List<GridPivotDetailHome>();
-            gridPivotHome.Add(new GridPivotHome("Pivot 1", "v0", "Corn", gridPivotDetailHome2));
+
+            gridPivotDetailHome1.Add(new GridPivotDetailHome(0, 0, 10, DateTime.Now.AddDays(-3), false, Models.Utilities.Utils.IrrigationStatus.Cyan));
+            gridPivotDetailHome1.Add(new GridPivotDetailHome(0, 0, 0, DateTime.Now.AddDays(-2), false, Models.Utilities.Utils.IrrigationStatus.Green));
+            gridPivotDetailHome1.Add(new GridPivotDetailHome(0, 5, 0, DateTime.Now.AddDays(-1), false, Models.Utilities.Utils.IrrigationStatus.Blue));
+            gridPivotDetailHome1.Add(new GridPivotDetailHome(0, 0, 0, DateTime.Now, true, Models.Utilities.Utils.IrrigationStatus.Red));
+            gridPivotDetailHome1.Add(new GridPivotDetailHome(0, 0, 0, DateTime.Now.AddDays(+1), false, Models.Utilities.Utils.IrrigationStatus.Green));
+            gridPivotDetailHome1.Add(new GridPivotDetailHome(10, 0, 0, DateTime.Now.AddDays(+2), false, Models.Utilities.Utils.IrrigationStatus.Green));
+            gridPivotDetailHome1.Add(new GridPivotDetailHome(0, 0, 0, DateTime.Now.AddDays(+2), false, Models.Utilities.Utils.IrrigationStatus.Green));
+
+
+           
+            gridPivotHome.Add(new GridPivotHome("Pivot 1", "v0", "Maiz", gridPivotDetailHome2));
+            //gridPivotHome.Add(new GridPivotHome("Pivot 2", "v2", "Soja", gridPivotDetailHome1));
 
             return gridPivotHome;
 
@@ -114,19 +122,21 @@ namespace IrrigationAdvisor.Controllers
             // Json To C#  DeserializeJsno to IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.RootObject
             IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.RootObject jsonObj = JsonConvert.DeserializeObject<IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.RootObject>(json);
 
-
             // Iterate ForecastDay
             foreach (var item in jsonObj.forecast.simpleforecast.forecastday)
             {
-                high = item.high.celsius;
-                low = item.low.celsius;
-                month = item.date.month.ToString();
-                weekday = item.date.weekday;
-                urlImage = "//icons.wxug.com/i/c/v4/" + item.icon + ".svg";
-                description = item.conditions;
-                probabilityRain = item.pop.ToString();
-                mmRain = item.qpf_allday.mm.ToString();
-                GridWeatherList.Add(new IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather(high, low, weekday, month, urlImage, description, probabilityRain, mmRain));
+                if (GridWeatherList.Count <= 6)
+                {
+                    high = item.high.celsius;
+                    low = item.low.celsius;
+                    month = item.date.month.ToString();
+                    weekday = item.date.weekday;
+                    urlImage = "//icons.wxug.com/i/c/v4/" + item.icon + ".svg";
+                    description = item.conditions;
+                    probabilityRain = item.pop.ToString();
+                    mmRain = item.qpf_allday.mm.ToString();
+                    GridWeatherList.Add(new IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather(high, low, weekday, month, urlImage, description, probabilityRain, mmRain));
+                }
             }
 
 
