@@ -145,7 +145,7 @@ namespace IrrigationAdvisor.Models.Localization
             }
             City lCity = obj as City;
             return (this.Name.Equals(lCity.Name) 
-                && this .Position.Equals(lCity.Position));
+                && this.PositionId.Equals(lCity.PositionId));
         }
 
         public override int GetHashCode()

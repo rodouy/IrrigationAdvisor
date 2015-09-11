@@ -272,6 +272,25 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
+        /// Return the SpecieCycle that has the id, else return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public SpecieCycle FindSpecieCycle(long pSpecieCycleId)
+        {
+            SpecieCycle lReturn = null;
+            foreach (SpecieCycle item in this.SpecieCycleList)
+            {
+                if (item.SpecieCycleId.Equals(pSpecieCycleId))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
         /// If SpecieCycle exists in List return the SpecieCycle, else null
         /// </summary>
         /// <param name="pSpecieCycle"></param>
@@ -306,6 +325,25 @@ namespace IrrigationAdvisor.Models.Localization
             {
                 this.SpecieCycleList.Add(lSpecieCycle);
                 lReturn = lSpecieCycle;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add a new SpecieCycle and return it, if exists return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public SpecieCycle AddSpecieCycle(SpecieCycle pSpecieCycle)
+        {
+            SpecieCycle lReturn = null;
+            if (pSpecieCycle != null)
+            {
+                if (ExistSpecieCycle(pSpecieCycle) == null)
+                {
+                    this.SpecieCycleList.Add(pSpecieCycle);
+                    lReturn = pSpecieCycle;
+                }
             }
             return lReturn;
         }
@@ -433,6 +471,7 @@ namespace IrrigationAdvisor.Models.Localization
             }
             lSpecie = new Specie(lSpecieId, pName, lSpecieCycle.SpecieCycleId, 
                                         pBaseTemperature, pStressTemperarute);
+            lSpecie.SpecieCycle = lSpecieCycle;
             lReturn = this.ExistSpecie(lSpecie);
             if(lReturn == null)
             {
@@ -441,6 +480,35 @@ namespace IrrigationAdvisor.Models.Localization
             }
             return lReturn;
         }
+
+        /// <summary>
+        /// Return the Specie added to the list.
+        /// If already exists, it return the one of the list.
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        public Specie AddSpecie(Specie pSpecie)
+        {
+            Specie lReturn = null;
+            long lSpecieId = this.SpecieList.Count();
+            SpecieCycle lSpecieCycle = null;
+            Specie lSpecie = null;
+
+            lSpecieCycle = this.FindSpecieCycle(pSpecie.SpecieCycleId);
+            if (lSpecieCycle == null)
+            {
+                lSpecieCycle = this.AddSpecieCycle(lSpecieCycle.Name);
+            }
+            pSpecie.SpecieCycle = lSpecieCycle;
+            pSpecie.SpecieCycleId = lSpecieCycle.SpecieCycleId;
+            lReturn = this.ExistSpecie(lSpecie);
+            if (lReturn == null)
+            {
+                this.SpecieList.Add(lSpecie);
+                lReturn = lSpecie;
+            }
+            return lReturn;
+        } 
 
         /// <summary>
         /// Return the Specie updated in the list.

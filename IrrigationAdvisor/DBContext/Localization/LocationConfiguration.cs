@@ -24,6 +24,8 @@ namespace IrrigationAdvisor.DBContext.Localization
                 .IsRequired();
             Property(l => l.RegionId)
                 .IsRequired();
+            Property(l => l.PositionId)
+                .IsRequired();
             
         }
     }

@@ -19,7 +19,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
     {
         #region Fields Test
         private Position testPositionUruguay;
-        private Position testPositionRegionTemplada;
+        private Position testPositionRegionSur;
         private Position testPositionFarm;
         private Position testPositionMontevideo;
         private Position testPositionMinas;
@@ -500,15 +500,15 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 1. Create position
-            testPositionUruguay = new Position(1, -32.523, -55.766);
-            testPositionRegionTemplada = new Position(2, -33.874333, -56.009694);
-            testPositionMontevideo = new Position(3, -34.9019718,-56.1640629);
-            testPositionMinas = new Position(4, -34.366747, -55.233317);
-            testPositionFarm = new Position(5, -34.232518, -55.541477);
+            testPositionUruguay = testIrrigationSystem.AddPosition("Uruguay", -32.523, -55.766);
+            testPositionRegionSur = testIrrigationSystem.AddPosition("Sur", -33.874333, -56.009694);
+            testPositionMontevideo = testIrrigationSystem.AddPosition("Montevideo", -34.9019718, -56.1640629);
+            testPositionMinas = testIrrigationSystem.AddPosition("Minas", -34.366747, -55.233317);
+            testPositionFarm = testIrrigationSystem.AddPosition("Santa Lucia", -34.232518, -55.541477);
             #endregion
 
             #region 2. Create Region (First create Specie List, SpecieCycle List, Effective Rain )
-            testRegion = testIrrigationSystem.AddRegion("Templada", testPositionRegionTemplada.PositionId, null, null, null);
+            testRegion = testIrrigationSystem.AddRegion("Sur", testPositionRegionSur.PositionId, null, null, null);
             #endregion
 
             #region 3. Create Specie Cycle
@@ -581,7 +581,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 15. Create Country (First create Capital City)
-            testCountry = testIrrigationSystem.AddCountry("Uruguay", testCapital.PositionId, testLanguage.LanguageId, null, null);
+            testCountry = testIrrigationSystem.AddCountry("Uruguay", testCapital.CityId, testLanguage.LanguageId, null, null);
             #endregion
 
             #region 16. Create City
@@ -592,7 +592,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #region 17. Create Location
             testLocationFarm = testIrrigationSystem.AddLocation(testPositionFarm, testCountry,
                                                                 testRegion, testCityMinas);
-            testLocationMinas = testIrrigationSystem.AddLocation(testPositionRegionTemplada, testCountry,
+            testLocationMinas = testIrrigationSystem.AddLocation(testPositionRegionSur, testCountry,
                                                                 testRegion, testCityMinas);
             #endregion
 

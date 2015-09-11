@@ -11,6 +11,8 @@ namespace IrrigationAdvisor.Migrations
     using IrrigationAdvisor.Models.Water;
     using IrrigationAdvisor.Models.Weather;
 
+    using IrrigationAdvisor.DBContext;
+
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -25,7 +27,7 @@ namespace IrrigationAdvisor.Migrations
         }
 
         
-        protected override void Seed(IrrigationAdvisor.DBContext.IrrigationAdvisorContext context)
+        protected override void Seed(IrrigationAdvisorContext context)
         {
             //  This method will be called after migrating to the latest version.
 

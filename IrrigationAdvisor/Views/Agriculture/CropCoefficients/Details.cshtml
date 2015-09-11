@@ -1,0 +1,19 @@
+﻿@model IrrigationAdvisor.Models.Agriculture.CropCoefficient
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Agriculture";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CropCoefficient</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CropCoefficientId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -20,6 +20,7 @@ namespace IrrigationAdvisor.DBContext.Water
             ///MapInheritedProperties is essentially telling Code First that it
             ///  should remap all the properties that are inherited from the base
             ///  class to new columns in the table for the derived type.
+            /*
             Map(w =>
             {
                 w.ToTable("WaterOutput");
@@ -29,6 +30,7 @@ namespace IrrigationAdvisor.DBContext.Water
                 w.ToTable("EvapotranspirationCrop");
                 w.MapInheritedProperties();
             });
+            */
             ToTable("WaterOutput");
             HasKey(w => w.WaterOutputId);
             Property(w => w.WaterOutputId)

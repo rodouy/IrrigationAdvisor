@@ -23,10 +23,21 @@ namespace IrrigationAdvisor.Models.Utilities
         /// Default Language
         /// </summary>
         public static String LANGUAGE = "English";
+
         /// <summary>
         /// Default Region
         /// </summary>
-        public static String REGION = "Uruguay";
+        public static String REGION = "Uruguay-Sur";
+
+        /// <summary>
+        /// Default Country
+        /// </summary>
+        public static String COUNTRY = "Uruguay";
+
+        /// <summary>
+        /// Earth radius in KM
+        /// </summary>
+        public static int EARTH_RADIUS_IN_KM = 6371;
 
         #endregion
 
@@ -294,12 +305,92 @@ namespace IrrigationAdvisor.Models.Utilities
 
         #endregion
 
+        #region Location
+
+        /// <summary>
+        /// Distance between Origin and Destiny,
+        /// using Latitude and Longitude in degrees or in radians
+        /// </summary>
+        /// <param name="pLatitudOrigin"></param>
+        /// <param name="pLongitudeOrigin"></param>
+        /// <param name="pLatitudDestiny"></param>
+        /// <param name="pLongitudeDestiny"></param>
+        /// <param name="pInDegrees"></param>
+        /// <returns></returns>
+        public static Double DistanceFromLatitudeLongitudeInKm(Double pLatitudOrigin, Double pLongitudeOrigin,
+                                                Double pLatitudDestiny, Double pLongitudeDestiny,
+                                                bool pInDegrees)
+        {
+            Double lReturn = 0;
+            //Radius of the earth in km
+            Double lEarthRadius = Utils.EARTH_RADIUS_IN_KM;
+            Double lLatitudeOrigin = 0;
+            Double lLongitudeOrigin = 0;
+            Double lLatitudeDestiny = 0;
+            Double lLongitudeDestiny = 0;
+            Double lLatitudeDifference = 0;
+            Double lLongitudeDifference = 0;
+            Double lParcialA = 0;
+            Double lParcialB = 0;
+
+            if (pInDegrees)
+            {
+                lLatitudeOrigin = DegreesToRadians(pLatitudOrigin);
+                lLongitudeOrigin = DegreesToRadians(pLongitudeOrigin);
+                lLatitudeDestiny = DegreesToRadians(pLatitudDestiny);
+                lLongitudeDestiny = DegreesToRadians(pLongitudeDestiny);
+                lLatitudeDifference = DegreesToRadians(pLatitudDestiny - pLatitudOrigin);
+                lLongitudeDifference = DegreesToRadians(pLongitudeDestiny - pLongitudeOrigin);
+            }
+            else
+            {
+                lLatitudeOrigin = pLatitudOrigin;
+                lLongitudeOrigin = pLongitudeOrigin;
+                lLatitudeDestiny = pLatitudDestiny;
+                lLongitudeDestiny = pLongitudeDestiny;
+                lLatitudeDifference = pLatitudDestiny - pLatitudOrigin;
+                lLongitudeDifference = pLongitudeDestiny - pLongitudeOrigin;
+            }
+
+            lParcialA = Math.Sin(lLatitudeDifference / 2) * Math.Sin(lLatitudeDifference/2)
+                            + Math.Cos(lLatitudeOrigin) * Math.Cos(lLatitudeDestiny)
+                            * Math.Sin(lLongitudeDifference/2) * Math.Sin(lLongitudeDifference/2);
+            lParcialB = 2 * Math.Atan2(Math.Sqrt(lParcialA), Math.Sqrt(1 - lParcialA));
+            lReturn = lEarthRadius * lParcialB;
+
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Convert Degrees into Radians
+        /// </summary>
+        /// <param name="pDegrees"></param>
+        /// <returns></returns>
+        public static Double DegreesToRadians (Double pDegrees)
+        {
+            Double lReturn = 0;
+            lReturn = pDegrees * (Math.PI / 180);
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Convert Radians into Degrees
+        /// </summary>
+        /// <param name="pRadians"></param>
+        /// <returns></returns>
+        public static Double RadiansToDegrees(Double pRadians)
+        {
+            Double lReturn = 0;
+            lReturn = pRadians * (180 / Math.PI);
+            return lReturn;
+        }
+
+        #endregion
+
         #endregion
 
         #region Overrides
         #endregion
-
-
 
     }
 

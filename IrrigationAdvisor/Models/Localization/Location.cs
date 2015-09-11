@@ -161,11 +161,23 @@ namespace IrrigationAdvisor.Models.Localization
         {
             this.LocationId = pIdLocation;
             this.PositionId = pPosition.PositionId;
+            this.Position = pPosition;
             this.CountryId = pCountry.CountryId;
+            this.Country = pCountry;
             this.RegionId = pRegion.RegionId;
+            this.Region = pRegion;
             this.CityId = pCity.CityId;
+            this.City = pCity;
         }
 
+        /// <summary>
+        /// Constructor with Ids
+        /// </summary>
+        /// <param name="pLocationId"></param>
+        /// <param name="pPositionId"></param>
+        /// <param name="pCountryId"></param>
+        /// <param name="pRegionId"></param>
+        /// <param name="pCityId"></param>
         public Location(long pLocationId, long pPositionId,
             long pCountryId, long pRegionId, long pCityId)
         {

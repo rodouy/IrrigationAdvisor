@@ -1,0 +1,51 @@
+﻿@model IrrigationAdvisor.Models.Agriculture.Specie
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Agriculture";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Specie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecieCycle.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecieCycle.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseTemperature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaseTemperature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StressTemperature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StressTemperature)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SpecieId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -51,6 +51,7 @@ namespace IrrigationAdvisor.Models.Localization
         ///     - longitude double
         /// </summary>
         private long positionId;
+        private String name;
         private Double latitude;
         private Double longitude;
         //First = latitude; Second = longitude
@@ -67,8 +68,14 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
 
 
+        public String Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
         
-        public virtual long PositionId
+        
+        public long PositionId
         {
             get { return positionId; }
             set { positionId = value; }
@@ -80,6 +87,10 @@ namespace IrrigationAdvisor.Models.Localization
             set 
             {
                 latitude = value;
+                if(this.ThePosition == null)
+                {
+                    this.thePosition = new Pair<Double, Double>(0, 0);
+                }
                 this.thePosition.First = latitude;
             }
         }
@@ -90,6 +101,10 @@ namespace IrrigationAdvisor.Models.Localization
             set 
             {
                 longitude = value;
+                if (this.ThePosition == null)
+                {
+                    this.thePosition = new Pair<Double, Double>(0, 0);
+                }
                 this.thePosition.Second = longitude;
             }
         }
@@ -108,14 +123,16 @@ namespace IrrigationAdvisor.Models.Localization
         public Position()
         {
             this.PositionId = 0;
+            this.Name = "noname";
             this.Latitude = 0;
             this.Longitude = 0;
             this.thePosition = new Pair<Double, Double>(this.latitude, this.longitude);
         }
 
-        public Position(long pPositionId, Double pLatitude, Double pLongitude)
+        public Position(long pPositionId, String pName, Double pLatitude, Double pLongitude)
         {
             this.PositionId = pPositionId;
+            this.Name = pName;
             this.latitude = pLatitude;
             this.longitude = pLongitude;
             this.thePosition = new Pair<double, double> (this.latitude, this.longitude);
@@ -126,6 +143,7 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Return the distance from two different Positions
         /// TODO: implementation getDistance(origin, destiny)
@@ -133,13 +151,25 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pOrigin"></param>
         /// <param name="pDestiny"></param>
         /// <returns></returns>
-        public double getDistance(Position pOrigin, Position pDestiny)
+        public Double getDistanceInKm(Position pOrigin, Position pDestiny)
         {
-            double lDistance = 0;
-            if (pOrigin.Equals(pDestiny))
-                return 0;
+            Double lReturn = 0;
+            Double lDistance = 0;
 
-            return lDistance;
+            if (pOrigin.Equals(pDestiny))
+            {
+                lDistance = 0;
+            }
+            else
+            {
+                lDistance = Utils.DistanceFromLatitudeLongitudeInKm
+                                    (pOrigin.Latitude, pOrigin.Longitude,
+                                    pDestiny.Latitude, pDestiny.Longitude,
+                                    false);
+            }
+
+            lReturn = lDistance;
+            return lReturn;
         }
 
         /// <summary>
@@ -149,12 +179,15 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pLatitude"></param>
         /// <param name="pLongitude"></param>
         /// <returns></returns>
-        public Position getNewPosition(Position pOrigin, double pLatitude, double pLongitude)
+        public Position getPositionMoveFromOrigin(Position pOrigin, String pNewName, 
+                                                    double pLatitude, double pLongitude)
         {
             Position lPosition = null;
+            String lNewName = pNewName;
             double lNewLatitude = pOrigin.Latitude + pLatitude;
             double lNewLongitude = pOrigin.Longitude + pLongitude;
-            lPosition = new Position(0, lNewLatitude, lNewLongitude);
+            
+            lPosition = new Position(0, lNewName, lNewLatitude, lNewLongitude);
             return lPosition;
         }
 

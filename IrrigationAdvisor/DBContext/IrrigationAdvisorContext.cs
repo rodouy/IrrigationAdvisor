@@ -76,16 +76,18 @@ namespace IrrigationAdvisor.DBContext
         #endregion
 
         #region Irrigation
-        #if false
+        #if true
+
         public virtual DbSet<Bomb> Bombs { get; set; }
 
         public virtual DbSet<Drip> Drips { get; set; }
 
-        public virtual DbSet<IrrigationUnit> IrrigationUnits { get; set; }
+        //public virtual DbSet<IrrigationUnit> IrrigationUnits { get; set; }
 
         public virtual DbSet<Pivot> Pivots { get; set; }
 
         public virtual DbSet<Sprinkler> Sprinklers { get; set; }
+
         #endif      
         #endregion
         
@@ -144,13 +146,13 @@ namespace IrrigationAdvisor.DBContext
         #endregion
 
         #region Water
-        #if false
+        #if true
 
         public virtual DbSet<EffectiveRain> EffectiveRains { get; set; }
 
         public virtual DbSet<EvapotranspirationCrop> EvapotranspirationCrops { get; set; }
 
-        public virtual DbSet<IrrigationAdvisor.Models.Water.Irrigation> Irrigations { get; set; }
+        public virtual DbSet<Models.Water.Irrigation> Irrigations { get; set; }
 
         public virtual DbSet<Rain> Rains { get; set; }
 
@@ -162,7 +164,7 @@ namespace IrrigationAdvisor.DBContext
         #endregion
 
         #region Weather
-        #if false
+        #if true
 
         public virtual DbSet<WeatherData> WeatherDatas { get; set; }
 
@@ -179,9 +181,11 @@ namespace IrrigationAdvisor.DBContext
         {
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            
+
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
             #region Agriculture
-            #if false
+            #if true
 
             modelBuilder.Configurations.Add(new CropConfiguration());
             modelBuilder.Configurations.Add(new CropCoefficientConfiguration());
@@ -190,6 +194,8 @@ namespace IrrigationAdvisor.DBContext
             modelBuilder.Configurations.Add(new PhenologicalStageConfiguration());
             modelBuilder.Configurations.Add(new SoilConfiguration());
             modelBuilder.Configurations.Add(new SpecieConfiguration());
+            modelBuilder.Configurations.Add(new SpecieCycleConfiguration());
+            modelBuilder.Configurations.Add(new StageConfiguration());
 
             #endif
             #endregion
@@ -201,7 +207,7 @@ namespace IrrigationAdvisor.DBContext
             #endregion
         
             #region Irrigation
-            #if false
+            #if true
 
             modelBuilder.Configurations.Add(new BombConfiguration());
             modelBuilder.Configurations.Add(new DripConfiguration());
@@ -232,9 +238,11 @@ namespace IrrigationAdvisor.DBContext
             #endregion
 
             #region Management
-            #if false
+            #if true
+
             modelBuilder.Configurations.Add(new CropIrrigationWeatherConfiguration());
             modelBuilder.Configurations.Add(new DailyRecordConfiguration());
+            
             #endif
             #endregion
 
@@ -258,14 +266,14 @@ namespace IrrigationAdvisor.DBContext
             #endregion
 
             #region Water
-            #if false
+            #if true
 
-            //modelBuilder.Configurations.Add(new WaterInputConfiguration());
-            //modelBuilder.Configurations.Add(new WaterOutputConfiguration());
             modelBuilder.Configurations.Add(new EffectiveRainConfiguration());
             modelBuilder.Configurations.Add(new EvapotranspirationCropConfiguration());
             modelBuilder.Configurations.Add(new IrrigationConfiguration());
             modelBuilder.Configurations.Add(new RainConfiguration());
+            //modelBuilder.Configurations.Add(new WaterInputConfiguration());
+            //modelBuilder.Configurations.Add(new WaterOutputConfiguration());
 
             #endif
             #endregion

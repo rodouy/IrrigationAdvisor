@@ -1,0 +1,88 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Agriculture.Horizon>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Agriculture";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HorizonLayer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HorizonLayerDepth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Limo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrganicMatter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NitrogenAnalysis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BulkDensitySoil)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HorizonLayer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HorizonLayerDepth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Limo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrganicMatter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NitrogenAnalysis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BulkDensitySoil)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.HorizonId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.HorizonId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.HorizonId })
+        </td>
+    </tr>
+}
+
+</table>

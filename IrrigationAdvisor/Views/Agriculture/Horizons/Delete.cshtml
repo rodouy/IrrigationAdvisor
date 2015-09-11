@@ -1,0 +1,105 @@
+﻿@model IrrigationAdvisor.Models.Agriculture.Horizon
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "Agriculture";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Horizon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HorizonLayer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HorizonLayer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HorizonLayerDepth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HorizonLayerDepth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Limo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Limo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrganicMatter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrganicMatter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NitrogenAnalysis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NitrogenAnalysis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BulkDensitySoil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BulkDensitySoil)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

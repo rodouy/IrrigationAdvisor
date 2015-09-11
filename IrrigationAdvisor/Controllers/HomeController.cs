@@ -139,24 +139,24 @@ namespace IrrigationAdvisor.Controllers
                 }
             }
 
-
-
+        
+         
             return GridWeatherList;
         }
-
+ 
         public PartialViewResult AddIrrigation()
         {
 
             IrrigationSystem testIrrigationSystem;
             testIrrigationSystem = IrrigationSystem.Instance;
-
+            
             testIrrigationSystem.IrrigationUnitList = new List<IrrigationUnit>();
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 1", "", 1, null, 1, null, null, null));
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 2", "", 1, null, 1, null, null, null));
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 3", "", 1, null, 1, null, null, null));
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 4", "", 1, null, 1, null, null, null));
             testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 5", "", 1, null, 1, null, null, null));
-
+ 
             IrrigationAdvisorContext var = new IrrigationAdvisorContext();
             //var.Farms.Where(q => q.Name == "Santa Lucia").First().IrrigationUnitList
             // var x =  var.Stages.Add(new Models.Agriculture.Stage(1,"Prueba", "desc"));
