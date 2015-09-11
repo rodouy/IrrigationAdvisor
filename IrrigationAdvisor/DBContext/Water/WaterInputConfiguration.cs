@@ -17,19 +17,25 @@ namespace IrrigationAdvisor.DBContext.Water
             //  all properties for each type are stored in separate tables.
             //There is no core table that contains data 
             //  common to all types in the hierarchy.
+            /*
             Map(w => 
             { 
-                w.ToTable("WaterInput"); 
+                w.ToTable("WaterInput");
+                w.Requires("WaterInputType").HasValue("WaterInput");
             })
             .Map<Rain>(w => 
             {
                 w.ToTable("Rain");
                 w.MapInheritedProperties();
-            }).Map<Models.Water.Irrigation>(w =>
+                w.Requires("WaterInputType").HasValue("Rain");
+            })
+            .Map<Models.Water.Irrigation>(w =>
             {
                 w.ToTable("Irrigation");
                 w.MapInheritedProperties();
+                w.Requires("WaterInputType").HasValue("Irrigation");
             });
+            */
             ToTable("WaterInput");
             HasKey(w => w.WaterInputId);
             Property(w => w.WaterInputId)

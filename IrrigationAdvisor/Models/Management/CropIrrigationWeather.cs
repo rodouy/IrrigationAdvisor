@@ -83,7 +83,7 @@ namespace IrrigationAdvisor.Models.Management
         private long cropIrrigationWeatherId;
         
         #region Agriculture
-        
+
         private Crop crop;
         private Soil soil;
         
@@ -199,7 +199,7 @@ namespace IrrigationAdvisor.Models.Management
             get { return crop; }
             set { crop = value; }
         }
-        
+
         public Soil Soil
         {
             get { return soil; }
@@ -393,7 +393,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Weather
 
-        public WeatherStation MainWeatherStation
+        public virtual WeatherStation MainWeatherStation
         {
             get { return mainWeatherStation; }
             set { mainWeatherStation = value; }

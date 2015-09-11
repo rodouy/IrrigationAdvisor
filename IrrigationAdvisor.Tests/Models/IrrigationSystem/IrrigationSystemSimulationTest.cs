@@ -500,11 +500,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 1. Create position
-            testPositionUruguay = new Position(1,"Uruguay", -32.523, -55.766);
-            testPositionRegionSur = new Position(2, "Sur", -33.874333, -56.009694);
-            testPositionMontevideo = new Position(3, "Montevideo", -34.9019718,-56.1640629);
-            testPositionMinas = new Position(4, "Minas", -34.366747, -55.233317);
-            testPositionFarm = new Position(5, "Santa Lucia", -34.232518, -55.541477);
+            testPositionUruguay = testIrrigationSystem.AddPosition("Uruguay", -32.523, -55.766);
+            testPositionRegionSur = testIrrigationSystem.AddPosition("Sur", -33.874333, -56.009694);
+            testPositionMontevideo = testIrrigationSystem.AddPosition("Montevideo", -34.9019718, -56.1640629);
+            testPositionMinas = testIrrigationSystem.AddPosition("Minas", -34.366747, -55.233317);
+            testPositionFarm = testIrrigationSystem.AddPosition("Santa Lucia", -34.232518, -55.541477);
             #endregion
 
             #region 2. Create Region (First create Specie List, SpecieCycle List, Effective Rain )
@@ -581,7 +581,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 15. Create Country (First create Capital City)
-            testCountry = testIrrigationSystem.AddCountry("Uruguay", testCapital.PositionId, testLanguage.LanguageId, null, null);
+            testCountry = testIrrigationSystem.AddCountry("Uruguay", testCapital.CityId, testLanguage.LanguageId, null, null);
             #endregion
 
             #region 16. Create City

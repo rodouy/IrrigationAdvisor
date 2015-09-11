@@ -125,6 +125,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Location
 
+        private List<Position> positionList;
         private List<Country> countryList;
         private List<City> cityList;
         private List<Region> regionList;
@@ -207,7 +208,13 @@ namespace IrrigationAdvisor.Models.Management
 
         #endregion
 
-        #region Location
+        #region Localization
+        
+        public List<Position> PositionList
+        {
+          get { return positionList; }
+          set { positionList = value; }
+        }
 
         public List<Country> CountryList
         {
@@ -325,8 +332,9 @@ namespace IrrigationAdvisor.Models.Management
 
             #endregion
 
-            #region Location
+            #region Localization
 
+            this.PositionList = new List<Position>();
             this.CountryList = new List<Country>();
             this.CityList = new List<City>();
             this.RegionList = new List<Region>();
@@ -1085,27 +1093,55 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Language
 
+
         /// <summary>
-        /// TODO ExistLanguage description
+        /// Find Language by Id, if not exists, return null
         /// </summary>
-        /// <param name="pLanguage"></param>
+        /// <param name="pPositionId"></param>
         /// <returns></returns>
-        public Language.Language ExistLanguage(Language.Language pLanguage)
+        public Language.Language FindLanguage(long pLanguageId)
         {
             Language.Language lReturn = null;
-            foreach (Language.Language item in this.LanguageList)
+            if (pLanguageId < this.LanguageList.Count())
             {
-                if(item.Equals(pLanguage))
+                foreach (Language.Language item in this.LanguageList)
                 {
-                    lReturn = item;
-                    break;
+                    if (item.LanguageId == pLanguageId)
+                    {
+                        lReturn = item;
+                        break;
+                    }
                 }
             }
             return lReturn;
         }
 
         /// <summary>
-        /// TODO AddLanguage description
+        /// If Language exist in List return the Language, 
+        /// else return null
+        /// </summary>
+        /// <param name="pLanguage"></param>
+        /// <returns></returns>
+        public Language.Language ExistLanguage(Language.Language pLanguage)
+        {
+            Language.Language lReturn = null;
+            if (pLanguage != null)
+            {
+                foreach (Language.Language item in this.LanguageList)
+                {
+                    if (item.Equals(pLanguage))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add a Language and return it, 
+        /// if exists returns null
         /// </summary>
         /// <param name="pName"></param>
         /// <returns></returns>
@@ -1127,10 +1163,125 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Localization
 
+        #region Position
+
+        /// <summary>
+        /// Find Position by Name, if not exists, return null
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public Position FindPosition(String pName)
+        {
+            Position lReturn = null;
+            
+            if(!String.IsNullOrEmpty(pName))
+            {
+                foreach (Position item in this.PositionList)
+                {
+                    if(item.Name.Equals(pName))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Find Position by Id, if not exists, return null
+        /// </summary>
+        /// <param name="pPositionId"></param>
+        /// <returns></returns>
+        public Position FindPosition(long pPositionId)
+        {
+            Position lReturn = null;
+            if(pPositionId < this.PositionList.Count())
+            {
+                foreach (Position item in this.PositionList)
+                {
+                    if(item.PositionId == pPositionId)
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// If Position exist in List return the Position, 
+        /// else return null
+        /// </summary>
+        /// <param name="pPosition"></param>
+        /// <returns></returns>
+        public Position ExistPosition(Position pPosition)
+        {
+            Position lReturn = null;
+            foreach (Position item in this.PositionList)
+            {
+                if(item.Equals(pPosition))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add a Position and return it, 
+        /// if exists returns null
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pLatitude"></param>
+        /// <param name="pLongitude"></param>
+        /// <returns></returns>
+        public Position AddPosition (String pName, Double pLatitude, Double pLongitude)
+        {
+            Position lReturn = null;
+            long lPositionId = this.PositionList.Count();
+            Position lPosition = new Position(lPositionId, pName, pLatitude, pLongitude);
+
+            if (ExistPosition(lPosition) == null)
+            {
+                this.PositionList.Add(lPosition);
+                lReturn = lPosition;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Update Position Name, Latitude and Longitude,
+        /// if not exists return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pLatitude"></param>
+        /// <param name="pLongitude"></param>
+        /// <returns></returns>
+        public Position UpdatePosition(String pName, Double pLatitude, Double pLongitude)
+        {
+            Position lReturn = null;
+            Position lPosition = null;
+
+            lPosition = new Position(0, pName, pLatitude, pLongitude);
+            lReturn = this.ExistPosition(lPosition);
+            if (lReturn != null)
+            {
+                lReturn.Name = pName;
+                lReturn.Latitude = pLatitude;
+                lReturn.Longitude = pLongitude;
+            }
+            return lReturn;
+        }
+
+        #endregion
+
         #region City
 
         /// <summary>
-        /// TODO add description
+        /// Find City by Name and Position, if not exists, return null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
@@ -1152,6 +1303,11 @@ namespace IrrigationAdvisor.Models.Management
             return lReturn;
         }
 
+        /// <summary>
+        /// Find City by Id, if not exists, return null
+        /// </summary>
+        /// <param name="pCityId"></param>
+        /// <returns></returns>
         public City FindCity(long pCityId)
         {
             City lReturn = null;
@@ -1170,7 +1326,8 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// If City exist in List return the City, 
+        /// else return null
         /// </summary>
         /// <param name="pCity"></param>
         /// <returns></returns>
@@ -1189,7 +1346,8 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Add a City and return it, 
+        /// if exists returns null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
@@ -1197,10 +1355,12 @@ namespace IrrigationAdvisor.Models.Management
         public City AddCity(String pName, long pPositionId)
         {
             City lReturn = null;
+            Position lPosition = null;
+            lPosition = this.FindPosition(pPositionId);
             long lCityId = this.CityList.Count();
             City lCity = new City(lCityId, pName, pPositionId);
-            lReturn = ExistCity(lCity);
-            if (lReturn == null)
+            
+            if (ExistCity(lCity) == null && lPosition != null)
             {
                 this.CityList.Add(lCity);
                 lReturn = lCity;
@@ -1209,7 +1369,9 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Add a City to Country and return it, 
+        /// if do not exists returns null,
+        /// if exists in Country, do not add it again.
         /// </summary>
         /// <param name="pCountry"></param>
         /// <param name="pCity"></param>
@@ -1217,16 +1379,23 @@ namespace IrrigationAdvisor.Models.Management
         public City AddCityToCountry(Country pCountry, City pCity)
         {
             City lReturn = null;
-            lReturn = ExistCity(pCity);
-            if (lReturn != null)
+            if(pCountry != null)
             {
-                pCountry.AddCity(pCity);
+                lReturn = this.ExistCity(pCity);
+                if (lReturn != null)
+                {
+                    if(pCountry.ExistCity(pCity) == null)
+                    {
+                        pCountry.AddCity(pCity);
+                    }
+                }
             }
             return lReturn;
         }
 
         /// <summary>
-        /// TODO add description
+        /// Update City Name and Position Id, 
+        /// if not exists, return null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
@@ -1234,7 +1403,11 @@ namespace IrrigationAdvisor.Models.Management
         public City UpdateCity(String pName, long pPositionId)
         {
             City lReturn = null;
-            City lCity = new City(0, pName, pPositionId);
+            City lCity = null;
+            Position lPosition = null;
+
+            lPosition = this.FindPosition(pPositionId);
+            lCity = new City(0, pName, pPositionId);
             lReturn = ExistCity(lCity);
             if(lReturn != null)
             {
@@ -1297,8 +1470,8 @@ namespace IrrigationAdvisor.Models.Management
         /// Add a new Country and return it, if exists returns null
         /// </summary>
         /// <param name="pName"></param>
-        /// <param name="pCapital"></param>
-        /// <param name="pLanguage"></param>
+        /// <param name="pCapitalId"></param>
+        /// <param name="pLanguageId"></param>
         /// <param name="pCityList"></param>
         /// <param name="pRegionList"></param>
         /// <returns></returns>
@@ -1310,12 +1483,16 @@ namespace IrrigationAdvisor.Models.Management
             long lIdCountry = this.CountryList.Count();
             Country lCountry = null;
             City lCity = null;
+            Language.Language lLanguage = null;
 
-            if (!String.IsNullOrEmpty(pName))
+            lCity = this.FindCity(pCapitalId);
+            lLanguage = this.FindLanguage(pLanguageId);
+            if (!String.IsNullOrEmpty(pName) 
+                && lCity != null && lLanguage != null)
             {
                 if (pCityList == null || pRegionList == null)
                 {
-                    lCountry = new Country(lIdCountry, pName, pLanguageId, pCapitalId);
+                    lCountry = new Country(lIdCountry, pName, lLanguage, lCity);
                 }
                 else
                 {
@@ -1323,7 +1500,6 @@ namespace IrrigationAdvisor.Models.Management
                                             pCityList, pRegionList);
                 }
                 //Add Capital city to the list in Country, if exists will not repeat
-                lCity = this.FindCity(pCapitalId);
                 lCountry.AddCity(lCity);
                 if (ExistCountry(lCountry) == null)
                 {
@@ -1366,7 +1542,8 @@ namespace IrrigationAdvisor.Models.Management
         #region Farm
 
         /// <summary>
-        /// TODO Add despription
+        /// If Farm exist in List return the Farm, 
+        /// else return null
         /// </summary>
         /// <param name="pFarm"></param>
         /// <returns></returns>
@@ -1385,7 +1562,7 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Add a new Farm and return it, if exists returns null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pAddress"></param>
@@ -1417,7 +1594,7 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Update Farm, if not exists return null.
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pAddress"></param>
@@ -1461,7 +1638,8 @@ namespace IrrigationAdvisor.Models.Management
         #region Location
 
         /// <summary>
-        /// TODO add description
+        /// If Location exist in List return the Location, 
+        /// else return null
         /// </summary>
         /// <param name="pLocation"></param>
         /// <returns></returns>
@@ -1483,7 +1661,8 @@ namespace IrrigationAdvisor.Models.Management
         }
 
         /// <summary>
-        /// TODO add description
+        /// Add a new Location and return it, if exists returns null.
+        /// Position, Country, Region and City has to be not null.
         /// </summary>
         /// <param name="pPosition"></param>
         /// <param name="pCountry"></param>
@@ -1495,18 +1674,24 @@ namespace IrrigationAdvisor.Models.Management
         {
             Location lReturn = null;
             long lIdLocation = this.LocationList.Count();
-            Location lLocation = new Location(lIdLocation, pPosition, pCountry, 
-                                              pRegion, pCity);
-            if (ExistLocation(lLocation) == null)
+            if (pPosition != null && pCountry != null && pRegion != null
+                            && pCity != null)
             {
-                this.LocationList.Add(lLocation);
-                lReturn = lLocation;
+                Location lLocation = new Location(lIdLocation, pPosition, pCountry,
+                                                  pRegion, pCity);
+                if (ExistLocation(lLocation) == null)
+                {
+                    this.LocationList.Add(lLocation);
+                    lReturn = lLocation;
+                }
             }
             return lReturn;
         }
 
         /// <summary>
-        /// TODO add description
+        /// Update Location Position, Country, Region and City.
+        /// If do not exists, return null.
+        /// Position, Country, Region and City has to be not null.
         /// </summary>
         /// <param name="pPosition"></param>
         /// <param name="pCountry"></param>
@@ -1516,16 +1701,20 @@ namespace IrrigationAdvisor.Models.Management
         public Location UpdateLocation(Position pPosition, Country pCountry,
                             Region pRegion, City pCity)
         {
-            Location lReturn = null;            
-            Location lLocation = new Location(0, pPosition, pCountry,
-                                              pRegion, pCity);
-            lReturn = ExistLocation(lLocation);
-            if(lReturn != null)
+            Location lReturn = null;
+            if (pPosition != null && pCountry != null && pRegion != null
+                && pCity != null)
             {
-                lReturn.Position = pPosition;
-                lReturn.Country = pCountry;
-                lReturn.Region = pRegion;
-                lReturn.City = pCity;
+                Location lLocation = new Location(0, pPosition, pCountry,
+                                              pRegion, pCity);
+                lReturn = ExistLocation(lLocation);
+                if (lReturn != null)
+                {
+                    lReturn.Position = pPosition;
+                    lReturn.Country = pCountry;
+                    lReturn.Region = pRegion;
+                    lReturn.City = pCity;
+                }
             }
             return lReturn;
         }

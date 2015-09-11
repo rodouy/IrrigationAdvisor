@@ -1,0 +1,52 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Agriculture.Specie>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Agriculture";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecieCycle.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BaseTemperature)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StressTemperature)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecieCycle.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BaseTemperature)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StressTemperature)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SpecieId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SpecieId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SpecieId })
+        </td>
+    </tr>
+}
+
+</table>

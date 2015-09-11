@@ -40,6 +40,20 @@ namespace IrrigationAdvisor.Models
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.Specie> Species { get; set; }
 
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.CropCoefficient> CropCoefficients { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.Soil> Soils { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.SpecieCycle> SpecieCycles { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.PhenologicalStage> PhenologicalStages { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.Horizon> Horizons { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.CropInformationByDate> CropInformationByDates { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.Stage> Stages { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.EffectiveRain> EffectiveRains { get; set; }
     
     }
 }

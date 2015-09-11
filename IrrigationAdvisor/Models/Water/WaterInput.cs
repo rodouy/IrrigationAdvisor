@@ -1,6 +1,6 @@
-﻿using System;
+﻿using IrrigationAdvisor.Models.Management;
+using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Text;
 
@@ -36,7 +36,7 @@ namespace IrrigationAdvisor.Models.Water
     ///     - GetOutputType()
     /// 
     /// </summary>
-    public abstract class WaterInput
+    public class WaterInput
     {
         #region Consts
 
@@ -52,7 +52,7 @@ namespace IrrigationAdvisor.Models.Water
         private Double extraInput;
         private DateTime extraDate;
         private long cropIrrigationWeatherId;
-        private Management.CropIrrigationWeather cropIrrigationWeather;
+        private CropIrrigationWeather cropIrrigationWeather;
 
         #endregion
 

@@ -54,6 +54,11 @@ namespace IrrigationAdvisorConsole
                 InsertRegions();
                 InsertCities();
                 InsertCountry();
+
+                InsertSpecieCycles();
+                InsertSpecies();
+                UpdateRegionSpecies();
+
             }
             catch (Exception ex)
             {
@@ -322,6 +327,29 @@ namespace IrrigationAdvisorConsole
                 context.SaveChanges();
             };
         }
+
+        private static void UpdateRegionSpecies()
+        {
+            Region lRegion = null;
+            Country lCountry = null;
+            using (var context = new IrrigationAdvisorContext())
+            {
+                lRegion = context.Regions.SingleOrDefault(
+                                    region => region.Name == "Sur");
+                context.SpecieCycles.ForEachAsync(specieCycle => lRegion.AddSpecieCycle(specieCycle));
+                context.Species.ForEachAsync(specie => lRegion.AddSpecie(specie));
+                lCountry = context.Countries.SingleOrDefault(
+                                    country => country.Name == "Uruguay");
+                lCountry.RegionList.Add(lRegion);
+                lRegion = context.Regions.SingleOrDefault(
+                                                    region => region.Name == "Norte");
+                lCountry.RegionList.Add(lRegion);
+                
+                context.SaveChanges();
+            }
+            
+        }
+
 
         #endif
         #endregion
