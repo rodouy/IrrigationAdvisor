@@ -499,7 +499,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             #endregion
 
-            #region 1. Create position
+            #region 1. Create position (Name, Latitude, Longitude)
             testPositionUruguay = testIrrigationSystem.AddPosition("Uruguay", -32.523, -55.766);
             testPositionRegionSur = testIrrigationSystem.AddPosition("Sur", -33.874333, -56.009694);
             testPositionMontevideo = testIrrigationSystem.AddPosition("Montevideo", -34.9019718, -56.1640629);
@@ -511,12 +511,12 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testRegion = testIrrigationSystem.AddRegion("Sur", testPositionRegionSur.PositionId, null, null, null);
             #endregion
 
-            #region 3. Create Specie Cycle
+            #region 3. Create Specie Cycle (Name)
             testSpecieCycleUnico = testRegion.AddSpecieCycle("Unico");
             testSpecieCycleCorto = testRegion.AddSpecieCycle("Corto");
             #endregion
 
-            #region 4. Add Specie to SpecieList of Region
+            #region 4. Add Specie (Name, Cycle, BaseTemperature, StressTemperature) to SpecieList of Region
             testSpecieMaiz = testRegion.AddSpecie("Maiz", "Corto", testMaizBaseTemperature, testMaizStressTemperature);
             testSpecieSoja = testRegion.AddSpecie("Soja", "Corto", testSojaBaseTemperature, testSojaStressTemperature);
             //testSpecieList = new List<Specie>();
@@ -530,7 +530,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testRegion.EffectiveRainList = testEffectiveRainsList;
             #endregion
 
-            #region 6. Create Crops
+            #region 6. Create Crops (Name, Region, Specie, Density, MaxEvapoTrransToIrrigate, MinEvapoTrransToIrrigate)
             testCrop_Maiz_Sur = new Crop(0, "Maiz Sur", testRegion, testSpecieMaiz, 
                                         testCropDensityMaiz,
                                         testMaxEvapotranspirationToIrrigate_Maiz,

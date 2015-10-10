@@ -31,8 +31,8 @@ namespace IrrigationAdvisor.Models.Irrigation
     ///     - name String
     /// 
     /// Methods:
-    ///     - ClassTemplate()      -- constructor
-    ///     - ClassTemplate(name)  -- consturctor with parameters
+    ///     - IrrigationUnit()      -- constructor
+    ///     - IrrigationUnit(name)  -- consturctor with parameters
     /// 
     /// </summary>
     public class IrrigationUnit

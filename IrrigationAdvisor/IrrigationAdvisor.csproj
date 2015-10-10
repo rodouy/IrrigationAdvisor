@@ -193,6 +193,9 @@
     <Compile Include="Controllers\Localization\RegionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Water\EffectiveRainsController.cs" />
+    <Compile Include="Controllers\Weather\WeatherDatasController.cs" />
+    <Compile Include="Controllers\Weather\WeatherInformationsController.cs" />
+    <Compile Include="Controllers\Weather\WeatherStationsController.cs" />
     <Compile Include="DBContext\Agriculture\CropCoefficientConfiguration.cs" />
     <Compile Include="DBContext\Agriculture\CropConfiguration.cs" />
     <Compile Include="DBContext\Agriculture\CropInformationByDateConfiguration.cs" />
@@ -480,6 +483,21 @@
     <Content Include="Views\Home\_WeatherPartial.cshtml" />
     <Content Include="Views\Home\_AddPhenology.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Weather\WeatherDatas\Create.cshtml" />
+    <Content Include="Views\Weather\WeatherDatas\Delete.cshtml" />
+    <Content Include="Views\Weather\WeatherDatas\Details.cshtml" />
+    <Content Include="Views\Weather\WeatherDatas\Edit.cshtml" />
+    <Content Include="Views\Weather\WeatherDatas\Index.cshtml" />
+    <Content Include="Views\Weather\WeatherInformations\Create.cshtml" />
+    <Content Include="Views\Weather\WeatherInformations\Delete.cshtml" />
+    <Content Include="Views\Weather\WeatherInformations\Details.cshtml" />
+    <Content Include="Views\Weather\WeatherInformations\Edit.cshtml" />
+    <Content Include="Views\Weather\WeatherInformations\Index.cshtml" />
+    <Content Include="Views\Weather\WeatherStations\Create.cshtml" />
+    <Content Include="Views\Weather\WeatherStations\Delete.cshtml" />
+    <Content Include="Views\Weather\WeatherStations\Details.cshtml" />
+    <Content Include="Views\Weather\WeatherStations\Edit.cshtml" />
+    <Content Include="Views\Weather\WeatherStations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -493,14 +511,12 @@
     <Folder Include="Controllers\Management\" />
     <Folder Include="Controllers\Security\" />
     <Folder Include="Controllers\Utilities\" />
-    <Folder Include="Controllers\Weather\" />
     <Folder Include="DBContext\Data\" />
     <Folder Include="DBContext\Utilities\" />
     <Folder Include="Views\Data\" />
     <Folder Include="Views\Management\" />
     <Folder Include="Views\Security\" />
     <Folder Include="Views\Utilities\" />
-    <Folder Include="Views\Weather\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

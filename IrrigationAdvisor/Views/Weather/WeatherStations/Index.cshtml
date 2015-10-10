@@ -1,0 +1,76 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Weather.WeatherStation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Weather";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfInstallation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfService)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WirelessTransmission)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiveET)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WeatherDataType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfInstallation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfService)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WirelessTransmission)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiveET)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeatherDataType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WeatherStationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WeatherStationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WeatherStationId })
+        </td>
+    </tr>
+}
+
+</table>

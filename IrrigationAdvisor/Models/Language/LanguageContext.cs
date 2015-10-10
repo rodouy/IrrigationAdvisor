@@ -54,6 +54,12 @@ namespace IrrigationAdvisor.Models
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.Stage> Stages { get; set; }
 
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.EffectiveRain> EffectiveRains { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Weather.WeatherData> WeatherDatas { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Weather.WeatherInformation> WeatherInformations { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Weather.WeatherStation> WeatherStations { get; set; }
     
     }
 }

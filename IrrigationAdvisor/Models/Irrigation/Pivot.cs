@@ -27,10 +27,9 @@ namespace IrrigationAdvisor.Models.Irrigation
     ///     - radius double
     /// 
     /// Methods:
-    ///     - ClassTemplate()      -- constructor
-    ///     - ClassTemplate(name)  -- consturctor with parameters
-    ///     - SetName(newName)     -- method to set the name field
-    /// 
+    ///     - Pivot()      -- constructor
+    ///     - Pivot(radius)  -- consturctor with parameters
+    ///     
     /// </summary>
     public class Pivot : IrrigationUnit
     {

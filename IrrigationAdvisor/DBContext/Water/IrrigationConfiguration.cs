@@ -22,8 +22,6 @@ namespace IrrigationAdvisor.DBContext.Water
                 .IsRequired();
             Property(w => w.Input)
                 .IsRequired();
-            Property(w => w.CropIrrigationWeatherId)
-                .IsRequired();
             
         }
     }

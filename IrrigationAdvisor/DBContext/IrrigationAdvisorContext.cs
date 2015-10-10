@@ -156,9 +156,9 @@ namespace IrrigationAdvisor.DBContext
 
         public virtual DbSet<Rain> Rains { get; set; }
 
-        //public virtual DbSet<WaterInput> WaterInputs { get; set; }
+        public virtual DbSet<WaterInput> WaterInputs { get; set; }
 
-        //public virtual DbSet<WaterOutput> WaterOutputs { get; set; }
+        public virtual DbSet<WaterOutput> WaterOutputs { get; set; }
 
         #endif
         #endregion
@@ -272,8 +272,8 @@ namespace IrrigationAdvisor.DBContext
             modelBuilder.Configurations.Add(new EvapotranspirationCropConfiguration());
             modelBuilder.Configurations.Add(new IrrigationConfiguration());
             modelBuilder.Configurations.Add(new RainConfiguration());
-            //modelBuilder.Configurations.Add(new WaterInputConfiguration());
-            //modelBuilder.Configurations.Add(new WaterOutputConfiguration());
+            modelBuilder.Configurations.Add(new WaterInputConfiguration());
+            modelBuilder.Configurations.Add(new WaterOutputConfiguration());
 
             #endif
             #endregion

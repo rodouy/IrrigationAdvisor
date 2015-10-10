@@ -1,0 +1,59 @@
+﻿@model IrrigationAdvisor.Models.Weather.WeatherInformation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Weather";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WeatherInformation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WeatherData.WeatherDataId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeatherData.WeatherDataId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WebAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WebData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResponseData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResponseData)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WeatherInformationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

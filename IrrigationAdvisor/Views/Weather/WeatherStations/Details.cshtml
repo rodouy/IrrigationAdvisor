@@ -1,0 +1,83 @@
+﻿@model IrrigationAdvisor.Models.Weather.WeatherStation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Weather";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WeatherStation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfInstallation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfInstallation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfService)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfService)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WirelessTransmission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WirelessTransmission)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiveET)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiveET)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeatherDataType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeatherDataType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WeatherStationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

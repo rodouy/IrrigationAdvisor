@@ -62,10 +62,9 @@ namespace IrrigationAdvisor.Models.Water
             this.type = Utils.WaterInputType.Rain;            
         }
 
-        public Rain(CropIrrigationWeather pCropIrrigationWeather, DateTime pDate, double pInput)
+        public Rain(DateTime pDate, double pInput)
         {
             this.type = Utils.WaterInputType.Rain;
-            this.CropIrrigationWeather = pCropIrrigationWeather;
             this.Date = pDate;
             this.Input = pInput;
         }
