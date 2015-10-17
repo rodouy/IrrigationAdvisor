@@ -118,7 +118,7 @@ namespace IrrigationAdvisor.DBContext
         #endregion
 
         #region Management
-        #if false
+        #if true
 
         public virtual DbSet<CropIrrigationWeather> CropIrrigationWeathers { get; set; }
 
@@ -156,9 +156,9 @@ namespace IrrigationAdvisor.DBContext
 
         public virtual DbSet<Rain> Rains { get; set; }
 
-        public virtual DbSet<WaterInput> WaterInputs { get; set; }
+        //public virtual DbSet<WaterInput> WaterInputs { get; set; }
 
-        public virtual DbSet<WaterOutput> WaterOutputs { get; set; }
+        //public virtual DbSet<WaterOutput> WaterOutputs { get; set; }
 
         #endif
         #endregion
@@ -268,12 +268,12 @@ namespace IrrigationAdvisor.DBContext
             #region Water
             #if true
 
+            modelBuilder.Configurations.Add(new WaterInputConfiguration());
+            modelBuilder.Configurations.Add(new WaterOutputConfiguration());
             modelBuilder.Configurations.Add(new EffectiveRainConfiguration());
             modelBuilder.Configurations.Add(new EvapotranspirationCropConfiguration());
             modelBuilder.Configurations.Add(new IrrigationConfiguration());
             modelBuilder.Configurations.Add(new RainConfiguration());
-            modelBuilder.Configurations.Add(new WaterInputConfiguration());
-            modelBuilder.Configurations.Add(new WaterOutputConfiguration());
 
             #endif
             #endregion

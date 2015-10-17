@@ -12,9 +12,7 @@ namespace IrrigationAdvisor.Models.Irrigation
     ///     Describes a kind of Irrigation Unit with pivot
     ///     
     /// References:
-    ///     Crop
-    ///     Bomb
-    ///     Location
+    ///     IrrigationUnit
     ///     
     /// Dependencies:
     ///   
@@ -33,6 +31,10 @@ namespace IrrigationAdvisor.Models.Irrigation
     /// </summary>
     public class Pivot : IrrigationUnit
     {
+        #region Consts
+
+        #endregion
+        
         #region Fields
 
         private double radius;
@@ -50,6 +52,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         #endregion
 
         #region Construction
+
         public Pivot() 
         {
             this.Radius = 0;
@@ -59,8 +62,19 @@ namespace IrrigationAdvisor.Models.Irrigation
         {
             this.Radius = pRadius;
         }
+
         #endregion
 
+        #region Private Helpers
+        #endregion
+
+        #region Public Methods
+
+
+        #endregion
+
+        #region Overrides
+        #endregion
 
     }
 }

@@ -192,7 +192,12 @@
     <Compile Include="Controllers\Localization\PositionsController.cs" />
     <Compile Include="Controllers\Localization\RegionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Management\CropIrrigationWeathersController.cs" />
+    <Compile Include="Controllers\Management\DailyRecordsController.cs" />
     <Compile Include="Controllers\Water\EffectiveRainsController.cs" />
+    <Compile Include="Controllers\Water\EvapotranspirationCropsController.cs" />
+    <Compile Include="Controllers\Water\IrrigationsController.cs" />
+    <Compile Include="Controllers\Water\RainsController.cs" />
     <Compile Include="Controllers\Weather\WeatherDatasController.cs" />
     <Compile Include="Controllers\Weather\WeatherInformationsController.cs" />
     <Compile Include="Controllers\Weather\WeatherStationsController.cs" />
@@ -238,6 +243,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agriculture\Crop.cs" />
@@ -498,6 +504,31 @@
     <Content Include="Views\Weather\WeatherStations\Details.cshtml" />
     <Content Include="Views\Weather\WeatherStations\Edit.cshtml" />
     <Content Include="Views\Weather\WeatherStations\Index.cshtml" />
+    <Content Include="Views\Water\Irrigations\Create.cshtml" />
+    <Content Include="Views\Water\Irrigations\Delete.cshtml" />
+    <Content Include="Views\Water\Irrigations\Details.cshtml" />
+    <Content Include="Views\Water\Irrigations\Edit.cshtml" />
+    <Content Include="Views\Water\Irrigations\Index.cshtml" />
+    <Content Include="Views\Water\Rains\Create.cshtml" />
+    <Content Include="Views\Water\Rains\Delete.cshtml" />
+    <Content Include="Views\Water\Rains\Details.cshtml" />
+    <Content Include="Views\Water\Rains\Edit.cshtml" />
+    <Content Include="Views\Water\Rains\Index.cshtml" />
+    <Content Include="Views\EvapotranspirationCrops\Create.cshtml" />
+    <Content Include="Views\EvapotranspirationCrops\Delete.cshtml" />
+    <Content Include="Views\EvapotranspirationCrops\Details.cshtml" />
+    <Content Include="Views\EvapotranspirationCrops\Edit.cshtml" />
+    <Content Include="Views\EvapotranspirationCrops\Index.cshtml" />
+    <Content Include="Views\CropIrrigationWeathers\Create.cshtml" />
+    <Content Include="Views\CropIrrigationWeathers\Delete.cshtml" />
+    <Content Include="Views\CropIrrigationWeathers\Details.cshtml" />
+    <Content Include="Views\CropIrrigationWeathers\Edit.cshtml" />
+    <Content Include="Views\CropIrrigationWeathers\Index.cshtml" />
+    <Content Include="Views\DailyRecords\Create.cshtml" />
+    <Content Include="Views\DailyRecords\Delete.cshtml" />
+    <Content Include="Views\DailyRecords\Details.cshtml" />
+    <Content Include="Views\DailyRecords\Edit.cshtml" />
+    <Content Include="Views\DailyRecords\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -508,7 +539,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Data\" />
-    <Folder Include="Controllers\Management\" />
     <Folder Include="Controllers\Security\" />
     <Folder Include="Controllers\Utilities\" />
     <Folder Include="DBContext\Data\" />

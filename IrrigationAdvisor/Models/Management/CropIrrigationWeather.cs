@@ -331,7 +331,7 @@ namespace IrrigationAdvisor.Models.Management
             set { effectiveRainList = value; }
         }
         
-        public List<Water.Rain> RainList
+        public List<Rain> RainList
         {
             get { return rainList; }
             set { rainList = value; }
@@ -1859,12 +1859,12 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pDayOfRain"></param>
         /// <returns></returns>
-        public Water.Rain GetRain(DateTime pDayOfRain)
+        public Rain GetRain(DateTime pDayOfRain)
         {
-            Water.Rain lReturn = null;
-            Water.Rain lRain = null;
+            Rain lReturn = null;
+            Rain lRain = null;
 
-            foreach (Water.Rain lRainItem in this.RainList)
+            foreach (Rain lRainItem in this.RainList)
             {
                 if (Utils.IsTheSameDay(lRainItem.Date, pDayOfRain))
                 {

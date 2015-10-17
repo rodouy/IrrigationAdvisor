@@ -157,6 +157,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         /// <param name="pDepth"></param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2200:RethrowToPreserveStackDetails")]
         private double getLayerCapacityByProrationOfHorizon(double pDepth, SoilLayer pSoilLayer)
         {
             double lDepthSum = 0;

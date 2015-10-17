@@ -1,8 +1,9 @@
-﻿using IrrigationAdvisor.Models.Management;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IrrigationAdvisor.Models.Management;
+using System.ComponentModel.DataAnnotations;
 
 namespace IrrigationAdvisor.Models.Water
 {
@@ -41,23 +42,21 @@ namespace IrrigationAdvisor.Models.Water
     {
         #region Consts
 
-        private String TYPE = "INPUT";
-
         #endregion
 
         #region Fields
 
         private long waterInputId;
-        private Double input;
+        private double input;
         private DateTime date;
-        private Double extraInput;
+        private double extraInput;
         private DateTime extraDate;
 
         #endregion
 
         #region Properties
 
-        
+        [Key]
         public long WaterInputId
         {
             get { return waterInputId; }
@@ -130,15 +129,6 @@ namespace IrrigationAdvisor.Models.Water
         #region Public Methods
 
         /// <summary>
-        /// Get the Water output Type
-        /// </summary>
-        /// <returns></returns>
-        public String GetInputType()
-        {
-            return this.TYPE;
-        }
-
-        /// <summary>
         /// Get the Input plus the Extra Input
         /// </summary>
         /// <returns></returns>
@@ -160,6 +150,27 @@ namespace IrrigationAdvisor.Models.Water
             string lReturn = this.GetTotalInput().ToString();
             return lReturn;
 
+        }
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            WaterInput lWaterInput = obj as WaterInput;
+            return this.Date.Equals(lWaterInput.Date)
+                && this.Input.Equals(lWaterInput.Input);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Date.GetHashCode();
         }
 
         #endregion

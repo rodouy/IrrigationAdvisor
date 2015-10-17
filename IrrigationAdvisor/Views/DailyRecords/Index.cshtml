@@ -1,0 +1,160 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Management.DailyRecord>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Management";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DailyRecordDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DaysAfterSowing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DaysAfterSowingModified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrowingDegreeDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrowingDegreeDaysAccumulated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrowingDegreeDaysModified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastWaterInputDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastBigWaterInputDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastPartialWaterInputDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastPartialWaterInput)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HydricBalance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoilHydricVolume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalEvapotranspirationCropFromLastWaterInput)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CropCoefficient)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observations)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalEvapotranspirationCrop)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalEffectiveRain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalRealRain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalIrrigation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalIrrigationInHydricBalance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalExtraIrrigation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalExtraIrrigationInHidricBalance)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DailyRecordDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DaysAfterSowing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DaysAfterSowingModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrowingDegreeDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrowingDegreeDaysAccumulated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrowingDegreeDaysModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastWaterInputDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastBigWaterInputDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastPartialWaterInputDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastPartialWaterInput)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HydricBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoilHydricVolume)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalEvapotranspirationCropFromLastWaterInput)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CropCoefficient)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observations)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalEvapotranspirationCrop)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalEffectiveRain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalRealRain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalIrrigation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalIrrigationInHydricBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalExtraIrrigation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalExtraIrrigationInHidricBalance)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DailyRecordId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DailyRecordId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DailyRecordId })
+        </td>
+    </tr>
+}
+
+</table>

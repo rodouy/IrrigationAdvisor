@@ -191,7 +191,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         #region Crop
 
         /// <summary>
-        /// TODO add description
+        /// Return a Crop with the same Name & Specie from Parameters
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pSpecieCycle"></param>
@@ -214,7 +214,8 @@ namespace IrrigationAdvisor.Models.Irrigation
         }
 
         /// <summary>
-        /// TODO add description
+        /// Return a Crop equals from Parameters,
+        /// If do not exists return null
         /// </summary>
         /// <param name="pCrop"></param>
         /// <returns></returns>

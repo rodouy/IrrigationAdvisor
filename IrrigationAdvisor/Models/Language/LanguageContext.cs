@@ -60,6 +60,17 @@ namespace IrrigationAdvisor.Models
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Weather.WeatherInformation> WeatherInformations { get; set; }
 
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Weather.WeatherStation> WeatherStations { get; set; }
-    
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.Irrigation> Irrigations { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.Rain> Rains { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.EvapotranspirationCrop> EvapotranspirationCrops { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Management.CropIrrigationWeather> CropIrrigationWeathers { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Management.DailyRecord> DailyRecords { get; set; }
+
+
     }
 }
