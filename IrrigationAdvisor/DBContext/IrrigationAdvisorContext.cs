@@ -128,13 +128,19 @@ namespace IrrigationAdvisor.DBContext
         #endregion
 
         #region Security
-        #if false
+        #if true
 
         public virtual DbSet<Access> Accesses { get; set; }
 
         public virtual DbSet<Role> Roles { get; set; }
 
         public virtual DbSet<User> Users { get; set; }
+
+        public virtual DbSet<Menu> Menus { get; set; }
+
+        public virtual DbSet<SiteItem> SiteItems { get; set; }
+
+        public virtual DbSet<Models.Security.SiteMap> SiteMaps { get; set; }
 
         #endif
         #endregion

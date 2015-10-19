@@ -71,6 +71,18 @@ namespace IrrigationAdvisor.Models
 
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Management.DailyRecord> DailyRecords { get; set; }
 
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.Menu> Menus { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.Role> Roles { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.Access> Accesses { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.SiteItem> SiteItems { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.SiteMap> SiteMaps { get; set; }
+
 
     }
 }

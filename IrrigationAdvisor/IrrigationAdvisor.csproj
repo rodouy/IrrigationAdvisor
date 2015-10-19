@@ -194,6 +194,12 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Management\CropIrrigationWeathersController.cs" />
     <Compile Include="Controllers\Management\DailyRecordsController.cs" />
+    <Compile Include="Controllers\Security\AccessesController.cs" />
+    <Compile Include="Controllers\Security\MenusController.cs" />
+    <Compile Include="Controllers\Security\RolesController.cs" />
+    <Compile Include="Controllers\Security\SiteItemsController.cs" />
+    <Compile Include="Controllers\Security\SiteMapsController.cs" />
+    <Compile Include="Controllers\Security\UsersController.cs" />
     <Compile Include="Controllers\Water\EffectiveRainsController.cs" />
     <Compile Include="Controllers\Water\EvapotranspirationCropsController.cs" />
     <Compile Include="Controllers\Water\IrrigationsController.cs" />
@@ -514,21 +520,51 @@
     <Content Include="Views\Water\Rains\Details.cshtml" />
     <Content Include="Views\Water\Rains\Edit.cshtml" />
     <Content Include="Views\Water\Rains\Index.cshtml" />
-    <Content Include="Views\EvapotranspirationCrops\Create.cshtml" />
-    <Content Include="Views\EvapotranspirationCrops\Delete.cshtml" />
-    <Content Include="Views\EvapotranspirationCrops\Details.cshtml" />
-    <Content Include="Views\EvapotranspirationCrops\Edit.cshtml" />
-    <Content Include="Views\EvapotranspirationCrops\Index.cshtml" />
-    <Content Include="Views\CropIrrigationWeathers\Create.cshtml" />
-    <Content Include="Views\CropIrrigationWeathers\Delete.cshtml" />
-    <Content Include="Views\CropIrrigationWeathers\Details.cshtml" />
-    <Content Include="Views\CropIrrigationWeathers\Edit.cshtml" />
-    <Content Include="Views\CropIrrigationWeathers\Index.cshtml" />
-    <Content Include="Views\DailyRecords\Create.cshtml" />
-    <Content Include="Views\DailyRecords\Delete.cshtml" />
-    <Content Include="Views\DailyRecords\Details.cshtml" />
-    <Content Include="Views\DailyRecords\Edit.cshtml" />
-    <Content Include="Views\DailyRecords\Index.cshtml" />
+    <Content Include="Views\Water\EvapotranspirationCrops\Create.cshtml" />
+    <Content Include="Views\Water\EvapotranspirationCrops\Delete.cshtml" />
+    <Content Include="Views\Water\EvapotranspirationCrops\Details.cshtml" />
+    <Content Include="Views\Water\EvapotranspirationCrops\Edit.cshtml" />
+    <Content Include="Views\Water\EvapotranspirationCrops\Index.cshtml" />
+    <Content Include="Views\Management\CropIrrigationWeathers\Create.cshtml" />
+    <Content Include="Views\Management\CropIrrigationWeathers\Delete.cshtml" />
+    <Content Include="Views\Management\CropIrrigationWeathers\Details.cshtml" />
+    <Content Include="Views\Management\CropIrrigationWeathers\Edit.cshtml" />
+    <Content Include="Views\Management\CropIrrigationWeathers\Index.cshtml" />
+    <Content Include="Views\Management\DailyRecords\Create.cshtml" />
+    <Content Include="Views\Management\DailyRecords\Delete.cshtml" />
+    <Content Include="Views\Management\DailyRecords\Details.cshtml" />
+    <Content Include="Views\Management\DailyRecords\Edit.cshtml" />
+    <Content Include="Views\Management\DailyRecords\Index.cshtml" />
+    <Content Include="Views\Security\Users\Create.cshtml" />
+    <Content Include="Views\Security\Users\Delete.cshtml" />
+    <Content Include="Views\Security\Users\Details.cshtml" />
+    <Content Include="Views\Security\Users\Edit.cshtml" />
+    <Content Include="Views\Security\Users\Index.cshtml" />
+    <Content Include="Views\Security\Menus\Create.cshtml" />
+    <Content Include="Views\Security\Menus\Delete.cshtml" />
+    <Content Include="Views\Security\Menus\Details.cshtml" />
+    <Content Include="Views\Security\Menus\Edit.cshtml" />
+    <Content Include="Views\Security\Menus\Index.cshtml" />
+    <Content Include="Views\Security\Roles\Create.cshtml" />
+    <Content Include="Views\Security\Roles\Delete.cshtml" />
+    <Content Include="Views\Security\Roles\Details.cshtml" />
+    <Content Include="Views\Security\Roles\Edit.cshtml" />
+    <Content Include="Views\Security\Roles\Index.cshtml" />
+    <Content Include="Views\Security\Accesses\Create.cshtml" />
+    <Content Include="Views\Security\Accesses\Delete.cshtml" />
+    <Content Include="Views\Security\Accesses\Details.cshtml" />
+    <Content Include="Views\Security\Accesses\Edit.cshtml" />
+    <Content Include="Views\Security\Accesses\Index.cshtml" />
+    <Content Include="Views\Security\SiteItems\Create.cshtml" />
+    <Content Include="Views\Security\SiteItems\Delete.cshtml" />
+    <Content Include="Views\Security\SiteItems\Details.cshtml" />
+    <Content Include="Views\Security\SiteItems\Edit.cshtml" />
+    <Content Include="Views\Security\SiteItems\Index.cshtml" />
+    <Content Include="Views\Security\SiteMaps\Create.cshtml" />
+    <Content Include="Views\Security\SiteMaps\Delete.cshtml" />
+    <Content Include="Views\Security\SiteMaps\Details.cshtml" />
+    <Content Include="Views\Security\SiteMaps\Edit.cshtml" />
+    <Content Include="Views\Security\SiteMaps\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -539,13 +575,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Data\" />
-    <Folder Include="Controllers\Security\" />
     <Folder Include="Controllers\Utilities\" />
     <Folder Include="DBContext\Data\" />
     <Folder Include="DBContext\Utilities\" />
     <Folder Include="Views\Data\" />
-    <Folder Include="Views\Management\" />
-    <Folder Include="Views\Security\" />
     <Folder Include="Views\Utilities\" />
   </ItemGroup>
   <PropertyGroup>
