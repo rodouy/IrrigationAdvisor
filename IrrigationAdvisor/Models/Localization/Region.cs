@@ -207,11 +207,13 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pMaxRain"></param>
         /// <param name="pPercentage"></param>
         /// <returns></returns>
-        public EffectiveRain AddEffectiveRain(int pMonth, Double pMinRain, 
+        public EffectiveRain AddEffectiveRain(String pName,
+                                            int pMonth, Double pMinRain, 
                                             Double pMaxRain, Double pPercentage)
         {
             EffectiveRain lReturn = null;
-            EffectiveRain lEffectiveRain = new EffectiveRain(pMonth, pMinRain, pMaxRain, pPercentage);
+            EffectiveRain lEffectiveRain = new EffectiveRain(pName, pMonth, 
+                                                            pMinRain, pMaxRain, pPercentage);
             if (ExistEffectiveRain(lEffectiveRain) == null)
             {
                 this.EffectiveRainList.Add(lEffectiveRain);
@@ -228,14 +230,17 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pMaxRain"></param>
         /// <param name="pPercentage"></param>
         /// <returns></returns>
-        public EffectiveRain UpdateEffectiveRain(int pMonth, Double pMinRain, 
+        public EffectiveRain UpdateEffectiveRain(String pName,
+                                            int pMonth, Double pMinRain, 
                                             Double pMaxRain, Double pPercentage)
         {
             EffectiveRain lReturn = null;
-            EffectiveRain lEffectiveRain = new EffectiveRain(pMonth, pMinRain, pMaxRain, pPercentage);
+            EffectiveRain lEffectiveRain = new EffectiveRain(pName, pMonth, pMinRain, 
+                                                            pMaxRain, pPercentage);
             lReturn = ExistEffectiveRain(lEffectiveRain);
             if (lReturn != null)
             {
+                lReturn.Name = pName;
                 lReturn.Month = pMonth;
                 lReturn.MinRain = pMinRain;
                 lReturn.MaxRain = pMaxRain;

@@ -126,9 +126,9 @@ namespace IrrigationAdvisor.Models.Localization
         public Country()
         {
             this.CountryId = 0;
-            this.Name = "";
-            this.LanguageId = 0;
-            this.CapitalId = 0;
+            this.Name = "NoName";
+            this.LanguageId = 1;
+            this.CapitalId = 1;
             this.CityList = new List<City>();
             this.RegionList = new List<Region>();
         }
@@ -266,15 +266,19 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
         /// <returns></returns>
-        public City UpdateCity(String pName, long pPositionId)
+        public City UpdateCity(String pName, Position pPosition,
+                                Country pCountry)
         {
             City lReturn = null;
-            City lCity = new City(0, pName, pPositionId);
+            City lCity = new City(0, pName, pPosition, pCountry);
             lReturn = ExistCity(lCity);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
-                lReturn.PositionId = pPositionId;
+                lReturn.PositionId = pPosition.PositionId;
+                lReturn.Position = pPosition;
+                lReturn.CountryId = pCountry.CountryId;
+                lReturn.Country = pCountry;
             }
             return lReturn;
         }

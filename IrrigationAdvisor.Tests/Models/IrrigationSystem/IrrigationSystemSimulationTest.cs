@@ -23,6 +23,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Position testPositionFarm;
         private Position testPositionMontevideo;
         private Position testPositionMinas;
+        private Position testPositionWSInia;
+        private Position testPositionWSSantaLucia;
         private Language.Language testLanguage;
         private Country testCountry;
         private Region testRegion;
@@ -504,7 +506,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testPositionRegionSur = testIrrigationSystem.AddPosition("Sur", -33.874333, -56.009694);
             testPositionMontevideo = testIrrigationSystem.AddPosition("Montevideo", -34.9019718, -56.1640629);
             testPositionMinas = testIrrigationSystem.AddPosition("Minas", -34.366747, -55.233317);
+            testPositionWSInia = testIrrigationSystem.AddPosition("Minas", -34.366747, -55.233317);
             testPositionFarm = testIrrigationSystem.AddPosition("Santa Lucia", -34.232518, -55.541477);
+            testPositionWSSantaLucia = testIrrigationSystem.AddPosition("Santa Lucia", -34.232518, -55.541477);
             #endregion
 
             #region 2. Create Region (First create Specie List, SpecieCycle List, Effective Rain )
@@ -577,7 +581,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 14. Create City (Capital)
-            testCapital = testIrrigationSystem.AddCity("Montevideo", testPositionMontevideo.PositionId);
+            testCapital = testIrrigationSystem.AddCity("Montevideo", testPositionMontevideo, testCountry);
             #endregion
 
             #region 15. Create Country (First create Capital City)
@@ -585,11 +589,11 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 16. Create City
-            testCityMinas = testIrrigationSystem.AddCity("Minas", testPositionMinas.PositionId);
+            testCityMinas = testIrrigationSystem.AddCity("Minas", testPositionMinas, testCountry);
             testCityMinas = testIrrigationSystem.AddCityToCountry(testCountry, testCityMinas);
             #endregion
 
-            #region 17. Create Location
+            #region 17. Create Location Positions
             testLocationFarm = testIrrigationSystem.AddLocation(testPositionFarm, testCountry,
                                                                 testRegion, testCityMinas);
             testLocationMinas = testIrrigationSystem.AddLocation(testPositionRegionSur, testCountry,
@@ -608,59 +612,73 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
 
             testWeatherStationAlternative = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Alternative",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.AllData);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.AllData);
 
             testWeatherStation_Pivot_01 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 01", 
-                                                                    DateTime.Now, DateTime.Now, DateTime.Now, 1, 
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Temperature);
+                                                                    DateTime.Now, DateTime.Now, DateTime.Now, 1,
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Temperature);
 
             testWeatherStation_Pivot_02 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 02",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Temperature);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Temperature);
 
             testWeatherStation_Pivot_03 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 03",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_04 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 04",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_05 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 05",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_06 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 06",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_07 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 07",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_08 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 08",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_09 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 09",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_10 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 10",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_11 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 11",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_12 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 12",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             testWeatherStation_Pivot_13 = testIrrigationSystem.AddWeatherStation("WeatherStation Farm", "Model Pivot 13",
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1,
-                                                                    testLocationFarm, true, Utils.WeatherDataType.Evapotranspiraton);
+                                                                    testPositionWSInia.PositionId, true, 
+                                                                    Utils.WeatherDataType.Evapotranspiraton);
 
             #endregion
 
@@ -1616,19 +1634,19 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
 
             #region Soils
-            testSoil_Pivot_01 = testIrrigationSystem.AddSoil("Suelo Pivot 01", "Suelo Pivot 01", testLocationFarm, DateTime.MinValue, testSoil_Pivot_01_DepthLimit);
-            testSoil_Pivot_02 = testIrrigationSystem.AddSoil("Suelo Pivot 02", "Suelo Pivot 02", testLocationFarm, DateTime.MinValue, testSoil_Pivot_02_DepthLimit);
-            testSoil_Pivot_03 = testIrrigationSystem.AddSoil("Suelo Pivot 03", "Suelo Pivot 03", testLocationFarm, DateTime.MinValue, testSoil_Pivot_03_DepthLimit);
-            testSoil_Pivot_04 = testIrrigationSystem.AddSoil("Suelo Pivot 04", "Suelo Pivot 04", testLocationFarm, DateTime.MinValue, testSoil_Pivot_04_DepthLimit);
-            testSoil_Pivot_05 = testIrrigationSystem.AddSoil("Suelo Pivot 05", "Suelo Pivot 05", testLocationFarm, DateTime.MinValue, testSoil_Pivot_05_DepthLimit);
-            testSoil_Pivot_06 = testIrrigationSystem.AddSoil("Suelo Pivot 06", "Suelo Pivot 06", testLocationFarm, DateTime.MinValue, testSoil_Pivot_06_DepthLimit);
-            testSoil_Pivot_07 = testIrrigationSystem.AddSoil("Suelo Pivot 07", "Suelo Pivot 07", testLocationFarm, DateTime.MinValue, testSoil_Pivot_07_DepthLimit);
-            testSoil_Pivot_08 = testIrrigationSystem.AddSoil("Suelo Pivot 08", "Suelo Pivot 08", testLocationFarm, DateTime.MinValue, testSoil_Pivot_08_DepthLimit);
-            testSoil_Pivot_09 = testIrrigationSystem.AddSoil("Suelo Pivot 09", "Suelo Pivot 09", testLocationFarm, DateTime.MinValue, testSoil_Pivot_09_DepthLimit);
-            testSoil_Pivot_10 = testIrrigationSystem.AddSoil("Suelo Pivot 10", "Suelo Pivot 10", testLocationFarm, DateTime.MinValue, testSoil_Pivot_10_DepthLimit);
-            testSoil_Pivot_11 = testIrrigationSystem.AddSoil("Suelo Pivot 11", "Suelo Pivot 11", testLocationFarm, DateTime.MinValue, testSoil_Pivot_11_DepthLimit);
-            testSoil_Pivot_12 = testIrrigationSystem.AddSoil("Suelo Pivot 12", "Suelo Pivot 12", testLocationFarm, DateTime.MinValue, testSoil_Pivot_12_DepthLimit);
-            testSoil_Pivot_13 = testIrrigationSystem.AddSoil("Suelo Pivot 13", "Suelo Pivot 13", testLocationFarm, DateTime.MinValue, testSoil_Pivot_13_DepthLimit);
+            testSoil_Pivot_01 = testIrrigationSystem.AddSoil("Suelo Pivot 01", "Suelo Pivot 01", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_01_DepthLimit);
+            testSoil_Pivot_02 = testIrrigationSystem.AddSoil("Suelo Pivot 02", "Suelo Pivot 02", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_02_DepthLimit);
+            testSoil_Pivot_03 = testIrrigationSystem.AddSoil("Suelo Pivot 03", "Suelo Pivot 03", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_03_DepthLimit);
+            testSoil_Pivot_04 = testIrrigationSystem.AddSoil("Suelo Pivot 04", "Suelo Pivot 04", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_04_DepthLimit);
+            testSoil_Pivot_05 = testIrrigationSystem.AddSoil("Suelo Pivot 05", "Suelo Pivot 05", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_05_DepthLimit);
+            testSoil_Pivot_06 = testIrrigationSystem.AddSoil("Suelo Pivot 06", "Suelo Pivot 06", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_06_DepthLimit);
+            testSoil_Pivot_07 = testIrrigationSystem.AddSoil("Suelo Pivot 07", "Suelo Pivot 07", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_07_DepthLimit);
+            testSoil_Pivot_08 = testIrrigationSystem.AddSoil("Suelo Pivot 08", "Suelo Pivot 08", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_08_DepthLimit);
+            testSoil_Pivot_09 = testIrrigationSystem.AddSoil("Suelo Pivot 09", "Suelo Pivot 09", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_09_DepthLimit);
+            testSoil_Pivot_10 = testIrrigationSystem.AddSoil("Suelo Pivot 10", "Suelo Pivot 10", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_10_DepthLimit);
+            testSoil_Pivot_11 = testIrrigationSystem.AddSoil("Suelo Pivot 11", "Suelo Pivot 11", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_11_DepthLimit);
+            testSoil_Pivot_12 = testIrrigationSystem.AddSoil("Suelo Pivot 12", "Suelo Pivot 12", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_12_DepthLimit);
+            testSoil_Pivot_13 = testIrrigationSystem.AddSoil("Suelo Pivot 13", "Suelo Pivot 13", testLocationFarm, Utils.MIN_DATETIME, testSoil_Pivot_13_DepthLimit);
             #endregion
 
             #region horizon types

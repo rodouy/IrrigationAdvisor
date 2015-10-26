@@ -664,7 +664,7 @@ namespace IrrigationAdvisor.Models.Management
         {
             int lReturn = 0;
             double lLastGrowingDegreeDaysRegistry = 0;
-            DateTime lDate = DateTime.MinValue;
+            DateTime lDate = Utils.MIN_DATETIME;
             IEnumerable<DailyRecord> lDailyRecordOrderByDate = this.DailyRecordList.OrderBy(lDailyRecordItem => lDailyRecordItem.DailyRecordDateTime);
 
             foreach (DailyRecord lDailyRecordItem in lDailyRecordOrderByDate)

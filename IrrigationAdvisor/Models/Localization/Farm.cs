@@ -56,15 +56,17 @@ namespace IrrigationAdvisor.Models.Localization
 
         private long farmId;
         private String name;
+        private String company;
         private String address;
         private String phone;
-        private Location location;
+        private long positionId;
         private int has;
+        private long weatherStationId;
+        private WeatherStation weatherStation;
         private List<Soil> soilList;
         private List<Bomb> bombList;
-        private WeatherStation weatherStation;
-        private User user;
         private List<IrrigationUnit> irrigationUnitList;
+        private long userId;
 
         #endregion
 
@@ -83,6 +85,12 @@ namespace IrrigationAdvisor.Models.Localization
             set { name = value; }
         }
 
+        public String Company
+        {
+            get { return company; }
+            set { company = value; }
+        }
+        
         public String Address
         {
             get { return address; }
@@ -95,10 +103,10 @@ namespace IrrigationAdvisor.Models.Localization
             set { phone = value; }
         }
 
-        public Location Location
+        public long PositionId
         {
-            get { return location; }
-            set { location = value; }
+            get { return positionId; }
+            set { positionId = value; }
         }
 
         public int Has
@@ -107,6 +115,18 @@ namespace IrrigationAdvisor.Models.Localization
             set { has = value; }
         }
 
+        public long WeatherStationId
+        {
+            get { return weatherStationId; }
+            set { weatherStationId = value; }
+        }
+
+        public WeatherStation WeatherStation
+        {
+            get { return weatherStation; }
+            set { weatherStation = value; }
+        }
+        
         public List<Soil> SoilList
         {
             get { return soilList; }
@@ -118,23 +138,17 @@ namespace IrrigationAdvisor.Models.Localization
             get { return bombList; }
             set { bombList = value; }
         }
-
-        public WeatherStation WeatherStation
-        {
-            get { return weatherStation; }
-            set { weatherStation = value; }
-        }
-
-        public User User
-        {
-            get { return user; }
-            set { user = value; }
-        }
-
+        
         public List<IrrigationUnit> IrrigationUnitList
         {
             get { return irrigationUnitList; }
             set { irrigationUnitList = value; }
+        }
+
+        public long  UserId
+        {
+            get { return userId; }
+            set { userId = value; }
         }
 
         #endregion
@@ -142,7 +156,7 @@ namespace IrrigationAdvisor.Models.Localization
         #region Construction
 
         /// <summary>
-        /// TODO add description
+        /// Constructor of Farm
         /// </summary>
         public Farm()
         {
@@ -150,46 +164,50 @@ namespace IrrigationAdvisor.Models.Localization
             this.Name = "NoName";
             this.Address = "";
             this.Phone = "";
-            this.Location = new Location();
+            this.PositionId = 0;
             this.Has = 0;
+            this.WeatherStationId = 0;
+            this.WeatherStation = new WeatherStation();
             this.SoilList = new List<Soil>();
             this.BombList = new List<Bomb>();
-            this.WeatherStation = new WeatherStation();
-            this.User = new User();
             this.IrrigationUnitList = new List<IrrigationUnit>();
+            this.UserId = 0;
         }
 
         /// <summary>
-        /// TODO add description
+        /// Constructor of Farm with parameters
         /// </summary>
         /// <param name="pFarmId"></param>
         /// <param name="pName"></param>
         /// <param name="pAddress"></param>
         /// <param name="pPhone"></param>
-        /// <param name="pLocation"></param>
+        /// <param name="pPositionId"></param>
         /// <param name="pHas"></param>
+        /// <param name="pWeatherStation"></param>
         /// <param name="pSoilList"></param>
         /// <param name="pBombList"></param>
-        /// <param name="pWeatherStation"></param>
-        /// <param name="pUser"></param>
         /// <param name="pIrrigationUnitList"></param>
-        public Farm(long pFarmId, String pName, String pAddress,
-                    String pPhone, Location pLocation, int pHas,
+        /// <param name="pUserId"></param>
+        public Farm(long pFarmId, String pName, String pCompany,
+                    String pAddress,String pPhone, long pPositionId, 
+                    int pHas, WeatherStation pWeatherStation, 
                     List<Soil> pSoilList, List<Bomb> pBombList,
-                    WeatherStation pWeatherStation, User pUser,
-                    List<IrrigationUnit> pIrrigationUnitList)
+                    List<IrrigationUnit> pIrrigationUnitList,
+                    long pUserId)
         {
             this.FarmId = pFarmId;
             this.Name = pName;
+            this.Company = pCompany;
             this.Address = pAddress;
             this.Phone = pPhone;
-            this.Location = pLocation;
+            this.PositionId = pPositionId;
             this.Has = pHas;
+            this.WeatherStationId = pWeatherStation.WeatherStationId;
+            this.WeatherStation = pWeatherStation;
             this.SoilList = pSoilList;
             this.BombList = pBombList;
-            this.WeatherStation = pWeatherStation;
-            this.User = pUser;
             this.IrrigationUnitList = pIrrigationUnitList;
+            this.UserId = pUserId;
         }
 
         #endregion
@@ -202,7 +220,8 @@ namespace IrrigationAdvisor.Models.Localization
         #region Bomb
 
         /// <summary>
-        /// Return if a Bomb exists in Farm Bomb List
+        /// Return if the Bomb exists in Farm Bomb List,
+        /// else null
         /// </summary>
         /// <param name="pBomb"></param>
         /// <returns></returns>
@@ -224,7 +243,8 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
-        /// Add a Bomb to Farm Bomb List
+        /// Add a Bomb to Farm Bomb List,
+        /// If exists return null
         /// </summary>
         /// <param name="pBomb"></param>
         public Bomb AddBomb(Bomb pBomb)
@@ -243,7 +263,8 @@ namespace IrrigationAdvisor.Models.Localization
         #region Soil
 
         /// <summary>
-        /// TODO add description
+        /// Return if the Soil exists in Farm Soil List,
+        /// else null
         /// </summary>
         /// <param name="pSoil"></param>
         /// <returns></returns>
@@ -262,7 +283,8 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
-        /// TODO add description
+        /// Add a Soil to Farm Soil List,
+        /// If exists return null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pDescription"></param>
@@ -285,7 +307,8 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
-        /// TODO add description
+        /// Update the Soil from Farm Soil List,
+        /// If do not exists return null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pDescription"></param>
@@ -315,7 +338,8 @@ namespace IrrigationAdvisor.Models.Localization
         #region IrrigationUnit
 
         /// <summary>
-        /// TODO add description
+        /// Return if the IrrigationUnit exists in Farm IrrigationUnit List,
+        /// else null
         /// </summary>
         /// <param name="pIrrigationUnit"></param>
         /// <returns></returns>
@@ -334,7 +358,8 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
-        /// TODO add description
+        /// Add a IrrigationUnit to Farm IrrigationUnit List,
+        /// If exists return null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pIrrigationType"></param>
@@ -364,7 +389,8 @@ namespace IrrigationAdvisor.Models.Localization
         }
 
         /// <summary>
-        /// TODO add description
+        /// Update the IrrigationUnit from Farm IrrigationUnit List,
+        /// If do not exists return null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pIrrigationType"></param>
@@ -406,7 +432,7 @@ namespace IrrigationAdvisor.Models.Localization
         #region Overrides
 
         /// <summary>
-        /// Overrides equals, Name, Location And User
+        /// Overrides equals, Name, PositionId And UserId
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -417,9 +443,9 @@ namespace IrrigationAdvisor.Models.Localization
                 return false;
             }
             Farm lFarm = obj as Farm;
-            return this.Name.Equals(lFarm.Name) 
-                && this.Location.Equals(lFarm.Location)
-                && this.User.Equals(lFarm.User);
+            return this.Name.Equals(lFarm.Name)
+                && this.PositionId.Equals(lFarm.PositionId)
+                && this.UserId.Equals(lFarm.UserId);
         }
 
         public override int GetHashCode()

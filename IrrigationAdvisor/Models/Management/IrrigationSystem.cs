@@ -1352,15 +1352,15 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
         /// <returns></returns>
-        public City AddCity(String pName, long pPositionId)
+        public City AddCity(String pName, Position pPosition,
+                            Country pCountry)
         {
             City lReturn = null;
-            Position lPosition = null;
-            lPosition = this.FindPosition(pPositionId);
             long lCityId = this.CityList.Count();
-            City lCity = new City(lCityId, pName, pPositionId);
+            City lCity = new City(lCityId, pName, pPosition, pCountry);
             
-            if (ExistCity(lCity) == null && lPosition != null)
+            if (ExistCity(lCity) == null 
+                && pPosition != null)
             {
                 this.CityList.Add(lCity);
                 lReturn = lCity;
@@ -1400,19 +1400,21 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
         /// <returns></returns>
-        public City UpdateCity(String pName, long pPositionId)
+        public City UpdateCity(String pName, Position pPosition,
+                                Country pCountry)
         {
             City lReturn = null;
             City lCity = null;
-            Position lPosition = null;
-
-            lPosition = this.FindPosition(pPositionId);
-            lCity = new City(0, pName, pPositionId);
+            
+            lCity = new City(0, pName, pPosition, pCountry);
             lReturn = ExistCity(lCity);
             if(lReturn != null)
             {
                 lReturn.Name= pName;
-                lReturn.PositionId = pPositionId;
+                lReturn.PositionId = pPosition.PositionId;
+                lReturn.Position = pPosition;
+                lReturn.CountryId = pCountry.CountryId;
+                lReturn.Country = pCountry;
             }
             return lReturn;
         }
@@ -1575,16 +1577,18 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pUser"></param>
         /// <param name="pIrrigationUnitList"></param>
         /// <returns></returns>
-        public Farm AddFarm(String pName, String pAddress, String pPhone, 
-                        Location pLocation, int pHas, List<Soil> pSoilList,
-                        List<Bomb> pBombList, WeatherStation pWeatherStation,
-                        User pUser, List<IrrigationUnit> pIrrigationUnitList)
+        public Farm AddFarm(String pName, String pAddress, String pCompany, 
+                        String pPhone, long pPositionId, int pHas, 
+                        WeatherStation pWeatherStation, List<Soil> pSoilList,
+                        List<Bomb> pBombList, List<IrrigationUnit> pIrrigationUnitList, 
+                        long pUserId)
         {
             Farm lReturn = null;
             long lFarmId = this.FarmList.Count();
-            Farm lFarm = new Farm(lFarmId, pName, pAddress, pPhone,
-                            pLocation, pHas, pSoilList, pBombList,
-                            pWeatherStation, pUser, pIrrigationUnitList);
+            Farm lFarm = new Farm(lFarmId, pName, pCompany, pAddress, pPhone,
+                            pPositionId, pHas, pWeatherStation, 
+                            pSoilList, pBombList,
+                            pIrrigationUnitList, pUserId);
             if(ExistFarm(lFarm) == null)
             {
                 this.FarmList.Add(lFarm);
@@ -1607,28 +1611,31 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pUser"></param>
         /// <param name="pIrrigationUnitList"></param>
         /// <returns></returns>
-        public Farm UpdateFarm(String pName, String pAddress, String pPhone,
-                        Location pLocation, int pHas, List<Soil> pSoilList,
-                        List<Bomb> pBombList, WeatherStation pWeatherStation,
-                        User pUser, List<IrrigationUnit> pIrrigationUnitList)
+        public Farm UpdateFarm(String pName, String pCompany, String pAddress, 
+                        String pPhone, long pPositionId, int pHas, 
+                        WeatherStation pWeatherStation,
+                        List<Soil> pSoilList, List<Bomb> pBombList,
+                        List<IrrigationUnit> pIrrigationUnitList, long pUserId)
         {
             Farm lReturn = null;
-            Farm lFarm = new Farm(0, pName, pAddress, pPhone,
-                            pLocation, pHas, pSoilList, pBombList,
-                            pWeatherStation, pUser, pIrrigationUnitList);
+            Farm lFarm = new Farm(0, pName, pCompany, pAddress, pPhone,
+                            pPositionId, pHas, pWeatherStation,
+                            pSoilList, pBombList,
+                            pIrrigationUnitList, pUserId);
             lReturn = ExistFarm(lFarm);
             if(lReturn != null)
             {
                 lReturn.Name= pName;
+                lReturn.Company = pCompany;
                 lReturn.Address = pAddress;
                 lReturn.Phone = pPhone;
-                lReturn.Location = pLocation;
+                lReturn.PositionId = pPositionId;
                 lReturn.Has = pHas;
+                lReturn.WeatherStation = pWeatherStation;
                 lReturn.SoilList = pSoilList;
                 lReturn.BombList = pBombList;
-                lReturn.WeatherStation = pWeatherStation;
-                lReturn.User = pUser;
                 lReturn.IrrigationUnitList = pIrrigationUnitList;
+                lReturn.UserId = pUserId;
             }
             return lReturn;
         }
@@ -2270,7 +2277,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public WeatherStation AddWeatherStation (String pName, String pModel, DateTime pDateOfInstallation,
                                 DateTime pDateOfService, DateTime pUpdateTime, int pWirelessTransmission,
-                                Location pLocation, bool pGiveET, Utils.WeatherDataType pWeatherDataType)
+                                long pPositionId, bool pGiveET, Utils.WeatherDataType pWeatherDataType)
         {
             WeatherStation lReturn = null;
             WeatherStation lWeatherStation = null;
@@ -2281,7 +2288,7 @@ namespace IrrigationAdvisor.Models.Management
             lWeatherDataList = new List<WeatherData>();
             lWeatherStation = new WeatherStation(lWeatherStationId,
                                 pName, pModel, pDateOfInstallation, pDateOfService,
-                                pUpdateTime, pWirelessTransmission, pLocation, pGiveET,
+                                pUpdateTime, pWirelessTransmission, pPositionId, pGiveET,
                                 lWeatherDataList, pWeatherDataType);
 
             if(ExistWeatherStation(lWeatherStation) == null)
@@ -2310,14 +2317,14 @@ namespace IrrigationAdvisor.Models.Management
         /// <returns></returns>
         public WeatherStation UpdateWeatherStation(String pName, String pModel, DateTime pDateOfInstallation,
                                 DateTime pDateOfService, DateTime pUpdateTime, int pWirelessTransmission,
-                                Location pLocation, bool pGiveET, List<WeatherData> pWeatherDataList,
+                                long pPositionId, bool pGiveET, List<WeatherData> pWeatherDataList,
                                 Utils.WeatherDataType pWeatherDataType)
         {
             WeatherStation lReturn = null;
 
             WeatherStation lWeatherStation = new WeatherStation(0, pName, pModel,
                                 pDateOfInstallation, pDateOfService, pUpdateTime,
-                                pWirelessTransmission, pLocation, pGiveET,
+                                pWirelessTransmission, pPositionId, pGiveET,
                                 pWeatherDataList, pWeatherDataType);
             lReturn = ExistWeatherStation(lWeatherStation);
             if(lReturn != null)
@@ -2328,7 +2335,7 @@ namespace IrrigationAdvisor.Models.Management
                 lReturn.DateOfService = pDateOfService;
                 lReturn.UpdateTime = pUpdateTime;
                 lReturn.WirelessTransmission = pWirelessTransmission;
-                lReturn.Location = pLocation;
+                lReturn.PositionId = pPositionId;
                 lReturn.GiveET = pGiveET;
                 lReturn.WeatherDataList = pWeatherDataList;
                 lReturn.WeatherDataType = pWeatherDataType;

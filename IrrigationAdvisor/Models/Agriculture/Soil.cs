@@ -128,7 +128,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.Description = "";
             this.Location = null;
             this.HorizonList = new List<Horizon>();
-            this.TestDate = DateTime.MinValue;
+            this.TestDate = Utilities.Utils.MIN_DATETIME;
             this.DepthLimit = 0;
         }
 

@@ -285,7 +285,7 @@ namespace IrrigationAdvisor.DBContext
             #endregion
 
             #region Weather
-            #if false
+            #if true
 
             modelBuilder.Configurations.Add(new WeatherDataConfiguration());
             modelBuilder.Configurations.Add(new WeatherInformationConfiguration());
