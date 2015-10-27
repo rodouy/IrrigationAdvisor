@@ -58,7 +58,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     
         /// </summary>
         private long phenologicalStageId;
-        private Stage stage;
+        private long stageId;
         private double minDegree;
         private double maxDegree;
         private double rootDepth;
@@ -74,11 +74,17 @@ namespace IrrigationAdvisor.Models.Agriculture
             get { return phenologicalStageId; }
             set { phenologicalStageId = value; }
         }
-        
 
-        public Stage Stage
+        public long StageId
         {
-            get { return stage; }
+            get { return stageId; }
+            set { stageId = value; }
+        }
+
+        public virtual Stage Stage
+        {
+            get;
+            set;
         }
         
         public double MinDegree
@@ -115,7 +121,6 @@ namespace IrrigationAdvisor.Models.Agriculture
         public PhenologicalStage() 
         {
             this.phenologicalStageId = 0;
-            this.stage = new Stage();
             this.MinDegree = 0;
             this.MaxDegree = 0;
             this.RootDepth = 0;
@@ -137,7 +142,7 @@ namespace IrrigationAdvisor.Models.Agriculture
                                 Double pRootDepth, Double pHydricBalanceDepth)
         {
             this.phenologicalStageId = pPhenologicalStageId;
-            this.stage = pStage;
+            this.StageId = pStage.StageId;
             this.MinDegree = pMinDegree;
             this.MaxDegree = pMaxDegree;
             this.RootDepth = pRootDepth;

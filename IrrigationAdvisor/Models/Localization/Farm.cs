@@ -292,12 +292,12 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pTestDate"></param>
         /// <param name="pDepthLimit"></param>
         /// <returns></returns>
-        public Soil AddSoil(String pName, String pDescription, Location pLocation, 
+        public Soil AddSoil(String pName, String pDescription, long pPositionId, 
                             DateTime pTestDate, double pDepthLimit)
         {
             Soil lReturn = null;
             long lIdSoil = this.SoilList.Count();
-            Soil lSoil = new Soil(lIdSoil, pName, pDescription, pLocation, pTestDate, pDepthLimit);
+            Soil lSoil = new Soil(lIdSoil, pName, pDescription, pPositionId, pTestDate, pDepthLimit);
             if(ExistSoil(lSoil) == null)
             {
                 this.SoilList.Add(lSoil);
@@ -316,17 +316,17 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pTestDate"></param>
         /// <param name="pDepthLimit"></param>
         /// <returns></returns>
-        public Soil UpdateSoil(String pName, String pDescription, Location pLocation,
+        public Soil UpdateSoil(String pName, String pDescription, long pPositionId,
                             DateTime pTestDate, double pDepthLimit)
         {
             Soil lReturn = null;
-            Soil lSoil = new Soil(0, pName, pDescription, pLocation, pTestDate, pDepthLimit);
+            Soil lSoil = new Soil(0, pName, pDescription, pPositionId, pTestDate, pDepthLimit);
             lReturn = ExistSoil(lSoil);
             if(lReturn != null)
             {
                 lReturn.Name = pName;
                 lReturn.Description = pDescription;
-                lReturn.Location = pLocation;
+                lReturn.PositionId = pPositionId;
                 lReturn.TestDate = pTestDate;
                 lReturn.DepthLimit = pDepthLimit;
             }
@@ -371,15 +371,15 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pLocation"></param>
         /// <returns></returns>
         public IrrigationUnit AddIrrigationUnit(String pName, String pIrrigationType, 
-                                    double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList, 
-                                    double pSurface, List<Crop> pCropList, Bomb pBomb, Location pLocation)
+                                    double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList,
+                                    double pSurface, List<Crop> pCropList, long pBombId, long pPositionId)
         {
             IrrigationUnit lReturn = null;
             long lIdIrrigationUnit = this.IrrigationUnitList.Count();
             IrrigationUnit lIrrigationUnit = new IrrigationUnit(lIdIrrigationUnit,
                                             pName, pIrrigationType, pIrrigationEfficiency,
                                             pIrrigationList, pSurface, pCropList,
-                                            pBomb, pLocation);
+                                            pBombId, pPositionId);
             if(ExistIrrigationUnit(lIrrigationUnit) == null)
             {
                 this.IrrigationUnitList.Add(lIrrigationUnit);
@@ -403,13 +403,13 @@ namespace IrrigationAdvisor.Models.Localization
         /// <returns></returns>
         public IrrigationUnit UpdateIrrigationUnit(String pName, String pIrrigationType,
                                     double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList,
-                                    double pSurface, List<Crop> pCropList, Bomb pBomb, Location pLocation)
+                                    double pSurface, List<Crop> pCropList, long pBombId, long pPositionId)
         {
             IrrigationUnit lReturn = null;
             IrrigationUnit lIrrigationUnit = new IrrigationUnit(0,
                                             pName, pIrrigationType, pIrrigationEfficiency,
                                             pIrrigationList, pSurface, pCropList,
-                                            pBomb, pLocation);
+                                            pBombId, pPositionId);
             lReturn = ExistIrrigationUnit(lIrrigationUnit);
             if (lReturn != null)
             {
@@ -419,8 +419,8 @@ namespace IrrigationAdvisor.Models.Localization
                 lReturn.IrrigationList = pIrrigationList;
                 lReturn.Surface = pSurface;
                 lReturn.CropList = pCropList;
-                lReturn.Bomb = pBomb;
-                lReturn.Location = pLocation;
+                lReturn.BombId = pBombId;
+                lReturn.PositionId = pPositionId;
             }
             return lReturn;
         }
