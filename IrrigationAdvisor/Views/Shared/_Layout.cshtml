@@ -1,74 +1,126 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Irrigation Advisor</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <meta name="viewport" content="width=device-width" />
-    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
-    <script src="@Url.Content("~/Scripts/jquery-2.1.4.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery-ui.js")"></script>
-    <script src="@Url.Content("~/Scripts/jssor.slider.mini.js")"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
 
 
 
-    @RenderSection("css", false)
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,700,900' rel='stylesheet' type='text/css'>
+
+
+    <link rel="stylesheet" type="text/css" href="../css/library/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/md-font.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style-2.css">
+    <link rel="stylesheet" type="text/css" href="../css/modal.css">
 
 
 
+
+    <style>
+        #example {
+            color: #fff;
+            background: #38B6E0 none repeat scroll 0% 0%;
+            padding: 10px;
+            margin: 5px auto;
+            width: 340px;
+            border-radius: 1px;
+        }
+    </style>
+
+
+
+
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+
+    <title>PGW - Water</title>
 </head>
-<body style="padding-top: 0px;">
-    <div class="navbar navbar-inverse " style="width: 970px; margin:auto; border-top-right-radius:35px; border-bottom-left-radius: 35px;height: 69px; background: #013572;">
-        <div class="main-nav" style="padding-left: 25px; ">
-            <div class="navbar-header">
-
-
-                <a title="Go to the home page" href="/" class="main-nav__logo">
-                    <img src="../Content/Image/logo.svg" alt="PGG Wrightson">
-                </a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (Request.IsAuthenticated
-                        )
-                    {
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+<body id="page-top">
+    <!-- PG -->
+    <div id="page-wrap">
+        <!-- PRELOADER -->
+        <div id="preloader">
+            <div class="pre-icon">
+                <div class="pre-item pre-item-1"></div>
+                <div class="pre-item pre-item-2"></div>
+                <div class="pre-item pre-item-3"></div>
+                <div class="pre-item pre-item-4"></div>
             </div>
         </div>
+        <!-- End Preloader -->
+        <!-- Header -->
+        <header id="header" class="header">
+            <div class="container">
+                <!-- Logo PGw -->
+                <div class="logo"><a href="#"><img src="../images/logo.png" alt=""></a></div>
+                <nav class="navigation">
+                    <div class="open-menu">
+                        <span class="item item-1"><a href="../">Home</a></span>
+                        <span class="item item-2"><a href="#">Empresa</a></span>
+                        <span class="item item-3"><a href="#">Contacto</a></span>
+                    </div>
+                    <!-- Menu -->
+                    <ul class="menu">
+                        <li class="current-menu-item"><a href="../">Home</a></li>
+                        <li class="menu-item-has-children"><a href="#">Empresa</a></li>
+                        <li class="menu-item-has-children"><a href="#">Contacto</a></li>
+                    </ul>
+                    <!-- End menu -->
+                    <!-- Search header -->
+                    <div class="search-box">
+                        <i class="icon md-search"></i>
+                        <div class="search-inner">
+                            <form>
+                                <input type="text" placeholder="Buscar pivots">
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End search header -->
+                    <!-- Account-->
+                    @Html.Partial("_LoginPartial");
 
-    </div>
+
+                    <!-- END / LIST ACCOUNT INFO -->
+                </nav>
+                <!-- END / NAVIGATION -->
+
+            </div>
+        </header>
 
 
-
-
-
-    <div class="container">
         @RenderBody()
-        <hr />
 
+        <!-- end header -->
+        <!-- FOOTER -->
+        <footer id="footer" class="footer">@{ Html.RenderAction("ContactPartial", "Home"); }</footer>
+        <!-- ENd FOOTER -->
     </div>
-    <footer style="width:970px; margin:auto; background-color: #013572; height:100px;font-size: 15px;color: white;">
-        <p style="font-size:15px; margin-left:10px">&copy; @DateTime.Now.Year - Irrigation Advisor</p>
-    </footer>
+    <!-- End PG -->
+    <!--  jQuery -->
+    <script type="text/javascript" src="../js/library/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../js/library/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/scripts.js"></script>
 
 
+    <script type="text/javascript" src="../js/library/jquery-2.1.1.min.js"></script>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
-
-
-
+    <script type="text/javascript" src="../js/library/jquery.owl.carousel.js"></script>
+    <script type="text/javascript" src="../js/library/jquery.appear.min.js"></script>
+    <script type="text/javascript" src="../js/library/perfect-scrollbar.min.js"></script>
+    <script type="text/javascript" src="../js/library/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="../js/scripts.js"></script>
 
 
 </body>
 </html>
+
+
+
+@RenderSection("scripts", required: false)

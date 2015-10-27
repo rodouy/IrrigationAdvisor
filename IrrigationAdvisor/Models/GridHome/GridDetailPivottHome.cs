@@ -6,7 +6,8 @@ using System.Web;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
- 
+using System.Globalization;
+
 
 namespace IrrigationAdvisor.Models.GridHome
 {
@@ -14,6 +15,7 @@ namespace IrrigationAdvisor.Models.GridHome
     public class GridPivotDetailHome
     {
         #region Consts
+        public CultureInfo culture = new System.Globalization.CultureInfo("Es-Es");
         #endregion
 
         #region Fields
@@ -55,6 +57,18 @@ namespace IrrigationAdvisor.Models.GridHome
             get { return dateTime; }
             set { dateTime = value; }
         }
+
+        public string day
+        {
+            get
+            {
+                //{ culture.DateTimeFormat.GetDayName(DateTime.DayOfWeek).ToString();
+
+                return dateTime.DayOfWeek.ToString();
+            }
+        }
+
+
         public bool IsToday
         {
             get { return isToday; }

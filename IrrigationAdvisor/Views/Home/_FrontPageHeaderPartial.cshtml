@@ -1,0 +1,33 @@
+﻿@model List<IrrigationAdvisor.Models.GridHome.GridPivotHome>
+
+@{
+    ViewBag.Title = "Pivot Irrigation";
+}
+
+<th>Pivot Name</th>
+<th>Phenology</th>
+<th>Cultivation</th>
+
+
+
+@foreach (var detail in Model.First().ListGridPivotDetailHome)
+{
+
+    if (detail.IsToday)
+    {
+        <th>@detail.day</th>
+    }
+    else
+    {
+        <th class="color-day">@detail.day</th>
+    }
+
+}
+
+
+
+
+
+
+
+

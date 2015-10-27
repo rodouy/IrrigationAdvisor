@@ -1,0 +1,97 @@
+﻿@model Boolean?
+
+<div class="first-footer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-5">
+                <div class="widget txt-footer">
+                    <h3 class="md">PGW Water</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                        sed diam nonummy nibh euismod tincidunt ut laoreet
+                    </p>
+                    <button type="button" class="btn btn-pivots btn-md">
+
+                        Contacto @Model
+                    </button>
+                </div>
+            </div>
+
+
+            <!--contact form-->
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+
+
+
+                        <h3 class="md">Enviar mensaje</h3>
+
+                        <div id="contact-form-wrap">
+
+
+                            @using (Html.BeginForm("SendEmail", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "clearfix", role = "form" }))
+                            {
+                                <span class="c-note"></span>
+                                <div class="contact-left">
+                                    <p class="input-block clearfix">
+                                        <label class="required" for="contact_name"><span>*</span></label>
+                                        <input class="valid" type="text" name="name"
+                                               placeholder="Nombre" id="contact_name" value="">
+                                    </p>
+                                    <p class="input-block">
+                                        <label class="required" for="contact_email"><span>*</span></label>
+                                        <input type="email" placeholder="Email" class="valid" name="email" id="contact_email" value="">
+                                    </p>
+
+                                </div><!--end:contact-left-->
+                                <div class="contact-right">
+                                    <p class="textarea-block">
+                                        <label class="required" for="contact_message"><span>*</span></label>
+                                        <textarea rows="4" placeholder="Mensaje" cols="60" id="contact_message" name="message"></textarea>
+                                    </p>
+                                </div><!--end:contact-right-->
+                                <div class="clear"></div>
+                                <p class="contact-button clearfix">
+                                    <input type="submit" value="Enviar mensaje">
+                                </p>
+                                <div class="clear"></div>
+                            }
+
+                        </div><!--contact-form-wrap-->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end contact form-->
+
+
+
+
+    <div class="second-footer">
+        <div class="container">
+            <div class="contact">
+                <div class="email">
+                    <i class="icon md-email"></i>
+                    <a href="#">consultas@pgwwater.com.uy</a>
+                </div>
+                <div class="phone">
+                    <i class="fa fa-mobile"></i>
+                    <span>+598 000 000</span>
+                </div>
+                <div class="address">
+                    <i class="fa fa-map-marker"></i>
+                    <span>Colonia 1234</span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

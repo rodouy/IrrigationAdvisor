@@ -3,196 +3,57 @@
 @{
     ViewBag.Title = "Pivot Irrigation";
 }
-</br>
-</br>
-
-<h4>@ViewBag.Title.</h4>
-<h3>@ViewBag.Message</h3>
 
 @helper CustomRain(decimal value)
-{
-    <td class="" style="color: white;background-color: #02D0FF;border-radius: 25px;font-weight: bold;text-align: center">@value</td>
+{ 
+    <td>@value <div class="ref-next-irrigation"></div></td>
 }
 
 @helper CustomIrrigation(decimal value)
-{
-    <td class="" style="color: white;background-color: #3B23FF;border-radius: 25px;font-weight: bold;text-align: center">@value</td>
+{  
+    <td>@value <div class="ref-irrigated"></div></td>
 }
+
 
 @helper forecastIrrigation(decimal value)
 {
-    <td class="" style="color: white;background-color: #FB0000;border-radius: 25px;font-weight: bold;text-align: center">@value</td>
+    <td>@value <div class="ref-rain"></div></td>
 }
-
+@foreach (var item in Model)
+{   
+        @CustomRenderingOfColumn(item)
+}
 @helper CustomRenderingOfColumn(IrrigationAdvisor.Models.GridHome.GridPivotHome gridPivotItem)
 {
-    foreach (var detail in gridPivotItem.ListGridPivotDetailHome)
-    {
-        if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Cyan)
+    <tr>
+        <td>@gridPivotItem.PivotName</td>
+        <td>@gridPivotItem.Phenology</td>
+        <td>@gridPivotItem.Cultivation</td>
+
+        @foreach (var detail in Model.First().ListGridPivotDetailHome)
         {
-            @CustomRain(detail.Irrigation + detail.Rain)
-        }
-        else if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Blue)
-        {
-            @CustomIrrigation(detail.Irrigation)
-
-        }
-        else if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Red)
-        {
-            @forecastIrrigation(detail.ForecastIrrigation)
-        }
-        else
-        {
-            <td class="" style="color: white;background-color: #2C6B07;border-radius: 25px;">&nbsp;</td>
-        }
-    }
-}
-
-@helper CustomTh(bool isToday, DateTime dateTime)
-{
-    if (isToday)
-    {
-        <th class="b6 tc f9" style="width: 10px; font-weight: bold; border-color: #CC2C07;    border: 2px solid;">@dateTime.ToShortDateString()</th>
-    }
-    else
-    {
-        <th class="b6 tc f9" style="width: 10px;font-weight: normal !important; ">@dateTime.ToShortDateString()</th>
-
-    }
-}
-<table class="tabela_cores" border="0" width="30%" cellspacing="3" cellpadding="2" style="float: left">
-    <tbody>
-        <tr class="header_results">
-            <th rowspan="2" class="b15 ">Pivot Name</th>
-            <th rowspan="2" class="b15 ">Phenology</th>
-            <th rowspan="2" class="b15 ">Cultivation</th>
-        </tr>
-        <tr></tr>
-
-        @foreach (var item in Model)
-        {
-            <tr class="body_results_01" onmouseover="this.style.backgroundColor='#CCFFFF';" onmouseout="this.style.backgroundColor=''">
-                <td style="background-color: White;"> @item.PivotName   </td>
-
-
-                <td style="background-color: White;"> @item.Phenology   </td>
-
-                <td style="background-color: White; "> @item.Cultivation   </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-<div style="table-layout:fixed;width: 70%;height: 150px;overflow: scroll; overflow-y: auto; overflow-x: auto;">
-    <table class="tabela_cores" border="0" width="70%" cellspacing="3" cellpadding="2">
-        <tbody>
-            <tr class="header_results"></tr>
-            <tr class="header_results">
-                @foreach (var x in Model.First().ListGridPivotDetailHome)
-                {
-                    @CustomTh(x.IsToday, x.DateTime)
-
-                }
-            </tr>
-
-            @foreach (var item in Model)
+            if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Cyan)
             {
-
-
-                <tr class="body_results_01" onmouseover="this.style.backgroundColor='#CCFFFF';" onmouseout="this.style.backgroundColor=''">
-                    @CustomRenderingOfColumn(item)
-                </tr>
+                @CustomRain(detail.Irrigation + detail.Rain)
             }
+            else if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Blue)
+            {
+                @CustomIrrigation(detail.Irrigation)
 
-        </tbody>
-    </table>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*@helper CustomRenderingOfColumn(IrrigationAdvisor.Models.GridHome.GridPivotHome gridPivotItem)
-    {
-        if (gridPivotItem.GridDayHome.Irrigation != IrrigationAdvisor.Models.Utilities.Utils.WeatherGrid.Green)
-        {
-            <span class="label label-success">Active</span>
+            }
+            else if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Red)
+            {
+                @forecastIrrigation(detail.ForecastIrrigation)
+            }
+            else
+            {
+                <td>X <div class="ref-default"></div></td>
+            }
         }
-
-        if (gridPivotItem.GridDayHome.Irrigation != IrrigationAdvisor.Models.Utilities.Utils.WeatherGrid.Green)
-        {
-            <span class="label label-success">Active</span>
-        }
-
-
-        if (gridPivotItem.GridDayHome.Irrigation != IrrigationAdvisor.Models.Utilities.Utils.WeatherGrid.Green)
-        {
-            <span class="label label-success">Active</span>
-        }
-    }
-    @Html.Grid(Model).Columns(columns =>
-    {
-
-        /* Adding "CompanyName" column: */
-        columns.Add(o => o.PivotDate)
-                .Encoded(false)
-                .Sanitized(false)
-                .Titled(Model[1].DayHeader.ToString());
-
-        /* Adding not mapped column, that renders body, using inline Razor html helper */
-        columns.Add()
-                .Encoded(false)
-                .Sanitized(false)
-                .Titled(Model[2].DayHeader.ToString());
-                .SetWidth(30)
-                .RenderValueAs(o =>
-                   CustomRenderingOfColumn(o));
+    </tr>
+}
 
 
 
-        /* Adding "CompanyName" column: */
-        columns.Add(o => o.Latitude)
-                .Encoded(false)
-                .Sanitized(false)
-                            .Titled(Model[2].DayHeader.ToString());
-
-
-
-
-
-
-
-
-
-    }).WithPaging(15).Sortable().Filterable().WithMultipleFilters()*@
 
 

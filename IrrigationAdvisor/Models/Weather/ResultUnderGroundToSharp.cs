@@ -145,6 +145,8 @@ namespace IrrigationAdvisor.Models.Weather
             public int avehumidity { get; set; }
             public int maxhumidity { get; set; }
             public int minhumidity { get; set; }
+
+            public double promedio { get { return (int.Parse(high.celsius) + int.Parse(low.celsius)) / 2; } }
         }
 
         public class Simpleforecast

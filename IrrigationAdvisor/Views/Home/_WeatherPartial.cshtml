@@ -1,35 +1,85 @@
-﻿@model List<IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.GridWeather>
+﻿@model IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.RootObject
 
 @{
     ViewBag.Title = "Weather";
 }
-</br>
-</br>
+<section class="pivot-ub">
+    <div class="container-images-horiz">
+        <div class="col-md-12">
+            <div class="location-pivot">
 
-<div id="fctDayScroll">
-    <a href="http://api.wunderground.com/" target="_blank">
-        <img id="fctDaySelect" src="http://icons.wxug.com/logos/JPG/wundergroundLogo_4c_horz.jpg">
-    </a>
-    <div class="fctDayArrow" id="fctDayLeftArrow" style="display: none;">
-    </div>
-    <div class="fctDayArrow" id="fctDayRightArrow">
-    </div>
-    <ul id="fctDaySelect" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+            </div>
+            <div id="exasmple">
+                <div class="flatWeatherPlugin">
+                    <h2>Tacuarembo</h2>
+                    <div class="wiToday">
+                        <div class="wiIconGroup">
+                            <div class="rainy">
+                                <img src="@Model.forecast.simpleforecast.forecastday[0].icon_url" alt="" />
+                            </div>
+                            <p class="wiText">@Model.forecast.simpleforecast.forecastday[0].conditions</p>
+                        </div>
+                        <p class="wiTemperature">@Model.forecast.simpleforecast.forecastday[0].promedio<sup>ºC</sup></p>
+                        <div class="wiDetail">
+                            <p class="wiDay">@Model.forecast.simpleforecast.forecastday[0].date.weekday</p>
+                            <ul class="astronomy">
+                                <li class="sunrise">
+                                    <img src="" alt="" />
 
-
-        @foreach (var item in Model)
-        {
-            <li id="fctDay-20150823" class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="horizontal-day-234" aria-labelledby="ui-id-5" aria-selected="true" style="width: 123.54999999702px;">
-                <a href="#horizontal-day-234" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-5">
-                    <div class="day-title">@item.weekday</div>
-                    <div class="temps"><span class="hi">@item.high</span> <span class="split">|</span> <span class="lo">@item.low</span></div>
-                    <div><img src="@item.urlImage" alt="Mostly Cloudy"></div>
-                    <div class="cond-text">@item.Description</div>
-                    <div>
-                        <span class="pop wet" title="chance of precipitation"></span><strong>@item.ProbabilityRain</strong>% / <strong>@item.MmRain</strong> mm
+                                </li>
+                                <img src="" alt="" />
+                                <li class="sunrise"></li>
+                            </ul>
+                            <ul class="temp">
+                                <li>Max @Model.forecast.simpleforecast.forecastday[0].high.celsius <sup>ºC</sup></li>
+                                <li>Min @Model.forecast.simpleforecast.forecastday[0].low.celsius <sup>ºC</sup></li>
+                            </ul>
+                            <ul class="atmosphere">
+                                <li class="humidity"> Humedad: @Model.forecast.simpleforecast.forecastday[0].avehumidity %</li>
+                                <img src="../images/icons-weather/humidity.png" alt="" />
+                                @*<li class="radiaction">Radiación: 1000</li>
+                                    <img src="../images/icons-weather/radiaction.png" alt="" />*@
+                                <li class="wind">@Model.forecast.simpleforecast.forecastday[0].avewind.kph  km/h</li>
+                                <img src="../images/icons-weather/wind.png" alt="" />
+                                @*<li class="eto">Eto: 000</li>
+                                    <img src="../images/icons-weather/eto.png" alt="" />*@
+                            </ul>
+                        </div>
                     </div>
-                </a>
-            </li>
-        }
-    </ul>
-</div>
+
+                    <ul class="wiForecasts">
+
+                        @foreach (var item in @Model.forecast.simpleforecast.forecastday.Skip(1))
+                        {
+
+
+
+                            <li class="wiDay">
+                                <span>@item.date.weekday</span>
+                                <ul class="wiForecast">
+
+                                    <img src="@item.icon_url" style="height:20px;" alt="" />
+                                    <li class="wiMax">
+                                    <li>Máx: @item.high.celsius <sup>ºC</sup></li>
+                                    <li class="wiMin"> Min: @item.low.celsius <sup>ºC</sup></li>
+                                </ul>
+                            </li>
+
+
+
+
+
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</section>

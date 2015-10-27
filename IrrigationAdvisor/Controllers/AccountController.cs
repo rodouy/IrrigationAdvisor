@@ -27,6 +27,7 @@ namespace IrrigationAdvisor.Controllers
             SignInManager = signInManager;
         }
 
+     
         public ApplicationUserManager UserManager
         {
             get
