@@ -13,13 +13,6 @@ namespace IrrigationAdvisor.DBContext.Water
     {
         public RainConfiguration()
         {
-            /*
-            Map(m =>
-                {
-                    m.MapInheritedProperties();
-                    m.ToTable("Rain");
-                });
-             */
             ToTable("Rain");
             HasKey(w => w.WaterInputId);
             Property(w => w.WaterInputId)

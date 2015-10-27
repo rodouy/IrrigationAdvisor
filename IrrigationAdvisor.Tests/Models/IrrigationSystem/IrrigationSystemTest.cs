@@ -23,6 +23,8 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         private Position testPositionSantaLucia;
         private Position testPositionMontevideo;
         private Position testPositionMinas;
+        private Position testPositionWSInia;
+        private Position testPositionWSSantaLucia;
         private Language.Language testLanguage;
         private Country testCountry;
         private Region testRegion;
@@ -230,7 +232,9 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testPositionRegionSur = new Position(2, "Sur", -33.874333, -56.009694);
             testPositionMontevideo = new Position(3, "Montevideo", -34.9019718,-56.1640629);
             testPositionMinas = new Position(4, "Minas", -34.366747, -55.233317);
+            testPositionWSInia = new Position(4, "Minas", -34.366747, -55.233317);
             testPositionSantaLucia = new Position(5, "Santa Lucia", -34.232518, -55.541477);
+            testPositionWSSantaLucia = new Position(7, "Santa Lucia", -34.232518, -55.541477);
             #endregion
 
             #region 2. Create Region (First create Specie Cycle List, Specie List, Effective Rain)
@@ -303,7 +307,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 14. Create City (Capital)
-            testCapital = testIrrigationSystem.AddCity("Montevideo", testPositionMontevideo.PositionId);
+            testCapital = testIrrigationSystem.AddCity("Montevideo", testPositionMontevideo, testCountry);
             #endregion
 
             #region 15. Create Country (First create Capital City)
@@ -311,7 +315,7 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #endregion
 
             #region 16. Create City
-            testCityMinas = testIrrigationSystem.AddCity("Minas", testPositionMinas.PositionId);
+            testCityMinas = testIrrigationSystem.AddCity("Minas", testPositionMinas, testCountry);
             testCityMinas = testIrrigationSystem.AddCityToCountry(testCountry, testCityMinas);
             #endregion
 
@@ -333,11 +337,13 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             #region 20.  Create Weather Station
             testWeatherStation = testIrrigationSystem.AddWeatherStation("WeatherStation Santa Lucia", "Model 1234", 
                                                                     DateTime.Now, DateTime.Now, DateTime.Now, 1, 
-                                                                    testLocationSantaLucia, true, Utils.WeatherDataType.AllData);
+                                                                    testPositionWSSantaLucia.PositionId, true, 
+                                                                    Utils.WeatherDataType.AllData);
             
             testWeatherStationAlternative = testIrrigationSystem.AddWeatherStation("WeatherStation Minas", "Model 2342",
-                                                                    DateTime.Now, DateTime.Now, DateTime.Now, 1, 
-                                                                    testLocationMinas, true, Utils.WeatherDataType.AllData);
+                                                                    DateTime.Now, DateTime.Now, DateTime.Now, 1,
+                                                                    testPositionWSSantaLucia.PositionId, true, 
+                                                                    Utils.WeatherDataType.AllData);
             #endregion
 
             #region 21.  Create Irrigation Units
@@ -446,19 +452,19 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
             testIrrigationUnit_CropList_Pivot_2 = new List<Crop>();
             testIU_Pivot_2 = testIrrigationSystem.AddIrrrigationUnit("Pivot 2", "Pivot", testEfficiency_Pivot_2,
                                testIrrigationUnit_IrrigationList_Pivot_2, testSurface_Pivot_2,
-                               testIrrigationUnit_CropList_Pivot_2, testBomb, testLocationSantaLucia);
+                               testIrrigationUnit_CropList_Pivot_2, testBomb.BombId, testPositionSantaLucia.PositionId);
             
             testIrrigationUnit_IrrigationList_Pivot_3_4 = new List<Pair<DateTime, double>>();
             testIrrigationUnit_CropList_Pivot_3_4 = new List<Crop>();
             testIU_Pivot_3_4 = testIrrigationSystem.AddIrrrigationUnit("Pivot 3 y 4", "Pivot", testEfficiency_Pivot_3_4,
-                            testIrrigationUnit_IrrigationList_Pivot_3_4, testSurface_Pivot_3_4, 
-                            testIrrigationUnit_CropList_Pivot_3_4, testBomb, testLocationSantaLucia);
+                            testIrrigationUnit_IrrigationList_Pivot_3_4, testSurface_Pivot_3_4,
+                            testIrrigationUnit_CropList_Pivot_3_4, testBomb.BombId, testPositionSantaLucia.PositionId);
             
             testIrrigationUnit_IrrigationList_Pivot_5 = new List<Pair<DateTime, double>>();
             testIrrigationUnit_CropList_Pivot_5 = new List<Crop>();
             testIU_Pivot_5 = testIrrigationSystem.AddIrrrigationUnit("Pivot 5", "Pivot", testEfficiency_Pivot_5,
-                            testIrrigationUnit_IrrigationList_Pivot_5, testSurface_Pivot_5, 
-                            testIrrigationUnit_CropList_Pivot_5, testBomb, testLocationSantaLucia);
+                            testIrrigationUnit_IrrigationList_Pivot_5, testSurface_Pivot_5,
+                            testIrrigationUnit_CropList_Pivot_5, testBomb.BombId, testPositionSantaLucia.PositionId);
 
         }
 
@@ -714,10 +720,10 @@ namespace IrrigationAdvisor.Models.IrrigationSystem
         {
 
             //Suelos
-            testSoil_Pivot_1 = testIrrigationSystem.AddSoil("Suelo Pivot 1", "Suelo Pivot 1", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_1_DepthLimit);
-            testSoil_Pivot_2 = testIrrigationSystem.AddSoil("Suelo Pivot 2", "Suelo Pivot 2", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_2_DepthLimit);
-            testSoil_Pivot_3_4 = testIrrigationSystem.AddSoil("Suelo Pivot 3_4", "Suelo Pivot 3_4", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_3_4_DepthLimit);
-            testSoil_Pivot_5 = testIrrigationSystem.AddSoil("Suelo Pivot 5", "Suelo Pivot 5", testLocationSantaLucia, DateTime.MinValue, testSoil_Pivot_5_DepthLimit);
+            testSoil_Pivot_1 = testIrrigationSystem.AddSoil("Suelo Pivot 1", "Suelo Pivot 1", testPositionSantaLucia.PositionId, Utils.MIN_DATETIME, testSoil_Pivot_1_DepthLimit);
+            testSoil_Pivot_2 = testIrrigationSystem.AddSoil("Suelo Pivot 2", "Suelo Pivot 2", testPositionSantaLucia.PositionId, Utils.MIN_DATETIME, testSoil_Pivot_2_DepthLimit);
+            testSoil_Pivot_3_4 = testIrrigationSystem.AddSoil("Suelo Pivot 3_4", "Suelo Pivot 3_4", testPositionSantaLucia.PositionId, Utils.MIN_DATETIME, testSoil_Pivot_3_4_DepthLimit);
+            testSoil_Pivot_5 = testIrrigationSystem.AddSoil("Suelo Pivot 5", "Suelo Pivot 5", testPositionSantaLucia.PositionId, Utils.MIN_DATETIME, testSoil_Pivot_5_DepthLimit);
 
             // horizon_1A = new Horizon(1,"Horizonte A - Suelo 1", 1, "A",)
             Horizon horizon_2A = new Horizon(1, "A", 0, "A", 14, 19, 53, 28, 4.4, 0, 1.2);

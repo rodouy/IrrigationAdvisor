@@ -13,29 +13,6 @@ namespace IrrigationAdvisor.DBContext.Water
     {
         public WaterInputConfiguration()
         {
-            //Table Per Concrete Type (TPC), 
-            //  all properties for each type are stored in separate tables.
-            //There is no core table that contains data 
-            //  common to all types in the hierarchy.
-            /*
-            Map(w => 
-            { 
-                w.ToTable("WaterInput");
-                w.Requires("WaterInputType").HasValue("WaterInput");
-            })
-            .Map<Rain>(w => 
-            {
-                w.ToTable("Rain");
-                w.MapInheritedProperties();
-                w.Requires("WaterInputType").HasValue("Rain");
-            })
-            .Map<Models.Water.Irrigation>(w =>
-            {
-                w.ToTable("Irrigation");
-                w.MapInheritedProperties();
-                w.Requires("WaterInputType").HasValue("Irrigation");
-            });
-            */
             ToTable("WaterInput");
             HasKey(w => w.WaterInputId);
             Property(w => w.WaterInputId)
@@ -45,9 +22,7 @@ namespace IrrigationAdvisor.DBContext.Water
                 .IsRequired();
             Property(w => w.Input)
                 .IsRequired();
-            Property(w => w.CropIrrigationWeatherId)
-                .IsRequired();
-            
+
         }
     }
 }

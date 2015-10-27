@@ -18,7 +18,7 @@ namespace IrrigationAdvisor.Models.Irrigation
     /// References:
     ///     Crop
     ///     Bomb
-    ///     Location
+    ///     Position
     ///     
     /// Dependencies:
     ///     CropIrrigationWeather
@@ -31,8 +31,8 @@ namespace IrrigationAdvisor.Models.Irrigation
     ///     - name String
     /// 
     /// Methods:
-    ///     - ClassTemplate()      -- constructor
-    ///     - ClassTemplate(name)  -- consturctor with parameters
+    ///     - IrrigationUnit()      -- constructor
+    ///     - IrrigationUnit(name)  -- consturctor with parameters
     /// 
     /// </summary>
     public class IrrigationUnit
@@ -49,8 +49,8 @@ namespace IrrigationAdvisor.Models.Irrigation
         private List<Pair<DateTime, double>> irrigationList;
         private double surface;
         private List<Crop> cropList;
-        private Bomb bomb;
-        private Location location;
+        private long bombId;
+        private long positionId;
 
         #endregion
 
@@ -98,17 +98,23 @@ namespace IrrigationAdvisor.Models.Irrigation
             get { return cropList; }
             set { cropList = value; }
         }
-        
-        public Bomb Bomb
+
+        public long BombId
         {
-            get { return bomb; }
-            set { bomb = value; }
+            get { return bombId; }
+            set { bombId = value; }
+        }
+
+        public virtual Bomb Bomb
+        {
+            get;
+            set;
         }
         
-        public Location Location
+        public long PositionId
         {
-            get { return location; }
-            set { location = value; }
+            get { return positionId; }
+            set { positionId = value; }
         }
 
         #endregion
@@ -127,8 +133,8 @@ namespace IrrigationAdvisor.Models.Irrigation
             this.IrrigationList = new List<Pair<DateTime, double>>();
             this.Surface = 0;
             this.CropList = new List<Crop>();
-            this.Bomb = new Bomb();
-            this.Location = new Location();
+            this.BombId = 0;
+            this.PositionId = 0;
         }
         
         /// <summary>
@@ -145,7 +151,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// <param name="pLocation"></param>
         public IrrigationUnit(long pIrrigationUnitId, String pName, String pIrrigationType,
             double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList,
-            double pSurface, List<Crop> pCropList, Bomb pBomb, Location pLocation)
+            double pSurface, List<Crop> pCropList, long pBombId, long pPositionId)
         {
             this.IrrigationUnitId = pIrrigationUnitId;
             this.Name = pName;
@@ -154,8 +160,8 @@ namespace IrrigationAdvisor.Models.Irrigation
             this.IrrigationList = pIrrigationList;
             this.Surface = pSurface;
             this.CropList = pCropList;
-            this.Bomb = pBomb;
-            this.Location = pLocation;
+            this.BombId = pBombId;
+            this.PositionId = pPositionId;
         }
 
         #endregion
@@ -191,7 +197,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         #region Crop
 
         /// <summary>
-        /// TODO add description
+        /// Return a Crop with the same Name & Specie from Parameters
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pSpecieCycle"></param>
@@ -214,7 +220,8 @@ namespace IrrigationAdvisor.Models.Irrigation
         }
 
         /// <summary>
-        /// TODO add description
+        /// Return a Crop equals from Parameters,
+        /// If do not exists return null
         /// </summary>
         /// <param name="pCrop"></param>
         /// <returns></returns>
@@ -337,7 +344,7 @@ namespace IrrigationAdvisor.Models.Irrigation
             }
             IrrigationUnit lIrrigationUnit = obj as IrrigationUnit;
             return this.Name.Equals(lIrrigationUnit.Name)
-                && this.Location.Equals(lIrrigationUnit.Location)
+                && this.PositionId.Equals(lIrrigationUnit.PositionId)
                 && this.IrrigationType.Equals(lIrrigationUnit.IrrigationType);
         }
 

@@ -88,6 +88,12 @@ namespace IrrigationAdvisor.Models.Localization
             set { countryId = value; }
         }
 
+        public virtual Country Country
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Construction
@@ -102,6 +108,9 @@ namespace IrrigationAdvisor.Models.Localization
             this.CityId = 0;
             this.Name = "";
             this.PositionId = 0;
+            this.Position = new Position();
+            this.CountryId = 1;
+            this.Country = new Country();
         }
 
         /// <summary>
@@ -110,11 +119,15 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pCityId"></param>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
-        public City(long pCityId, String pName, long pPositionId)
+        public City(long pCityId, String pName, Position pPosition,
+                    Country pCountry)
         {
             this.CityId = pCityId;
             this.Name = pName;
-            this.PositionId = pPositionId;
+            this.PositionId = pPosition.PositionId;
+            this.Position = pPosition;
+            this.CountryId = pCountry.CountryId;
+            this.Country = pCountry;
         }
 
         #endregion

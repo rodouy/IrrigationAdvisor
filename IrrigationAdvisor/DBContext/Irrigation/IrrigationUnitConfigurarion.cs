@@ -18,7 +18,8 @@ namespace IrrigationAdvisor.DBContext.Irrigation
             Property(c => c.IrrigationUnitId)
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(c => c.Name).IsRequired();
+            Property(c => c.Name)
+                .IsRequired();
         }
     }
 }

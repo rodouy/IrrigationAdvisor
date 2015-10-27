@@ -1,8 +1,9 @@
-﻿using IrrigationAdvisor.Models.Management;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IrrigationAdvisor.Models.Management;
+using System.ComponentModel.DataAnnotations;
 
 namespace IrrigationAdvisor.Models.Water
 {
@@ -59,7 +60,7 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Properties
 
-        
+        [Key]
         public long WaterOutputId
         {
             get { return waterOutputId; }

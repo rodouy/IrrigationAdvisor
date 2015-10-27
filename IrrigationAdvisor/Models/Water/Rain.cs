@@ -1,9 +1,8 @@
-﻿using IrrigationAdvisor.Models.Management;
-using IrrigationAdvisor.Models.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using IrrigationAdvisor.Models.Utilities;
 
 namespace IrrigationAdvisor.Models.Water
 {
@@ -48,6 +47,7 @@ namespace IrrigationAdvisor.Models.Water
         public Utils.WaterInputType Type
         {
             get { return type; }
+            set { type = value;}
         }
 
         #endregion
@@ -62,10 +62,9 @@ namespace IrrigationAdvisor.Models.Water
             this.type = Utils.WaterInputType.Rain;            
         }
 
-        public Rain(CropIrrigationWeather pCropIrrigationWeather, DateTime pDate, double pInput)
+        public Rain(DateTime pDate, double pInput)
         {
             this.type = Utils.WaterInputType.Rain;
-            this.CropIrrigationWeather = pCropIrrigationWeather;
             this.Date = pDate;
             this.Input = pInput;
         }

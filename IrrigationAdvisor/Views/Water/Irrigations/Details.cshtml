@@ -1,0 +1,59 @@
+﻿@model IrrigationAdvisor.Models.Water.Irrigation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Water";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Irrigation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Input)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Input)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtraInput)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtraInput)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtraDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtraDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WaterInputId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

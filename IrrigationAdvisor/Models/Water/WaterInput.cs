@@ -1,8 +1,9 @@
-﻿using IrrigationAdvisor.Models.Management;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IrrigationAdvisor.Models.Management;
+using System.ComponentModel.DataAnnotations;
 
 namespace IrrigationAdvisor.Models.Water
 {
@@ -13,7 +14,8 @@ namespace IrrigationAdvisor.Models.Water
     ///     Describes an Output of water over a Crop
     ///     
     /// References:
-    ///     none
+    ///     Rain
+    ///     EvapotranspirationCrop
     ///     
     /// Dependencies:
     ///     DailyRecord
@@ -40,25 +42,21 @@ namespace IrrigationAdvisor.Models.Water
     {
         #region Consts
 
-        private String TYPE = "INPUT";
-
         #endregion
 
         #region Fields
 
         private long waterInputId;
-        private Double input;
+        private double input;
         private DateTime date;
-        private Double extraInput;
+        private double extraInput;
         private DateTime extraDate;
-        private long cropIrrigationWeatherId;
-        private CropIrrigationWeather cropIrrigationWeather;
 
         #endregion
 
         #region Properties
 
-        
+        [Key]
         public long WaterInputId
         {
             get { return waterInputId; }
@@ -88,20 +86,7 @@ namespace IrrigationAdvisor.Models.Water
             get { return extraDate; }
             set { extraDate = value; }
         }
-
-        public long CropIrrigationWeatherId
-        {
-            get { return cropIrrigationWeatherId; }
-            set { cropIrrigationWeatherId = value; }
-        }
-
-        public virtual Management.CropIrrigationWeather CropIrrigationWeather
-        {
-            get { return cropIrrigationWeather; }
-            set { cropIrrigationWeather = value; }
-        }
-
-
+        
         #endregion
 
         #region Construction
@@ -116,7 +101,6 @@ namespace IrrigationAdvisor.Models.Water
             this.Input = 0;
             this.ExtraDate = DateTime.Now;
             this.ExtraInput = 0;
-            this.CropIrrigationWeatherId = 0;
         }
 
         /// <summary>
@@ -128,15 +112,13 @@ namespace IrrigationAdvisor.Models.Water
         /// <param name="pExtraInput"></param>
         /// <param name="pExtraDate"></param>
         public WaterInput(long pWaterInputId, double pInput, DateTime pDate, 
-                            double pExtraInput, DateTime pExtraDate,
-                            long pCropIrrigationWeatherId)
+                            double pExtraInput, DateTime pExtraDate)
         {
             this.WaterInputId = pWaterInputId;
             this.Input = pInput;
             this.Date = pDate;
             this.ExtraInput = pExtraInput;
             this.ExtraDate = pExtraDate;
-            this.CropIrrigationWeatherId = pCropIrrigationWeatherId;
         }
         
         #endregion
@@ -145,15 +127,6 @@ namespace IrrigationAdvisor.Models.Water
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Get the Water output Type
-        /// </summary>
-        /// <returns></returns>
-        public String GetInputType()
-        {
-            return this.TYPE;
-        }
 
         /// <summary>
         /// Get the Input plus the Extra Input
@@ -177,6 +150,27 @@ namespace IrrigationAdvisor.Models.Water
             string lReturn = this.GetTotalInput().ToString();
             return lReturn;
 
+        }
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            WaterInput lWaterInput = obj as WaterInput;
+            return this.Date.Equals(lWaterInput.Date)
+                && this.Input.Equals(lWaterInput.Input);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Date.GetHashCode();
         }
 
         #endregion

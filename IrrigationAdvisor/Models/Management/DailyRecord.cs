@@ -84,7 +84,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Water Data
 
-        private Water.Rain rain;
+        private Rain rain;
         private Water.Irrigation irrigation;
         private DateTime lastWaterInputDate;
         private DateTime lastBigWaterInputDate;       
@@ -194,7 +194,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region InputWaterData
 
-        public Water.Rain Rain
+        public Rain Rain
         {
             get { return rain; }
             set { rain = value; }
@@ -346,7 +346,7 @@ namespace IrrigationAdvisor.Models.Management
             this.GrowingDegreeDaysAccumulated = 0;
             this.GrowingDegreeDaysModified = 0;
 
-            this.Rain = new Water.Rain();
+            this.Rain = new Rain();
             this.Irrigation = new Water.Irrigation();
             this.LastWaterInputDate = new DateTime();
             this.LastBigWaterInputDate = new DateTime();
@@ -400,7 +400,7 @@ namespace IrrigationAdvisor.Models.Management
         public DailyRecord(DateTime pDailyRecordDateTime, WeatherData pMainWeatherData, WeatherData pAlternativeWeatherData,
                             int pDaysAfterSowing, int pDaysAfterSowingModified,
                             Double pGrowingDegreeDays, Double pGrowingDegreeDaysAccumulated, Double pGrowingDegreeDaysModified, 
-                            Water.Rain pRain, Water.Irrigation pIrrigation,
+                            Rain pRain, Water.Irrigation pIrrigation,
                             DateTime pLastWaterInputDate, DateTime pLastBigWaterInputDate,
                             DateTime pLastPartialWaterInputDate, Double pLastPartialWaterInput,
                             EvapotranspirationCrop pEvapotranspirationCrop, PhenologicalStage pPhenologicalStage,

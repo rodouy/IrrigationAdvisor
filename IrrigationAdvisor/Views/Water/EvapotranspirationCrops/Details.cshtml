@@ -1,0 +1,59 @@
+﻿@model IrrigationAdvisor.Models.Water.EvapotranspirationCrop
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Water";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EvapotranspirationCrop</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CropIrrigationWeather.OutPut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CropIrrigationWeather.OutPut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Output)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Output)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtraOutput)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtraOutput)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtraDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtraDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WaterOutputId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,154 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Weather.WeatherData>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Weather";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Temperature)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TemperatureMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TemperatureMin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TemperatureDewPoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Humidity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HumidityMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HumidityMin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Barometer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BarometerMax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BarometerMin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SolarRadiation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UVRadiation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RainDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RainStorm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RainMonth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RainYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Evapotranspiration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EvapotranspirationMonth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EvapotranspirationYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WeatherDataType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Temperature)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemperatureMax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemperatureMin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemperatureDewPoint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Humidity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HumidityMax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HumidityMin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Barometer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BarometerMax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BarometerMin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SolarRadiation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UVRadiation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RainDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RainStorm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RainMonth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RainYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Evapotranspiration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EvapotranspirationMonth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EvapotranspirationYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeatherDataType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WeatherDataId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WeatherDataId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WeatherDataId })
+        </td>
+    </tr>
+}
+
+</table>

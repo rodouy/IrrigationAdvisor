@@ -39,6 +39,16 @@ namespace IrrigationAdvisor.Models.Utilities
         /// </summary>
         public static int EARTH_RADIUS_IN_KM = 6371;
 
+        /// <summary>
+        /// Max Date used in the system
+        /// </summary>
+        public static DateTime MAX_DATETIME = new DateTime(2100, 12, 31);
+
+        /// <summary>
+        /// Min Date used in the system
+        /// </summary>
+        public static DateTime MIN_DATETIME = new DateTime(1900, 01, 01);
+
         #endregion
 
         #region Enums

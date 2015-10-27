@@ -239,11 +239,11 @@ namespace IrrigationAdvisor.Controllers
             testIrrigationSystem = IrrigationSystem.Instance;
 
             testIrrigationSystem.IrrigationUnitList = new List<IrrigationUnit>();
-            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 1", "", 1, null, 1, null, null, null));
-            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 2", "", 1, null, 1, null, null, null));
-            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 3", "", 1, null, 1, null, null, null));
-            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 4", "", 1, null, 1, null, null, null));
-            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 5", "", 1, null, 1, null, null, null));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 1", "", 1, null, 1, null, 0, 0));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 2", "", 1, null, 1, null, 0, 0));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 3", "", 1, null, 1, null, 0, 0));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 4", "", 1, null, 1, null, 0, 0));
+            testIrrigationSystem.IrrigationUnitList.Add(new IrrigationUnit(1, "Pivot 5", "", 1, null, 1, null, 0, 0));
 
             IrrigationAdvisorContext var = new IrrigationAdvisorContext();
             //var.Farms.Where(q => q.Name == "Santa Lucia").First().IrrigationUnitList

@@ -54,6 +54,35 @@ namespace IrrigationAdvisor.Models
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Agriculture.Stage> Stages { get; set; }
 
         public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.EffectiveRain> EffectiveRains { get; set; }
-    
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Weather.WeatherData> WeatherDatas { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Weather.WeatherInformation> WeatherInformations { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Weather.WeatherStation> WeatherStations { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.Irrigation> Irrigations { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.Rain> Rains { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Water.EvapotranspirationCrop> EvapotranspirationCrops { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Management.CropIrrigationWeather> CropIrrigationWeathers { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Management.DailyRecord> DailyRecords { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.Menu> Menus { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.Role> Roles { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.Access> Accesses { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.SiteItem> SiteItems { get; set; }
+
+        public System.Data.Entity.DbSet<IrrigationAdvisor.Models.Security.SiteMap> SiteMaps { get; set; }
+
+
     }
 }

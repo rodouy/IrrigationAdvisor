@@ -1,0 +1,58 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Weather.WeatherInformation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Weather";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WeatherData.WeatherDataId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WebAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WebData)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestData)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponseData)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WeatherData.WeatherDataId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WebAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WebData)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestData)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponseData)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WeatherInformationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WeatherInformationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WeatherInformationId })
+        </td>
+    </tr>
+}
+
+</table>
