@@ -2,59 +2,38 @@
     ViewBag.Title = "About";
 }
 
-
-<link rel="stylesheet" type="text/css" href="../css/flatWeatherPlugin.css">
-<link rel="stylesheet" type="text/css" href="../css/flatWeather-index.css">
+ 
 
 
-<section class="slide" style="background-image: url(../images/homeslider/img-1.jpg)">
-    <div class="container">
-        <div class="slide-cn" id="slide-home">
-            <!-- slide-->
-            <div class="slide-item">
-                <div class="item-inner">
-                    <div class="text">
-                        <h2>Soluciones Integrales</h2>
-                        <p>
-                            para el manejo del agua en el agro
-                        </p>
-                        <div class="group">
-                            <a href="#" class="mc-btn btn-style-1">ver más</a>
-                        </div>
-                    </div>
-                    <!--login----->
-                    @{ Html.RenderAction("LoginHomePartial", "Home"); }
-                    @*@Html.Partial("LoginHomePartial", "Account");*@
-                     
-                     <!-- end login--->
-                </div>
-            </div>
-            <!-- slide -->
-            <!-- slide 2-->
-            <div class="slide-item">
-                <div class="item-inner">
-                    <div class="text">
-                        <h2>Soluciones integrales</h2>
-                        <p>
-                            lorem ipsummm
-                        </p>
-                        <div class="group">
-                            <a href="#" class="mc-btn btn-style-1">Ver más</a>
-                        </div>
-                    </div>
+ 
 
-                </div>
-            </div>
-            <!-- end slide 2 -->
-        </div>
+
+@{ Html.RenderAction("LoginHomePartial", "Home"); }
+
+
+<!-- end login-->
+<!-- slide -->
+
+
+<div class="demo_wrapper">
+    <div class="demo_block">
+        <ul id="demo1">
+            <li>
+                <img src="../images/homeslider/img-1.jpg" alt="">
+            </li>
+            <li><img src="../images/homeslider/img-2.jpg" alt=""></li>
+            <li><img src="../images/homeslider/img-3.jpg" alt=""></li>
+        </ul>
     </div>
-</section>
+</div>
 
- <!--SE AGREGO ESTO HTML ----- weather-->
- @{ Html.RenderAction("WeatherPartial", "Home"); }
+<!-- end slider -->
+<!--SE AGREGO ESTO HTML ----- weather-->
+
+@{ Html.RenderAction("WeatherPartial", "Home"); }
+                     
 <!-- end weather-->
-
-
+<!-- image--->
 
 <section class="image-diagram">
     <div class="title-images"><h2>PGW Water recomienda cuando y cuanto regar</h2></div>

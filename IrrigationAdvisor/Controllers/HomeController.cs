@@ -41,6 +41,11 @@ namespace IrrigationAdvisor.Controllers
             return View();
         }
 
+        public ActionResult Company()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult AddIrrigation(string irrigation, string pivot)
@@ -89,11 +94,9 @@ namespace IrrigationAdvisor.Controllers
 
 
 
-  [HttpPost]
-        public ActionResult SendEmail()
+        [HttpPost]
+        public void SendEmail()
         {
-
-            return View("", true);
 
         }
         private readonly List<GridPivotHome> gridPivotHome = new List<GridPivotHome>();

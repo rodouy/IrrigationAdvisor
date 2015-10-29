@@ -9,7 +9,7 @@
             <div class="location-pivot">
 
             </div>
-            <div id="exasmple">
+            <div id="example-home">
                 <div class="flatWeatherPlugin">
                     <h2>Tacuarembo</h2>
                     <div class="wiToday">
@@ -24,25 +24,28 @@
                             <p class="wiDay">@Model.forecast.simpleforecast.forecastday[0].date.weekday</p>
                             <ul class="astronomy">
                                 <li class="sunrise">
-                                    <img src="" alt="" />
-
+                                    <img src="../images/icons-weather/sunrise.png" alt="" />
+                                    18:45 PM
                                 </li>
-                                <img src="" alt="" />
-                                <li class="sunrise"></li>
+
+                                <li class="sunrise">
+                                    <img src="../images/icons-weather/sunrise.png" alt="" />
+                                    06:45 AM
+                                </li>
                             </ul>
                             <ul class="temp">
                                 <li>Max @Model.forecast.simpleforecast.forecastday[0].high.celsius <sup>ºC</sup></li>
                                 <li>Min @Model.forecast.simpleforecast.forecastday[0].low.celsius <sup>ºC</sup></li>
                             </ul>
                             <ul class="atmosphere">
-                                <li class="humidity"> Humedad: @Model.forecast.simpleforecast.forecastday[0].avehumidity %</li>
-                                <img src="../images/icons-weather/humidity.png" alt="" />
-                                @*<li class="radiaction">Radiación: 1000</li>
-                                    <img src="../images/icons-weather/radiaction.png" alt="" />*@
-                                <li class="wind">@Model.forecast.simpleforecast.forecastday[0].avewind.kph  km/h</li>
-                                <img src="../images/icons-weather/wind.png" alt="" />
-                                @*<li class="eto">Eto: 000</li>
-                                    <img src="../images/icons-weather/eto.png" alt="" />*@
+                                <li class="humidity">  <img src="../images/icons-weather/humidity.png" alt="" /> Humedad: @Model.forecast.simpleforecast.forecastday[0].avehumidity %</li>
+
+                                <li class="radiaction"><img src="../images/icons-weather/radiaction.png" alt="" />      Radiación: 1000</li>
+
+                                <li class="wind"><img src="../images/icons-weather/wind.png" alt="" /> Viento: @Model.forecast.simpleforecast.forecastday[0].avewind.kph  km/h/li>
+
+                                <li class="eto"> <img src="../images/icons-weather/eto.png" alt="" /> Eto: 000</li>
+
                             </ul>
                         </div>
                     </div>
@@ -65,21 +68,25 @@
                                 </ul>
                             </li>
 
-
-
-
-
-
                         }
+
+
+
                     </ul>
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
 
 </section>
