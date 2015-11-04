@@ -1,18 +1,23 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<link rel="stylesheet" type="text/css" href="../css/flatWeather-index.css">
 <link rel="stylesheet" type="text/css" href="../css/flatWeatherPlugin.css">
+<link rel="stylesheet" type="text/css" href="../css/modal.css">
+<link rel="stylesheet" type="text/css" href="../css/style-1.css">
+<link rel="stylesheet" type="text/css" href="../css/md-font.css">
+
 
 <!-- Content Bar -->
-<section class="content-bar">
+
+<section class="content-bar ps-container">
     <div class="container">
-        <ul>
+        <ul class="bar-resp" style="width: 713px;">
             <li> <a> <em class="icon md-flag"></em> Establecimiento: "La Jacinta" </a> </li>
             <li> <a> <em class="icon md-crop"></em> Área bajo riego:250 há </a> </li>
             <li> <a> <em class="icon md-time"></em> Último acceso: 30/09/2015 </a> </li>
         </ul>
     </div>
+    <div class="ps-scrollbar-x-rail" style="width: 1343px; display: none; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 53px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div>
 </section>
 
 
@@ -52,25 +57,33 @@
                                         <h2>Agregar riego</h2>
                                     </div>
                                     <div class="copy">
-                                        <p>Lorem ipsum dolor sit amet </p>
+                                        <p>  </p>
                                         <form role="form">
                                             <div class="form-group">
 
-                                                <input type="text" placeholder="Riego" class="form-control" id="riego">
+                                                <input type="text" placeholder="Ingrese la lluvia en 'ml'" class="form-control" id="lluvia">
+                                                <br />
+                                                <input type="date" class="form-control-datePicker" />
                                                 <br />
                                                 <div class="dropdown">
                                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                         Seleccionar pivot
                                                         <span class="caret"></span>
                                                     </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="font-size:13px !important">
                                                         <li><a href="#">Pivot 1</a></li>
                                                         <li><a href="#">Pivot 2</a></li>
                                                         <li><a href="#">Pivot 3</a></li>
                                                         <li><a href="#">Pivot 4</a></li>
                                                     </ul>
+
+
                                                     <br />
                                                 </div>
+
+
                                             </div>
                                         </form>
                                     </div>
@@ -81,7 +94,6 @@
                                         <button type="button" class="btn btn-success">Guardar</button>
                                     </div>
                                 </div>
-                                <div class="overlay"></div>
                             </div>
 
                             <!-- end modal agregar riego --->
@@ -92,25 +104,33 @@
                                         <h2>Agregar lluvia</h2>
                                     </div>
                                     <div class="copy">
-                                        <p>Lorem ipsum dolor sit amet </p>
+                                        <p>  </p>
                                         <form role="form">
                                             <div class="form-group">
 
-                                                <input type="text" placeholder="Lluvia" class="form-control" id="lluvia">
+                                                <input type="text" placeholder="Ingrese la lluvia en 'ml'" class="form-control" id="lluvia">
+                                                <br />
+                                                <input type="date" class="form-control-datePicker" />
                                                 <br />
                                                 <div class="dropdown">
                                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                         Seleccionar pivot
                                                         <span class="caret"></span>
                                                     </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="font-size:13px !important">
                                                         <li><a href="#">Pivot 1</a></li>
                                                         <li><a href="#">Pivot 2</a></li>
                                                         <li><a href="#">Pivot 3</a></li>
                                                         <li><a href="#">Pivot 4</a></li>
                                                     </ul>
+
+
                                                     <br />
                                                 </div>
+
+
                                             </div>
                                         </form>
                                     </div>
@@ -132,11 +152,24 @@
                                         <h2>Agregar fenología</h2>
                                     </div>
                                     <div class="copy">
-                                        <p>Lorem ipsum dolor sit amet </p>
+                                        <p> </p>
                                         <form role="form">
                                             <div class="form-group">
-
-                                                <input type="text" placeholder="Fenología" class="form-control" id="fenología">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar Phenologia
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">V1</a></li>
+                                                        <li><a href="#">V2</a></li>
+                                                        <li><a href="#">V3</a></li>
+                                                        <li><a href="#">V4</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
+                                                <br />
+                                                <input type="date" class="form-control-datePicker" />
                                                 <br />
                                                 <div class="dropdown">
                                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -252,7 +285,7 @@
 
             <!-- location pivots-->
             <section class="pivot-ub">
-                <div class="container-images">
+                <div class="container-images-location">
                     <div class="col-md-4">
                         <div class="location-pivot">
                             <h3 class="fa fa-location-arrow fa-2x"> Ubicación </h3>
