@@ -1,0 +1,66 @@
+﻿@model IrrigationAdvisor.Models.Weather.ResultUnderGroundToSharp.RootObject
+
+@{
+    ViewBag.Title = "Weather";
+}
+ 
+<div class="flatWeatherPlugin">
+    <h2>Tacuarembo</h2>
+    <div class="wiToday">
+        <div class="wiIconGroup">
+            <div class="rainy">
+                <img src="@Model.forecast.simpleforecast.forecastday[0].icon_url" alt="" />
+            </div>
+            <p class="wiText">Lluvioso</p>
+        </div>
+        <p class="wiTemperature">@Model.forecast.simpleforecast.forecastday[0].promedio <sup>ºC</sup></p>
+        <div class="wiDetail">
+            <p class="wiDay">@Model.forecast.simpleforecast.forecastday[0].date.weekday</p>
+            <ul class="astronomy">
+                <li class="sunrise">
+                    <img src="" alt="" />
+
+                </li>
+                <img src="" alt="" />
+                <li class="sunrise"> </li>
+            </ul>
+            <ul class="temp">
+                <li>Max @Model.forecast.simpleforecast.forecastday[0].high.celsius <sup>ºC</sup></li>
+                <li>Min @Model.forecast.simpleforecast.forecastday[0].low.celsius <sup>ºC</sup></li>
+            </ul>
+            <ul class="atmosphere">
+                <li class="humidity"> Humedad: @Model.forecast.simpleforecast.forecastday[0].avehumidity % </li>
+                <img src="../images/icons-weather/humidity.png" alt="" />
+            </ul><ul class="atmosphere">
+                <li class="wind">Viento: @Model.forecast.simpleforecast.forecastday[0].avewind.kph  km/h</li>
+                <img src="../images/icons-weather/wind.png" alt="" />
+
+            </ul>
+        </div>
+    </div>
+
+
+    @foreach (var item in @Model.forecast.simpleforecast.forecastday.Skip(1))
+    {
+
+
+        <ul class="wiForecasts">
+            <li class="wiDay">
+                <span>  @item.date.weekday</span>
+                <ul class="wiForecast">
+                    <img src="@item.icon_url" style="height:20px;" alt=" " />
+                    <li class="wiMax">
+                    <li>Máx: @item.high.celsius <sup>ºC</sup></li>
+                    <li class="wiMin"> Min: @item.low.celsius <sup>ºC</sup></li>
+                </ul>
+            </li>
+        </ul>
+    }
+
+</div>
+
+
+
+
+
+
