@@ -10,6 +10,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -83,13 +85,10 @@ namespace IrrigationAdvisor.Controllers
         }
 
 
-        [ChildActionOnly]
         public PartialViewResult ContactPartial()
         {
             return PartialView("_ContactPartial");
         }
-
-
 
 
 
@@ -99,6 +98,75 @@ namespace IrrigationAdvisor.Controllers
         {
 
         }
+
+        public PartialViewResult _Create(string contact_name)
+        {
+            return PartialView("_ContactPartial");
+        }
+
+        public ActionResult SaveDetailedInfo(string mensaje, string nombre, string email)
+        {
+
+
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+
+            //set the addresses
+            mail.From = new MailAddress(email);
+            mail.To.Add(email);
+
+            //set the content
+            mail.Subject = "Valorem - Start a project";
+
+            //Generate an email message object to send
+            var emailUser = new StringBuilder();
+            string EmailUserLineFormat = "<p>{0}</p>";
+         
+
+
+
+            emailUser.AppendFormat(EmailUserLineFormat, mensaje );
+
+
+
+
+
+            SmtpClient server = new SmtpClient();
+            server.EnableSsl = true;
+            server.Host = "smtp.live.com";
+            server.Port = 587;
+            server.UseDefaultCredentials = false;
+          
+            server.EnableSsl = true;
+            server.Credentials = new System.Net.NetworkCredential("despinosa@overactiveinc.com", "Diego4749");
+            server.Timeout = 5000;
+ 
+
+     
+
+            //send the message
+
+            server.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+
+            server.Send(mail);
+
+            //Send the email to User
+            //library.SendMail(username, model.EmailFrom, "Valorem - Start a project", emailUser.ToString(), true);
+
+            try
+            {
+             
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in CreateTestMessage2(): {0}",
+                            ex.ToString());
+            }
+
+            return Json(new { status = "Success", message = "Success" });
+        }
+
+
         private readonly List<GridPivotHome> gridPivotHome = new List<GridPivotHome>();
         public List<GridPivotHome> getGridPivotHome()
         {

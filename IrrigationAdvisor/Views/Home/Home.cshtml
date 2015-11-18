@@ -63,7 +63,20 @@
 
                                                 <input type="text" placeholder="Ingrese la lluvia en 'ml'" class="form-control" id="lluvia">
                                                 <br />
-                                                <input type="date" class="form-control-datePicker" />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar Fecha
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">Miercoles 04/11</a></li>
+                                                        <li><a href="#">Jueves 05/11</a></li>
+                                                        <li><a href="#">Viernes 06/11</a></li>
+                                                        <li><a href="#">Sabado 07/11</a></li>
+                                                        <li><a href="#">Domingo 08/11</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
                                                 <br />
                                                 <div class="dropdown">
                                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -110,7 +123,20 @@
 
                                                 <input type="text" placeholder="Ingrese la lluvia en 'ml'" class="form-control" id="lluvia">
                                                 <br />
-                                                <input type="date" class="form-control-datePicker" />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar Phenologia
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">Miercoles 04/11</a></li>
+                                                        <li><a href="#">Jueves 05/11</a></li>
+                                                        <li><a href="#">Viernes 06/11</a></li>
+                                                        <li><a href="#">Sabado 07/11</a></li>
+                                                        <li><a href="#">Domingo 08/11</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
                                                 <br />
                                                 <div class="dropdown">
                                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -169,7 +195,20 @@
                                                     <br />
                                                 </div>
                                                 <br />
-                                                <input type="date" class="form-control-datePicker" />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccione una fecha
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">Miercoles 04/11</a></li>
+                                                        <li><a href="#">Jueves 05/11</a></li>
+                                                        <li><a href="#">Viernes 06/11</a></li>
+                                                        <li><a href="#">Sabado 07/11</a></li>
+                                                        <li><a href="#">Domingo 08/11</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
                                                 <br />
                                                 <div class="dropdown">
                                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -321,97 +360,4 @@
 
 
 </section>
-<!-- End Pivots -->
-@*<div class="row">
-
-
-
-
-
-        <div>
-
-            <img src="../Content/Image/Farm.jpg" style=" margin-top: 15px;">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#IrrigationModal">Agregar Riego</button>
-
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#PhenologyModal">Agregar Fenología</button>
-
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#RainModal">Agregar Lluvia </button>
-        </div>
-
-        <!-- Modal Irrigation-->
-        <div class="modal fade" id="IrrigationModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Agregar Riego </h4>
-                    </div>
-                    <div class="modal-body">
-                        @{ Html.RenderAction("AddIrrigation", "Home"); }
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="closemodal" class="btn btn-primary" onclick="AddIrrigation()">Guardar</button>
-                    </div>
-                </div>
-
-
-
-            </div>
-        </div>
-
-        <!-- Modal Rain-->
-        <div class="modal fade" id="RainModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Agregar Riego </h4>
-                    </div>
-                    <div class="modal-body">
-                        @{ Html.RenderAction("AddIrrigation", "Home"); }
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="closemodal" class="btn btn-primary" onclick="AddIrrigation()">Guardar</button>
-                    </div>
-                </div>
-
-
-
-            </div>
-        </div>
-
-        <!-- Modal Phenology-->
-        <div class="modal fade" id="PhenologyModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Agregar Riego </h4>
-                    </div>
-                    <div class="modal-body">
-                        @{ Html.RenderAction("AddIrrigation", "Home"); }
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="closemodal" class="btn btn-primary" onclick="AddIrrigation()">Guardar</button>
-                    </div>
-                </div>
-
-
-
-            </div>
-        </div>
-
-
-
-
-
-    </div>*@
+ 
