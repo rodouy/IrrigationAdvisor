@@ -74,6 +74,12 @@ namespace IrrigationAdvisor.Models.Localization
             set { position = value; }
         }
 
+        public virtual Country Country
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Construction
@@ -87,7 +93,14 @@ namespace IrrigationAdvisor.Models.Localization
         {
             this.CityId = 0;
             this.Name = "";
+<<<<<<< HEAD
             this.Position = new Position ();
+=======
+            this.PositionId = 0;
+            this.Position = new Position();
+            this.CountryId = 1;
+            this.Country = new Country();
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         }
 
         /// <summary>
@@ -96,11 +109,23 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pCityId"></param>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
+<<<<<<< HEAD
         public City(long pCityId, String pName, Position pPosition)
         {
             this.CityId = pCityId;
             this.Name = pName;
             this.Position = pPosition;
+=======
+        public City(long pCityId, String pName, Position pPosition,
+                    Country pCountry)
+        {
+            this.CityId = pCityId;
+            this.Name = pName;
+            this.PositionId = pPosition.PositionId;
+            this.Position = pPosition;
+            this.CountryId = pCountry.CountryId;
+            this.Country = pCountry;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         }
 
         #endregion
@@ -131,7 +156,7 @@ namespace IrrigationAdvisor.Models.Localization
             }
             City lCity = obj as City;
             return (this.Name.Equals(lCity.Name) 
-                && this .Position.Equals(lCity.Position));
+                && this.PositionId.Equals(lCity.PositionId));
         }
 
         public override int GetHashCode()

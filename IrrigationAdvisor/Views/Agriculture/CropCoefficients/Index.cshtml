@@ -1,0 +1,28 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Agriculture.CropCoefficient>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Agriculture";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CropCoefficientId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CropCoefficientId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CropCoefficientId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Irrigation.Sprinkler>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Irrigation";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IrrigationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IrrigationEfficiency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Surface)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Width)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Length)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IrrigationType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IrrigationEfficiency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Surface)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Width)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Length)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IrrigationUnitId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IrrigationUnitId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IrrigationUnitId })
+        </td>
+    </tr>
+}
+
+</table>

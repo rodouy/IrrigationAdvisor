@@ -1,0 +1,67 @@
+﻿@model IrrigationAdvisor.Models.Agriculture.CropInformationByDate
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Agriculture";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CropInformationByDate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SowingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SowingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DaysAfterSowing)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DaysAfterSowing)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccumulatedGrowingDegreeDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccumulatedGrowingDegreeDays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CropCoefficientValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CropCoefficientValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RootDepth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RootDepth)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CropInformationByDateId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

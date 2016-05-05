@@ -1,0 +1,65 @@
+﻿@model IrrigationAdvisor.Models.Irrigation.Pivot
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "Irrigation";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Pivot</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IrrigationType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IrrigationType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IrrigationEfficiency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IrrigationEfficiency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surface)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surface)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Radius)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Radius)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

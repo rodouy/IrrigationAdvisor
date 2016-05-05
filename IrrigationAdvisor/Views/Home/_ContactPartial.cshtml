@@ -1,0 +1,80 @@
+﻿
+
+
+<div class="row">
+    <div class="col-md-7">
+
+
+
+        <h3 class="md">Enviar mensaje</h3>
+
+        <div id="contact-form-wrap">
+
+
+
+            <span class="c-note"></span>
+            <div class="contact-left">
+                <p class="input-block clearfix">
+                    <label class="required" for="contact_name"><span>*</span></label>
+                    <input class="valid" type="text" name="name"  placeholder="Nombre" id="contact_name" value="">
+                </p>
+                <p class="input-block">
+                    <label class="required" for="contact_email"><span>*</span></label>
+                    <input type="email" placeholder="Email" class="valid" name="email" id="contact_email" value="">
+                </p>
+
+            </div><!--end:contact-left-->
+            <div class="contact-right">
+                <p class="textarea-block">
+                    <label class="required" for="contact_message"><span>*</span></label>
+                    <textarea rows="4" placeholder="Mensaje" cols="60" id="contact_message" name="message"></textarea>
+                </p>
+            </div><!--end:contact-right-->
+            <div class="clear"></div>
+            <p class="contact-button clearfix">
+                <input type="submit" id="btnEmail" value="Enviar mensaje">
+            </p>
+            <div class="clear"></div>
+
+
+        </div><!--contact-form-wrap-->
+
+
+    </div>
+</div>
+
+
+<script>
+
+    $('#btnEmail').click(function (e) {
+        e.preventDefault(); // <------------------ stop default behaviour of button
+        var element = this;
+
+        var contact_email = $("#contact_email").val()
+        var contact_message = $("#contact_message").val()
+        var contact_name = $("#contact_name").val()
+
+        
+
+        $.ajax({
+            url: "/Home/SaveDetailedInfo",
+            type: "POST",
+            data: '{"mensaje":"' + contact_message + '","nombre":"' + contact_name + '", "email":"' + contact_email + '" }',
+            dataType: "json",
+            traditional: true,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.status == "Success") {
+                    alert("Done");
+                    $(element).closest("form").submit(); //<------------ submit form
+                } else {
+                    alert("Error occurs on the Database level!");
+                }
+            },
+            error: function () {
+                alert("An error has occured!!!");
+            }
+        });
+    });
+
+</script>

@@ -185,11 +185,13 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pMaxRain"></param>
         /// <param name="pPercentage"></param>
         /// <returns></returns>
-        public EffectiveRain AddEffectiveRain(int pMonth, Double pMinRain, 
+        public EffectiveRain AddEffectiveRain(String pName,
+                                            int pMonth, Double pMinRain, 
                                             Double pMaxRain, Double pPercentage)
         {
             EffectiveRain lReturn = null;
-            EffectiveRain lEffectiveRain = new EffectiveRain(pMonth, pMinRain, pMaxRain, pPercentage);
+            EffectiveRain lEffectiveRain = new EffectiveRain(pName, pMonth, 
+                                                            pMinRain, pMaxRain, pPercentage);
             if (ExistEffectiveRain(lEffectiveRain) == null)
             {
                 this.EffectiveRainList.Add(lEffectiveRain);
@@ -206,14 +208,17 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pMaxRain"></param>
         /// <param name="pPercentage"></param>
         /// <returns></returns>
-        public EffectiveRain UpdateEffectiveRain(int pMonth, Double pMinRain, 
+        public EffectiveRain UpdateEffectiveRain(String pName,
+                                            int pMonth, Double pMinRain, 
                                             Double pMaxRain, Double pPercentage)
         {
             EffectiveRain lReturn = null;
-            EffectiveRain lEffectiveRain = new EffectiveRain(pMonth, pMinRain, pMaxRain, pPercentage);
+            EffectiveRain lEffectiveRain = new EffectiveRain(pName, pMonth, pMinRain, 
+                                                            pMaxRain, pPercentage);
             lReturn = ExistEffectiveRain(lEffectiveRain);
             if (lReturn != null)
             {
+                lReturn.Name = pName;
                 lReturn.Month = pMonth;
                 lReturn.MinRain = pMinRain;
                 lReturn.MaxRain = pMaxRain;
@@ -225,6 +230,112 @@ namespace IrrigationAdvisor.Models.Localization
 
         #endregion
 
+<<<<<<< HEAD
+=======
+        #region SpecieCycleList
+
+        /// <summary>
+        /// Return the SpecieCycle that has the same parameters, else return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public SpecieCycle FindSpecieCycle(String pName)
+        {
+            SpecieCycle lReturn = null;
+            if (!String.IsNullOrEmpty(pName))
+            {
+                foreach (SpecieCycle item in this.SpecieCycleList)
+                {
+                    if (item.Name.Equals(pName))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Return the SpecieCycle that has the id, else return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public SpecieCycle FindSpecieCycle(long pSpecieCycleId)
+        {
+            SpecieCycle lReturn = null;
+            foreach (SpecieCycle item in this.SpecieCycleList)
+            {
+                if (item.SpecieCycleId.Equals(pSpecieCycleId))
+                {
+                    lReturn = item;
+                    break;
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// If SpecieCycle exists in List return the SpecieCycle, else null
+        /// </summary>
+        /// <param name="pSpecieCycle"></param>
+        /// <returns></returns>
+        public SpecieCycle ExistSpecieCycle(SpecieCycle pSpecieCycle)
+        {
+            SpecieCycle lReturn = null;
+            if (pSpecieCycle != null)
+            {
+                foreach (SpecieCycle item in this.SpecieCycleList)
+                {
+                    if (item.Equals(pSpecieCycle))
+                    {
+                        lReturn = item;
+                        break;
+                    }
+                }
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add a new SpecieCycle and return it, if exists return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public SpecieCycle AddSpecieCycle(String pName)
+        {
+            SpecieCycle lReturn = null;
+            SpecieCycle lSpecieCycle = new SpecieCycle(0, pName);
+            if (ExistSpecieCycle(lSpecieCycle) == null)
+            {
+                this.SpecieCycleList.Add(lSpecieCycle);
+                lReturn = lSpecieCycle;
+            }
+            return lReturn;
+        }
+
+        /// <summary>
+        /// Add a new SpecieCycle and return it, if exists return null.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
+        public SpecieCycle AddSpecieCycle(SpecieCycle pSpecieCycle)
+        {
+            SpecieCycle lReturn = null;
+            if (pSpecieCycle != null)
+            {
+                if (ExistSpecieCycle(pSpecieCycle) == null)
+                {
+                    this.SpecieCycleList.Add(pSpecieCycle);
+                    lReturn = pSpecieCycle;
+                }
+            }
+            return lReturn;
+        }
+
+        #endregion
+
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         #region Specie
 
         /// <summary>
@@ -336,9 +447,23 @@ namespace IrrigationAdvisor.Models.Localization
         {
             Specie lReturn = null;
             long lSpecieId = this.SpecieList.Count();
+<<<<<<< HEAD
             SpecieCycle lSpecieCycle = new SpecieCycle(pSpecieCycleName);
             Specie lSpecie = new Specie(lSpecieId, pName, lSpecieCycle, 
                                         pBaseTemperature);
+=======
+            SpecieCycle lSpecieCycle = null;
+            Specie lSpecie = null;
+
+            lSpecieCycle = this.FindSpecieCycle(pSpecieCycleName);
+            if(lSpecieCycle == null)
+            {
+                lSpecieCycle = AddSpecieCycle(pSpecieCycleName);
+            }
+            lSpecie = new Specie(lSpecieId, pName, lSpecieCycle.SpecieCycleId, 
+                                        pBaseTemperature, pStressTemperarute);
+            lSpecie.SpecieCycle = lSpecieCycle;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
             lReturn = this.ExistSpecie(lSpecie);
             if(lReturn == null)
             {
@@ -347,6 +472,35 @@ namespace IrrigationAdvisor.Models.Localization
             }
             return lReturn;
         }
+
+        /// <summary>
+        /// Return the Specie added to the list.
+        /// If already exists, it return the one of the list.
+        /// </summary>
+        /// <param name="pSpecie"></param>
+        /// <returns></returns>
+        public Specie AddSpecie(Specie pSpecie)
+        {
+            Specie lReturn = null;
+            long lSpecieId = this.SpecieList.Count();
+            SpecieCycle lSpecieCycle = null;
+            Specie lSpecie = null;
+
+            lSpecieCycle = this.FindSpecieCycle(pSpecie.SpecieCycleId);
+            if (lSpecieCycle == null)
+            {
+                lSpecieCycle = this.AddSpecieCycle(lSpecieCycle.Name);
+            }
+            pSpecie.SpecieCycle = lSpecieCycle;
+            pSpecie.SpecieCycleId = lSpecieCycle.SpecieCycleId;
+            lReturn = this.ExistSpecie(lSpecie);
+            if (lReturn == null)
+            {
+                this.SpecieList.Add(lSpecie);
+                lReturn = lSpecie;
+            }
+            return lReturn;
+        } 
 
         /// <summary>
         /// Return the Specie updated in the list.

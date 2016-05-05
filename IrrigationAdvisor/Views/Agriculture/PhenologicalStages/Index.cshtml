@@ -1,0 +1,52 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Agriculture.PhenologicalStage>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Agriculture";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MinDegree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxDegree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RootDepth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HydricBalanceDepth)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinDegree)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxDegree)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RootDepth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HydricBalanceDepth)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PhenologicalStageId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PhenologicalStageId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PhenologicalStageId })
+        </td>
+    </tr>
+}
+
+</table>

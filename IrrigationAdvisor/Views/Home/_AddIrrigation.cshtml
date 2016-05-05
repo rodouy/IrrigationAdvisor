@@ -1,0 +1,50 @@
+﻿@model List<IrrigationAdvisor.Models.Irrigation.IrrigationUnit>
+
+<form class="contact" name="contact">
+    <label class="label badge" for="name">Riego</label><br>
+    <input type="text" name="name" class="input-xlarge"><br>
+    <label class="label badge" for="email">Pivot</label><br>
+    <select id="pivot">
+        @foreach (var item in Model)
+        {
+            <option value="value">@item.Name</option>
+        }
+    </select>
+</form>
+
+
+<script type="text/javascript">
+    function do_save() {
+        if (Math.floor(Math.random() * 2) == 1) {
+            console.log('success');
+
+            return;
+        }
+        console.log('failure');
+        return false;
+    }
+
+    function AddIrrigation() {
+
+
+        var data = {
+            irrigation: $('#irrigation').val(),
+            pivot: $('#pivot').find('option:selected').text()
+        };
+
+        $.ajax({
+            url: '@Url.Action("AddIrrigation", "Home")',
+            type: 'POST',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $('#myModal').modal('hide');
+            }
+        });
+
+
+    }
+</script>
+

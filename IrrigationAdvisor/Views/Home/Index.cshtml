@@ -1,7 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "About";
 }
 
+<<<<<<< HEAD
 <div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -29,3 +30,47 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+=======
+ 
+
+
+ 
+
+
+@{ Html.RenderAction("LoginHomePartial", "Home"); }
+
+
+<!-- end login-->
+<!-- slide -->
+
+
+<div class="demo_wrapper">
+    <div class="demo_block">
+        <ul id="demo1">
+            <li>
+                <img src="../images/homeslider/img-1.jpg" alt="">
+            </li>
+            <li><img src="../images/homeslider/img-2.jpg" alt=""></li>
+            <li><img src="../images/homeslider/img-3.jpg" alt=""></li>
+        </ul>
+    </div>
+</div>
+
+<!-- end slider -->
+<!--SE AGREGO ESTO HTML ----- weather-->
+
+@*@{ Html.RenderAction("WeatherPartial", "Home"); }*@
+                     
+<!-- end weather-->
+<!-- image--->
+
+<section class="image-diagram">
+    <div class="title-images"><h2>PGW Water recomienda cuando y cuanto regar</h2></div>
+    <div class="container">
+
+        <img src="../images/img-diagrama-riego-1.png" alt="" />
+    </div>
+
+
+</section>
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c

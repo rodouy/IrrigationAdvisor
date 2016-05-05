@@ -1,0 +1,99 @@
+﻿@model IrrigationAdvisor.Models.Agriculture.Horizon
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Agriculture";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Horizon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HorizonLayer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HorizonLayer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HorizonLayerDepth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HorizonLayerDepth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sand)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Limo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Limo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrganicMatter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrganicMatter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NitrogenAnalysis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NitrogenAnalysis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BulkDensitySoil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BulkDensitySoil)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HorizonId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

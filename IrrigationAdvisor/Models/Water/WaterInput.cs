@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IrrigationAdvisor.Models.Management;
+using System.ComponentModel.DataAnnotations;
 
 namespace IrrigationAdvisor.Models.Water
 {
@@ -12,7 +14,8 @@ namespace IrrigationAdvisor.Models.Water
     ///     Describes an Output of water over a Crop
     ///     
     /// References:
-    ///     none
+    ///     Rain
+    ///     EvapotranspirationCrop
     ///     
     /// Dependencies:
     ///     DailyRecord
@@ -39,22 +42,39 @@ namespace IrrigationAdvisor.Models.Water
     {
         #region Consts
 
-        private String TYPE = "INPUT";
-
         #endregion
 
         #region Fields
 
+<<<<<<< HEAD
+=======
+        private long waterInputId;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         private double input;
         private DateTime date;
         private double extraInput;
         private DateTime extraDate;
+<<<<<<< HEAD
         private Management.CropIrrigationWeather cropIrrigationWeather;
+=======
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
 
         #endregion
 
         #region Properties
+<<<<<<< HEAD
         public double Input
+=======
+
+        [Key]
+        public long WaterInputId
+        {
+            get { return waterInputId; }
+            set { waterInputId = value; }
+        }
+        
+        public Double Input
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         {
             get { return input; }
             set { input = value; }
@@ -77,6 +97,7 @@ namespace IrrigationAdvisor.Models.Water
             get { return extraDate; }
             set { extraDate = value; }
         }
+<<<<<<< HEAD
 
         public Management.CropIrrigationWeather CropIrrigationWeather
         {
@@ -85,6 +106,9 @@ namespace IrrigationAdvisor.Models.Water
         }
 
 
+=======
+        
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         #endregion
 
         #region Construction
@@ -97,7 +121,20 @@ namespace IrrigationAdvisor.Models.Water
             this.ExtraInput = 0;
         }
 
+<<<<<<< HEAD
         public WaterInput(double pInput, DateTime pDate, double pExtraInput, DateTime pExtraDate)
+=======
+        /// <summary>
+        /// Contructor with parameters
+        /// </summary>
+        /// <param name="pWaterInputId"></param>
+        /// <param name="pInput"></param>
+        /// <param name="pDate"></param>
+        /// <param name="pExtraInput"></param>
+        /// <param name="pExtraDate"></param>
+        public WaterInput(long pWaterInputId, double pInput, DateTime pDate, 
+                            double pExtraInput, DateTime pExtraDate)
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         {
             this.Input = pInput;
             this.Date = pDate;
@@ -110,15 +147,6 @@ namespace IrrigationAdvisor.Models.Water
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Get the Water output Type
-        /// </summary>
-        /// <returns></returns>
-        public String GetInputType()
-        {
-            return this.TYPE;
-        }
 
         /// <summary>
         /// Get the Input plus the Extra Input
@@ -142,6 +170,27 @@ namespace IrrigationAdvisor.Models.Water
             string lReturn = this.GetTotalInput().ToString();
             return lReturn;
 
+        }
+
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            WaterInput lWaterInput = obj as WaterInput;
+            return this.Date.Equals(lWaterInput.Date)
+                && this.Input.Equals(lWaterInput.Input);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Date.GetHashCode();
         }
 
         #endregion

@@ -1,0 +1,59 @@
+﻿@model List<IrrigationAdvisor.Models.GridHome.GridPivotHome>
+
+@{
+    ViewBag.Title = "Pivot Irrigation";
+}
+
+@helper CustomRain(decimal value)
+{ 
+    <td>@value <div class="ref-next-irrigation"></div></td>
+}
+
+@helper CustomIrrigation(decimal value)
+{  
+    <td>@value <div class="ref-irrigated"></div></td>
+}
+
+
+@helper forecastIrrigation(decimal value)
+{
+    <td>@value <div class="ref-rain"></div></td>
+}
+@foreach (var item in Model)
+{   
+        @CustomRenderingOfColumn(item)
+}
+@helper CustomRenderingOfColumn(IrrigationAdvisor.Models.GridHome.GridPivotHome gridPivotItem)
+{
+    <tr>
+        <td>@gridPivotItem.PivotName</td>
+        <td>@gridPivotItem.Phenology</td>
+        <td>@gridPivotItem.Cultivation</td>
+
+        @foreach (var detail in Model.First().ListGridPivotDetailHome)
+        {
+            if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Cyan)
+            {
+                @CustomRain(detail.Irrigation + detail.Rain)
+            }
+            else if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Blue)
+            {
+                @CustomIrrigation(detail.Irrigation)
+
+            }
+            else if (detail.IrrigationStatus == IrrigationAdvisor.Models.Utilities.Utils.IrrigationStatus.Red)
+            {
+                @forecastIrrigation(detail.ForecastIrrigation)
+            }
+            else
+            {
+                <td>X <div class="ref-default"></div></td>
+            }
+        }
+    </tr>
+}
+
+
+
+
+

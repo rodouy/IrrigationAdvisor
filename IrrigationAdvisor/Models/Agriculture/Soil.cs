@@ -29,14 +29,14 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     - idSoil long
     ///     - name String
     ///     - description String
-    ///     - location Location
+    ///     - positionId PositionId
     ///     - horizonList List<Horizon>
     ///     - testDate DateTime
     ///     - depthLimit double
     /// 
     /// Methods:
     ///     - Soil()      -- constructor
-    ///     - Soil(name, description location, testDate, depthLimit)  -- consturctor with parameters
+    ///     - Soil(name, description, PositionId, testDate, depthLimit)  -- consturctor with parameters
     ///     - GetSoilFieldCapacity(double: RootDepth)
     ///     - GetPermanentWiltingPoint(double: RootDepth)
     ///     - GetAvailableWaterCapacity(double: RootDepth)
@@ -63,7 +63,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         private long idSoil;
         private String name;
         private String description;
-        private Location location;
+        private long positionId;
         private List<Horizon> horizonList;
         private DateTime testDate;
         private double depthLimit;
@@ -91,10 +91,10 @@ namespace IrrigationAdvisor.Models.Agriculture
             set { description = value; }
         }
        
-        public Location Location
+        public long PositionId
         {
-            get { return location; }
-            set { location = value; }
+            get { return positionId; }
+            set { positionId = value; }
         }
         
         public List<Horizon> HorizonList
@@ -124,19 +124,19 @@ namespace IrrigationAdvisor.Models.Agriculture
             this.IdSoil = 0;
             this.Name= "";
             this.Description = "";
-            this.Location = null;
+            this.PositionId = 0;
             this.HorizonList = new List<Horizon>();
-            this.TestDate = DateTime.MinValue;
+            this.TestDate = Utilities.Utils.MIN_DATETIME;
             this.DepthLimit = 0;
         }
 
-        public Soil(long pIdSoil, String pName, String pDescription, 
-            Location pLocation, DateTime pTestDate, double pDepthLimit)
+        public Soil(long pIdSoil, String pName, String pDescription,
+            long pPositionId, DateTime pTestDate, double pDepthLimit)
         {
             this.IdSoil = pIdSoil;
             this.Name = pName;
             this.Description = pDescription;
-            this.Location = pLocation;
+            this.PositionId = pPositionId;
             this.HorizonList = new List<Horizon>();
             this.TestDate = pTestDate;
             this.DepthLimit = pDepthLimit;
@@ -155,6 +155,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         /// <param name="pDepth"></param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2200:RethrowToPreserveStackDetails")]
         private double getLayerCapacityByProrationOfHorizon(double pDepth, SoilLayer pSoilLayer)
         {
             double lDepthSum = 0;
@@ -441,7 +442,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             }
             Soil lSoil = obj as Soil;
             return (this.Name.Equals(lSoil.Name)&&
-                this .Location.Equals(lSoil.Location));
+                this.PositionId.Equals(lSoil.PositionId));
         }
 
         public override int GetHashCode()

@@ -53,8 +53,15 @@ namespace IrrigationAdvisor.Models.Localization
         ///     - latitude double
         ///     - longitude double
         /// </summary>
+<<<<<<< HEAD
         private double latitude;
         private double longitude;
+=======
+        private long positionId;
+        private String name;
+        private Double latitude;
+        private Double longitude;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         //First = latitude; Second = longitude
         private Pair<double, double> thePosition;
 
@@ -69,9 +76,24 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
 
 
+<<<<<<< HEAD
         [Key]
         public virtual long id { get; set; }
 
+=======
+        public String Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        
+        
+        public long PositionId
+        {
+            get { return positionId; }
+            set { positionId = value; }
+        }
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
 
         public virtual double Latitude
         {
@@ -79,6 +101,10 @@ namespace IrrigationAdvisor.Models.Localization
             set 
             {
                 latitude = value;
+                if(this.ThePosition == null)
+                {
+                    this.thePosition = new Pair<Double, Double>(0, 0);
+                }
                 this.thePosition.First = latitude;
             }
         }
@@ -90,6 +116,10 @@ namespace IrrigationAdvisor.Models.Localization
             set 
             {
                 longitude = value;
+                if (this.ThePosition == null)
+                {
+                    this.thePosition = new Pair<Double, Double>(0, 0);
+                }
                 this.thePosition.Second = longitude;
             }
         }
@@ -108,6 +138,7 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
         public Position()
         {
+<<<<<<< HEAD
             this.latitude = 0;
             this.longitude = 0;
             this.thePosition = new Pair<double, double>(this.latitude, this.longitude);
@@ -115,6 +146,19 @@ namespace IrrigationAdvisor.Models.Localization
 
         public Position(double pLatitude, double pLongitude)
         {
+=======
+            this.PositionId = 0;
+            this.Name = "noname";
+            this.Latitude = 0;
+            this.Longitude = 0;
+            this.thePosition = new Pair<Double, Double>(this.latitude, this.longitude);
+        }
+
+        public Position(long pPositionId, String pName, Double pLatitude, Double pLongitude)
+        {
+            this.PositionId = pPositionId;
+            this.Name = pName;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
             this.latitude = pLatitude;
             this.longitude = pLongitude;
             this.thePosition = new Pair<double, double> (this.latitude, this.longitude);
@@ -125,6 +169,7 @@ namespace IrrigationAdvisor.Models.Localization
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Return the distance from two different Positions
         /// TODO: implementation getDistance(origin, destiny)
@@ -132,13 +177,25 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pOrigin"></param>
         /// <param name="pDestiny"></param>
         /// <returns></returns>
-        public double getDistance(Position pOrigin, Position pDestiny)
+        public Double getDistanceInKm(Position pOrigin, Position pDestiny)
         {
-            double lDistance = 0;
-            if (pOrigin.Equals(pDestiny))
-                return 0;
+            Double lReturn = 0;
+            Double lDistance = 0;
 
-            return lDistance;
+            if (pOrigin.Equals(pDestiny))
+            {
+                lDistance = 0;
+            }
+            else
+            {
+                lDistance = Utils.DistanceFromLatitudeLongitudeInKm
+                                    (pOrigin.Latitude, pOrigin.Longitude,
+                                    pDestiny.Latitude, pDestiny.Longitude,
+                                    false);
+            }
+
+            lReturn = lDistance;
+            return lReturn;
         }
 
         /// <summary>
@@ -148,12 +205,19 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pLatitude"></param>
         /// <param name="pLongitude"></param>
         /// <returns></returns>
-        public Position getNewPosition(Position pOrigin, double pLatitude, double pLongitude)
+        public Position getPositionMoveFromOrigin(Position pOrigin, String pNewName, 
+                                                    double pLatitude, double pLongitude)
         {
             Position lPosition = null;
+            String lNewName = pNewName;
             double lNewLatitude = pOrigin.Latitude + pLatitude;
             double lNewLongitude = pOrigin.Longitude + pLongitude;
+<<<<<<< HEAD
             lPosition = new Position(lNewLatitude, lNewLongitude);
+=======
+            
+            lPosition = new Position(0, lNewName, lNewLatitude, lNewLongitude);
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
             return lPosition;
         }
 

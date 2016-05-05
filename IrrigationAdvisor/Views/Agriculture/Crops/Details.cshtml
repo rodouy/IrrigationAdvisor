@@ -1,0 +1,67 @@
+﻿@model IrrigationAdvisor.Models.Agriculture.Crop
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Agriculture";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Crop</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Region.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Specie.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Specie.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Density)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Density)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxEvapotranspirationToIrrigate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxEvapotranspirationToIrrigate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinEvapotranspirationToIrrigate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinEvapotranspirationToIrrigate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CropId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

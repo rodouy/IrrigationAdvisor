@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IrrigationAdvisor.Models.Management;
+using System.ComponentModel.DataAnnotations;
 
 namespace IrrigationAdvisor.Models.Water
 {
@@ -49,13 +51,28 @@ namespace IrrigationAdvisor.Models.Water
         private DateTime date;
         private Double extraOutput;
         private DateTime extraDate;
+<<<<<<< HEAD
         private Management.CropIrrigationWeather cropIrrigationWeather;
+=======
+        private long cropIrrigationWeatherId;
+        private CropIrrigationWeather cropIrrigationWeather;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
 
 
         #endregion
 
         #region Properties
 
+<<<<<<< HEAD
+=======
+        [Key]
+        public long WaterOutputId
+        {
+            get { return waterOutputId; }
+            set { waterOutputId = value; }
+        }
+
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         public Double Output
         {
             get { return output; }

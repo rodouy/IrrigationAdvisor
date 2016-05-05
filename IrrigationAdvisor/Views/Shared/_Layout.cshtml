@@ -1,13 +1,90 @@
-﻿<!DOCTYPE html>
-<html>
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
+<<<<<<< HEAD
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+=======
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
 
+
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,700,900' rel='stylesheet' type='text/css'>
+
+
+    <link rel="stylesheet" type="text/css" href="../css/library/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/md-font.css">
+    <link rel="stylesheet" type="text/css" href="../css/flatWeather-index.css">
+    <link rel="stylesheet" type="text/css" href="../css/slippry.css">
+
+
+    <script type="text/javascript" src="../js/library/jquery-2.1.1.min.js"></script>
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>-->
+
+    <script>
+        $(function () {
+            var demo1 = $("#demo1").slippry({
+                // transition: 'fade',
+                // useCSS: true,
+                speed: 500,
+                // pause: 3000,
+                // auto: true,
+                // preload: 'visible',
+                // autoHover: false
+            });
+
+            $('.stop').click(function () {
+                demo1.stopAuto();
+            });
+
+            $('.start').click(function () {
+                demo1.startAuto();
+            });
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
+
+            $('.prev').click(function () {
+                demo1.goToPrevSlide();
+                return false;
+            });
+            $('.next').click(function () {
+                demo1.goToNextSlide();
+                return false;
+            });
+            $('.reset').click(function () {
+                demo1.destroySlider();
+                return false;
+            });
+            $('.reload').click(function () {
+                demo1.reloadSlider();
+                return false;
+            });
+            $('.init').click(function () {
+                demo1 = $("#demo1").slippry();
+                return false;
+            });
+        });
+    </script>
+
+
+ 
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+
+    <title>PGW - Water</title>
 </head>
+<<<<<<< HEAD
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -26,19 +103,130 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+=======
+<body id="page-top">
+    <!-- PG -->
+    <div id="page-wrap">
+        <!-- PRELOADER -->
+        <div id="preloader">
+            <div class="pre-icon">
+                <div class="pre-item pre-item-1"></div>
+                <div class="pre-item pre-item-2"></div>
+                <div class="pre-item pre-item-3"></div>
+                <div class="pre-item pre-item-4"></div>
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+        <!-- End Preloader -->
+        <!-- Header -->
+        <header id="header" class="header">
+            <div class="container">
+                <!-- Logo PGw -->
+                <div class="logo"><a href="../"><img src="../images/logo.png" alt=""></a></div>
+
+                <!-- nav -->
+                <nav class="navigation">
+                    <div class="open-menu">
+                        <span class="item item-1"></span>
+                        <span class="item item-2"></span>
+                        <span class="item item-3"></span>
+                    </div>
+                    <!-- Menu -->
+                    <ul class="menu">
+                        <li class="current-menu-item"><a href="../">Home</a></li>
+                        <li><a href="../Home/Company">Empresa</a></li>
+                        <li><a href="../Home/Contact">Contacto</a></li>
+
+
+                    </ul>
+                    <!-- End menu -->
+                </nav>
+                <!-- end nav -->
+
+            </div>
+        </header>
+
         @RenderBody()
+<<<<<<< HEAD
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+=======
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+        <!-- FOOTER -->
+        <footer id="footer" class="footer">
+            <div class="first-footer">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-md-5">
+                            <div class="widget txt-footer">
+                                <h3 class="md">PGW Water</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                                    sed diam nonummy nibh euismod tincidunt ut laoreet
+                                </p>
+
+                                <a href="contact.html" class="btn btn-contact">Contacto</a>
+
+
+                            </div>
+                        </div>
+
+
+                        <!--contact form-->
+
+                        <div class="container">
+
+
+                            @{ Html.RenderAction("ContactPartial", "Home"); }
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--end contact form-->
+
+
+
+
+                <div class="second-footer">
+                    <div class="container">
+                        <div class="contact">
+                            <div class="email">
+                                <i class="icon md-email"></i>
+                                <a href="#">consultas@pgwwater.com.uy</a>
+                            </div>
+                            <div class="phone">
+                                <i class="fa fa-mobile"></i>
+                                <span>+598 000 000</span>
+                            </div>
+                            <div class="address">
+                                <i class="fa fa-map-marker"></i>
+                                <span>Colonia 1234</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
+        </footer>
+        <!-- ENd FOOTER -->
+        <!-- End PG -->
+        <!-- Load jQuery -->
+
+
+        <script type="text/javascript" src="../js/library/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="../js/library/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/library/jquery.owl.carousel.js"></script>
+        <script type="text/javascript" src="../js/library/jquery.appear.min.js"></script>
+        <script type="text/javascript" src="../js/library/perfect-scrollbar.min.js"></script>
+        <script type="text/javascript" src="../css/slippry.min.js"></script>
+        <script type="text/javascript" src="../js/scripts.js"></script>
 </body>
 </html>
+
+@RenderSection("scripts", required: false)

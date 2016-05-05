@@ -133,6 +133,7 @@ namespace IrrigationAdvisor.Models.Localization
         public Location(long pIdLocation, Position pPosition, 
             Country pCountry, Region pRegion, City pCity )
         {
+<<<<<<< HEAD
             this.IdLocation = pIdLocation;
             this.Position = pPosition;
             this.Country = pCountry;
@@ -140,6 +141,36 @@ namespace IrrigationAdvisor.Models.Localization
             this.City = pCity;
         }
 
+=======
+            this.LocationId = pIdLocation;
+            this.PositionId = pPosition.PositionId;
+            this.Position = pPosition;
+            this.CountryId = pCountry.CountryId;
+            this.Country = pCountry;
+            this.RegionId = pRegion.RegionId;
+            this.Region = pRegion;
+            this.CityId = pCity.CityId;
+            this.City = pCity;
+        }
+
+        /// <summary>
+        /// Constructor with Ids
+        /// </summary>
+        /// <param name="pLocationId"></param>
+        /// <param name="pPositionId"></param>
+        /// <param name="pCountryId"></param>
+        /// <param name="pRegionId"></param>
+        /// <param name="pCityId"></param>
+        public Location(long pLocationId, long pPositionId,
+            long pCountryId, long pRegionId, long pCityId)
+        {
+            this.LocationId = pLocationId;
+            this.PositionId = pPositionId;
+            this.CountryId = pCountryId;
+            this.RegionId = pRegionId;
+            this.CityId = pCityId;
+        }
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         #endregion
 
         #region Private Helpers

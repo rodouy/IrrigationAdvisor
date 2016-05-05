@@ -1,0 +1,51 @@
+﻿@model IrrigationAdvisor.Models.Agriculture.PhenologicalStage
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Agriculture";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PhenologicalStage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MinDegree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinDegree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxDegree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxDegree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RootDepth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RootDepth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HydricBalanceDepth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HydricBalanceDepth)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PhenologicalStageId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -77,7 +77,22 @@ namespace IrrigationAdvisor.Models.Localization
             set { name = value; }
         }
 
+<<<<<<< HEAD
         public Language.Language Language
+=======
+        public long LanguageId
+        {
+            get { return languageId; }
+            set { languageId = value; }
+        }
+        public virtual Language.Language Language
+        {
+            get;
+            set;
+        }
+
+        public long CapitalId
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         {
             get { return language; }
             set { language = value; }
@@ -113,13 +128,32 @@ namespace IrrigationAdvisor.Models.Localization
         public Country()
         {
             this.CountryId = 0;
+<<<<<<< HEAD
             this.Name = "";
             this.Capital = new City();
+=======
+            this.Name = "NoName";
+            this.LanguageId = 1;
+            this.CapitalId = 1;
+            this.CityList = new List<City>();
+            this.RegionList = new List<Region>();
+        }
+
+        public Country(long pCountryId, String pName, 
+                        long pLanguageId, 
+                        long pCapitalId)
+        {
+            this.CountryId = pCountryId;
+            this.Name = pName;
+            this.LanguageId = pLanguageId;
+            this.CapitalId = pCapitalId;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
             this.CityList = new List<City>();
             this.RegionList = new List<Region>();
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// TODO add description
         /// </summary>
         /// <param name="pCountryId"></param>
@@ -131,8 +165,28 @@ namespace IrrigationAdvisor.Models.Localization
             this.CountryId = pCountryId;
             this.Name = pName;
             this.Language = pLanguage;
+=======
+        /// Constructor with parameters
+        /// </summary>
+        /// <param name="pCountryId"></param>
+        /// <param name="pName"></param>
+        /// <param name="pLanguageId"></param>
+        /// <param name="pCapitalId"></param>
+        public Country(long pCountryId, String pName, 
+                        Language.Language pLanguage, City pCapital)
+        {
+            this.CountryId = pCountryId;
+            this.Name = pName;
+            this.LanguageId = pLanguage.LanguageId;
+            this.Language = pLanguage;
+            this.CapitalId = pCapital.CityId;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
             this.Capital = pCapital;
             this.CityList = new List<City>();
+            if(pCapital != null)
+            {
+                this.CityList.Add(pCapital);
+            }
             this.RegionList = new List<Region>();
         }
 
@@ -186,36 +240,43 @@ namespace IrrigationAdvisor.Models.Localization
         #region City
 
         /// <summary>
-        /// TODO add description
+        /// If City exist in List return the City, 
+        /// else return null
         /// </summary>
         /// <param name="pCity"></param>
         /// <returns></returns>
         public City ExistCity(City pCity)
         {
             City lReturn = null;
-            foreach (City item in this.CityList)
+            if (pCity != null)
             {
-                if (item.Equals(pCity))
+                foreach (City item in this.CityList)
                 {
-                    lReturn = item;
-                    break;
+                    if (item.Equals(pCity))
+                    {
+                        lReturn = item;
+                        break;
+                    }
                 }
             }
             return lReturn;
         }
         
         /// <summary>
-        /// TODO add description
+        /// Add a new City and return it, if exists returns null
         /// </summary>
         /// <param name="pCity"></param>
         /// <returns></returns>
         public City AddCity(City pCity)
         {
             City lReturn = null;
-            if (ExistCity(pCity) == null)
+            if (pCity != null)
             {
-                this.CityList.Add(pCity);
-                lReturn = pCity;
+                if (ExistCity(pCity) == null)
+                {
+                    this.CityList.Add(pCity);
+                    lReturn = pCity;
+                }
             }
             return lReturn;
         }
@@ -226,15 +287,30 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
         /// <returns></returns>
+<<<<<<< HEAD
         public City UpdateCity(String pName, Position pPosition)
         {
             City lReturn = null;
             City lCity = new City(0, pName, pPosition);
+=======
+        public City UpdateCity(String pName, Position pPosition,
+                                Country pCountry)
+        {
+            City lReturn = null;
+            City lCity = new City(0, pName, pPosition, pCountry);
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
             lReturn = ExistCity(lCity);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
+<<<<<<< HEAD
                 lReturn.Position = pPosition;
+=======
+                lReturn.PositionId = pPosition.PositionId;
+                lReturn.Position = pPosition;
+                lReturn.CountryId = pCountry.CountryId;
+                lReturn.Country = pCountry;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
             }
             return lReturn;
         }
@@ -244,26 +320,30 @@ namespace IrrigationAdvisor.Models.Localization
         #region Region
 
         /// <summary>
-        /// TODO add description
+        /// If Region exist in List return the Region, 
+        /// else return null
         /// </summary>
         /// <param name="pRegion"></param>
         /// <returns></returns>
         public Region ExistRegion(Region pRegion)
         {
             Region lReturn = null;
-            foreach (Region item in this.RegionList)
+            if (pRegion != null)
             {
-                if(item.Equals(pRegion))
+                foreach (Region item in this.RegionList)
                 {
-                    lReturn = item;
-                    break;
+                    if (item.Equals(pRegion))
+                    {
+                        lReturn = item;
+                        break;
+                    }
                 }
             }
             return lReturn;
         }
 
         /// <summary>
-        /// TODO add description
+        /// Add a new Region and return it, if exists returns null
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
@@ -273,16 +353,19 @@ namespace IrrigationAdvisor.Models.Localization
         public Region AddRegion(Region pRegion)
         {
             Region lReturn = null;
-            if (ExistRegion(pRegion) == null)
+            if (pRegion != null)
             {
-                this.RegionList.Add(pRegion);
-                lReturn = pRegion;
+                if (ExistRegion(pRegion) == null)
+                {
+                    this.RegionList.Add(pRegion);
+                    lReturn = pRegion;
+                }
             }
             return lReturn;
         }
 
         /// <summary>
-        /// TODO add description
+        /// Update Region, if not exists return null.
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>

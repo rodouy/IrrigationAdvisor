@@ -1,0 +1,187 @@
+﻿@model IrrigationAdvisor.Models.Weather.WeatherData
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "Weather";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WeatherData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Temperature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Temperature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TemperatureMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TemperatureMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TemperatureMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TemperatureMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TemperatureDewPoint)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TemperatureDewPoint)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Humidity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Humidity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HumidityMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HumidityMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HumidityMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HumidityMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Barometer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Barometer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BarometerMax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BarometerMax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BarometerMin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BarometerMin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SolarRadiation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SolarRadiation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UVRadiation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UVRadiation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RainDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RainDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RainStorm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RainStorm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RainMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RainMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RainYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RainYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Evapotranspiration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Evapotranspiration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EvapotranspirationMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EvapotranspirationMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EvapotranspirationYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EvapotranspirationYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeatherDataType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeatherDataType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WeatherDataId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

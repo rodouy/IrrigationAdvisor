@@ -1,0 +1,295 @@
+
+@font-face {
+  font-family: 'weathericons';
+  src: url('../fonts/weathericons-regular-webfont.eot');
+  src: url('../fonts/weathericons-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/weathericons-regular-webfont.woff') format('woff'), url('../fonts/weathericons-regular-webfont.ttf') format('truetype'), url('../fonts/weathericons-regular-webfont.svg#weathericons-regular-webfontRg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.wi:before, .wi:after  {
+  display: inline-block;
+  font-family: 'weathericons';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.flatWeatherPlugin {
+  font-size: inherit;
+  width: 100%;
+}
+
+.flatWeatherPlugin p, .flatWeatherPlugin h2, .flatWeatherPlugin h3, .flatWeatherPlugin ul,  .flatWeatherPlugin li {
+  padding: 0;
+  margin: 0;
+  color: inherit;
+}
+
+.rainy{
+	    width: 30%;
+    /* text-align: start; */
+    padding-left: 10px;
+    /* margin: 0px; */
+    float: right;
+    padding-right: 10px;
+
+}
+
+.sunrise{
+	float: right;
+	
+}
+.humidity {
+	width: 50%;
+	float:right;
+}
+.radiaction{
+	width: 50%;
+	float:right;
+}
+.wind{
+	width: 50%;
+	float:right;
+}
+.eto{
+	width: 50%;
+	float:right;
+}
+.next-day-icon{
+	
+}
+#flatWeatherLoading.loading {
+  font-size: 90px;
+  text-align: center;
+  padding: 10px;
+  overflow: hidden;
+  -webkit-animation:spin 2s linear infinite;
+  -moz-animation:spin 2s linear infinite;
+  animation:spin 2s linear infinite;
+  opacity: 0.2;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.flatWeatherPlugin h2 {
+  margin: 0 0 5px 0;
+}
+
+.flatWeatherPlugin .wiToday {
+  width: 100%;
+  overflow: hidden;
+  text-align:center;
+}
+
+.flatWeatherPlugin .wiToday > .wiIconGroup {
+       float: left;
+    width: 30%;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.flatWeatherPlugin .wiToday > .wiIconGroup p {
+     width: 100%;
+    color: inherit;
+    line-height: 1em;
+    padding: 6px 10px 0 0;
+    text-align: right;
+    float: left;
+}
+
+
+.flatWeatherPlugin .wiToday .wiIconGroup div.wi {
+  font-size: 400%;
+  line-height: 1.45em;
+  width: 100%;  
+}
+
+.flatWeatherPlugin .wiToday .wiIconGroup div.wi:before {
+  vertical-align: text-bottom;
+} 
+
+.flatWeatherPlugin .clearfix:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+.flatWeatherPlugin div.wiToday > p.wiTemperature {
+  font-size: 400%;
+  line-height: 1.45em;
+  float: left;
+  width: 10%;
+  text-align: center;
+  color: inherit;
+}
+
+.flatWeatherPlugin sup {
+  opacity: 0.7;
+  font-size: 65%;
+  vertical-align: baseline;
+  top: -0.5em;
+  position: relative;
+}
+
+.flatWeatherPlugin .wiDetail {
+  overflow: hidden;
+  width: 50%;
+  padding-bottom: 5px;
+}
+
+.flatWeatherPlugin.today .wiDetail {
+  padding-top: 10px;
+}
+
+.flatWeatherPlugin .wiDetail  p.wiDay {
+  font-weight: bold;
+margin: 20px 0px 10px 30px;
+text-align: left;
+color: inherit;
+font-size: x-large;
+}
+
+.flatWeatherPlugin.partial .wiToday  p.wiDay {
+  text-align: center;
+  font-weight: bold;
+  padding: 0 0 10px 0;
+  clear: both;
+  width: 100%;
+  color: inherit;
+}
+
+
+.flatWeatherPlugin .wiDetail ul {
+ /* width: 33%;*/
+  float: left;
+  list-style: none;
+  font-size: 100%;
+}
+
+.flatWeatherPlugin .wiDetail ul + ul {
+  width: 27%;
+}
+
+.flatWeatherPlugin .wiDetail ul + ul + ul {
+  width: 40%;
+}
+
+.flatWeatherPlugin .wiDetail ul li:before {
+  width:30px;
+
+}
+
+.flatWeatherPlugin ul.wiForecasts{
+  width: 100%;
+  overflow: hidden;
+  text-align:center;
+}
+
+.flatWeatherPlugin ul.wiForecasts li > span {
+  width: 25%;
+  display: inline-block;
+}
+
+.flatWeatherPlugin ul.wiForecasts li {
+  float: left;
+  width: 100%;
+  overflow: hidden;
+  display: inline;
+}
+
+.flatWeatherPlugin ul.wiForecasts ul.wiForecast {
+  font-weight: normal;
+  list-style: none;
+  float: right;
+  width: 75%;
+}
+
+.flatWeatherPlugin.forecast ul.wiForecasts ul.wiForecast li {
+  text-align: center;
+}
+
+.flatWeatherPlugin ul.wiForecasts ul.wiForecast li {
+  width: 33%;
+  float: left;
+  text-align: center;
+}
+
+.flatWeatherPlugin ul.wiForecasts ul.wiForecast li.wi:before {
+  vertical-align: bottom;
+}
+
+.flatWeatherPlugin ul.wiForecasts li.wiDay {
+  font-weight: bold;
+  border-color: inherit;
+  border-top: 1px solid RGBA(255,255,255,0.2);
+  padding: 5px 0;
+}
+
+.flatWeatherPlugin.forecast ul.wiForecasts li.wiDay {
+  border-bottom: 1px solid RGBA(255,255,255,0.2);
+  border-top: none;
+}
+
+.flatWeatherPlugin ul.wiForecasts li.wiDay:last-child {
+  border-bottom: none;
+}
+
+@media screen and (max-width: 1199px) {
+	
+	.flatWeatherPlugin .wiDetail {
+  overflow: hidden;
+ /* width: 50%;*/
+  padding-bottom: 5px;
+}
+
+	
+	.rainy{
+		    width: 100%;
+    /* text-align: inherit; */
+    padding-left: 10px;
+    /* margin: 0px; */
+    float: right;
+    padding-right: 10px;
+	}
+	
+	.flatWeatherPlugin .wiToday > .wiIconGroup p{
+	width: 80%;
+    color: inherit;
+    line-height: 1em;
+    padding: 6px 10px 0 0;
+    /* text-align: right; */
+    float: left;
+	}
+	
+	.humidity {
+		width: 100%;
+	float:left;
+}
+.radiaction{
+		width: 100%;
+	float:left;
+}
+.wind{
+	width: 100%;
+	float:left;
+}
+.eto{
+	width: 100%;
+	float:left;
+}
+
+.flatWeatherPlugin .wiDetail ul + ul{
+	width:50%;
+}
+
+.flatWeatherPlugin .wiDetail ul + ul + ul {
+  width: 50%;
+}
+
+}
+

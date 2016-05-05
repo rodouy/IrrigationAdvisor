@@ -49,16 +49,36 @@ namespace IrrigationAdvisor.Models.Water
         ///    + percentage: double
         /// </summary>
 
+<<<<<<< HEAD
 
+=======
+        private long effectiveRainId;
+        private String name;
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         private int month;
-        private double minRain;
-        private double maxRain;
-        private double percentage;
+        private Double minRain;
+        private Double maxRain;
+        private Double percentage;
 
         #endregion
 
         #region Properties
         
+<<<<<<< HEAD
+=======
+        public long EffectiveRainId
+        {
+            get { return effectiveRainId; }
+            set { effectiveRainId = value; }
+        }
+
+        public String Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        
+>>>>>>> 58290beb60242c969fa5a51c8d9de37319de5d7c
         public int Month
         {
             get { return month; }
@@ -88,8 +108,12 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Construction
 
+        /// <summary>
+        /// Constructor without parameters
+        /// </summary>
         public EffectiveRain()
         {
+            this.Name = "NoName";
             this.Month = 0;
             this.MinRain = 0;
             this.MaxRain = 0;
@@ -103,8 +127,11 @@ namespace IrrigationAdvisor.Models.Water
         /// <param name="pMinRain"></param>
         /// <param name="pMaxRain"></param>
         /// <param name="pPercentage"></param>
-        public EffectiveRain(int pMonth, double pMinRain, double pMaxRain, double pPercentage)
+        public EffectiveRain(String pName, int pMonth, 
+                        Double pMinRain, Double pMaxRain, 
+                        Double pPercentage)
         {
+            this.Name = pName;
             this.Month = pMonth;
             this.MinRain = pMinRain;
             this.MaxRain = pMaxRain;
@@ -119,9 +146,11 @@ namespace IrrigationAdvisor.Models.Water
         #region Public Methods
 
 
-        public EffectiveRain UpdateEffectiveRain(int pMonth, double pMinRain, 
-                                                double pMaxRain, double pPercentage)
+        public EffectiveRain UpdateEffectiveRain(String pName, 
+                                                int pMonth, Double pMinRain, 
+                                                Double pMaxRain, Double pPercentage)
         {
+            this.Name = pName;
             this.Month = pMonth;
             this.MinRain = pMinRain;
             this.MaxRain = pMaxRain;
@@ -132,6 +161,26 @@ namespace IrrigationAdvisor.Models.Water
         #endregion
 
         #region Overrides
+        // Different region for each class override
+        /// <summary>
+        /// Overrides equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+            EffectiveRain lEffectiveRain = obj as EffectiveRain;
+            return (this.Name.Equals(lEffectiveRain.Name));
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
         #endregion
     }
 }

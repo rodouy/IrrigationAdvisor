@@ -1,0 +1,64 @@
+﻿@model IEnumerable<IrrigationAdvisor.Models.Agriculture.CropInformationByDate>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "Agriculture";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SowingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DaysAfterSowing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccumulatedGrowingDegreeDays)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CropCoefficientValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RootDepth)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SowingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DaysAfterSowing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccumulatedGrowingDegreeDays)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CropCoefficientValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RootDepth)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CropInformationByDateId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CropInformationByDateId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CropInformationByDateId })
+        </td>
+    </tr>
+}
+
+</table>

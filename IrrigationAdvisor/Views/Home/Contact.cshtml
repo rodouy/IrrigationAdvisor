@@ -1,17 +1,19 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿<section class="map-contact">
+    <div class="col-md-12">
+        <div class="google-map">
+            <div style="height:500px;width:1200px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
+                <div id="embed-map-canvas" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=Colonia+1234,+Montevideo,+Montevideo+Department,+Uruguay&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="google-code" rel="nofollow" href="https://www.bootstrapskins.com" id="get-map-data"></a>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+                <style>
+                    #embed-map-canvas .map-generator {
+                        max-width: 100%;
+                        max-height: 100%;
+                        background: none;
+                    }
+                </style>
+            </div>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,363 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link rel="stylesheet" type="text/css" href="../css/flatWeatherPlugin.css">
+<link rel="stylesheet" type="text/css" href="../css/modal.css">
+<link rel="stylesheet" type="text/css" href="../css/style-1.css">
+<link rel="stylesheet" type="text/css" href="../css/md-font.css">
+
+
+<!-- Content Bar -->
+
+<section class="content-bar ps-container">
+    <div class="container">
+        <ul class="bar-resp" style="width: 713px;">
+            <li> <a> <em class="icon md-flag"></em> Establecimiento: "La Jacinta" </a> </li>
+            <li> <a> <em class="icon md-crop"></em> Área bajo riego:250 há </a> </li>
+            <li> <a> <em class="icon md-time"></em> Último acceso: 30/09/2015 </a> </li>
+        </ul>
+    </div>
+    <div class="ps-scrollbar-x-rail" style="width: 1343px; display: none; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 53px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div>
+</section>
+
+
+<!-- Grid Pivots -->
+
+<section class="profile">
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="avatar-acount">
+
+                    <div class="info-acount">
+                        <h3 class="fa fa-dashboard fa-2x"> Pivots </h3>
+                        <div class="add-btn-grid-2">
+                            <p>
+                                <a href="#modal-lluvia" class="btn go btn-pivots btn-md">
+                                    <span class="glyphicon glyphicon-plus"></span>Agregar lluvia
+                                </a>
+                            </p>
+
+                            <p>
+                                <a href="#modal" class="btn go btn-pivots btn-md">
+                                    <span class="glyphicon glyphicon-plus"></span>Agregar riego
+                                </a>
+                            </p>
+
+
+
+
+
+                            <!-- modal agregar riego--->
+                            <div id="modal">
+                                <div class="modal-content">
+                                    <div class="header">
+                                        <h2>Agregar riego</h2>
+                                    </div>
+                                    <div class="copy">
+                                        <p>  </p>
+                                        <form role="form">
+                                            <div class="form-group">
+
+                                                <input type="text" placeholder="Ingrese la lluvia en 'ml'" class="form-control" id="lluvia">
+                                                <br />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar Fecha
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">Miercoles 04/11</a></li>
+                                                        <li><a href="#">Jueves 05/11</a></li>
+                                                        <li><a href="#">Viernes 06/11</a></li>
+                                                        <li><a href="#">Sabado 07/11</a></li>
+                                                        <li><a href="#">Domingo 08/11</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
+                                                <br />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar pivot
+                                                        <span class="caret"></span>
+                                                    </button>
+
+
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="font-size:13px !important">
+                                                        <li><a href="#">Pivot 1</a></li>
+                                                        <li><a href="#">Pivot 2</a></li>
+                                                        <li><a href="#">Pivot 3</a></li>
+                                                        <li><a href="#">Pivot 4</a></li>
+                                                    </ul>
+
+
+                                                    <br />
+                                                </div>
+
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="cf footer">
+
+                                        <p> <a href="#" class="btn  btn-style-2">Cancelar</a></p>
+
+                                        <button type="button" class="btn btn-success">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- end modal agregar riego --->
+                            <!-- modal agregar lluvia--->
+                            <div id="modal-lluvia">
+                                <div class="modal-content">
+                                    <div class="header">
+                                        <h2>Agregar lluvia</h2>
+                                    </div>
+                                    <div class="copy">
+                                        <p>  </p>
+                                        <form role="form">
+                                            <div class="form-group">
+
+                                                <input type="text" placeholder="Ingrese la lluvia en 'ml'" class="form-control" id="lluvia">
+                                                <br />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar Phenologia
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">Miercoles 04/11</a></li>
+                                                        <li><a href="#">Jueves 05/11</a></li>
+                                                        <li><a href="#">Viernes 06/11</a></li>
+                                                        <li><a href="#">Sabado 07/11</a></li>
+                                                        <li><a href="#">Domingo 08/11</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
+                                                <br />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar pivot
+                                                        <span class="caret"></span>
+                                                    </button>
+
+
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="font-size:13px !important">
+                                                        <li><a href="#">Pivot 1</a></li>
+                                                        <li><a href="#">Pivot 2</a></li>
+                                                        <li><a href="#">Pivot 3</a></li>
+                                                        <li><a href="#">Pivot 4</a></li>
+                                                    </ul>
+
+
+                                                    <br />
+                                                </div>
+
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="cf footer">
+
+                                        <p> <a href="#" class="btn  btn-style-2">Cancelar</a></p>
+
+                                        <button type="button" class="btn btn-success">Guardar</button>
+                                    </div>
+                                </div>
+                                <div class="overlay"></div>
+                            </div>
+
+                            <!-- end modal agregar lluvia --->
+                            <!-- modal agregar fenologia--->
+                            <div id="modal-fenologia">
+                                <div class="modal-content">
+                                    <div class="header">
+                                        <h2>Agregar fenología</h2>
+                                    </div>
+                                    <div class="copy">
+                                        <p> </p>
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar Phenologia
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">V1</a></li>
+                                                        <li><a href="#">V2</a></li>
+                                                        <li><a href="#">V3</a></li>
+                                                        <li><a href="#">V4</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
+                                                <br />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccione una fecha
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">Miercoles 04/11</a></li>
+                                                        <li><a href="#">Jueves 05/11</a></li>
+                                                        <li><a href="#">Viernes 06/11</a></li>
+                                                        <li><a href="#">Sabado 07/11</a></li>
+                                                        <li><a href="#">Domingo 08/11</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
+                                                <br />
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        Seleccionar pivot
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#">Pivot 1</a></li>
+                                                        <li><a href="#">Pivot 2</a></li>
+                                                        <li><a href="#">Pivot 3</a></li>
+                                                        <li><a href="#">Pivot 4</a></li>
+                                                    </ul>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="cf footer">
+
+                                        <p> <a href="#" class="btn  btn-style-2">Cancelar</a></p>
+
+                                        <button type="button" class="btn btn-success">Guardar</button>
+                                    </div>
+                                </div>
+                                <div class="overlay"></div>
+                            </div>
+
+                            <!-- end modal agregar fenologia --->
+
+                            <p>
+                                <a href="#modal-fenologia" class="btn go btn-pivots btn-md">
+                                    <span class="glyphicon glyphicon-plus"></span>Agregar fenología
+                                </a>
+                            </p>
+
+                        </div>
+                        <!-- Grid -->
+                        <div class="table-asignment">
+                            <!-- Table -->
+                            <div class="tab-content">
+                                <!-- table header -->
+                                <div class="tab-pane fade in active">
+                                    <div class="table-wrap">
+                                        <!-- table head -->
+                                        <!-- End Grid Head -->
+                                        <!-- Table -->
+                                        <div class="table-body">
+
+
+                                            <!--table-->
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        @{ Html.RenderAction("FrontPageHeaderPartial", "Home"); }
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{ Html.RenderAction("FrontPagePartial", "Home"); }
+
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- End Grid Pivot -->
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+                <!--reference-->
+
+                <div class="container">
+
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mod-reference">
+
+                                <div class="title-reference">
+                                    <h3 class="fa fa-list fa-2x"> Referencias</h3>
+
+                                    <div class="regado"><h5>Campo regado</h5></div>
+                                    <div class="proximo-riego"><h5>Próximo riego</h5></div>
+                                    <div class="lluvia-registrada"><h5>Lluvia registrada</h5></div>
+                                    <div class="por-defecto"><h5>Valor por defecto</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- end reference-->
+
+
+            </div>
+
+
+
+            <!-- location pivots-->
+            <section class="pivot-ub">
+                <div class="container-images-location">
+                    <div class="col-md-4">
+                        <div class="location-pivot">
+                            <h3 class="fa fa-location-arrow fa-2x"> Ubicación </h3>
+                        </div>
+
+                        <div class="box-images"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- end Location pivots-->
+            <!-- weather-->
+            <section class="pivot-ub">
+                <div class="container-images">
+                    <div class="col-md-4">
+                        <div class="location-pivot">
+                            <h3 class="fa fa-cloud fa-2x"> Clima </h3>
+                        </div>
+                        <div id="example">
+
+                            @{ Html.RenderAction("WeatherHomePartial", "Home"); }
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- end weather-->
+
+
+
+
+</section>
+ 

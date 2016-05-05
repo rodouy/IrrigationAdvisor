@@ -1,22 +1,38 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @Style = "margin-top: 10px;", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        @*<ul class="nav navbar-nav navbar-right" style="font-size:15px">
+                <li>
+                    @Html.ActionLink("Bienvenido " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+
+            </ul>*@
+
+        <ul class="list-account-info">
+
+            <li class="list-item account">
+                <div class="account-info item-click">
+                    <img src="../images/icon-user.png" alt="">
+                </div>
+                <div class="toggle-account toggle-list">
+                    <ul class="list-account">
+                        <li><a href="#"><i class="icon md-config"></i>Mantenimiento</a></li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Salir</a></li>
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+
+
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+
 }
+

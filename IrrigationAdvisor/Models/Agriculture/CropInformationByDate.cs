@@ -149,7 +149,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         public CropInformationByDate()
         {
-            this.SowingDate = DateTime.MinValue;
+            this.SowingDate = Utils.MIN_DATETIME;
             this.Specie = new Specie();
             this.CropCoefficient = new CropCoefficient();
             this.PhenologicalStageList = new List<PhenologicalStage>();

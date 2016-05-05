@@ -67,7 +67,7 @@ namespace IrrigationAdvisor.Models.Weather
         private DateTime dateOfService;
         private DateTime updateTime;
         private int wirelessTransmission;
-        private Location location;
+        private long positionId;
         private bool giveET;
         private List<WeatherData> weatherDataList;
         private Utils.WeatherDataType weatherDataType;
@@ -131,10 +131,10 @@ namespace IrrigationAdvisor.Models.Weather
             set { wirelessTransmission = value; }
         }
 
-        public Location Location
+        public long PositionId
         {
-            get { return location; }
-            set { location = value; }
+            get { return positionId; }
+            set { positionId = value; }
         }
 
         public bool GiveET
@@ -172,9 +172,9 @@ namespace IrrigationAdvisor.Models.Weather
             this.Model = "";
             this.DateOfInstallation = DateTime.Now;
             this.DateOfService = DateTime.Now;
-            this.UpdateTime = DateTime.MinValue;
+            this.UpdateTime = Utils.MIN_DATETIME;
             this.WirelessTransmission = 0;
-            this.Location = new Location();
+            this.PositionId = 0;
             this.GiveET = false;
             this.WeatherDataList = new List<WeatherData>();
             this.WeatherDataType = Utils.WeatherDataType.AllData;
@@ -198,7 +198,7 @@ namespace IrrigationAdvisor.Models.Weather
             long pWeatherStationId, String pName, String pModel,
             DateTime pDateOfInstallation, DateTime pDateOfService,
             DateTime pUpdateTime, int pWirelessTransmission,
-            Location pLocation, bool pGiveET,
+            long pPositionId, bool pGiveET,
             List<WeatherData> pWeatherDataList,
             Utils.WeatherDataType pWeatherDataType)
         {
@@ -209,7 +209,7 @@ namespace IrrigationAdvisor.Models.Weather
             this.DateOfService = pDateOfService;
             this.UpdateTime = pUpdateTime;
             this.WirelessTransmission = pWirelessTransmission;
-            this.Location = pLocation;
+            this.PositionId = pPositionId;
             this.GiveET = pGiveET;
             this.WeatherDataList = pWeatherDataList;
             this.WeatherDataType = pWeatherDataType;
@@ -447,7 +447,7 @@ namespace IrrigationAdvisor.Models.Weather
             }
             WeatherStation lWeatherStation = obj as WeatherStation;
             lReturn = this.Name.Equals(lWeatherStation.Name)
-                    && this.Location.Equals(lWeatherStation.Location)
+                    && this.PositionId.Equals(lWeatherStation.PositionId)
                     && this.Model.Equals(lWeatherStation.Model);
             return lReturn;
         }
