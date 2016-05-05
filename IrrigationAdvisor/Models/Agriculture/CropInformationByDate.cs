@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 using IrrigationAdvisor.Models.Data;
 using IrrigationAdvisor.Models.Management;
 using IrrigationAdvisor.Models.Utilities;
 using System.Data;
-
 
 namespace IrrigationAdvisor.Models.Agriculture
 {
@@ -23,8 +23,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     ?
     ///     
     /// Dependencies:
-    ///     CropCoefficient
-    ///     CropIrrigationWeather
+    /// 
     ///     PhenologicalStage
     /// 
     /// TODO: 
@@ -65,8 +64,6 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         /// 
         
-        private long cropInformationByDateId;
-
         //Crop Data
         private DateTime sowingDate;
         private int daysAfterSowing;
@@ -84,13 +81,6 @@ namespace IrrigationAdvisor.Models.Agriculture
         #endregion
 
         #region Properties
-
-        
-        public long CropInformationByDateId
-        {
-            get { return cropInformationByDateId; }
-            set { cropInformationByDateId = value; }
-        }
 
         public DateTime SowingDate
         {

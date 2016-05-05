@@ -42,8 +42,6 @@ namespace IrrigationAdvisor.Templates
         ///     - name: the name of the instance
         ///     
         /// </summary>
-
-        private long id;
         private string name;
         
         #endregion
@@ -53,13 +51,6 @@ namespace IrrigationAdvisor.Templates
         /// The properties are:
         ///     - Name: the name of the instance
         /// </summary>
-        
-        public long Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
         public string Name
         {
             get { return name; }
@@ -74,7 +65,6 @@ namespace IrrigationAdvisor.Templates
         /// </summary>
         public ClassTemplate()
         {
-            this.Id = 0;
             this.Name = "noname";
         }
 
@@ -82,9 +72,8 @@ namespace IrrigationAdvisor.Templates
         /// Constructor of ClassTemplate with parameters
         /// </summary>
         /// <param name="pName"></param>
-        public ClassTemplate(long pId, String pNewName)
+        public ClassTemplate(String pNewName)
         {
-            this.Id = pId;
             this.Name = pNewName;
         }
 

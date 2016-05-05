@@ -5,7 +5,6 @@ using System.Web;
 using System.Data;
 using IrrigationAdvisor.Models.Localization;
 
-
 namespace IrrigationAdvisor.Models.Agriculture
 {
     /// <summary>
@@ -21,21 +20,30 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     
     ///     
     /// Dependencies:
-    ///     Crop
-    ///     CropInformationByDate
-    ///     IrrigationUnit
+    ///     Specie
     /// 
     /// TODO: 
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
     ///     - cropCoefficientId long
-    ///     - kcList List<double>
+    ///     - usingTable boolean
+    ///     - initialDays int
+    ///     - initialKC double
+    ///     - developmentDays int
+    ///     - developmentKC double
+    ///     - midSeasonDays int
+    ///     - midSeasonKC double
+    ///     - lateSeasonDays int
+    ///     - lateSeasonKC double
+    ///     - listOfKC List <int, double>
     ///     
     /// 
     /// Methods:
     ///     - CropCoefficient()      -- constructor
-    ///     - CropCoefficient(cropCoefficientId, kcList)  -- consturctor with parameters
+    ///     - CropCoefficient(cropCoefficientId, initialDays, initialKC
+    ///         developmentDays, developmentKC, midSeasonDays
+    ///         midSeasonKC, lateSeasonDays, lateSeasonKC)  -- consturctor with parameters
     ///     - GetCropCoefficient(days)     -- method to get the name KC
     /// 
     /// </summary>
@@ -44,42 +52,121 @@ namespace IrrigationAdvisor.Models.Agriculture
     {
 
         #region Consts
+        private String dayColumnName = "DayAfterSowing";
+        private String kCColumnName = "KC";
         #endregion
 
         #region Fields
         /// <summary>
         /// The fields are:
         ///     - cropCoefficientId long
-        ///     - kcList List<double>
+        ///     - usingTable boolean
+        ///     - initialDays int
+        ///     - initialKC double
+        ///     - developmentDays int
+        ///     - developmentKC double
+        ///     - midSeasonDays int
+        ///     - midSeasonKC double
+        ///     - lateSeasonDays int
+        ///     - lateSeasonKC double
+        ///     - dataSetOfKC
         ///     
         /// </summary>
         private long cropCoefficientId;
-        private List<double> kcList;
+        private bool usingTable;
+        private int initialDays;
+        private double initialKC;
+        private int developmentDays;
+        private double developmentKC;
+        private int midSeasonDays;
+        private double midSeasonKC;
+        private int lateSeasonDays;
+        private double lateSeasonKC;
+        private DataTable listOfKC;
+        private DataSet dataSetOfKC;
 
-        
         #endregion
 
         #region Properties
-                
+
         public long CropCoefficientId
         {
             get { return cropCoefficientId; }
             set { cropCoefficientId = value; }
         }
 
-        public List<double> KCList
+        public bool UsingTable
         {
-            get { return kcList; }
-            set { kcList = value; }
+            get { return usingTable; }
+            set { usingTable = value; }
         }
         
+        public int InitialDays
+        {
+            get { return initialDays; }
+            set { initialDays = value; }
+        }
+        
+        public double InitialKC
+        {
+            get { return initialKC; }
+            set { initialKC = value; }
+        }
+        
+        public int DevelopmentDays
+        {
+            get { return developmentDays; }
+            set { developmentDays = value; }
+        }
+        
+        public double DevelopmentKC
+        {
+            get { return developmentKC; }
+            set { developmentKC = value; }
+        }
+        
+        public int MidSeasonDays
+        {
+            get { return midSeasonDays; }
+            set { midSeasonDays = value; }
+        }
+        
+        public double MidSeasonKC
+        {
+            get { return midSeasonKC; }
+            set { midSeasonKC = value; }
+        }
+        
+        public int LateSeasonDays
+        {
+            get { return lateSeasonDays; }
+            set { lateSeasonDays = value; }
+        }
+        
+        public double LateSeasonKC
+        {
+            get { return lateSeasonKC; }
+            set { lateSeasonKC = value; }
+        }
+
+        public DataTable ListOfKC
+        {
+            get { return listOfKC; }
+            set { listOfKC = value; }
+        }
+
+        public DataSet DataSetOfKC
+        {
+            get { return dataSetOfKC; }
+            set { dataSetOfKC = value; }
+        }
         
         #endregion
 
         #region Construction
 
         /// <summary>
-        /// Constructor of CropCoefficient
+        /// Constructor of ClassTemplate
         /// UsingTable: field used to return the cropCroefficient. 
         /// - False: return the cropCoefficient from the list (day by day). 
         /// - True: return the cropCoefficient from the table (with 4 fixed points) 
@@ -87,25 +174,106 @@ namespace IrrigationAdvisor.Models.Agriculture
         public CropCoefficient()
         {
             this.CropCoefficientId = 0;
-            this.KCList = new List<double>();
-            this.KCList.Add(0);
+            this.UsingTable = false;
+            this.InitialDays = 0;
+            this.InitialKC = 0;
+            this.DevelopmentDays = 0;
+            this.DevelopmentKC = 0;
+            this.MidSeasonDays = 0;
+            this.MidSeasonKC = 0;
+            this.LateSeasonDays = 0;
+            this.LateSeasonKC = 0;
+            this.listOfKC = new DataTable("KC_0");
+            this.makeListOfKC();
+
         }
 
         /// <summary>
-        /// Constructor of CropCoefficient with all parameters
+        /// Constructor of ClassTemplate with all parameters
         /// </summary>
         /// <param name="pName"></param>
-        public CropCoefficient(long pCropCoefficientId, List<double> pKCList)
+        public CropCoefficient(long pCropCoefficientId, bool pUsingTable, 
+                                int pInitialDays, double pInitialDaysKC, 
+                                int pDevelopmentDays , double pDevelopmentKC, 
+                                int pMidSeasonDays, double pMidSeasonKC, 
+                                int pLateSeasonDays, double pLateSeasonKC)
                                 
         {
             this.CropCoefficientId = pCropCoefficientId;
-            this.KCList = pKCList;            
+            this.UsingTable = pUsingTable;
+            this.InitialDays = pInitialDays;
+            this.InitialKC = pInitialDaysKC;
+            this.DevelopmentDays = pDevelopmentDays;
+            this.DevelopmentKC = pDevelopmentKC;
+            this.MidSeasonDays = pMidSeasonDays;
+            this.MidSeasonKC = pMidSeasonKC;
+            this.LateSeasonDays = pLateSeasonDays;
+            this.LateSeasonKC = pLateSeasonKC;
+            this.listOfKC = new DataTable("KC_" + pCropCoefficientId);
+            this.makeListOfKC();
+            
         }
 
         #endregion
 
         #region Private Helpers
 
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        private void makeListOfKC()
+        {
+            DataColumn column;
+            
+            // Create new DataColumn, set DataType,  
+            // ColumnName and add to DataTable.    
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Int32");
+            column.ColumnName = dayColumnName;
+            column.ReadOnly = true;
+            column.Unique = true;
+            // Add the Column to the DataColumnCollection.
+            this.ListOfKC.Columns.Add(column);
+
+            // Create second column.
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Double");
+            column.ColumnName = kCColumnName;
+            column.AutoIncrement = false;
+            column.Caption = kCColumnName;
+            column.ReadOnly = false;
+            column.Unique = false;
+            // Add the column to the table.
+            this.ListOfKC.Columns.Add(column);
+
+            // Make the "DaysAfterSowing" column the primary key column.
+            DataColumn[] PrimaryKeyColumns = new DataColumn[1];
+            PrimaryKeyColumns[0] = this.ListOfKC.Columns[dayColumnName];
+            this.ListOfKC.PrimaryKey = PrimaryKeyColumns;
+
+            // Instantiate the DataSet variable.
+            this.DataSetOfKC = new DataSet();
+            // Add the new DataTable to the DataSet.
+            this.DataSetOfKC.Tables.Add(this.ListOfKC);
+
+
+        }
+
+        /// <summary>
+        /// TODO add description
+        /// </summary>
+        /// <param name="pIntialKC"></param>
+        /// <param name="pEndKC"></param>
+        /// <param name="pDays"></param>
+        /// <param name="pTotalDays"></param>
+        /// <returns></returns>
+        private double getKCBetweenPoints(double pIntialKC,double pEndKC, int pDays, int pTotalDays) 
+        {
+            double lReturn = 0;
+            double lValueRange = pEndKC-pIntialKC;
+            lReturn = pIntialKC + (lValueRange / pTotalDays * pDays);
+            return Math.Round(lReturn,2);
+        }
         
         /// <summary>
         /// Returns the KC using a List with a value for each Day After Sowing
@@ -117,7 +285,15 @@ namespace IrrigationAdvisor.Models.Agriculture
             double lReturn = 0;
             try
             {
-                lReturn = this.KCList[pDays];
+                foreach (DataRow row in this.ListOfKC.Rows)
+                {
+                    int lDay = row.Field<int>(0);
+                    if (lDay == pDays)
+                    {
+                        lReturn = row.Field<double>(1);
+                        return lReturn;
+                    }
+                }
             }
             catch(Exception e)
             {
@@ -127,35 +303,64 @@ namespace IrrigationAdvisor.Models.Agriculture
             return lReturn;
         }
           
-        
+        /// <summary>
+        /// Return the KC using a Table with 4 fixed points
+        /// </summary>
+        /// <param name="pDays"></param>
+        /// <returns></returns>
+        private double getKCFromTable(int pDays)
+        {
+            double pReturn = 0;
+            int lDays = 0;
+            int lTotalDays = 0;
+            if (pDays > 0 && pDays <= this.InitialDays)
+            {
+                pReturn = this.InitialKC;
+            }
+            else if (pDays > this.InitialDays && pDays <= this.DevelopmentDays)
+            {
+                lDays = pDays-this.InitialDays;
+                lTotalDays = this.DevelopmentDays - this.InitialDays;
+                pReturn = getKCBetweenPoints(this.initialKC, this.DevelopmentKC, lDays, lTotalDays);
+            }
+            else if (pDays > this.DevelopmentDays && pDays <= this.MidSeasonDays)
+            {
+                pReturn = this.MidSeasonKC;
+            }
+            else if (pDays > this.MidSeasonDays && pDays <= this.LateSeasonDays)
+            {
+                lDays = pDays - this.MidSeasonDays;
+                lTotalDays = this.LateSeasonDays - this.MidSeasonDays;
+                pReturn = getKCBetweenPoints(this.MidSeasonKC, this.LateSeasonKC, lDays, lTotalDays);
+            }
+            else if (pDays > this.LateSeasonDays)
+            {
+                pReturn = this.LateSeasonKC;
+            }
+            return pReturn;
+        }
+
         #endregion
 
         #region Public Methods
 
         /// <summary>
-        /// Add or Update a value to the list of KC
-        /// Index 0 value == 0;
+        /// Add a value to the list of KC
         /// </summary>
         /// <param name="pDayAfterSowing"></param>
         /// <param name="pKC"></param>
         /// <returns></returns>
-        public bool AddOrUpdateKCforDayAfterSowing(int pDayAfterSowing, double pKC)
+        public bool AddKCforDayAfterSowing(int pDayAfterSowing, double pKC)
         {
             bool lReturn = false;
-            int lMaxIndex = 0;
             try
             {
-                lMaxIndex = this.KCList.Count();
-                if(pDayAfterSowing < lMaxIndex)
-                {
-                    this.KCList[pDayAfterSowing] = pKC;
-                    lReturn = true;
-                }
-                else if(pDayAfterSowing == lMaxIndex )
-                {
-                    this.KCList.Add(pKC);
-                    lReturn = true;
-                }
+                DataRow lRow;
+                lRow = this.ListOfKC.NewRow();
+                lRow[dayColumnName] = pDayAfterSowing;
+                lRow[kCColumnName] = pKC;
+                this.ListOfKC.Rows.Add(lRow);
+                lReturn = true;
             }
             catch(Exception e)
             {
@@ -172,8 +377,14 @@ namespace IrrigationAdvisor.Models.Agriculture
         public double GetCropCoefficient(int pDays)
         {
             double lReturn = 0;
-            lReturn = this.getKCFromList(pDays);
-            
+            if (UsingTable)
+            {
+                lReturn = this.getKCFromTable(pDays);
+            }
+            else 
+            {
+                lReturn = this.getKCFromList(pDays);
+            }
             return lReturn;
         }
 

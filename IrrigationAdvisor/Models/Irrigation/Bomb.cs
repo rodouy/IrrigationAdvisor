@@ -1,7 +1,6 @@
 ﻿using IrrigationAdvisor.Models.Localization;
 using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Web;
 
@@ -22,7 +21,7 @@ namespace IrrigationAdvisor.Models.Irrigation
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - bombId long
+    ///     - idBomb long
     ///     - name String
     ///     - serialNumber int
     ///     - serviceDate DateTime
@@ -43,7 +42,7 @@ namespace IrrigationAdvisor.Models.Irrigation
 
         #region Fields
 
-        private long bombId;
+        private long idBomb;
         private String name;
         private int serialNumber;
         private DateTime serviceDate;
@@ -54,11 +53,10 @@ namespace IrrigationAdvisor.Models.Irrigation
 
         #region Properties
 
-        
-        public long BombId
+        public long IdBomb
         {
-            get { return bombId; }
-            set { bombId = value; }
+            get { return idBomb; }
+            set { idBomb = value; }
         }
 
         public string Name
@@ -100,7 +98,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// </summary>
         public Bomb()
         {
-            this.BombId = 0;
+            this.IdBomb = 0;
             this.Name = "noname";
             this.SerialNumber = 0;
             this.ServiceDate = DateTime.Now;
@@ -111,16 +109,16 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// <summary>
         /// Constructor with all parameters.
         /// </summary>
-        /// <param name="pBombId"></param>
+        /// <param name="pIdBomb"></param>
         /// <param name="pName"></param>
         /// <param name="pSerialNumber"></param>
         /// <param name="pServiceDate"></param>
         /// <param name="pPurchaseDate"></param>
         /// <param name="pLocation"></param>
-        public Bomb(long pBombId, String pName, int pSerialNumber, DateTime pServiceDate,
+        public Bomb(long pIdBomb, String pName, int pSerialNumber, DateTime pServiceDate,
             DateTime pPurchaseDate, Location pLocation) 
         {
-            this.BombId = pBombId;
+            this.IdBomb = pIdBomb;
             this.Name = pName;
             this.SerialNumber = pSerialNumber;
             this.ServiceDate = pServiceDate;

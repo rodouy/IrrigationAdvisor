@@ -5,7 +5,6 @@ using System.Web;
 
 using IrrigationAdvisor.Models.Data;
 
-
 namespace IrrigationAdvisor.Models.Agriculture
 {
     /// <summary>
@@ -27,7 +26,7 @@ namespace IrrigationAdvisor.Models.Agriculture
     ///     
     /// -----------------------------------------------------------------
     /// Fields of Class:
-    ///     - soilId long
+    ///     - idSoil long
     ///     - name String
     ///     - location Location
     ///     - order int
@@ -58,7 +57,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         /// <summary>
         /// The fields are:
-        ///     - horizonId int
+        ///     - idHorizon int
         ///     - name String                   - PK
         ///     - order int
         ///     - horizonLayer: String
@@ -73,7 +72,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         ///     - bulkDensitySoil: double
         /// </summary>
 
-        private long horizonId;
+        private long idHorizon;
         private String name;
         private int order;
         private String horizonLayer;
@@ -93,13 +92,12 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Properties
 
-        
-        public long HorizonId
+        public long IdHorizon
         {
-            get { return horizonId; }
-            set { horizonId = value; }
+            get { return idHorizon; }
+            set { idHorizon = value; }
         }
-
+        
         public String Name
         {
             get { return name; }
@@ -169,7 +167,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// </summary>
         public Horizon()
         {
-            this.HorizonId = 0;
+            this.IdHorizon = 0;
             this.Name = "";
             this.Order = 0;
             this.HorizonLayer = "";
@@ -201,7 +199,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             double pClay, double pOrganicMatter, double pNitrogenAnalysis,
              double pBulkDensitySoil)
         {
-            this.HorizonId = pIdHorizon;
+            this.IdHorizon = pIdHorizon;
             this.Name = pName;
             this.Order = pOrder;
             this.HorizonLayer = pHorizonLayer;

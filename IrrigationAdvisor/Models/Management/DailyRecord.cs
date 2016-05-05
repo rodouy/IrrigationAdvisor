@@ -7,7 +7,6 @@ using IrrigationAdvisor.Models.Localization;
 using IrrigationAdvisor.Models.Weather;
 using IrrigationAdvisor.Models.Water;
 
-
 namespace IrrigationAdvisor.Models.Management
 {
     /// <summary>
@@ -61,7 +60,6 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Fields
 
-        private long dailyRecordId;
         private DateTime dailyRecordDateTime;
         
         #region Weather Data
@@ -91,7 +89,7 @@ namespace IrrigationAdvisor.Models.Management
         private DateTime lastPartialWaterInputDate;
         private Double lastPartialWaterInput;
 
-        private Water.EvapotranspirationCrop evapotranspirationCrop;
+        private WaterOutput evapotranspirationCrop;
 
         #endregion
 
@@ -123,13 +121,6 @@ namespace IrrigationAdvisor.Models.Management
 
         #region Properties
 
-        
-        public long DailyRecordId
-        {
-            get { return dailyRecordId; }
-            set { dailyRecordId = value; }
-        }
-        
         public DateTime DailyRecordDateTime
         {
             get { return dailyRecordDateTime; }
@@ -229,7 +220,7 @@ namespace IrrigationAdvisor.Models.Management
 
         #region OutputWeatherData
 
-        public Water.EvapotranspirationCrop EvapotranspirationCrop
+        public WaterOutput EvapotranspirationCrop
         {
             get { return evapotranspirationCrop; }
             set { evapotranspirationCrop = value; }
@@ -333,7 +324,6 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         public DailyRecord() 
         {
-            this.DailyRecordId = 0;
             this.DailyRecordDateTime = new DateTime();
 
             this.MainWeatherData = new WeatherData();
@@ -353,7 +343,7 @@ namespace IrrigationAdvisor.Models.Management
             this.LastPartialWaterInputDate = new DateTime();
             this.LastPartialWaterInput = 0;
 
-            this.EvapotranspirationCrop = new EvapotranspirationCrop();
+            this.EvapotranspirationCrop = new WaterOutput();
 
             this.PhenologicalStage = new PhenologicalStage();
             this.HydricBalance = 0;
@@ -403,7 +393,7 @@ namespace IrrigationAdvisor.Models.Management
                             Water.Rain pRain, Water.Irrigation pIrrigation,
                             DateTime pLastWaterInputDate, DateTime pLastBigWaterInputDate,
                             DateTime pLastPartialWaterInputDate, Double pLastPartialWaterInput,
-                            EvapotranspirationCrop pEvapotranspirationCrop, PhenologicalStage pPhenologicalStage,
+                            Water.WaterOutput pEvapotranspirationCrop, PhenologicalStage pPhenologicalStage,
                             Double pHydricBalance, Double pSoilHydricVolume, Double pTotalEvapotranspirationFromLastWaterInput,
                             Double pCropCoefficient, String pObservations) 
         {

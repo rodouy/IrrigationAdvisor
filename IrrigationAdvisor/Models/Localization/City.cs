@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Web;
 
@@ -50,14 +49,13 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
         private long cityId;
         private String name;
-        private long positionId;
-        private long countryId;
+        private Position position;
 
         #endregion
 
         #region Properties
 
-        
+
         public long CityId
         {
             get { return cityId; }
@@ -70,22 +68,10 @@ namespace IrrigationAdvisor.Models.Localization
             set { name = value; }
         }
 
-        public long PositionId
+        public Position Position
         {
-            get { return positionId; }
-            set { positionId = value;}
-        }
-
-        public virtual Position Position
-        {
-            get;
-            set;
-        }
-
-        public long CountryId
-        {
-            get { return countryId; }
-            set { countryId = value; }
+            get { return position; }
+            set { position = value; }
         }
 
         #endregion
@@ -101,7 +87,7 @@ namespace IrrigationAdvisor.Models.Localization
         {
             this.CityId = 0;
             this.Name = "";
-            this.PositionId = 0;
+            this.Position = new Position ();
         }
 
         /// <summary>
@@ -110,11 +96,11 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pCityId"></param>
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
-        public City(long pCityId, String pName, long pPositionId)
+        public City(long pCityId, String pName, Position pPosition)
         {
             this.CityId = pCityId;
             this.Name = pName;
-            this.PositionId = pPositionId;
+            this.Position = pPosition;
         }
 
         #endregion

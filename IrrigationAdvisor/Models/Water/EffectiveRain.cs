@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Localization;
-
 namespace IrrigationAdvisor.Models.Water
 {
     /// <summary>
@@ -50,7 +49,7 @@ namespace IrrigationAdvisor.Models.Water
         ///    + percentage: double
         /// </summary>
 
-        private long effectiveRainId;
+
         private int month;
         private double minRain;
         private double maxRain;
@@ -59,14 +58,7 @@ namespace IrrigationAdvisor.Models.Water
         #endregion
 
         #region Properties
-
         
-        public long EffectiveRainId
-        {
-            get { return effectiveRainId; }
-            set { effectiveRainId = value; }
-        }
-
         public int Month
         {
             get { return month; }

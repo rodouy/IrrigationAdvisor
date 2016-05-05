@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Web;
 
@@ -68,14 +67,11 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Properties
 
-        
         public long PhenologicalStageId
         {
             get { return phenologicalStageId; }
-            set { phenologicalStageId = value; }
         }
         
-
         public Stage Stage
         {
             get { return stage; }
@@ -127,7 +123,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// It is used for a range between the max and min degree.
         /// </summary>
         /// <param name="pPhenologicalStageId"></param>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pStage"></param>
         /// <param name="pMinDegree"></param>
         /// <param name="pMaxDegree"></param>

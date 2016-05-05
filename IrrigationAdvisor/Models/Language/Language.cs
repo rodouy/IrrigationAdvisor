@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Web;
 
@@ -40,7 +39,7 @@ namespace IrrigationAdvisor.Models.Language
         #region Fields
 
         /// <summary>
-        /// PositionId of language
+        /// id of language
         /// </summary>
         private long languageId;
 
@@ -54,7 +53,6 @@ namespace IrrigationAdvisor.Models.Language
 
         #region Properties
 
-        
         public long LanguageId
         {
             get { return languageId; }

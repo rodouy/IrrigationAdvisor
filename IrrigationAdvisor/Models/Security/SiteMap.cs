@@ -54,7 +54,6 @@ namespace IrrigationAdvisor.Models.Security
         ///     - goTo: others SiteItems where the role is allowed to go
         ///     
         /// </summary>
-        private long siteMapId;
         private string name;
         private SiteItem cameFrom;
         private List<SiteItem> goTo;
@@ -62,13 +61,6 @@ namespace IrrigationAdvisor.Models.Security
         #endregion
 
         #region Properties
-
-        public long SiteMapId
-        {
-            get { return siteMapId; }
-            set { siteMapId = value; }
-        }
-
         public string Name
         {
             get { return name; }
@@ -89,26 +81,25 @@ namespace IrrigationAdvisor.Models.Security
         #endregion
 
         #region Construction
-
         /// <summary>
         /// Constructor of SiteMap
         /// </summary>
         public SiteMap()
         {
-            this.SiteMapId = 0;
-            this.Name = "noname";
+            this.name = "noname";
         }
         /// <summary>
-        /// Constructor of SiteMap with parameters
+        /// Constructor of ClassTemplate with parameters
         /// </summary>
-        /// <param name="pName">Name</param>
-        /// <param name="pCameFrom">Where came from</param>
-        /// <param name="pGoTo">SiteItems allowed go to</param>
-        internal SiteMap(string pName, SiteItem pCameFrom, List<SiteItem> pGoTo)
+        /// <param name="name">Name</param>
+        /// <param name="cameFrom">Where came from</param>
+        /// <param name="goTo">SiteItems allowed go to</param>
+        internal SiteMap(string name, SiteItem cameFrom, List<SiteItem> goTo)
         {
-            this.Name = pName;
-            this.CameFrom = pCameFrom;
-            this.GoTo = pGoTo;
+            this.name = name;
+            this.cameFrom = cameFrom;
+            this.goTo = goTo;
+
         }
         
         #endregion
@@ -170,12 +161,13 @@ namespace IrrigationAdvisor.Models.Security
 
             return ret;
         }*/
-        
         #endregion
 
         #region Overrides
         #endregion
 
         
+        
+    
     }
 }

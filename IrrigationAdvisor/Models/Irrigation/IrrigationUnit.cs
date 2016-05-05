@@ -6,7 +6,6 @@ using IrrigationAdvisor.Models.Utilities;
 using IrrigationAdvisor.Models.Agriculture;
 using IrrigationAdvisor.Models.Localization;
 
-
 namespace IrrigationAdvisor.Models.Irrigation
 {
     /// <summary>
@@ -42,7 +41,7 @@ namespace IrrigationAdvisor.Models.Irrigation
 
         #region Fields
 
-        private long irrigationUnitId;
+        private long idIrrigationUnit;
         private String name;
         private String irrigationType;
         private double irrigationEfficiency;
@@ -56,11 +55,10 @@ namespace IrrigationAdvisor.Models.Irrigation
 
         #region Properties
 
-        
-        public long IrrigationUnitId
+        public long IdIrrigationUnit
         {
-            get { return irrigationUnitId; }
-            set { irrigationUnitId = value; }
+            get { return idIrrigationUnit; }
+            set { idIrrigationUnit = value; }
         }
 
         public String Name
@@ -116,11 +114,11 @@ namespace IrrigationAdvisor.Models.Irrigation
         #region Construction
 
         /// <summary>
-        /// Constructor without parameters
+        /// TODO add description
         /// </summary>
         public IrrigationUnit()
         {
-            this.IrrigationUnitId = 0;
+            this.IdIrrigationUnit = 0;
             this.Name = "noname";
             this.IrrigationType = "";
             this.IrrigationEfficiency = 0;
@@ -132,9 +130,9 @@ namespace IrrigationAdvisor.Models.Irrigation
         }
         
         /// <summary>
-        /// Contructor with parameters
+        /// TODO add description
         /// </summary>
-        /// <param name="pIrrigationUnitId"></param>
+        /// <param name="pCropId"></param>
         /// <param name="pName"></param>
         /// <param name="pIrrigationType"></param>
         /// <param name="pIrrigationEfficiency"></param>
@@ -147,7 +145,7 @@ namespace IrrigationAdvisor.Models.Irrigation
             double pIrrigationEfficiency, List<Pair<DateTime, double>> pIrrigationList,
             double pSurface, List<Crop> pCropList, Bomb pBomb, Location pLocation)
         {
-            this.IrrigationUnitId = pIrrigationUnitId;
+            this.IdIrrigationUnit = pIrrigationUnitId;
             this.Name = pName;
             this.IrrigationType = pIrrigationType;
             this.IrrigationEfficiency = pIrrigationEfficiency;
@@ -194,7 +192,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// TODO add description
         /// </summary>
         /// <param name="pName"></param>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <returns></returns>
         public Crop FindCrop(String pName, Specie pSpecie)
         {
@@ -263,7 +261,7 @@ namespace IrrigationAdvisor.Models.Irrigation
         /// Update an existing Crop, if not exists return null
         /// </summary>
         /// <param name="pName"></param>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pRegion"></param>
         /// <param name="pCropCoefficient"></param>
         /// <param name="pStageList"></param>

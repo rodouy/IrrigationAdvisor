@@ -425,7 +425,7 @@ namespace IrrigationAdvisor.Models.Management
             {
                 if (lRegion.Equals(pRegion))
                 {
-                    lReturnEffectiveRain = lRegion.EffectiveRainList.ToList();
+                    lReturnEffectiveRain = lRegion.EffectiveRainList;
                     return lReturnEffectiveRain;
                 }
             }
@@ -514,7 +514,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// Return the list of Crops for a Specie
         /// </summary>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <returns></returns>
         public List<Crop> FindCrop(Specie pSpecie)
         {
@@ -542,7 +542,7 @@ namespace IrrigationAdvisor.Models.Management
         /// Name and Specie are the argument for Crop Equals
         /// </summary>
         /// <param name="pName"></param>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <returns></returns>
         public Crop FindCrop(Region pRegion, Specie pSpecie)
         {
@@ -589,7 +589,7 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pRegion"></param>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pCropCoefficient"></param>
         /// <param name="pStageList"></param>
         /// <param name="pPhenologicalStageList"></param>
@@ -641,7 +641,7 @@ namespace IrrigationAdvisor.Models.Management
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pRegion"></param>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pCropCoefficient"></param>
         /// <param name="pStageList"></param>
         /// <param name="pPhenologicalStageList"></param>
@@ -804,7 +804,7 @@ namespace IrrigationAdvisor.Models.Management
         /// <summary>
         /// Find A Phenological Stage by Region, Specie and Stage
         /// </summary>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pStage"></param>
         /// <returns></returns>
         public PhenologicalStage FindPhenologicalStage(Region pRegion, 
@@ -1152,23 +1152,6 @@ namespace IrrigationAdvisor.Models.Management
             return lReturn;
         }
 
-        public City FindCity(long pCityId)
-        {
-            City lReturn = null;
-            if (pCityId < this.CityList.Count())
-            {
-                foreach (City item in this.CityList)
-                {
-                    if (item.CityId == pCityId)
-                    {
-                        lReturn = item;
-                        break;
-                    }
-                }
-            }
-            return lReturn;
-        }
-
         /// <summary>
         /// TODO add description
         /// </summary>
@@ -1194,11 +1177,11 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
         /// <returns></returns>
-        public City AddCity(String pName, long pPositionId)
+        public City AddCity(String pName, Position pPosition)
         {
             City lReturn = null;
             long lCityId = this.CityList.Count();
-            City lCity = new City(lCityId, pName, pPositionId);
+            City lCity = new City(lCityId, pName, pPosition);
             lReturn = ExistCity(lCity);
             if (lReturn == null)
             {
@@ -1231,15 +1214,15 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
         /// <returns></returns>
-        public City UpdateCity(String pName, long pPositionId)
+        public City UpdateCity(String pName, Position pPosition)
         {
             City lReturn = null;
-            City lCity = new City(0, pName, pPositionId);
+            City lCity = new City(0, pName, pPosition);
             lReturn = ExistCity(lCity);
             if(lReturn != null)
             {
                 lReturn.Name= pName;
-                lReturn.PositionId = pPositionId;
+                lReturn.Position = pPosition;
             }
             return lReturn;
         }
@@ -1302,29 +1285,27 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pCityList"></param>
         /// <param name="pRegionList"></param>
         /// <returns></returns>
-        public Country AddCountry(String pName, long pCapitalId, 
-                                long pLanguageId,
+        public Country AddCountry(String pName, City pCapital, 
+                                Language.Language pLanguage,
                                 List<City> pCityList, List<Region> pRegionList)
         {
             Country lReturn = null;
             long lIdCountry = this.CountryList.Count();
             Country lCountry = null;
-            City lCity = null;
 
-            if (!String.IsNullOrEmpty(pName))
+            if (!String.IsNullOrEmpty(pName) && pCapital != null)
             {
                 if (pCityList == null || pRegionList == null)
                 {
-                    lCountry = new Country(lIdCountry, pName, pLanguageId, pCapitalId);
+                    lCountry = new Country(lIdCountry, pName, pLanguage, pCapital);
                 }
                 else
                 {
-                    lCountry = new Country(lIdCountry, pName, pLanguageId, pCapitalId,
+                    lCountry = new Country(lIdCountry, pName, pLanguage, pCapital,
                                             pCityList, pRegionList);
                 }
                 //Add Capital city to the list in Country, if exists will not repeat
-                lCity = this.FindCity(pCapitalId);
-                lCountry.AddCity(lCity);
+                lCountry.AddCity(pCapital);
                 if (ExistCountry(lCountry) == null)
                 {
                     this.CountryList.Add(lCountry);
@@ -1344,17 +1325,18 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pCityList"></param>
         /// <param name="pRegionList"></param>
         /// <returns></returns>
-        public Country UpdateCountry(String pName, long pCapitalId, long pLanguageId, 
+        public Country UpdateCountry(String pName, City pCapital, 
+                                Language.Language pLanguage, 
                                 List<City> pCityList, List<Region> pRegionList)
         {
             Country lReturn = null;
-            Country lCountry = new Country(0, pName, pLanguageId, pCapitalId, pCityList, pRegionList);
+            Country lCountry = new Country(0, pName, pLanguage, pCapital, pCityList, pRegionList);
             lReturn = ExistCountry(lCountry);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
-                lReturn.LanguageId = pLanguageId;
-                lReturn.CapitalId = pCapitalId;
+                lReturn.Language = pLanguage;
+                lReturn.Capital = pCapital;
                 lReturn.CityList = pCityList;
                 lReturn.RegionList = pRegionList;
             }
@@ -1404,8 +1386,8 @@ namespace IrrigationAdvisor.Models.Management
                         User pUser, List<IrrigationUnit> pIrrigationUnitList)
         {
             Farm lReturn = null;
-            long lFarmId = this.FarmList.Count();
-            Farm lFarm = new Farm(lFarmId, pName, pAddress, pPhone,
+            long lIdFarm = this.FarmList.Count();
+            Farm lFarm = new Farm(lIdFarm, pName, pAddress, pPhone,
                             pLocation, pHas, pSoilList, pBombList,
                             pWeatherStation, pUser, pIrrigationUnitList);
             if(ExistFarm(lFarm) == null)
@@ -1565,21 +1547,21 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pEffectiveRainList"></param>
         /// <param name="pSpecieList"></param>
         /// <returns></returns>
-        public Region AddRegion(String pName, long pPositionId, List<Specie> pSpecieList,
-                                List<SpecieCycle> pSpecieCycleList, List<EffectiveRain> pEffectiveRainList)
+        public Region AddRegion(String pName, Position pPosition,
+            List<EffectiveRain> pEffectiveRainList, List<Specie> pSpecieList)
         {
             Region lReturn = null;
-            long lRegionId = this.RegionList.Count();
+            int lIDRegion = this.RegionList.Count();
             Region lRegion = null;
 
             if (pEffectiveRainList == null || pSpecieList == null)
             {
-                lRegion = new Region(lRegionId, pName, pPositionId);
+                lRegion = new Region(lIDRegion, pName, pPosition);
             }
             else
             {
-                lRegion = new Region(lRegionId, pName, pPositionId, pSpecieList,
-                                     pSpecieCycleList, pEffectiveRainList);
+                lRegion = new Region(lIDRegion, pName, pPosition,
+                         pEffectiveRainList, pSpecieList);
             }
 
             if (ExistRegion(lRegion) == null)
@@ -1598,21 +1580,20 @@ namespace IrrigationAdvisor.Models.Management
         /// <param name="pEffectiveRainList"></param>
         /// <param name="pSpecieList"></param>
         /// <returns></returns>
-        public Region UpdateRegion(String pName, long pPositionId, List<Specie> pSpecieList,
-                                    List<SpecieCycle> pSpecieCycleList,
-                                    List<EffectiveRain> pEffectiveRainList)
+        public Region UpdateRegion(String pName, Position pPosition,
+            List<EffectiveRain> pEffectiveRainList,
+            List<Specie> pSpecieList)
         {
             Region lReturn = null;
-            Region lRegion = new Region(0, pName, pPositionId, pSpecieList,
-                                        pSpecieCycleList, pEffectiveRainList);
+            Region lRegion = new Region(0, pName, pPosition,
+                pEffectiveRainList, pSpecieList);
             lReturn = ExistRegion(lRegion);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
-                lReturn.PositionId = pPositionId;
-                lReturn.SpecieList = pSpecieList;
-                lReturn.SpecieCycleList = pSpecieCycleList;
+                lReturn.Position = pPosition;
                 lReturn.EffectiveRainList = pEffectiveRainList;
+                lReturn.SpecieList = pSpecieList;
             }
             return lReturn;
         }

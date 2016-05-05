@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Text;
 
@@ -36,7 +35,7 @@ namespace IrrigationAdvisor.Models.Water
     ///     - GetOutputType()
     /// 
     /// </summary>
-    public abstract class WaterOutput
+    public class WaterOutput
     {
         #region Consts
 
@@ -46,25 +45,16 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Fields
 
-        private long waterOutputId;
         private Double output;
         private DateTime date;
         private Double extraOutput;
         private DateTime extraDate;
-        private long cropIrrigationWeatherId;
         private Management.CropIrrigationWeather cropIrrigationWeather;
 
 
         #endregion
 
         #region Properties
-
-        
-        public long WaterOutputId
-        {
-            get { return waterOutputId; }
-            set { waterOutputId = value; }
-        }
 
         public Double Output
         {
@@ -90,13 +80,7 @@ namespace IrrigationAdvisor.Models.Water
             set { extraDate = value; }
         }
 
-        public long CropIrrigationWeatherId
-        {
-            get { return cropIrrigationWeatherId; }
-            set { cropIrrigationWeatherId = value; }
-        }
-
-        public virtual Management.CropIrrigationWeather CropIrrigationWeather
+        public Management.CropIrrigationWeather CropIrrigationWeather
         {
             get { return cropIrrigationWeather; }
             set { cropIrrigationWeather = value; }
@@ -115,7 +99,6 @@ namespace IrrigationAdvisor.Models.Water
             this.Output = 0;
             this.ExtraDate = DateTime.Now;
             this.ExtraOutput = 0;
-            this.CropIrrigationWeatherId = 0;
         }
 
         /// <summary>
@@ -125,14 +108,12 @@ namespace IrrigationAdvisor.Models.Water
         /// <param name="pDate"></param>
         /// <param name="pExtraOutput"></param>
         /// <param name="pExtraDate"></param>
-        public WaterOutput(Double pOutput, DateTime pDate, Double pExtraOutput,
-                            DateTime pExtraDate, long pCropIrrigationWeatherId)
+        public WaterOutput(Double pOutput, DateTime pDate, Double pExtraOutput, DateTime pExtraDate)
         {
             this.Output = pOutput;
             this.Date = pDate;
             this.ExtraOutput = pExtraOutput;
             this.ExtraDate = pExtraDate;
-            this.CropIrrigationWeatherId = pCropIrrigationWeatherId;
         }
 
         #endregion

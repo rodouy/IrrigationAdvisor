@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Localization;
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IrrigationAdvisor.Models.Agriculture
 {
@@ -61,9 +63,7 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         public long cropId;
         private String name;
-        private long regionId;
         private Region region;
-        private long specieId;
         private Specie specie;
         private CropCoefficient cropCoefficient;
         private List<Stage> stageList;
@@ -77,6 +77,8 @@ namespace IrrigationAdvisor.Models.Agriculture
 
         #region Properties
 
+        [Key]
+        [Column(Order = 0)]
         public long CropId
         {
             get { return cropId; }
@@ -88,43 +90,31 @@ namespace IrrigationAdvisor.Models.Agriculture
             get { return name; }
             set { name = value; }
         }
-
-        public long RegionId
-        {
-            get { return regionId; }
-            set { regionId = value; }
-        }
         
-        public virtual Region Region
+        public Region Region
         {
             get { return region; }
             set { region = value; }
         }
 
-        public long SpecieId
-        {
-            get { return specieId; }
-            set { specieId = value; }
-        }
-
-        public virtual Specie Specie
+        public Specie Specie
         {
             get { return specie; }
             set { specie = value; }
         }
 
-        public virtual CropCoefficient CropCoefficient
+        public CropCoefficient CropCoefficient
         {
             get { return cropCoefficient; }
             set { cropCoefficient = value; }
         }
 
-        public virtual List<Stage> StageList
+        public List<Stage> StageList
         {
             get { return stageList; }
         }
 
-        public virtual List<PhenologicalStage> PhenologicalStageList
+        public List<PhenologicalStage> PhenologicalStageList
         {
             get { return phenologicalStageList; }
         }
@@ -158,9 +148,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         {
             this.cropId = 0;
             this.Name = "noName";
-            this.RegionId = 0;
             this.Region = new Region();
-            this.SpecieId = 0;
             this.Specie = new Specie();
             this.CropCoefficient = new CropCoefficient();
             this.stageList = new List<Stage>();
@@ -172,12 +160,12 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// Constructor of Crop with minimun parameters
+        /// TODO add description
         /// </summary>
         /// <param name="pCropId"></param>
         /// <param name="pName"></param>
         /// <param name="pRegion"></param>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pMaxEvapotranspirationToIrrigate"></param>
         /// <param name="pMinEvapotranspirationToIrrigate"></param>
         public Crop(long pIdCrop, String pName, Region pRegion, Specie pSpecie,
@@ -186,9 +174,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         {
             this.CropId = pIdCrop;
             this.Name = pName;
-            this.RegionId = pRegion.RegionId;
             this.Region = pRegion;
-            this.SpecieId = pSpecie.SpecieId;
             this.Specie = pSpecie;
             this.CropCoefficient = new CropCoefficient();
             this.stageList = new List<Stage>();
@@ -199,12 +185,12 @@ namespace IrrigationAdvisor.Models.Agriculture
         }
 
         /// <summary>
-        /// Constructor of Crop with all parameters
+        /// TODO add description
         /// </summary>
         /// <param name="pCropId"></param>
         /// <param name="pName"></param>
         /// <param name="pRegion"></param>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pCropCoefficient"></param>
         /// <param name="pStageList"></param>
         /// <param name="pPhenologicalStageList"></param>
@@ -220,9 +206,7 @@ namespace IrrigationAdvisor.Models.Agriculture
             
             this.CropId = pCropId;
             this.Name = pName;
-            this.RegionId = pRegion.RegionId;
             this.Region = pRegion;
-            this.SpecieId = pSpecie.SpecieId;
             this.Specie = pSpecie;
             this.CropCoefficient = pCropCoefficient;
             this.stageList = this.getStageList(pPhenologicalStageList);
@@ -401,7 +385,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <summary>
         /// Find A Phenological Stage by Specie and Stage
         /// </summary>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pStage"></param>
         /// <returns></returns>
         public PhenologicalStage FindPhenologicalStage(Stage pStage)
@@ -447,7 +431,7 @@ namespace IrrigationAdvisor.Models.Agriculture
         /// <summary>
         /// Add a new PhenologicalStage, if exists, return null
         /// </summary>
-        /// <param name="pSpecieCycle"></param>
+        /// <param name="pSpecie"></param>
         /// <param name="pStage"></param>
         /// <param name="pMinDegree"></param>
         /// <param name="pMaxDegree"></param>

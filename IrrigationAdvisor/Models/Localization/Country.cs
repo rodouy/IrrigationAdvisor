@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using IrrigationAdvisor.Models.Language;
 
-
 namespace IrrigationAdvisor.Models.Localization
 {
     /// <summary>
@@ -57,8 +56,8 @@ namespace IrrigationAdvisor.Models.Localization
         /// </summary>
         private long countryId;
         private String name;
-        private long languageId;
-        private long capitalId;
+        private Language.Language language;
+        private City capital;
         private List<City> cityList;
         private List<Region> regionList;
 
@@ -66,35 +65,28 @@ namespace IrrigationAdvisor.Models.Localization
 
         #region Properties
 
-        
         public long CountryId
         {
             get { return countryId; }
             set { countryId = value; }
         }
-
+        
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        public long LanguageId
+        public Language.Language Language
         {
-            get { return languageId; }
-            set { languageId = value; }
+            get { return language; }
+            set { language = value; }
         }
 
-        public long CapitalId
+        public City Capital
         {
-            get { return capitalId; }
-            set { capitalId = value; }
-        }
-
-        public virtual City Capital
-        {
-            get;
-            set;
+            get { return capital; }
+            set { capital = value; }
         }
 
         public List<City> CityList
@@ -114,7 +106,7 @@ namespace IrrigationAdvisor.Models.Localization
         #region Construction
 
         /// <summary>
-        /// Constructor without Parameters
+        /// TODO add description
         /// </summary>
         /// <param name="name">Name of the country</param>
         /// <param name="location">Location of the country</param>
@@ -122,31 +114,30 @@ namespace IrrigationAdvisor.Models.Localization
         {
             this.CountryId = 0;
             this.Name = "";
-            this.LanguageId = 0;
-            this.CapitalId = 0;
+            this.Capital = new City();
             this.CityList = new List<City>();
             this.RegionList = new List<Region>();
         }
 
         /// <summary>
-        /// Constructor woth parameters
+        /// TODO add description
         /// </summary>
         /// <param name="pCountryId"></param>
         /// <param name="pName"></param>
-        /// <param name="pLanguageId"></param>
-        /// <param name="pCapitalId"></param>
-        public Country(long pCountryId, String pName, long pLanguageId, long pCapitalId)
+        /// <param name="pLanguage"></param>
+        /// <param name="pCapital"></param>
+        public Country(long pCountryId, String pName, Language.Language pLanguage, City pCapital)
         {
             this.CountryId = pCountryId;
             this.Name = pName;
-            this.LanguageId = pLanguageId;
-            this.CapitalId = pCapitalId;
+            this.Language = pLanguage;
+            this.Capital = pCapital;
             this.CityList = new List<City>();
             this.RegionList = new List<Region>();
         }
 
         /// <summary>
-        /// Constructor with all parameters
+        /// TODO add description
         /// </summary>
         /// <param name="pCountryId"></param>
         /// <param name="pName"></param>
@@ -154,13 +145,13 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pCapital"></param>
         /// <param name="pCityList"></param>
         /// <param name="pRegionList"></param>
-        public Country(long pCountryId, String pName, long pLanguageId, long pCapitalId, 
-                            List<City> pCityList, List<Region> pRegionList)
+        public Country(long pCountryId, String pName, Language.Language pLanguage, City pCapital, List<City> pCityList, 
+                            List<Region> pRegionList)
         {
             this.CountryId = pCountryId;
             this.Name = pName;
-            this.LanguageId = pLanguageId;
-            this.CapitalId = pCapitalId;
+            this.Language = pLanguage;
+            this.Capital = pCapital;
             this.CityList = pCityList;
             this.RegionList = pRegionList;
         }
@@ -184,7 +175,7 @@ namespace IrrigationAdvisor.Models.Localization
             bool lResult = false;
             if (pLanguage != null)
             {
-                this.LanguageId = pLanguage.LanguageId;
+                this.Language = pLanguage;
                 lResult = true;
             }
             return lResult;
@@ -235,15 +226,15 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pName"></param>
         /// <param name="pPosition"></param>
         /// <returns></returns>
-        public City UpdateCity(String pName, long pPositionId)
+        public City UpdateCity(String pName, Position pPosition)
         {
             City lReturn = null;
-            City lCity = new City(0, pName, pPositionId);
+            City lCity = new City(0, pName, pPosition);
             lReturn = ExistCity(lCity);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
-                lReturn.PositionId = pPositionId;
+                lReturn.Position = pPosition;
             }
             return lReturn;
         }
@@ -298,22 +289,20 @@ namespace IrrigationAdvisor.Models.Localization
         /// <param name="pEffectiveRainList"></param>
         /// <param name="pSpecieList"></param>
         /// <returns></returns>
-        public Region UpdateRegion(String pName, long pPositionId,
-            List<Specie> pSpecieList,
-            List<SpecieCycle> pSpecieCycleList,
-            List<EffectiveRain> pEffectiveRainList)
+        public Region UpdateRegion(String pName, Position pPosition,
+            List<EffectiveRain> pEffectiveRainList,
+            List<Specie> pSpecieList)
         {
             Region lReturn = null;
-            Region lRegion = new Region(0, pName, pPositionId, pSpecieList,
-                                        pSpecieCycleList, pEffectiveRainList);
+            Region lRegion = new Region(0, pName, pPosition,
+                pEffectiveRainList, pSpecieList);
             lReturn = ExistRegion(lRegion);
             if (lReturn != null)
             {
                 lReturn.Name = pName;
-                lReturn.PositionId = pPositionId;
-                lReturn.SpecieList = pSpecieList;
-                lReturn.SpecieCycleList = pSpecieCycleList;
+                lReturn.Position = pPosition;
                 lReturn.EffectiveRainList = pEffectiveRainList;
+                lReturn.SpecieList = pSpecieList;
             }
             return lReturn;
         }

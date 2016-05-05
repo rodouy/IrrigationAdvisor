@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Text;
 
@@ -36,7 +35,7 @@ namespace IrrigationAdvisor.Models.Water
     ///     - GetOutputType()
     /// 
     /// </summary>
-    public abstract class WaterInput
+    public class WaterInput
     {
         #region Consts
 
@@ -46,26 +45,16 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Fields
 
-        private long waterInputId;
-        private Double input;
+        private double input;
         private DateTime date;
-        private Double extraInput;
+        private double extraInput;
         private DateTime extraDate;
-        private long cropIrrigationWeatherId;
         private Management.CropIrrigationWeather cropIrrigationWeather;
 
         #endregion
 
         #region Properties
-
-        
-        public long WaterInputId
-        {
-            get { return waterInputId; }
-            set { waterInputId = value; }
-        }
-        
-        public Double Input
+        public double Input
         {
             get { return input; }
             set { input = value; }
@@ -77,7 +66,7 @@ namespace IrrigationAdvisor.Models.Water
             set { date = value; }
         }
 
-        public Double ExtraInput
+        public double ExtraInput
         {
             get { return extraInput; }
             set { extraInput = value; }
@@ -89,13 +78,7 @@ namespace IrrigationAdvisor.Models.Water
             set { extraDate = value; }
         }
 
-        public long CropIrrigationWeatherId
-        {
-            get { return cropIrrigationWeatherId; }
-            set { cropIrrigationWeatherId = value; }
-        }
-
-        public virtual Management.CropIrrigationWeather CropIrrigationWeather
+        public Management.CropIrrigationWeather CropIrrigationWeather
         {
             get { return cropIrrigationWeather; }
             set { cropIrrigationWeather = value; }
@@ -106,39 +89,21 @@ namespace IrrigationAdvisor.Models.Water
 
         #region Construction
 
-        /// <summary>
-        /// Constructo of WaterInput
-        /// </summary>
         public WaterInput()
         {
-            this.WaterInputId = 0;
             this.Date = DateTime.Now;
             this.Input = 0;
             this.ExtraDate = DateTime.Now;
             this.ExtraInput = 0;
-            this.CropIrrigationWeatherId = 0;
         }
 
-        /// <summary>
-        /// Contructor with parameters
-        /// </summary>
-        /// <param name="pWaterInputId"></param>
-        /// <param name="pInput"></param>
-        /// <param name="pDate"></param>
-        /// <param name="pExtraInput"></param>
-        /// <param name="pExtraDate"></param>
-        public WaterInput(long pWaterInputId, double pInput, DateTime pDate, 
-                            double pExtraInput, DateTime pExtraDate,
-                            long pCropIrrigationWeatherId)
+        public WaterInput(double pInput, DateTime pDate, double pExtraInput, DateTime pExtraDate)
         {
-            this.WaterInputId = pWaterInputId;
             this.Input = pInput;
             this.Date = pDate;
             this.ExtraInput = pExtraInput;
             this.ExtraDate = pExtraDate;
-            this.CropIrrigationWeatherId = pCropIrrigationWeatherId;
         }
-        
         #endregion
 
         #region Private Helpers
